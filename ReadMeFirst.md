@@ -50,4 +50,13 @@ Before you initiate an SSH connection to your new RPi, you must first find its I
   
 Note: I've found arp to be "hit-or-miss", but I'm not sure why. If you're on a Mac, I'd suggest trying the `dns-sd` command at the top of the list.  
   
+## Login to your RPi using SSH
+
+Open a terminal on your PC, and initiate a connection to your RPi using SSH: 
+
+`ssh pi@raspberrypi.local` Or, use the RPi's IP address: `ssh pi@192.168.1.77` if that's handy
+
+Enter the default password at the prompt: `raspberry` 
+
+Start raspi-config as su:  `sudo raspi-config`  and you'll see something like this: 
 
