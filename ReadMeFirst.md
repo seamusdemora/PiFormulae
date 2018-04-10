@@ -54,9 +54,9 @@ Note: I've found arp to be "hit-or-miss", but I'm not sure why. If you're on a M
 
 1. Open a terminal on your PC, and initiate a connection to your RPi using SSH: 
 
-`ssh pi@raspberrypi.local` Or, use the RPi's IP address: `ssh pi@192.168.1.77` if that's handy
+>>`ssh pi@raspberrypi.local` Or, use the RPi's IP address: `ssh pi@192.168.1.77` if that's handy
 
-> Enter the default password at the prompt: `raspberry` 
+>> Enter the default password at the prompt: `raspberry` 
 
 2. Start raspi-config as su:  `sudo raspi-config`  and you'll see something like this: 
 
