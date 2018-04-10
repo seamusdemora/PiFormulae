@@ -6,4 +6,6 @@ This is a placeholder for now. It is to contain configuration recipe for setting
 
 * [another google search](https://www.google.co.uk/search?q=peer+to+peer+wifi+network&ie=utf-8&oe=utf-8&client=firefox-b&gfe_rd=cr&dcr=0&ei=sjPMWp41y-_wB8_2tPAO)
 
+* [somewhat off-topic, but very useful article on wifi config from the command line!](https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md)
+
 * [tbd]()
