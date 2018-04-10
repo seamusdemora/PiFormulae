@@ -60,4 +60,4 @@ Note: I've found arp to be "hit-or-miss", but I'm not sure why. If you're on a M
 
 2. Start raspi-config as su:  `sudo raspi-config`  and you'll see something like this: 
 
-![raspi-config screenshot](raspi-config.png "raspi-config")
+> > ![raspi-config screenshot](raspi-config.png "raspi-config")
