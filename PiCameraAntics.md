@@ -1,0 +1,1 @@
+Do things with camera
