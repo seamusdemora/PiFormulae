@@ -35,7 +35,7 @@ Do this before you get started - it will save you a lot of time.
 
 There's a lot more you can do in Python... the [API gives you a lot of control, and there are reasonably thorough docs covering the PiCamera](http://picamera.readthedocs.io/en/release-1.0/quickstart.html)
 
-## 3. Using the command line to Control the PiCamera
+## 3. Using the `command line` to Control the PiCamera
 
 You can get photos/snapshots or videos easily and quickly with the following commands; the bad news is no `man` pages :(  However, there's a [page on the .org's website that gives a seemingly complete rundown](https://www.raspberrypi.org/documentation/raspbian/applications/camera.md), though it does have at least one error in the 'Examples'. 
 
