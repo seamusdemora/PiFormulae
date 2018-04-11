@@ -67,3 +67,4 @@ I've not had time to actually try streaming myself. Until I do, following are a 
 * [a post on the StackExchange forum, How to stream video from Raspberry Pi...](https://raspberrypi.stackexchange.com/questions/23182/how-to-stream-video-from-raspberry-pi-camera-and-watch-it-live)
 * [an entry on "instructables.com" that also includes some networking config](http://www.instructables.com/id/Raspberry-Pi-Video-Streaming/)
 * [a how-to for streaming PiCamera video to the world via YouTube!](https://www.digikey.com/en/maker/blogs/streaming-live-to-youtube-and-facebook-using-raspberry-pi-camera)
+* [some documentation and "recipes" for the Python API for manipulating streams that looks really useful](https://picamera.readthedocs.io/en/release-1.10/recipes1.html)
