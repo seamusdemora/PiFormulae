@@ -54,3 +54,5 @@ Oddly, installed (it looks huge) and used as follows:
 I've not had time to actually try streaming myself. Until I do, following are a few URLs with some information that may be useful: 
 
 * [a post on the StackExchange forum, How to stream video from Raspberry Pi...](https://raspberrypi.stackexchange.com/questions/23182/how-to-stream-video-from-raspberry-pi-camera-and-watch-it-live)
+
+* [an entry on "instructables.com" that includes some networking config also](http://www.instructables.com/id/Raspberry-Pi-Video-Streaming/)
