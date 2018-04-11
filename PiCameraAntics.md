@@ -17,7 +17,7 @@ Several ways are possible, but perhaps the quickest/easiest way is to mount a ne
 
 Do this before you get started - it will save you a lot of time.
 
-## 2. Using Python 
+## 2. Using Python to Control the PiCamera
 
    Here's a simple Python script that outputs a single 640x480 picture: 
    
@@ -35,7 +35,7 @@ Do this before you get started - it will save you a lot of time.
 
 There's a lot more you can do in Python... the [API gives you a lot of control, and there are reasonably thorough docs covering the PiCamera](http://picamera.readthedocs.io/en/release-1.0/quickstart.html)
 
-## 3. From the command line
+## 3. Using the command line to Control the PiCamera
 
 You can get photos/snapshots or videos easily and quickly with the following commands; the bad news is no `man` pages :(  However, there's a [page on the .org's website that gives a seemingly complete rundown](https://www.raspberrypi.org/documentation/raspbian/applications/camera.md), though it does have at least one error in the 'Examples'. 
 
@@ -60,7 +60,7 @@ Oddly, it's installed (looks huge) and used as follows:
 
 Once installed, it renders H.264 files as MP4 files quickly and efficiently. 
 
-## 4. Streaming
+## 4. Streaming the Pi Camera
 
 I've not had time to actually try streaming myself. Until I do, following are a few URLs with some information that may be useful: 
 
