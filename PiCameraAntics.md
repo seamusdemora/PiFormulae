@@ -25,3 +25,8 @@ Several ways are possible, but as "live view" or "streaming" isn't available fro
 
 
 * [convert the H.264 format videos to MP4](https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspivid.md)
+
+## 3. Focusing PiCamera
+
+[It's the focus, stupid!](https://en.wikipedia.org/wiki/It%27s_the_economy,_stupid) OK, so I realize that for £24 you can't expect a pro-quality DSLR. But this PiCamera (and the people in the Raspberry Pi organization that make decisions and profit from its sales) is not quite [up to snuff](https://dictionary.cambridge.org/dictionary/english/up-to-snuff)! I'll belay my rant for another day, but here's what you need to know: 
+#### TURN THE FOCUS RING FULLY CCW AS YOU'RE FACING THE CAMERA
