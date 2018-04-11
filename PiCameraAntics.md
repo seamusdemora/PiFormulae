@@ -58,7 +58,7 @@ Oddly, it's installed (looks huge) and used as follows:
     sudo apt-get install -y gpac
     MP4Box -add mymovie.h264 mymovie.mp4
 
-Once installed, [MP4Box](https://gpac.wp.imt.fr/) renders H.264 files as MP4 files quickly and efficiently. 
+Once installed, [GPAC's MP4Box](https://gpac.wp.imt.fr/) renders H.264 files as MP4 files quickly and efficiently. 
 
 ## 4. Streaming the Pi Camera
 
