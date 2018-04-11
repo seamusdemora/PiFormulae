@@ -13,15 +13,28 @@ Several ways are possible, but as "live view" or "streaming" isn't available fro
 
   [There are reasonably thorough docs covering the PiCamera](http://picamera.readthedocs.io/en/release-1.0/quickstart.html)
 
-  Here's a simple Python script that outputs a single picture: 
-  
+  Here's a simple Python script that outputs a single 640x480 picture: 
+   
     #!/usr/bin/python
+
+    import picamera
+    import time
+
+    with picamera.PiCamera() as camera:
+	   camera.resolution = (640, 480)
+	   camera.start_preview()
+	   time.sleep(2)
+	   camera.capture('foopic.png')
+	   camera.stop_preview()
 
 
 ## 2. From the command line
 
+You can get photos/snapshots or videos:
 
-    raspistill -o image003.jpg
+`  raspistill -o image003.jpg`  (substitute a filename and format of your choosing of course) 
+
+`  
 
 
 * [convert the H.264 format videos to MP4](https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspivid.md)
