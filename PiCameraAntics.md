@@ -2,12 +2,12 @@
 
 I thought that setting up X on my Mac would allow me to to "preview" the PiCamera output in XQuartz, but then I ran across this statement: 
 
-    FROM THE RPI DOCS: "Note that the camera preview only works when a monitor is connected to the Pi, 
-    so remote access (such as SSH and VNC) will not allow you to see the camera preview"
+    FROM THE RPI DOCS: "Note that the camera preview only works when a monitor is connected to the 
+    Pi, so remote access (such as SSH and VNC) will not allow you to see the camera preview"
 
 So... WTFO?!?  How do I see the pics?
 
-Several ways are possible, but as "live view" or "streaming" isn't available from the RPi, perhaps the most convenient way is to mount a network drive in RPi that my Mac also has mounted. Once that drive is mounted, use it as the destination for pictures and video from the RPi. Once that's set up, following are some methods for getting output from the PiCamera: 
+Several ways are possible, but perhaps the quickest/easiest way is to mount a network drive in RPi that my Mac also has mounted. Once that drive is mounted, use it as the destination for pictures and video from the RPi. Once that's set up, following are some methods for getting output from the PiCamera: 
 
 ## 1. Using Python 
 
@@ -42,7 +42,15 @@ Oddly, installed (it looks huge) and used as follows:
     sudo apt-get install -y gpac
     MP4Box -add mymovie.h264 mymovie.mp4
 
+
+
 ## 3. Focusing PiCamera
 
 [It's the focus, stupid!](https://en.wikipedia.org/wiki/It%27s_the_economy,_stupid) OK, so I realize that for £24 you can't expect a pro-quality DSLR. But this PiCamera (and the people in the Raspberry Pi organization that make decisions and profit from its sales) is not quite [up to snuff](https://dictionary.cambridge.org/dictionary/english/up-to-snuff)! I'll belay my rant for another day, but here's what you need to know: 
-#### `TURN THE FOCUS RING FULLY CCW AS YOU'RE FACING THE CAMERA`
+#### `TURN THE FOCUS RING FULLY CCW AS YOU'RE FACING THE CAMERA` 
+
+## 4. Streaming
+
+I've not had time to actually try streaming myself. Until I do, following are a few URLs with some information that may be useful: 
+
+* [a post on the StackExchange forum, How to stream video from Raspberry Pi...](https://raspberrypi.stackexchange.com/questions/23182/how-to-stream-video-from-raspberry-pi-camera-and-watch-it-live)
