@@ -9,6 +9,14 @@ So... WTFO?!?  How do I see the pics?
 
 Several ways are possible, but perhaps the quickest/easiest way is to mount a network drive in RPi that my Mac also has mounted. Once that drive is mounted, use it as the destination for pictures and video from the RPi. Once that's set up, following are some methods for getting output from the PiCamera: 
 
+
+## 3. Before you begin: Focusing PiCamera
+
+[It's the focus, stupid!](https://en.wikipedia.org/wiki/It%27s_the_economy,_stupid) OK, so I realize that for £24 you can't expect a pro-quality DSLR. But this PiCamera (and the people in the Raspberry Pi organization that make decisions and profit from its sales) is not quite [up to snuff](https://dictionary.cambridge.org/dictionary/english/up-to-snuff)! I'll belay my rant for another day, but here's what you need to know: 
+#### `TURN THE FOCUS RING FULLY CCW AS YOU'RE FACING THE CAMERA` 
+
+Do this before you get started - it will save you a lot of time.
+
 ## 1. Using Python 
 
    Here's a simple Python script that outputs a single 640x480 picture: 
@@ -41,13 +49,6 @@ Oddly, installed (it looks huge) and used as follows:
 
     sudo apt-get install -y gpac
     MP4Box -add mymovie.h264 mymovie.mp4
-
-
-
-## 3. Focusing PiCamera
-
-[It's the focus, stupid!](https://en.wikipedia.org/wiki/It%27s_the_economy,_stupid) OK, so I realize that for £24 you can't expect a pro-quality DSLR. But this PiCamera (and the people in the Raspberry Pi organization that make decisions and profit from its sales) is not quite [up to snuff](https://dictionary.cambridge.org/dictionary/english/up-to-snuff)! I'll belay my rant for another day, but here's what you need to know: 
-#### `TURN THE FOCUS RING FULLY CCW AS YOU'RE FACING THE CAMERA` 
 
 ## 4. Streaming
 
