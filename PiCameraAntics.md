@@ -39,9 +39,9 @@ There's a lot more you can do in Python... the [API gives you a lot of control, 
 
 You can get photos/snapshots or videos easily and quickly with the following commands; the bad news is no `man` pages :(  However, there's a [page on the .org's website that gives a seemingly complete rundown](https://www.raspberrypi.org/documentation/raspbian/applications/camera.md), though it does have at least one error in the 'Examples'. 
 
-`  raspistill -o image003.jpg`  (substitute a filename and format of your choosing of course) 
+`  raspistill -o image003.jpg`  (takes a snapshot, and saves it as `image003.jpg` ) 
 
-`  raspivid -o mymovie.h264 -t 10000`   (creates a 10,000 msec/10 sec video) 
+`  raspivid -o mymovie.h264 -t 10000`   (creates a 10,000 msec/10 sec video, and saves it as `mymovie.h264`) 
 
 The commands are 'feature-rich', especially `raspivid`, and allows you to do, for example, a [time-lapse sequence](https://en.wikipedia.org/wiki/Time-lapse_photography) quite easily: 
 
