@@ -39,26 +39,26 @@ There's a lot more you can do in Python... the [API gives you a lot of control, 
 
 You can get photos/snapshots or videos easily and quickly with the following commands; the bad news is no `man` pages :(  However, there's a [page on the .org's website that gives a seemingly complete rundown](https://www.raspberrypi.org/documentation/raspbian/applications/camera.md), though it does have at least one error in the 'Examples'. 
 
-`  raspistill -o image003.jpg`  (takes a snapshot, and saves it as `image003.jpg` ) 
+`raspistill -o image003.jpg`  (takes a snapshot, and saves it as `image003.jpg` ) 
 
-`  raspivid -o mymovie.h264 -t 10000`   (creates a 10,000 msec/10 sec video, and saves it as `mymovie.h264`) 
+`raspivid -o mymovie.h264 -t 10000`   (creates a 10,000 msec/10 sec video, and saves it as `mymovie.h264`) 
 
 The commands are 'feature-rich', especially `raspivid`, and allows you to do, for example, a [time-lapse sequence](https://en.wikipedia.org/wiki/Time-lapse_photography) quite easily: 
 
     raspistill -t 600000 -tl 10000 -o image_num_%03d_today.jpg -l latest.jpg 
     
-or, here's a different way to make a time lapse sequence using video. According to the docs referenced above, there's a lower limit of 2 frames per second, but that may change (if it hasn't already). 
+The time lapse images taken using the command above will have to be processed or combined afterward to turn them into a movie or animation. That will require an additional step, and possibly an expensive software package! But here's a different way to make a time lapse sequence using video. According to the docs referenced above, there's a lower limit of 2 frames per second on `raspivid`, but that may change (if it hasn't already). At any rate, this will also produce a time lapse sequence small enough to include in a text message or email attachment (if you're into that).
 
     raspivid -t 60000 -o mytimelapse.h264 -fps 2 -w 640 -h 480
 
-And there's one more bit of bad news for video producers: the only video format available is H.264, and it's not widely used - at least there aren't many apps that will play it directly. However, there is some support for bridging that gap. You can [convert the H.264 format videos to MP4 using `MP4Box`.](https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspivid.md)
+And there's one more bit of bad news for video producers: the only video format available is H.264; bad news because it's not widely used - in the sense there aren't many apps that will play it directly. However, there is some support for bridging that gap. You can [convert the H.264 format videos to MP4 using `MP4Box`.](https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspivid.md)
 
 Oddly, it's installed (looks huge) and used as follows: 
 
     sudo apt-get install -y gpac
     MP4Box -add mymovie.h264 mymovie.mp4
 
-Once installed, it renders H.264 files as MP4 files quickly and efficiently. 
+Once installed, [MP4Box](https://gpac.wp.imt.fr/) renders H.264 files as MP4 files quickly and efficiently. 
 
 ## 4. Streaming the Pi Camera
 
