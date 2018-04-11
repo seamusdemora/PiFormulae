@@ -45,4 +45,4 @@ Oddly, installed (it looks huge) and used as follows:
 ## 3. Focusing PiCamera
 
 [It's the focus, stupid!](https://en.wikipedia.org/wiki/It%27s_the_economy,_stupid) OK, so I realize that for £24 you can't expect a pro-quality DSLR. But this PiCamera (and the people in the Raspberry Pi organization that make decisions and profit from its sales) is not quite [up to snuff](https://dictionary.cambridge.org/dictionary/english/up-to-snuff)! I'll belay my rant for another day, but here's what you need to know: 
-#### TURN THE FOCUS RING FULLY CCW AS YOU'RE FACING THE CAMERA
+#### `TURN THE FOCUS RING FULLY CCW AS YOU'RE FACING THE CAMERA`
