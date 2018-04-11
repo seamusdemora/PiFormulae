@@ -43,7 +43,7 @@ You can get photos/snapshots or videos easily and quickly with the following com
 
 `raspivid -o mymovie.h264 -t 10000`   (creates a 10,000 msec/10 sec video, and saves it as `mymovie.h264`) 
 
-The commands are 'feature-rich', especially `raspivid`, and allows you to do, for example, a [time-lapse sequence](https://en.wikipedia.org/wiki/Time-lapse_photography) quite easily: 
+The command options are 'feature-rich', especially `raspivid`, and allows you to create, for example, a [time-lapse sequence](https://en.wikipedia.org/wiki/Time-lapse_photography) quite easily: 
 
     raspistill -t 600000 -tl 10000 -o image_num_%03d_today.jpg -l latest.jpg 
     
@@ -66,3 +66,4 @@ I've not had time to actually try streaming myself. Until I do, following are a 
 
 * [a post on the StackExchange forum, How to stream video from Raspberry Pi...](https://raspberrypi.stackexchange.com/questions/23182/how-to-stream-video-from-raspberry-pi-camera-and-watch-it-live)
 * [an entry on "instructables.com" that also includes some networking config](http://www.instructables.com/id/Raspberry-Pi-Video-Streaming/)
+* [a how-to for streaming PiCamera video to the world via YouTube!](https://www.digikey.com/en/maker/blogs/streaming-live-to-youtube-and-facebook-using-raspberry-pi-camera)
