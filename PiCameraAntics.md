@@ -12,7 +12,7 @@ Several ways are possible, but perhaps the quickest/easiest way is to mount a ne
 
 ## 1. Before you begin: Focusing PiCamera
 
-[It's the focus, stupid!](https://en.wikipedia.org/wiki/It%27s_the_economy,_stupid) OK, so I realize that for £24 you can't expect a pro-quality DSLR. But this PiCamera (and the people in the Raspberry Pi organization that make decisions and profit from its sales) is not quite [up to snuff](https://dictionary.cambridge.org/dictionary/english/up-to-snuff)! I'll belay my rant for another day, but here's what you need to know: 
+[It's the focus, stupid!](https://en.wikipedia.org/wiki/It%27s_the_economy,_stupid) OK, so I realize that for £24 you can't expect a pro-quality DSLR. But this PiCamera (and the people in the Raspberry Pi organization that make decisions and profit from its sales) is not quite [up to snuff](https://dictionary.cambridge.org/dictionary/english/up-to-snuff) when it comes to the simple matter of setting the lens' focus! I'll belay my rant for another day, but here's what you need to know: 
 #### `TURN THE FOCUS RING FULLY CCW AS YOU'RE FACING THE CAMERA` 
 
 Do this before you get started - it will save you a lot of time.
@@ -37,18 +37,28 @@ There's a lot more you can do in Python... the [API gives you a lot of control, 
 
 ## 3. From the command line
 
-You can get photos/snapshots or videos easily and quickly with the following commands; the bad news is no `man` pages :(  However, there's a [page on the .org's website that gives a seemingly complete rundown](https://www.raspberrypi.org/documentation/raspbian/applications/camera.md). 
+You can get photos/snapshots or videos easily and quickly with the following commands; the bad news is no `man` pages :(  However, there's a [page on the .org's website that gives a seemingly complete rundown](https://www.raspberrypi.org/documentation/raspbian/applications/camera.md), though it does have at least one error in the 'Examples'. 
 
 `  raspistill -o image003.jpg`  (substitute a filename and format of your choosing of course) 
 
-`  raspivid -o mymovie.h264 -t 10000`   (creates a 10,000 msec/10 sec video)
+`  raspivid -o mymovie.h264 -t 10000`   (creates a 10,000 msec/10 sec video) 
+
+The commands are 'feature-rich', especially `raspivid`, and allows you to do, for example, a [time-lapse sequence](https://en.wikipedia.org/wiki/Time-lapse_photography) quite easily: 
+
+    raspistill -t 600000 -tl 10000 -o image_num_%03d_today.jpg -l latest.jpg 
+    
+or, here's a different way to make a time lapse sequence using video. According to the docs referenced above, there's a lower limit of 2 frames per second, but that may change (if it hasn't already). 
+
+    raspivid -t 60000 -o mytimelapse.h264 -fps 2 -w 640 -h 480
 
 And there's one more bit of bad news for video producers: the only video format available is H.264, and it's not widely used - at least there aren't many apps that will play it directly. However, there is some support for bridging that gap. You can [convert the H.264 format videos to MP4 using `MP4Box`.](https://www.raspberrypi.org/documentation/usage/camera/raspicam/raspivid.md)
 
-Oddly, installed (it looks huge) and used as follows: 
+Oddly, it's installed (looks huge) and used as follows: 
 
     sudo apt-get install -y gpac
     MP4Box -add mymovie.h264 mymovie.mp4
+
+Once installed, it renders H.264 files as MP4 files quickly and efficiently. 
 
 ## 4. Streaming
 
