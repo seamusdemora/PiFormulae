@@ -33,7 +33,7 @@ Do this before you get started - it will save you a lot of time.
 	   camera.capture('foopic.png')
 	   camera.stop_preview()
 
-There's a lot more you can do in Python... the [API gives you a lot of control, and there are reasonably thorough docs covering the PiCamera](https://picamera.readthedocs.io/en/release-1.13/)
+There's a lot more you can do in Python... the [API gives you a lot of control, and there are reasonably thorough docs covering the PiCamera](http://picamera.readthedocs.io/en/latest/)
 
 ## 3. Using the `command line` to Control the PiCamera
 
