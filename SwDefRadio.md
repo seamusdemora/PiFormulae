@@ -9,3 +9,5 @@
 * [news you can use! Rpi 3B+ as a stand-alone SDR!!](https://www.rtl-sdr.com/nexmon-sdr-using-the-wifi-chip-on-a-raspberry-pi-3b-as-a-tx-capable-sdr/)
 
 * [long-ish (and potentially boring) videos by Michael Ossman, the creator of HackRF One](https://www.elektormagazine.com/news/hack-rf-one-sdr-transceiver)
+
+* [complete RPi image files with drivers](https://www.rtl-sdr.com/new-sdrplay-image-preloaded-with-software-available-for-the-raspberry-pi/)
