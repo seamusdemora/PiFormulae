@@ -49,7 +49,7 @@ The command options are 'feature-rich', especially `raspivid`, and allows you to
     
 The time lapse images taken using the command above will have to be processed or combined afterward to turn them into a movie or animation. That will require an additional step, and possibly an expensive software package! Alternative: I've not tried this, but the [raspberrypi.org website has a "How-To" using `raspistill` and other open-source tools to create a time-lapse](https://www.raspberrypi.org/documentation/usage/camera/raspicam/timelapse.md). 
 
-But here's a different way to make a time lapse sequence using video. According to the docs referenced above, there's a lower limit of 2 frames per second on `raspivid`, but that may change (if it hasn't already). At any rate, this will also produce a time lapse sequence small enough to include in a text message or email attachment (if you're into that).
+But here's a different way to make a time lapse sequence using video. According to the docs referenced above, there's a lower limit of 2 frames per second on `raspivid`, but that may change (if it hasn't already). At any rate, this will also produce a time lapse sequence small enough to include in a text message or email attachment (if you're into that). Yeah... so type that command into your RPi terminal, then get up in front of the camera, and do a little dance, then post it to your Facebook account or whatever. Fool, you never looked so good! 
 
     raspivid -t 60000 -o mytimelapse.h264 -fps 2 -w 640 -h 480
 
