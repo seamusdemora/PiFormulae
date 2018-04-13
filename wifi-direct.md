@@ -9,3 +9,5 @@ This is a placeholder for now. It is to contain configuration recipe for setting
 * [somewhat off-topic, but very useful article on wifi config from the command line!](https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md)
 
 * [a forum thread; success claimed, but not verified](https://raspberrypi.stackexchange.com/questions/78133/rpi-3b-to-pc-via-ethernet-peer-to-peer-without-internet-sharing/78135?noredirect=1#comment130892_78135)
+
+* [__the__ answer may be buried in this post; the poster seems competent](https://raspberrypi.stackexchange.com/questions/82772/how-do-i-set-up-wireless-connections-to-raspbian-stretch)
