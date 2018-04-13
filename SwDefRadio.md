@@ -10,6 +10,8 @@
 
 * [... more along the same lines as above](https://www.rtl-sdr.com/nexmon-sdr-turning-a-broadcom-802-11ac-wifi-chip-into-a-tx-capable-software-defined-radio/)
 
+* [the `NEXMON` GitHub page](https://github.com/seemoo-lab/mobisys2018_nexmon_software_defined_radio)
+
 * [long-ish (and potentially boring) videos by Michael Ossman, the creator of HackRF One](https://www.elektormagazine.com/news/hack-rf-one-sdr-transceiver)
 
 * [another way to make an RPi a stand-alone SDR](https://www.rtl-sdr.com/transmitting-fm-am-ssb-sstv-and-fsq-with-just-a-raspberry-pi/)
