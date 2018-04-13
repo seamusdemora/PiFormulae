@@ -12,6 +12,8 @@
 
 * [long-ish (and potentially boring) videos by Michael Ossman, the creator of HackRF One](https://www.elektormagazine.com/news/hack-rf-one-sdr-transceiver)
 
+* [another way to make an RPi a stand-alone SDR](https://www.rtl-sdr.com/transmitting-fm-am-ssb-sstv-and-fsq-with-just-a-raspberry-pi/)
+
 * [complete RPi image files with drivers](https://www.rtl-sdr.com/new-sdrplay-image-preloaded-with-software-available-for-the-raspberry-pi/)
 
 * [using an OpenWRT wifif router (GL-iNet AR150) as a __SDR Server__](https://www.rtl-sdr.com/creating-a-wireless-sdr-receiver-with-a-mini-wifi-router/)
