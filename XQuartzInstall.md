@@ -2,7 +2,7 @@ download & install XQuartz (https://www.xquartz.org/) on Mac
 
 start XQuartz
 
-ssh -Y pi@raspberrypi123.local
+`ssh -Y pi@raspberrypi123.local`   NOTE: the `-Y` option enables X11 forwarding __(E-S-S-E-N-T-I-A-L-!-!-!)__
 
 verify that the file ~/.Xauthority is present (https://www.raspberrypi.org/forums/viewtopic.php?t=161412) (https://www.raspberrypi.org/documentation/remote-access/ssh/unix.md)
 
