@@ -46,7 +46,7 @@ Before you initiate an SSH connection to your new RPi, you must first find its I
   * `arp -a | grep --ignore-case b8:27:eb` (because as of this writing all RPi MAC addresses begin with `b8:27:eb`)
   * `arp raspberrypi.local`
   * if you have access to it, look through the network's DHCP server log 
-  * download on of the several "PiFinder" tools available 
+  * download one of the several "PiFinder" tools available 
   
 Note: I've found arp to be "hit-or-miss", but I'm not sure why. If you're on a Mac, I'd suggest trying the `dns-sd` command at the top of the list.  
   
