@@ -18,7 +18,6 @@ If your RPi isn't in your arp cache that won't yield anything useful. If that's 
 
     subnet=$1
     for addr in `seq 0 1 255 `; do
-    #   ( echo $subnet$addr)
     ( ping -c 3 -t 5 $subnet$addr > /dev/null && echo $subnet$addr is Alive ) &
     done
 
@@ -30,9 +29,13 @@ and then execute it (use __your__ network address here, not necessarily __192.16
 
 > ~/pingpong.sh 192.168.1. 
 
---or--
+-- or --
 
-> bash pingpong.sh 192.168.1
+> bash pingpong.sh 192.168.1.
+
+-- or --
+
+> ./pingpong.sh 192.168.1.
 
 Your output should look like this: 
 
