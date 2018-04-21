@@ -1,5 +1,3 @@
-As typical, this page will be a placeholder for half-baked recipes and/or code to do something useful. The intention is to return here and [`finish up`](https://www.fastcompany.com/3025757/why-you-can-never-finish-anything-and-how-to-finally-change-it) soon :) 
-
 # What's the IP address of my new Raspberry Pi? 
 
 This is likely the most frequently-asked question by newcomers - at least those newcomers who are operating in "headless mode". They've bought a Raspberry Pi, burned a Raspbian image to its microSD card, and applied power. That's great, but most of them would like to connect to their Raspberry Pi at some point. They know they can connect using `SSH`, but what's the IP address of their new RPi? It happens all the time. And I'll offer perhaps an unpopular opinion here: The RPi organization is remiss for not making it easier to set a fixed IP address on the microSD card. The `boot` folder would be a perfect location for this information, but... ??? 
