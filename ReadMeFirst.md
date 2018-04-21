@@ -62,15 +62,23 @@ Note: Using a [simple `arp` will be "hit-or-miss"; here's why](https://github.co
 
 ![raspi-config screenshot](pix/raspi-config.png "raspi-config") 
 
-4. You'll want to make the following "stops": 
+4. The "arrow keys" will move you through the menu items, the "Tab" key will move you between screens. Go to `Interfacing Options`You'll want to make the following "stops": 
 
     a. Change the default password 
     
     b. Set up WiFi networking if you want; you'll need to know the WiFi `SSID` and `password`
     
-    c. do that
+    c. Go to `Boot Options` -> `Desktop CLI -> `Console`; tab to `OK`, then `Return`
     
-    d. do something else
+    d. Go to `Localisation Options`, and select the appropriate values from the lists provided
+    
+    e. Go to `Interfacing Options` -> `SSH`, and select `YES`, There are a lot of options on this page; you can set them now, or return to them later. 
+    
+    e. Go to `Advanced Options` -> `Expand Filesystem. You may wish to expand the file system to use all available storage on the microSD card. This is probably a good idea for most users. Note the other choices here, and you may return later to change them. 
+    
+    f. You may wish to try updating `raspi-config` by selecting the `Update` option. If you do so, this will temporarily close the raspi-config window, check for an update, and then automatically return you to raspi-config. 
+    
+    g. Tab to the `Finish` option at the bottom of the page and return to the command prompt. Congratulations, we're done here! 
     
  
  
