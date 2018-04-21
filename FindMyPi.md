@@ -22,7 +22,7 @@ arp -a | grep b8:27:eb
 ````
 make it executable:
 
-````chmod 755 ~/pingpong.sh```` 
+````chmod 755 pingpong.sh```` 
 
 and then execute it (use __your__ network address here, not necessarily __192.168.1.__):
 
