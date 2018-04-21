@@ -8,8 +8,8 @@ Try this first:
 
 ```arp -a | grep --ignore-case b8:27:eb``` 
 
-If your RPi isn't in your arp cache that won't yield anything useful. If that's the case, then create the following file in your editor, save it as `pingpong.sh`: 
-
+If your RPi isn't in your arp cache that won't yield anything useful. If that's the case, then create the following file in your favorite editor on your Mac, and save/write it as `pingpong.sh`: 
+````
     #!/bin/sh
 
     : ${1?"Usage: $0 ip subnet to scan. eg '192.168.1.'"}
@@ -18,7 +18,7 @@ If your RPi isn't in your arp cache that won't yield anything useful. If that's 
     for addr in `seq 0 1 255 `; do
     ( ping -c 3 -t 5 $subnet$addr > /dev/null && echo $subnet$addr is Alive ) &
     done
-
+````
 make it executable:
 
 > chmod 755 ~/pingpong.sh 
