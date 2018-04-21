@@ -32,13 +32,13 @@ and then execute it (use __your__ network address here, not necessarily __192.16
 
 ```` ./pingpong.sh 192.168.1.````
 
-Your output should look like this: 
+Your output should look like this (if you have 2 RPis on .local, and one of them is a 3B+ with WiFi enabled and Ethernet port connected to your switch or router): 
 ````
 ? (192.168.1.19) at b8:27:eb:3a:b9:78 on en0 ifscope [ethernet]
 ? (192.168.1.27) at b8:27:eb:cd:2f:ff on en0 ifscope [ethernet]
 ? (192.168.1.28) at b8:27:eb:cd:2f:ff on en0 ifscope [ethernet]
 ````
 
-And so, for this case, the IP address of your RPi is `192.168.1.19`
+And so, this case is interesting: My "old" RPi is connected to a Ethernet switch and its IP address is `192.168.1.19`. My "new" RPi 3B+ is connected to the same Ethernet switch, and also has its built-in WiFi enabled. It seems wrong that both the Ethernet and the WiFi adapters use the same MAC address, but this is "by design" since I haven't changed it! 
 
-This code was executed on my MacBook, so YMMV on a different platform.
+And that's it; now you can initiate an SSH connection to your RPi. Final note: This code was executed on my MacBook, so YMMV on a different platform.
