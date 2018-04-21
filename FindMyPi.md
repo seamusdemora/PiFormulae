@@ -10,14 +10,15 @@ Try this first:
 
 If your RPi isn't in your arp cache that won't yield anything useful. If that's the case, then create the following file in your favorite editor on your Mac, and save/write it as `pingpong.sh`: 
 ````
-    #!/bin/sh
+#!/bin/sh
 
-    : ${1?"Usage: $0 ip subnet to scan. eg '192.168.1.'"}
+: ${1?"Usage: $0 ip subnet to scan. eg '192.168.1.'"}
 
-    subnet=$1
-    for addr in `seq 0 1 255 `; do
-    ( ping -c 3 -t 5 $subnet$addr > /dev/null && echo $subnet$addr is Alive ) &
-    done
+subnet=$1
+for addr in `seq 0 1 255 `; do
+( ping -c 3 -t 5 $subnet$addr > /dev/null ) &
+done
+arp -a | grep b8:27:eb
 ````
 make it executable:
 
