@@ -1,5 +1,5 @@
 # PiFormulae
-A collection of "How-To" guides and recipes for the Raspberry Pi. The entries in this table are for the pages that have any potentially useful information. That's a pretty low bar, but feel free to peruse any of the pages listed above as well.
+A collection of "How-To" guides and recipes for the Raspberry Pi. The entries in this table are for the pages that have any potentially useful information. That's a pretty low bar, but feel free to peruse any of the pages in the repo as well.
 
 Repo Files | Description
 -------- | -------- 
