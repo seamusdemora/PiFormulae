@@ -6,7 +6,7 @@ All that said, here's an [approach I outlined in response to a question on Stack
 
 Try this first: 
 
->arp -a | grep --ignore-case b8:27:eb 
+```arp -a | grep --ignore-case b8:27:eb``` 
 
 If your RPi isn't in your arp cache that won't yield anything useful. If that's the case, then create the following file in your editor, save it as `pingpong.sh`: 
 
