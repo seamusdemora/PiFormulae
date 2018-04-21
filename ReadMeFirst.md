@@ -40,7 +40,7 @@ Once you've made these changes, `eject/umount` the microSD card.
 
 If you configured WiFi as in Step 3 above,your RPi should boot successfully, and connect itself to your WiFi network. If you didn't configure WiFi, connect your RPi to your wired network using a standard Ethernet patch cable. 
 
-In either case, before you initiate an SSH connection to your new RPi, you may need to know its IP address on the network. If you're on a "zero configuration" network, things may "just work", and your first login is as simple as `ssh pi@raspberrypi.local`. Try that; if it works, [go to the next step](https://github.com/seamusdemora/PiFormulae/edit/master/ReadMeFirst.md#login-to-your-RPi-using-SSH). If not, no worries as there are numerous ways to get it done: 
+In either case, before you initiate an SSH connection to your new RPi, you may need to know its IP address on the network. If you're on a "zero configuration" network, things may "just work", and your first login is as simple as `ssh pi@raspberrypi.local`. Try that; if it works, [go to the next step](https://github.com/seamusdemora/PiFormulae/blob/master/ReadMeFirst.md#login-to-your-RPi-using-SSH). If not, no worries as there are numerous ways to get it done: 
 
   * `dns-sd -q raspberrypi.local` (OS X only)
   * `arp -a | grep --ignore-case b8:27:eb` (because as of this writing all RPi MAC addresses begin with `b8:27:eb`)
