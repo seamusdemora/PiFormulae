@@ -8,14 +8,14 @@ But I digress. Here, for what it's worth, is how I do things:
 
 ## Download the Raspbian Image, and Burn It to the microSD Card 
 
-* Download the [latest Raspbian image file from the Raspberry Pi website](https://www.raspberrypi.org/downloads/raspbian/)
+1. Download the [latest Raspbian image file from the Raspberry Pi website](https://www.raspberrypi.org/downloads/raspbian/)
 
-* Choose your weapon: There are several methods & tools that may be used to copy the Raspbian image file to your microSD card:
-  1. you can [do it manually in Mac, Windows or Linux/Unix](https://www.wikihow.com/Make-a-USB-Bootable)
-  2. you can use [rufus](https://rufus.akeo.ie/) on your Windows PC 
-  3. you can use [Etcher](https://etcher.io/) on Mac or Windows
+2. Choose your weapon: There are several methods & tools that may be used to copy the Raspbian image file to your microSD card:
+  * you can [do it manually in Mac, Windows or Linux/Unix](https://www.wikihow.com/Make-a-USB-Bootable)
+  * you can use [rufus](https://rufus.akeo.ie/) on your Windows PC 
+  * you can use [Etcher](https://etcher.io/) on Mac or Windows
 
-* "Burn" the Raspbian image file to the media you're going to boot from. Typically, this will be an 8 GB or larger [microSD](https://simple.wikipedia.org/wiki/MicroSD) memory card, but you can boot from a number of devices, including the new-ish [mSATA SSDs](https://searchstorage.techtarget.com/definition/mSATA-SSD-mSATA-solid-state-drive) if you need greater storage, performance and longevity. If you're using
+3. "Burn" the Raspbian image file to the media you're going to boot from. Typically, this will be an 8 GB or larger [microSD](https://simple.wikipedia.org/wiki/MicroSD) memory card, but you can boot from a number of devices, including the new-ish [mSATA SSDs](https://searchstorage.techtarget.com/definition/mSATA-SSD-mSATA-solid-state-drive) if you need greater storage, performance and longevity. If you're using
 
 ## Modify files in `/boot` on the micro SD card
 
@@ -40,15 +40,15 @@ Once you've made these changes, `eject/umount` the microSD card.
 
 If you configured WiFi as in Step 3 above,your RPi should boot successfully, and connect itself to your WiFi network. If you didn't configure WiFi, connect your RPi to your wired network using a standard Ethernet patch cable. 
 
-In either case, before you initiate an SSH connection to your new RPi, you may need to know its IP address on the network. If you're on a "zero configuration" network, things may "just work", and your first login is as simple as `ssh pi@raspberrypi.local`. Try that; if it works, we're done here. If not, no worries as there are numerous ways to get it done. 
+In either case, before you initiate an SSH connection to your new RPi, you may need to know its IP address on the network. If you're on a "zero configuration" network, things may "just work", and your first login is as simple as `ssh pi@raspberrypi.local`. Try that; if it works, we're done here. If not, no worries as there are numerous ways to get it done: 
 
   * `dns-sd -q raspberrypi.local` (OS X only)
   * `arp -a | grep --ignore-case b8:27:eb` (because as of this writing all RPi MAC addresses begin with `b8:27:eb`)
   * `arp raspberrypi.local`
   * if you have access to it, look through the network's DHCP server log 
-  * [I've developed this "recipe" for IP address discovery](https://github.com/seamusdemora/PiFormulae/blob/master/FindMyPi.md) 
+  * I've developed this ["recipe" for IP address discovery](https://github.com/seamusdemora/PiFormulae/blob/master/FindMyPi.md) 
   
-Note: I've found arp to be "hit-or-miss", but I'm not sure why. If you're on a Mac, I'd suggest trying the `dns-sd` command at the top of the list.  
+Note: Using a [simple `arp` will be "hit-or-miss", and here's why]() that's so. If you're on a Mac, try the `dns-sd` command at the top of the list.  
   
 ## Login to your RPi using SSH, and configure for your tastes
 
