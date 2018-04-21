@@ -64,8 +64,10 @@ Note: Using a [simple `arp` will be "hit-or-miss"; here's why](https://github.co
 
 4. You'll want to make the following "stops": 
 
- a. Change the default password 
- b. do this
- c. do that
+    a. Change the default password 
+    b. Set up WiFi networking if you want; you'll need to know the WiFi `SSID` and `password`
+    c. do that
+    d. do something else
+ 
  
  
