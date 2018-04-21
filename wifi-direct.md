@@ -1,3 +1,5 @@
+As typical, this page will be a placeholder for half-baked recipes and/or code to do something useful. The intention is to return here and [`finish up`](https://www.fastcompany.com/3025757/why-you-can-never-finish-anything-and-how-to-finally-change-it) soon :) 
+
 This is a placeholder for now. It is to contain configuration recipe for setting RPi up to be serve as a [WiFi Direct](https://en.wikipedia.org/wiki/Wi-Fi_Direct) access point in a peer-to-peer network. Following are a few URLs that may be relevant: 
 
 * [wireless access point](https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md) 
