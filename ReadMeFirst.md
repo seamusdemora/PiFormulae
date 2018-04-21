@@ -60,4 +60,12 @@ Note: Using a [simple `arp` will be "hit-or-miss"; here's why](https://github.co
 
 3. Start raspi-config as su:  `sudo raspi-config`  and you'll see something like this: 
 
-![raspi-config screenshot](pix/raspi-config.png "raspi-config")
+![raspi-config screenshot](pix/raspi-config.png "raspi-config") 
+
+4. You'll want to make the following "stops": 
+
+ a. Change the default password 
+ b. do this
+ c. do that
+ 
+ 
