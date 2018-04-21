@@ -54,10 +54,10 @@ Note: Using a [simple `arp` will be "hit-or-miss"; here's why](https://github.co
 
 1. Open a terminal on your PC, and initiate a connection to your RPi using SSH: 
 
-> > `ssh pi@raspberrypi.local` Or, use the RPi's IP address: `ssh pi@192.168.1.77` if that's handy
+`ssh pi@raspberrypi.local` or, use the RPi's IP address: `ssh pi@192.168.1.77` (for example) if that's handy
 
-> > Enter the default password at the prompt: `raspberry` 
+2. Enter the default password at the prompt: `raspberry` 
 
-2. Start raspi-config as su:  `sudo raspi-config`  and you'll see something like this: 
+3. Start raspi-config as su:  `sudo raspi-config`  and you'll see something like this: 
 
-> > ![raspi-config screenshot](pix/raspi-config.png "raspi-config")
+![raspi-config screenshot](pix/raspi-config.png "raspi-config")
