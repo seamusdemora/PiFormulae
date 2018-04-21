@@ -74,11 +74,11 @@ Note: Using a [simple `arp` will be "hit-or-miss"; here's why](https://github.co
     
     e. Go to `Interfacing Options` -> `SSH`, and select `YES`, There are a lot of options on this page; you can set them now, or return to them later. 
     
-    e. Go to `Advanced Options` -> `Expand Filesystem. You may wish to expand the file system to use all available storage on the microSD card. This is probably a good idea for most users. Note the other choices here, and you may return later to change them. 
+    f. Go to `Advanced Options` -> `Expand Filesystem. You may wish to expand the file system to use all available storage on the microSD card. This is probably a good idea for most users. Note the other choices here, and you may return later to change them. 
     
-    f. You may wish to try updating `raspi-config` by selecting the `Update` option. If you do so, this will temporarily close the raspi-config window, check for an update, and then automatically return you to raspi-config. 
+    g. You may wish to try updating `raspi-config` by selecting the `Update` option. If you do so, this will temporarily close the raspi-config window, check for an update, and then automatically return you to raspi-config. 
     
-    g. Tab to the `Finish` option at the bottom of the page and return to the command prompt. Congratulations, we're done here! 
+    h. Tab to the `Finish` option at the bottom of the page and return to the command prompt. Congratulations, we're done here! 
     
  
  
