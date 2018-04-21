@@ -1,3 +1,5 @@
+DISCLAIMER: As typical, this page will be a placeholder for half-baked recipes and/or code to do something useful. The intention is to return here and [`finish up`](https://www.fastcompany.com/3025757/why-you-can-never-finish-anything-and-how-to-finally-change-it) soon :) 
+
 This is a placeholder for now. It is to contain configuration recipe(s) for using RPi's new Bluetooth hardware to do something useful. Following are a few URLs that may be relevant: 
 
 * [pi.org forum topic](https://www.raspberrypi.org/forums/viewtopic.php?t=148862) 
