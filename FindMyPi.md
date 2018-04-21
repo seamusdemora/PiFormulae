@@ -22,32 +22,22 @@ arp -a | grep b8:27:eb
 ````
 make it executable:
 
-> chmod 755 ~/pingpong.sh 
+````chmod 755 ~/pingpong.sh```` 
 
 and then execute it (use __your__ network address here, not necessarily __192.168.1.__:
 
-> bash pingpong.sh 192.168.1.
+````bash pingpong.sh 192.168.1.````
 
 -- or --
 
-> ./pingpong.sh 192.168.1.
+```` ./pingpong.sh 192.168.1.````
 
 Your output should look like this: 
-
-        192.168.1.11 is Alive
-        192.168.1.19 is Alive
-        192.168.1.28 is Alive
-        ...
-        192.168.1.255 is Alive
-        192.168.1.0 is Alive
-
-Now, your RPi should be in your arp cache, so run `arp` as before: 
-
-> arp -a | grep --ignore-case b8:27:eb 
-
-And you should then see something like this: 
-
-    ? (192.168.1.19) at b8:27:eb:3a:b9:78 on en0 ifscope [ethernet]
+````
+? (192.168.1.19) at b8:27:eb:3a:b9:78 on en0 ifscope [ethernet]
+? (192.168.1.27) at b8:27:eb:cd:2f:ff on en0 ifscope [ethernet]
+? (192.168.1.28) at b8:27:eb:cd:2f:ff on en0 ifscope [ethernet]
+````
 
 And so, for this case, the IP address of your RPi is `192.168.1.19`
 
