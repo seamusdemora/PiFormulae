@@ -24,7 +24,7 @@ make it executable:
 
 ````chmod 755 ~/pingpong.sh```` 
 
-and then execute it (use __your__ network address here, not necessarily __192.168.1.__:
+and then execute it (use __your__ network address here, not necessarily __192.168.1.__):
 
 ````bash pingpong.sh 192.168.1.````
 
