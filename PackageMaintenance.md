@@ -17,8 +17,8 @@ The first command (`df -h`) will give you a chance to make sure you've got space
 ### Routine "in-version" updates and upgrades
 
 <table border="0", style="width:100%">
-  <col style="width:25%">
-  <col style="width:75%">
+  <col style="width:45%">
+  <col style="width:55%">
   <tr>
     <th>Command</th>
     <th>Explanation</th> 
@@ -46,13 +46,13 @@ The first command (`df -h`) will give you a chance to make sure you've got space
 </table>
 
 
-command                  | explanation
---------                 | ---------
-`sudo apt-get update` | updates the system's "Package List" 
-`df -h` | check available space; `apt` doesn't! 
-`sudo apt-get upgrade` | upgrade all installed packages to the latest version from the sources enumerated in `/etc/apt/sources.list`, but under no circumstances are currently installed packages removed, or packages not already installed retrieved and installed. This is the "foolproof" version of an upgrade. 
-`sudo apt-get dist-upgrade` | upgrade all installed packages to the latest version from the sources enumerated in `/etc/apt/sources.list`. It will add & remove packages if necessary, and attempts to deal "intelligently" with changed dependencies. Exceptions may be declared in `apt_preferences(5)`.   
-`sudo apt-get clean` | removes the cruft from ``/var/cache/apt/archives` left by previous upgrades
+|   command        | explanation |
+| :---     | :---       |
+| `sudo apt-get update`| updates the system's "Package List" |
+| `df -h`      | check available space; `apt` doesn't! |
+| `sudo apt-get upgrade` | upgrade all installed packages to the latest version from the sources enumerated in  `/etc/apt/sources.list`, but under no circumstances are currently installed packages removed, or packages not already installed retrieved and installed. This is the "foolproof" version of an upgrade. |
+| `sudo apt-get dist-upgrade` | upgrade all installed packages to the latest version from the sources enumerated in  `/etc/apt/sources.list`. It will add & remove packages if necessary, and attempts to deal "intelligently" with changed dependencies. Exceptions may be declared in `apt_preferences(5)`. |  
+| `sudo apt-get clean` | removes the cruft from ``/var/cache/apt/archives` left by previous upgrades |
 
 ### Version Upgrade
 
