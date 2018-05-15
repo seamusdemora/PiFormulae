@@ -100,7 +100,7 @@ Which is an interesting result, as I had just formatted this USB drive in my Mac
 Which probably means that Mac OS (High Sierra in this case) and Raspbian "stretch" may have a minor disagreement over the various [flavors of FAT](https://en.wikipedia.org/wiki/File_Allocation_Table)
 
 The other thing to notice is that the USB drive (`sda`) has two (2) partitions. Note also that `sda1` has a label of `EFI` assigned, and it didn't change after re-formatting. This [EFI partition](https://en.wikipedia.org/wiki/EFI_system_partition) was created only because the "scheme" selected in Mac's __Disk Utility__ was "GUID Partition Map"
-There have been documented [issues wherein older versions of Raspbian (i.e. "wheezy") were unable to read GPT (GUID Partition Table)](http://www.zayblog.com/computer-and-it/2013/07/22/mounting-gpt-partitions-on-raspberry-pi/) drives. 
+This is potentially significant because there have been documented [issues wherein older versions of Raspbian (i.e. "wheezy") were unable to read GPT (GUID Partition Table)](http://www.zayblog.com/computer-and-it/2013/07/22/mounting-gpt-partitions-on-raspberry-pi/) drives. 
 
 
 
