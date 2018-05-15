@@ -1,5 +1,5 @@
 # How Do I Connect an External Drive to a Raspberry Pi?
-<p align="center"><b>(Served with a side of history and culture)</b></p>
+####              (Served with sides of history, philosophy, humour and culture)
 
 ### And Why Would I Want to Do This?
     
@@ -118,3 +118,4 @@ Why doesn't the RPi (Raspbian actually) just `mount` this thumb drive when I ins
 
 __NOTE: This paragraphis mostly trivial, so ignore it if you're not interested:__
 If you're wondering what the 16 instances of `Disk /dev/ram*:` are, they are called __"RAM Disks"__, and are [explained here](https://www.kernel.org/doc/Documentation/blockdev/ramdisk.txt). There's also a good [Wikipedia article that explains the purpose and function of RAM disks](https://en.wikipedia.org/wiki/RAM_drive). But you'll need to formulate your own theory as to why they're used rather extensively in Raspbian, because it's not documented. My theory is that there are two reasons they're used: 1) to reduce the number of write cycles to the SD card, and 2) improve performance by reducing disk i/o latency.  
+<p align="center"><b>(Served with sides of history, philosophy, humour and culture)</b></p>
