@@ -82,11 +82,11 @@ For the SanDisk 16GB thumb drive that I plugged into my RPi, the result is:
     ├─mmcblk0p1 vfat   boot        5DB0-971B                            /boot
     └─mmcblk0p2 ext4   rootfs      060b57a8-62bd-4d48-a471-0d28466d1fbb /
 
-Which tells us that this device listed as `sda` must be the SanDisk 16GB thumb drive because it wasn't listed when we ran `lsblk` previously! And this result is further interesting for several reasons:
+Which tells us that this device listed as `sda` must be the SanDisk 16GB thumb drive because it wasn't listed when we ran `lsblk` previously! And this result is further interesting as it raises at least 3 questions:
 
-1. I had just formatted this USB drive in my Mac as `FAT32` (`VFAT` wasn't even an option), 
-2. I did not intentionally request two partitions, yet two partitions were created: `sda1` and `sda2`, 
-3. the `MOUNTPOINT` column is empty for `sda` and its two partitions... why wasn't it `mount`ed?
+1. Why `vfat`? I had just formatted this USB drive in my Mac as `FAT32` (`VFAT` wasn't even an option), 
+2. I did not intentionally request two partitions, yet two partitions were created: `sda1` and `sda2`... Why?, 
+3. the `MOUNTPOINT` column is empty for `sda` and its two partitions... Why wasn't it `mount`ed?
 
 We must press on for the answers to these questions, and for our enlightenment. 
 
@@ -96,7 +96,20 @@ What's with the "extra" partition? Why has the Mac's __Disk Utility__ app create
 
 | 1. Select "Show All Devices" | 2. Select MBR as Scheme option |
 | -------------------------- | -------------------------- |
-<img src="pix/DiskUtil-ShowVol.png" alt="Disk Utility dialog with Show All Devices option checked" width="520">|<img src="pix/DiskUtil-Scheme.png" alt="Disk Utility dialog with Scheme selection shown" width="520">
+<img src="pix/DiskUtil-ShowVol.png" alt="Disk Utility dialog with Show All Devices option checked" width="520">|<img src="pix/DiskUtil-Scheme.png" alt="Disk Utility dialog with Scheme selection shown" width="520"> 
+
+Let's see if that holds up: 
+
+    pi@raspberrypi3b:~ $ lsblk --fs
+    NAME        FSTYPE LABEL       UUID                                 MOUNTPOINT
+    sda                                                                 
+    └─sda1      exfat  SANDISK16GB 5AFA-59C4                            
+    mmcblk0                                                             
+    ├─mmcblk0p1 vfat   boot        5DB0-971B                            /boot
+    └─mmcblk0p2 ext4   rootfs      060b57a8-62bd-4d48-a471-0d28466d1fbb /
+
+
+
 
 So I re-formatted it again in my Mac as `exFAT`, re-inserted it into the RPi, and ran `lsblk --fs` again with this result: 
 
