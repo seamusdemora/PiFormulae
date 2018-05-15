@@ -15,7 +15,7 @@ Since I deploy my RPi's in headless mode, and I'm a Mac user, the approach on th
 
 I'll do this first to make sure I've not forgotten drives that are already connected, and we know there's (probably) at least one. Having a list of connected drives also provides a good baseline for comparison in the next step. 
 
-    sudo fdisk --list
+    pi@raspberrypi3b:~ $ sudo fdisk --list
     
 Your output may resemble mine (trimmed for brevity); you might see 16 "RAM Disks" (discussed below):    
     
@@ -55,7 +55,7 @@ If you have other devices connected, they will also be listed.
 
 Now that we have seen the "complete" list produced by `fdisk -l`, we shall not use it again here. [`fdisk`](https://www.tecmint.com/fdisk-commands-to-manage-linux-disk-partitions/) is primarily a tool for formatting and partitioning block devices, and that's not what we're after here. As we've seen, in this case, `fdisk` produces a lot of output that we just don't need now. Nevertheless, it's instructuve to see what it does. Next, we will compare its output to another tool that pares the non-essential information, and gives us what we need for the task of provisioning an external drive that the RPi can use: `lsblk`. `lsblk` excludes RAM Disks as they are a special class (contrived actually) of block deivices.  There are numerous optional arguments for `lsblk` (`man lsblk` is your friend), and we'll use the `--fs` (filesystem) option:
 
-    lsblk --fs
+    pi@raspberrypi3b:~ $ lsblk --fs
     
 Which yields (at least in Raspbian "stretch"):    
     
@@ -70,7 +70,7 @@ A nice, concise presentation in "tree" format! Here we see again the SD card (mm
 
 After the USB drive is plugged in to the RPi, run `lsblk` again at the RPi command line:
 
-    lsblk --fs
+    pi@raspberrypi3b:~ $ lsblk --fs
     
 For the SanDisk 16GB thumb drive that I plugged into my RPi, the result is: 
 
@@ -92,13 +92,13 @@ We must press on for the answers to these questions, and for our enlightenment.
 
 [Jack Sprat](https://en.wikipedia.org/wiki/Jack_Sprat) could eat no [`FAT`](https://en.wikipedia.org/wiki/File_Allocation_Table). Indeed! If one thinks of "fat" as having to do with wealth or abundance, then the "File Allocation Table" certainly fits in well with that thinking. There are numerous types, extensions and derivatives of this file system, some with subtle differences. [Design of the FAT file system is fluid](https://en.wikipedia.org/wiki/Design_of_the_FAT_file_system); so much so that the boundaries between the different flavors has blurred. And so that seems to be what has happened with Apple's implementation of `FAT32`... they have become like Jack Sprat, and will eat no more `FAT`! THe good news is that for most practical purposes, Apple's implementation (`FAT32`) works with the Linux (and therefore Raspbian) implementation (`vfat`). We'll not worry this point further, but the knowledge may have given us a wee bit more "power".
 
-What's with the "extra" partition? Why has the Mac's __Disk Utility__ app created a partition named `EFI`? I didn't (intentionally) ask for this! To answer, note there's a subtle clue in the `LABEL` column of the `lsblk` listing: `EFI`. Briefly, `EFI` stands for ["Extensible Firmware Interface"](https://en.wikipedia.org/wiki/EFI_system_partition). Its existence and its original design is a product of [Intel's laboratories](https://firmware.intel.com/learn/uefi/about-uefi). Since then, the __UEFI__ (now "Unified" :) specification has come under the control of the __UEFI Forum__ - a group of the computer industry's "heavy hitters", which includes Apple! The hyperlinks here will provide hours of reading pleasure, but the answer to the question is found in the __Disk Utility__ interface: Once the __Show All Devices__ option is selected, a __Scheme__ for `MBR` may be selected (see __Disk Utility__ screenshots below). And since `MBR` does not include an EFI partition, we should be able to lose that partition by selecting the __Master Boot Record__ Scheme. 
+What's with the "extra" partition? Why has the Mac's __Disk Utility__ app created a partition named `EFI`? I didn't (intentionally) ask for this! To answer, we'll use a subtle clue in the `LABEL` column of the `lsblk` listing: `EFI`. Briefly, `EFI` stands for ["Extensible Firmware Interface"](https://en.wikipedia.org/wiki/EFI_system_partition). Its existence and its original design is a product of [Intel's laboratories](https://firmware.intel.com/learn/uefi/about-uefi). Since then, the __UEFI__ (now "Unified" :) specification has come under the control of the __UEFI Forum__ - a group of the computer industry's "heavy hitters", which includes Apple! The hyperlinks here will provide hours of reading pleasure, but the answer to the question is found in the __Disk Utility__ interface: When the default __View__ option of __Show Only Volumes__ is selected, the __GUID Partition Map__ Scheme is also selected. [GUID Partition Table `GPT`](https://en.wikipedia.org/wiki/GUID_Partition_Table) is a subset of the UEFI specifications, and so, in the interest of sanity I suppose, Apple has tied the selection of __Show Only Volumes__ under __View__ to selection of the __GUID Partition Map__ Scheme by default, although the specifications for `GPT` don't strictly prohibit `MBR`. Once the __Show All Devices__ option is selected, a __Scheme__ for `MBR` may be selected (see __Disk Utility__ screenshots below). And since `MBR` does not include an EFI partition, we should be able to lose that partition by selecting the __Master Boot Record__ Scheme. Another Scheme available in __Disk Utility__ is called __GUID Partition Map__ 
 
 | 1. Select "Show All Devices" | 2. Select MBR as Scheme option |
 | -------------------------- | -------------------------- |
 <img src="pix/DiskUtil-ShowVol.png" alt="Disk Utility dialog with Show All Devices option checked" width="520">|<img src="pix/DiskUtil-Scheme2.png" alt="Disk Utility dialog with Scheme selection shown" width="520"> 
 
-Let's see if that holds up: 
+Let's re-format the USB drive with the settings shown above, and see if that holds up: 
 
     pi@raspberrypi3b:~ $ lsblk --fs
     NAME        FSTYPE LABEL       UUID                                 MOUNTPOINT
@@ -108,20 +108,11 @@ Let's see if that holds up:
     ├─mmcblk0p1 vfat   boot        5DB0-971B                            /boot
     └─mmcblk0p2 ext4   rootfs      060b57a8-62bd-4d48-a471-0d28466d1fbb /
 
+That looks like what I wanted: a single `exFAT` partition. But now that the `EFI` partition is gone, we could wonder, "What are we missing out on by not having this more modern scheme?" For this particular usage, the answer is, "Since I don't need to boot from this drive (nor do I have any boot files to write), I miss out on nothing at all." Additionally, in some older versions of Raspbian (e.g. "wheezy"), there have been documented [issues wherein Raspbian was unable to read GPT (GUID Partition Table)](http://www.zayblog.com/computer-and-it/2013/07/22/mounting-gpt-partitions-on-raspberry-pi/) drives.
+And finally, as a good "nerd trivia" question, we might ask, "Is this device now non-compliant with the __UEFI__ specifications?" What do you think the answer is? 
 
 
 
-So I re-formatted it again in my Mac as `exFAT`, re-inserted it into the RPi, and ran `lsblk --fs` again with this result: 
-
-    NAME        FSTYPE LABEL       UUID                                 MOUNTPOINT
-    sda                                                                 
-    ├─sda1      vfat   EFI         67E3-17ED                            
-    └─sda2      exfat  SANDISK16GB 5AFA-4B3E                            
-    mmcblk0                                                             
-    ├─mmcblk0p1 vfat   boot        5DB0-971B                            /boot
-    └─mmcblk0p2 ext4   rootfs      060b57a8-62bd-4d48-a471-0d28466d1fbb /
-
-Which is even more interesting! Note that MacOS apparently re-formatted the `sda2` partition from `vfat`to `exFAT`, but not `sda1`; it remains formatted as `vfat`. 
 
 The other thing to notice is that the USB drive (`sda`) has two (2) partitions. Note also that `sda1` has a label of `EFI` assigned, and it didn't change after re-formatting. This [EFI partition](https://en.wikipedia.org/wiki/EFI_system_partition) was created only because the "scheme" selected in Mac's __Disk Utility__ was "GUID Partition Map"
 This is potentially significant because there have been documented [issues wherein older versions of Raspbian (i.e. "wheezy") were unable to read GPT (GUID Partition Table)](http://www.zayblog.com/computer-and-it/2013/07/22/mounting-gpt-partitions-on-raspberry-pi/) drives. 
