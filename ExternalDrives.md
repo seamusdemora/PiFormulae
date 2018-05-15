@@ -9,17 +9,15 @@
         * reduce wear on your SD card 
         * thumb drives are cheap 
 
-Since I deploy my RPi's in headless mode, and I'm a Mac user, the approach on this page reflects that. Another decision I've made that drives some elements of the approach here is my choice to use the exFAT file system on external drives connected to the RPi. I've chosen exFAT for the simple reasons that: a) it's supported by Linux, MacOS and Windows, and b) it doesn't have the limits on file size that FAT & FAT32 do. If you want to use another filesystem, [@wjglenn](https://twitter.com/wjglenn) has written a [good article in How-To Geek reviewing the tradeoffs between the most widely-used filesystems](https://www.howtogeek.com/73178/what-file-system-should-i-use-for-my-usb-drive/). If you're on board with all of that, let's get into the details: 
+Since I deploy my RPi's in headless mode, and I'm a Mac user, the approach on this page reflects that. Another decision I've made that drives some elements of the approach here is my choice to use the `exFAT` file system on external drives connected to the RPi. I've chosen `exFAT` for the simple reasons that: a) it's supported by Linux, MacOS and Windows, and b) it doesn't have the limits on file size that `FAT` & `FAT32` do. If you want to use another filesystem, [@wjglenn](https://twitter.com/wjglenn) has written a [good article in How-To Geek reviewing the tradeoffs between the most widely-used filesystems](https://www.howtogeek.com/73178/what-file-system-should-i-use-for-my-usb-drive/) wherein he recommends with sound rationale using `FAT32`. In any case, if you're on board with all of that, let's get into the details: 
 
-## 1. Determine what's connected before you begin
+## 1. Determine what drives are connected to the RPi before you begin
 
-I'll do this first to make sure I've not forgotten drives that are already connected. The output also provides a good baseline to compare against in the next step. 
+I'll do this first to make sure I've not forgotten drives that are already connected, and we know there's (probably) at least one. Having a list of connected drives also provides a good baseline for comparison in the next step. 
 
     sudo fdisk --list
     
-Your output may resemble mine (trimmed for brevity):    
-
-You might see 16 "RAM Disks" (discussed below)
+Your output may resemble mine (trimmed for brevity); you might see 16 "RAM Disks" (discussed below):    
     
     Disk /dev/ram0: 4 MiB, 4194304 bytes, 8192 sectors
     Units: sectors of 1 * 512 = 512 bytes
@@ -31,7 +29,7 @@ You might see 16 "RAM Disks" (discussed below)
     Sector size (logical/physical): 512 bytes / 4096 bytes
     I/O size (minimum/optimal): 4096 bytes / 4096 bytes
     
-    ...
+    ...  for /dev/ram2 -> /dev/ram14
     
     Disk /dev/ram15: 4 MiB, 4194304 bytes, 8192 sectors
     Units: sectors of 1 * 512 = 512 bytes
@@ -86,10 +84,13 @@ For the SanDisk 16GB thumb drive that I plugged into my RPi, the result is:
     ├─mmcblk0p1 vfat   boot        5DB0-971B                            /boot
     └─mmcblk0p2 ext4   rootfs      060b57a8-62bd-4d48-a471-0d28466d1fbb /
 
-Which tells us that this device listed as `sda` must be the SanDisk 16GB thumb drive because it wasn't listed when we ran `lsblk` previously! And this result is interesting for at least two reasons:
+Which tells us that this device listed as `sda` must be the SanDisk 16GB thumb drive because it wasn't listed when we ran `lsblk` previously! And this result is interesting for several reasons:
 
-1. I had just formatted this USB drive in my Mac as `FAT32` (`VFAT` wasn't even an option), and
-2. I did not specifically request two partitions, yet two partitions were created, `sda1` and `sda2`
+1. I had just formatted this USB drive in my Mac as `FAT32` (`VFAT` wasn't even an option), 
+2. I did not specifically request two partitions, yet two partitions were created, `sda1` and `sda2`, 
+3. the `MOUNTPOINT` column is empty for `sda` and its two partitions... why wasn't it `mount`ed?
+
+We must press on for the answers to these questions, and for our "enlightenment". 
 
 So I re-formatted it again in my Mac as `exFAT`, re-inserted it into the RPi, and ran `lsblk --fs` again with this result: 
 
@@ -106,7 +107,7 @@ Which is even more interesting! Note that MacOS apparently re-formatted the `sda
 The other thing to notice is that the USB drive (`sda`) has two (2) partitions. Note also that `sda1` has a label of `EFI` assigned, and it didn't change after re-formatting. This [EFI partition](https://en.wikipedia.org/wiki/EFI_system_partition) was created only because the "scheme" selected in Mac's __Disk Utility__ was "GUID Partition Map"
 This is potentially significant because there have been documented [issues wherein older versions of Raspbian (i.e. "wheezy") were unable to read GPT (GUID Partition Table)](http://www.zayblog.com/computer-and-it/2013/07/22/mounting-gpt-partitions-on-raspberry-pi/) drives. 
 
-
+Why doesn't the RPi (Raspbian actually) just `mount` this thumb drive when I insert it? Clearly I meant to use the damn thing when I plugged it into the RPi's USB port! And that's what my Mac (and Windoze PC) does when I plug in. Is the RPi just being obtuse? Well, no, it's not being obtuse... but the OS reflects a different [culture](https://en.wikipedia.org/wiki/Culture). It's a culture that was born at the dawn of the ["computer age"](https://en.wikipedia.org/wiki/Information_Age), and like most cultures, is resistant to change. If it helps, you can think of it as I do: there is a bit of [asceticism](https://en.wikipedia.org/wiki/Asceticism) baked into the brains of the culture's leadership! But we shan't get overly philosophical or critical of this; rather, let's explore it and use it when it suits our purpose. OK - back to the drill! 
 
 
 
