@@ -1,6 +1,7 @@
 # How Do I Connect an External Drive to a Raspberry Pi?
+#### (Served with a side of history and culture)
 
-#### And Why Would I Want to Do This?
+### And Why Would I Want to Do This?
     
     1. The Raspberry Pi 3B+ has 4 USB 2.0 ports, and 
     2. external drives can be useful for all sorts of things:
@@ -36,7 +37,7 @@ Your output may resemble mine (trimmed for brevity); you might see 16 "RAM Disks
     Sector size (logical/physical): 512 bytes / 4096 bytes
     I/O size (minimum/optimal): 4096 bytes / 4096 bytes
 
-And, if you're using an SD card, the listing will include at least the following device named `/dev/mmcblk0`. A device name refers to the entire  disk; in this case `/dev/mmcblk0` is the entire SD card. Device names are usually cryptic abbreviations such as: `/dev/sda`, `/dev/sdb`, or in this case `/dev/mmcblk0`. The "mmc" part of the device name refers to "multi media card", "sd" refers to "SCSI driver", which oddly includes USB drives. Both are ["block devices".](http://pineight.com/ds/block/) Yes... it's incongruent alphabet soup, but deal with it. 
+And, if you're using an SD card, the listing does not end here. It will include at least the following device named `/dev/mmcblk0` as shown below. A device name refers to the entire  disk; in this case `/dev/mmcblk0` is the entire SD card. Device names are usually cryptic abbreviations such as: `/dev/sda`, `/dev/sdb`, or in this case `/dev/mmcblk0`. The "mmc" part of the device name refers to "multi media card", "sd" refers to "SCSI driver", which oddly includes USB drives. Both are ["block devices".](http://pineight.com/ds/block/) Yes... it's incongruent alphabet soup, but deal with it. 
 
     Disk /dev/mmcblk0: 14.9 GiB, 15931539456 bytes, 31116288 sectors
     Units: sectors of 1 * 512 = 512 bytes
@@ -45,15 +46,15 @@ And, if you're using an SD card, the listing will include at least the following
     Disklabel type: dos
     Disk identifier: 0xbb8517b1
 
-And you'll likely also see the two partitions of the SD card (*p1 and *p2)
+And immediately following in this same listing, you'll likely also see the two partitions of the SD card (\*p1 and \*p2):
 
     Device         Boot Start      End  Sectors  Size Id Type
     /dev/mmcblk0p1       8192    93802    85611 41.8M  c W95 FAT32 (LBA)
     /dev/mmcblk0p2      98304 31116287 31017984 14.8G 83 Linux
 
-If you have other devices, they will also be listed. 
+If you have other devices connected, they will also be listed. 
 
-Now that we have seen the "complete" list produced by `fdisk -l`, we shall not use it again here. [`fdisk`](https://www.tecmint.com/fdisk-commands-to-manage-linux-disk-partitions/) is primarily a tool for formatting and partitioning block devices, and that's not what we're after here. As we've seen, in this case, `fdisk` produces a lot of output that we just don't need now. Nevertheless, it's instructuve to see what it does. Next, we will compare its output to another tool that pares the non-essential information, and gives us what we need for the task of mounting an external drive: `lsblk`. `lsblk` excludes RAM Disks as they are a special class (contrived actually) of block deivices.  There are numerous optional arguments for `lsblk` (`man lsblk` is your friend), and we'll use the `--fs` (filesystem) option:
+Now that we have seen the "complete" list produced by `fdisk -l`, we shall not use it again here. [`fdisk`](https://www.tecmint.com/fdisk-commands-to-manage-linux-disk-partitions/) is primarily a tool for formatting and partitioning block devices, and that's not what we're after here. As we've seen, in this case, `fdisk` produces a lot of output that we just don't need now. Nevertheless, it's instructuve to see what it does. Next, we will compare its output to another tool that pares the non-essential information, and gives us what we need for the task of provisioning an external drive that the RPi can use: `lsblk`. `lsblk` excludes RAM Disks as they are a special class (contrived actually) of block deivices.  There are numerous optional arguments for `lsblk` (`man lsblk` is your friend), and we'll use the `--fs` (filesystem) option:
 
     lsblk --fs
     
@@ -82,13 +83,17 @@ For the SanDisk 16GB thumb drive that I plugged into my RPi, the result is:
     ├─mmcblk0p1 vfat   boot        5DB0-971B                            /boot
     └─mmcblk0p2 ext4   rootfs      060b57a8-62bd-4d48-a471-0d28466d1fbb /
 
-Which tells us that this device listed as `sda` must be the SanDisk 16GB thumb drive because it wasn't listed when we ran `lsblk` previously! And this result is interesting for several reasons:
+Which tells us that this device listed as `sda` must be the SanDisk 16GB thumb drive because it wasn't listed when we ran `lsblk` previously! And this result is further interesting for several reasons:
 
 1. I had just formatted this USB drive in my Mac as `FAT32` (`VFAT` wasn't even an option), 
-2. I did not specifically request two partitions, yet two partitions were created, `sda1` and `sda2`, 
+2. I did not specifically request two partitions, yet two partitions were created: `sda1` and `sda2`, 
 3. the `MOUNTPOINT` column is empty for `sda` and its two partitions... why wasn't it `mount`ed?
 
 We must press on for the answers to these questions, and for our "enlightenment". 
+
+[Jack Sprat](https://en.wikipedia.org/wiki/Jack_Sprat) could eat no [FAT](https://en.wikipedia.org/wiki/File_Allocation_Table). Indeed! If one thinks of "fat" as having to do with wealth or abundance, then the "File Allocation Table" certainly fits in well with that thinking. There are numerous types, extensions and derivatives of this file system, some with subtle differences. [Design of the FAT file system is fluid](https://en.wikipedia.org/wiki/Design_of_the_FAT_file_system); so much so that the boundaries between the different flavors has blurred. And so that seems to be what has happened with Apple's implementation of `FAT32`... they have become like Jack Sprat, and will eat no more `FAT`! THe good news is that for most practical purposes, Apple's implementation (`FAT32`) works with the Linux (and therefore Raspbian) implementation (`vfat`). We'll not worry this point further, but the knowledge may have given us a wee bit more "power".
+
+What's with the "extra" partition? Why has the Mac's __Disk Utility__ app created a partition named `EFI`? I didn't (intentionally) ask for this! To answer, note there's a subtle clue in the `LABEL` column of the `lsblk` listing: `EFI`. Briefly, `EFI` stands for ["Extensible Firmware Interface"](https://en.wikipedia.org/wiki/EFI_system_partition). Its existence and its original design is a product of [Intel's laboratories](https://firmware.intel.com/learn/uefi/about-uefi). Since then, the __UEFI__ (now "Unified" :) specification has come under the control of the UEFI Forum - a group of the computer industry's "heavy hitters", which includes Apple! 
 
 So I re-formatted it again in my Mac as `exFAT`, re-inserted it into the RPi, and ran `lsblk --fs` again with this result: 
 
@@ -100,7 +105,7 @@ So I re-formatted it again in my Mac as `exFAT`, re-inserted it into the RPi, an
     ├─mmcblk0p1 vfat   boot        5DB0-971B                            /boot
     └─mmcblk0p2 ext4   rootfs      060b57a8-62bd-4d48-a471-0d28466d1fbb /
 
-Which is even more interesting! Note that MacOS apparently re-formatted the `sda2` partition from `vfat`to `exFAT`, but not `sda1`; it remains formatted as `vfat`. Which probably means that Mac OS (High Sierra in this case) and Raspbian "stretch" may have a minor disagreement over the various [flavors of FAT](https://en.wikipedia.org/wiki/File_Allocation_Table)
+Which is even more interesting! Note that MacOS apparently re-formatted the `sda2` partition from `vfat`to `exFAT`, but not `sda1`; it remains formatted as `vfat`. 
 
 The other thing to notice is that the USB drive (`sda`) has two (2) partitions. Note also that `sda1` has a label of `EFI` assigned, and it didn't change after re-formatting. This [EFI partition](https://en.wikipedia.org/wiki/EFI_system_partition) was created only because the "scheme" selected in Mac's __Disk Utility__ was "GUID Partition Map"
 This is potentially significant because there have been documented [issues wherein older versions of Raspbian (i.e. "wheezy") were unable to read GPT (GUID Partition Table)](http://www.zayblog.com/computer-and-it/2013/07/22/mounting-gpt-partitions-on-raspberry-pi/) drives. 
