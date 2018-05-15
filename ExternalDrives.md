@@ -94,7 +94,7 @@ We must press on for the answers to these questions, and for our enlightenment.
 
 What's with the "extra" partition? Why has the Mac's __Disk Utility__ app created a partition named `EFI`? I didn't (intentionally) ask for this! To answer, note there's a subtle clue in the `LABEL` column of the `lsblk` listing: `EFI`. Briefly, `EFI` stands for ["Extensible Firmware Interface"](https://en.wikipedia.org/wiki/EFI_system_partition). Its existence and its original design is a product of [Intel's laboratories](https://firmware.intel.com/learn/uefi/about-uefi). Since then, the __UEFI__ (now "Unified" :) specification has come under the control of the __UEFI Forum__ - a group of the computer industry's "heavy hitters", which includes Apple! The hyperlinks here will provide hours of reading pleasure, but the answer to this question is found in the __Disk Utility__ interface: Once the __Show All Devices__ option is selected, a __Scheme__ for `MBR` may be selected. `MBR` does not include an EFI partition 
 
-![Disk Utility: Show All Devices](pix/DiskUtil-ShowVol.png =320x"Disk Utility dialog with Show All Devices option checked")
+![Disk Utility: Show All Devices](pix/DiskUtil-ShowVol.png =320x)
 
 So I re-formatted it again in my Mac as `exFAT`, re-inserted it into the RPi, and ran `lsblk --fs` again with this result: 
 
