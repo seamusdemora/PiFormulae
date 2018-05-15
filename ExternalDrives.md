@@ -1,5 +1,5 @@
 # How Do I Connect an External Drive to a Raspberry Pi?
-####              (Served with sides of history, philosophy, humour and culture)
+####  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (Served with sides of history, philosophy, humour and culture)
 
 ### And Why Would I Want to Do This?
     
