@@ -57,7 +57,7 @@ And you'll likely also see the two partitions of the SD card (*p1 and *p2)
 
 If you have other devices, they will also be listed. 
 
-Now that we have seen the "complete" list produced by `fdisk -l`, we shall not use it again here. [`fdisk`](https://www.tecmint.com/fdisk-commands-to-manage-linux-disk-partitions/) is primarily a tool for formatting and partitioning block devices, and that's not what we're after here. As we've seen, in this case, `fdisk` produces a lot of output that we just don't need now. Nevertheless, it's instructuve to see what it does, and to compare its output to another tool that gives us the essential information we need for the task of mounting an external drive: `lsblk`. `lsblk` excludes RAM Disks as they are a special class (contrived actually) of block deivices.  There are numerous optional arguments for `lsblk`, and we'll use the `--fs` (filesystem) option:
+Now that we have seen the "complete" list produced by `fdisk -l`, we shall not use it again here. [`fdisk`](https://www.tecmint.com/fdisk-commands-to-manage-linux-disk-partitions/) is primarily a tool for formatting and partitioning block devices, and that's not what we're after here. As we've seen, in this case, `fdisk` produces a lot of output that we just don't need now. Nevertheless, it's instructuve to see what it does. Next, we will compare its output to another tool that pares the non-essential information, and gives us what we need for the task of mounting an external drive: `lsblk`. `lsblk` excludes RAM Disks as they are a special class (contrived actually) of block deivices.  There are numerous optional arguments for `lsblk` (`man lsblk` is your friend), and we'll use the `--fs` (filesystem) option:
 
     lsblk --fs
     
@@ -68,11 +68,11 @@ Which yields (at least in Raspbian "stretch"):
     ├─mmcblk0p1 vfat   boot   5DB0-971B                            /boot
     └─mmcblk0p2 ext4   rootfs 060b57a8-62bd-4d48-a471-0d28466d1fbb /
     
-A nice, concise presentation! Here we see again the SD card (mmc), and its two partitions `/` and `/boot`. And we note that `/boot` is reported as formatted in `vfat` (a [variant on FAT](https://stackoverflow.com/questions/11928982/what-is-the-difference-between-vfat-and-fat32-file-systems)), which we know to be true. Having established our baseline, we'll move on to the next step. 
+A nice, concise presentation in "tree" format! Here we see again the SD card (mmc), and its two partitions `/` and `/boot`. And we note that `/boot` is reported as formatted in `vfat` (a [variant on FAT](https://stackoverflow.com/questions/11928982/what-is-the-difference-between-vfat-and-fat32-file-systems)), which we know to be true. Having established our baseline, we'll move on to the next step. 
 
 ## 2. Plug a USB drive into one of the USB connectors on the Raspberry Pi
 
-After the USB drive is plugged in to the RPi, use `lsblk` again:
+After the USB drive is plugged in to the RPi, run `lsblk` again at the RPi command line:
 
     lsblk --fs
     
@@ -86,7 +86,12 @@ For the SanDisk 16GB thumb drive that I plugged into my RPi, the result is:
     ├─mmcblk0p1 vfat   boot        5DB0-971B                            /boot
     └─mmcblk0p2 ext4   rootfs      060b57a8-62bd-4d48-a471-0d28466d1fbb /
 
-Which is an interesting result, as I had just formatted this USB drive in my Mac as `FAT32` (`VFAT` wasn't even an option). So I re-formatted it again in my Mac as `exFAT`, re-inserted, and ran `lsblk --fs` again with this result: 
+Which tells us that this device listed as `sda` must be the SanDisk 16GB thumb drive because it wasn't listed when we ran `lsblk` previously! And this result is interesting for at least two reasons:
+
+1. I had just formatted this USB drive in my Mac as `FAT32` (`VFAT` wasn't even an option), and
+2. I did not specifically request two partitions, yet two partitions were created, `sda1` and `sda2`
+
+So I re-formatted it again in my Mac as `exFAT`, re-inserted it into the RPi, and ran `lsblk --fs` again with this result: 
 
     NAME        FSTYPE LABEL       UUID                                 MOUNTPOINT
     sda                                                                 
@@ -96,8 +101,7 @@ Which is an interesting result, as I had just formatted this USB drive in my Mac
     ├─mmcblk0p1 vfat   boot        5DB0-971B                            /boot
     └─mmcblk0p2 ext4   rootfs      060b57a8-62bd-4d48-a471-0d28466d1fbb /
 
-
-Which probably means that Mac OS (High Sierra in this case) and Raspbian "stretch" may have a minor disagreement over the various [flavors of FAT](https://en.wikipedia.org/wiki/File_Allocation_Table)
+Which is even more interesting! Note that MacOS apparently re-formatted the `sda2` partition from `vfat`to `exFAT`, but not `sda1`; it remains formatted as `vfat`. Which probably means that Mac OS (High Sierra in this case) and Raspbian "stretch" may have a minor disagreement over the various [flavors of FAT](https://en.wikipedia.org/wiki/File_Allocation_Table)
 
 The other thing to notice is that the USB drive (`sda`) has two (2) partitions. Note also that `sda1` has a label of `EFI` assigned, and it didn't change after re-formatting. This [EFI partition](https://en.wikipedia.org/wiki/EFI_system_partition) was created only because the "scheme" selected in Mac's __Disk Utility__ was "GUID Partition Map"
 This is potentially significant because there have been documented [issues wherein older versions of Raspbian (i.e. "wheezy") were unable to read GPT (GUID Partition Table)](http://www.zayblog.com/computer-and-it/2013/07/22/mounting-gpt-partitions-on-raspberry-pi/) drives. 
