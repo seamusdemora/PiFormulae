@@ -96,7 +96,7 @@ What's with the "extra" partition? Why has the Mac's __Disk Utility__ app create
 
 | 1. Select "Show All Devices" | 2. Select MBR as Scheme option |
 | -------------------------- | -------------------------- |
-<img src="pix/DiskUtil-ShowVol.png" alt="Disk Utility dialog with Show All Devices option checked" width="520">|<img src="pix/DiskUtil-Scheme.png" alt="Disk Utility dialog with Scheme selection shown" width="520"> 
+<img src="pix/DiskUtil-ShowVol.png" alt="Disk Utility dialog with Show All Devices option checked" width="520">|<img src="pix/DiskUtil-Scheme2.png" alt="Disk Utility dialog with Scheme selection shown" width="520"> 
 
 Let's see if that holds up: 
 
