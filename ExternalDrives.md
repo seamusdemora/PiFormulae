@@ -68,7 +68,45 @@ Which yields (at least in Raspbian "stretch"):
     ├─mmcblk0p1 vfat   boot   5DB0-971B                            /boot
     └─mmcblk0p2 ext4   rootfs 060b57a8-62bd-4d48-a471-0d28466d1fbb /
     
-A nice, concise presentation! Here we see again the SD card (mmc), and its two partitions `/` and `/boot`. And we note that `/boot` is formatted as `vfat` (a [variant on FAT](https://stackoverflow.com/questions/11928982/what-is-the-difference-between-vfat-and-fat32-file-systems)), which we know to be true :)       
+A nice, concise presentation! Here we see again the SD card (mmc), and its two partitions `/` and `/boot`. And we note that `/boot` is reported as formatted in `vfat` (a [variant on FAT](https://stackoverflow.com/questions/11928982/what-is-the-difference-between-vfat-and-fat32-file-systems)), which we know to be true. Having established our baseline, we'll move on to the next step. 
+
+## 2. Plug a USB drive into one of the USB connectors on the Raspberry Pi
+
+After the USB drive is plugged in to the RPi, use `lsblk` again:
+
+    lsblk --fs
+    
+For the SanDisk 16GB thumb drive that I plugged into my RPi, the result is: 
+
+    NAME        FSTYPE LABEL       UUID                                 MOUNTPOINT
+    sda                                                                 
+    ├─sda1      vfat   EFI         67E3-17ED                            
+    └─sda2      vfat   SANDISK16GB 7366-16EF                            
+    mmcblk0                                                             
+    ├─mmcblk0p1 vfat   boot        5DB0-971B                            /boot
+    └─mmcblk0p2 ext4   rootfs      060b57a8-62bd-4d48-a471-0d28466d1fbb /
+
+Which is an interesting result, as I had just formatted this USB drive in my Mac as `FAT32` (`VFAT` wasn't even an option). So I re-formatted it again in my Mac as `exFAT`, re-inserted, and ran `lsblk --fs` again with this result: 
+
+    NAME        FSTYPE LABEL       UUID                                 MOUNTPOINT
+    sda                                                                 
+    ├─sda1      vfat   EFI         67E3-17ED                            
+    └─sda2      exfat  SANDISK16GB 5AFA-4B3E                            
+    mmcblk0                                                             
+    ├─mmcblk0p1 vfat   boot        5DB0-971B                            /boot
+    └─mmcblk0p2 ext4   rootfs      060b57a8-62bd-4d48-a471-0d28466d1fbb /
+
+
+Which probably means that Mac OS (High Sierra in this case) and Raspbian "stretch" may have a minor disagreement over the various [flavors of FAT](https://en.wikipedia.org/wiki/File_Allocation_Table)
+
+The other thing to notice is that the USB drive (`sda`) has two (2) partitions. Note also that `sda1` has a label of `EFI` assigned, and it didn't change after re-formatting. This [EFI partition](https://en.wikipedia.org/wiki/EFI_system_partition) was created only because the "scheme" selected in Mac's __Disk Utility__ was "GUID Partition Map"
+There have been documented [issues wherein older versions of Raspbian (i.e. "wheezy") were unable to read GPT (GUID Partition Table)](http://www.zayblog.com/computer-and-it/2013/07/22/mounting-gpt-partitions-on-raspberry-pi/) drives. 
+
+
+
+
+
+
 
 __NOTE: This paragraphis mostly trivial, so ignore it if you're not interested:__
 If you're wondering what the 16 instances of `Disk /dev/ram*:` are, they are called __"RAM Disks"__, and are [explained here](https://www.kernel.org/doc/Documentation/blockdev/ramdisk.txt). There's also a good [Wikipedia article that explains the purpose and function of RAM disks](https://en.wikipedia.org/wiki/RAM_drive). But you'll need to formulate your own theory as to why they're used rather extensively in Raspbian, because it's not documented. My theory is that there are two reasons they're used: 1) to reduce the number of write cycles to the SD card, and 2) improve performance by reducing disk i/o latency.  
