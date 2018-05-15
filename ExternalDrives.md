@@ -36,9 +36,7 @@ Your output may resemble mine (trimmed for brevity); you might see 16 "RAM Disks
     Sector size (logical/physical): 512 bytes / 4096 bytes
     I/O size (minimum/optimal): 4096 bytes / 4096 bytes
 
-If you're using an SD card, you'll see something similar to the following. The device name is usually `/dev/sda`, `/dev/sdb`, or in this case `/dev/mmcblk0`.  A device name refers to the entire  disk; in this case `/dev/mmcblk0` is the entire SD card.
-
-Note: "mmc" refers to "multi media card", "sd" refers to "SCSI driver", which oddly includes USB drives. Both are ["block devices".](http://pineight.com/ds/block/) Yes... it's incongruent alphabet soup, but deal with it. 
+And, if you're using an SD card, the listing will include at least the following device named `/dev/mmcblk0`. A device name refers to the entire  disk; in this case `/dev/mmcblk0` is the entire SD card. Device names are usually cryptic abbreviations such as: `/dev/sda`, `/dev/sdb`, or in this case `/dev/mmcblk0`. The "mmc" part of the device name refers to "multi media card", "sd" refers to "SCSI driver", which oddly includes USB drives. Both are ["block devices".](http://pineight.com/ds/block/) Yes... it's incongruent alphabet soup, but deal with it. 
 
     Disk /dev/mmcblk0: 14.9 GiB, 15931539456 bytes, 31116288 sectors
     Units: sectors of 1 * 512 = 512 bytes
