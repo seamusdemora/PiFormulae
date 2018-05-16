@@ -84,15 +84,17 @@ For the SanDisk 16GB thumb drive that I plugged into my RPi, the result is:
 
 Which tells us that this device listed as `sda` must be the SanDisk 16GB thumb drive because it wasn't listed when we ran `lsblk` previously! And this result is further interesting as it raises at least 3 questions:
 
-1. Why `vfat`? I had just formatted this USB drive in my Mac as `FAT32` (`VFAT` wasn't even an option), 
-2. I did not intentionally request two partitions, yet two partitions were created: `sda1` and `sda2`... Why?, 
-3. the `MOUNTPOINT` column is empty for `sda` and its two partitions... Why wasn't it `mount`ed?
+a. Why `vfat`? I had just formatted this USB drive in my Mac as `FAT32` (`VFAT` wasn't even an option), 
+b. I did not intentionally request two partitions, yet two partitions were created: `sda1` and `sda2`... Why?, 
+c. the `MOUNTPOINT` column is empty for `sda` and its two partitions... Why wasn't it `mount`ed?
 
 We must press on for the answers to these questions, and for our enlightenment. 
 
+### 2.a File systems and formats
 [Jack Sprat](https://en.wikipedia.org/wiki/Jack_Sprat) could eat no [`FAT`](https://en.wikipedia.org/wiki/File_Allocation_Table). Indeed! If one thinks of "fat" as having to do with wealth or abundance, then the "File Allocation Table" certainly fits in well with that thinking. There are numerous types, extensions and derivatives of this file system, some with subtle differences. [Design of the FAT file system is fluid](https://en.wikipedia.org/wiki/Design_of_the_FAT_file_system); so much so that the boundaries between the different flavors has blurred. And so that seems to be what has happened with Apple's implementation of `FAT32`... they have become like Jack Sprat, and will eat no more `FAT`! THe good news is that for most practical purposes, Apple's implementation (`FAT32`) works with the Linux (and therefore Raspbian) implementation (`vfat`). We'll not worry this point further, but the knowledge may have given us a wee bit more "power".
 
-What's with the "extra" partition? Why has the Mac's __Disk Utility__ app created a partition named `EFI`? I didn't (intentionally) ask for this! To answer, we'll use a subtle clue in the `LABEL` column of the `lsblk` listing: `EFI`. Briefly, `EFI` stands for ["Extensible Firmware Interface"](https://en.wikipedia.org/wiki/EFI_system_partition). Its existence and its original design is a product of [Intel's laboratories](https://firmware.intel.com/learn/uefi/about-uefi). Since then, the __UEFI__ (now "Unified" :) specification has come under the control of the __UEFI Forum__ - a group of the computer industry's "heavy hitters", which includes Apple! 
+### 2.b Partitions and their uses
+What's with the "extra" partition? Why has the Mac's __Disk Utility__ app created a partition `sda1`? I didn't (intentionally) ask for this! To answer, we'll use a subtle clue in the `LABEL` column of the `lsblk` listing for `sda1`: `EFI`. Briefly, `EFI` stands for ["Extensible Firmware Interface"](https://en.wikipedia.org/wiki/EFI_system_partition). Its existence and its original design is a product of [Intel's laboratories](https://firmware.intel.com/learn/uefi/about-uefi). Since then, the __UEFI__ (now "Unified" :) specification has come under the control of the __UEFI Forum__ - a group of the computer industry's "heavy hitters", which includes Apple! 
 
 The hyperlinks here will provide hours of reading pleasure, but the answer to the question is found in the __Disk Utility__ interface: When the default __View__ option of __Show Only Volumes__ is selected, the __GUID Partition Map__ Scheme is also selected. [GUID Partition Table `GPT`](https://en.wikipedia.org/wiki/GUID_Partition_Table) is a subset of the UEFI specifications, and so, in the interest of sanity I suppose, Apple has tied the selection of __Show Only Volumes__ to selection of the __GUID Partition Map__ Scheme by default, although the specifications for `GPT` don't strictly prohibit `MBR`. Once the __Show All Devices__ option is selected, a __Scheme__ for `MBR` may be selected (see __Disk Utility__ screenshots below). And since `MBR` does not include an EFI partition, we should be able to lose that partition by selecting the __Master Boot Record__ Scheme.  
 
@@ -110,14 +112,11 @@ Let's re-format the USB drive with the settings shown above, and see if that hol
     ├─mmcblk0p1 vfat   boot        5DB0-971B                            /boot
     └─mmcblk0p2 ext4   rootfs      060b57a8-62bd-4d48-a471-0d28466d1fbb /
 
-That looks like what I wanted: a single `exFAT` partition. But now that the `EFI` partition is gone, we could wonder, "What are we missing out on by not having this more modern scheme?" For this particular usage, the answer is, "Since I don't need to boot from this drive (nor do I have any boot files to write), I miss out on nothing at all." Additionally, in some older versions of Raspbian (e.g. "wheezy"), there have been documented [issues wherein Raspbian was unable to read GPT (GUID Partition Table)](http://www.zayblog.com/computer-and-it/2013/07/22/mounting-gpt-partitions-on-raspberry-pi/) drives.
-And finally, as a good "nerd trivia" question, we might ask, "Is this device now non-compliant with the __UEFI__ specifications?" What do you think the answer is? 
+That looks like what I wanted: a single `exFAT` partition. But now that the `EFI` partition is gone, we could wonder, "What are we missing out on by not having this more modern scheme?" For this particular usage, the answer is, "Since I don't need to boot from this drive (nor do I have any boot files to write), I miss out on nothing at all." Additionally, in some older versions of Raspbian (e.g. "wheezy"), there have been documented [issues wherein Raspbian was unable to read GPT](http://www.zayblog.com/computer-and-it/2013/07/22/mounting-gpt-partitions-on-raspberry-pi/) drives.
+And finally, as a good "nerd trivia" question we might ask, "Is this device now non-compliant with the __UEFI__ specifications?" What do you think the answer is? 
 
+### 2.c Mounting a drive - and why we do this
 
-
-
-The other thing to notice is that the USB drive (`sda`) has two (2) partitions. Note also that `sda1` has a label of `EFI` assigned, and it didn't change after re-formatting. This [EFI partition](https://en.wikipedia.org/wiki/EFI_system_partition) was created only because the "scheme" selected in Mac's __Disk Utility__ was "GUID Partition Map"
-This is potentially significant because there have been documented [issues wherein older versions of Raspbian (i.e. "wheezy") were unable to read GPT (GUID Partition Table)](http://www.zayblog.com/computer-and-it/2013/07/22/mounting-gpt-partitions-on-raspberry-pi/) drives. 
 
 Why doesn't the RPi (Raspbian actually) just `mount` this thumb drive when I insert it? Clearly I meant to use the damn thing when I plugged it into the RPi's USB port! And that's what my Mac (and Windoze PC) does when I plug in. Is the RPi just being obtuse? Well, no, it's not being obtuse... but the OS reflects a different [culture](https://en.wikipedia.org/wiki/Culture). It's a culture that was born at the dawn of the ["computer age"](https://en.wikipedia.org/wiki/Information_Age), and like most cultures, is resistant to change. If it helps, you can think of it as I do: there is a bit of [asceticism](https://en.wikipedia.org/wiki/Asceticism) baked into the brains of the culture's leadership! But we shan't get overly philosophical or critical of this; rather, let's explore it and use it when it suits our purpose. OK - back to the drill! 
 
