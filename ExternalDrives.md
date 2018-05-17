@@ -1,13 +1,17 @@
 # How Do I Connect an External Drive to a Raspberry Pi?
 ####  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (Served with sides of history, philosophy, humour and culture)
 
-### And Why Would I Want to Do This?
+### Why would I want to do this?
     
     1. The Raspberry Pi 3B+ has 4 USB 2.0 ports, and 
     2. external drives can be useful for all sorts of things, and thumb drives are cheap:
         * local backup of RPi files, or a 'disk image' of the entire SD card
         * file sharing with your Mac, PC or another RPi 
         * reduce wear on your SD card 
+
+### Why all of these instructions? On my Mac, I plug the drive in, and it just works! 
+
+That's a very good question. Unfortunately, the answer isn't straightforward. In fact, the answer may come down to ["cultural differences".](http://www.analytictech.com/mb021/cultural.htm). This could mean that there is no one __right way__ to do something, and the __best way__ depends on your cultural orientation. For example, in comparing the drive-mounting processes of most __\*nix__ systems (which includes Raspbian) against that for a PC or Mac, I feel provide no real advantage to offset, or "pay for", the additional time and effort equired to accomplish the same thing on a PC or Mac. Efficiency experts would argue that is wasteful, and shouldn't be done. In other words, it requires more time and effort to mount this external drive in Raspbian (a Linux distribution)
 
 Since I deploy my RPi's in headless mode, and I'm a Mac user, the approach on this page reflects that. Another decision I've made that determines some elements of the approach here is my choice to use the `exFAT` file system on external drives connected to the RPi. I've chosen `exFAT` for the simple reasons that: a) it's supported by Linux, MacOS and Windows, and b) it doesn't have the limits on file size that `FAT` & `FAT32` do. If you want to use another filesystem, [@wjglenn](https://twitter.com/wjglenn) has written a [good article in How-To Geek reviewing the tradeoffs between the most widely-used filesystems](https://www.howtogeek.com/73178/what-file-system-should-i-use-for-my-usb-drive/) wherein he recommends with sound rationale using `FAT32`. In any case, if you're on board with all of that, let's get into the details: 
 
