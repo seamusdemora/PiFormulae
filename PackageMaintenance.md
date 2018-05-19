@@ -38,7 +38,7 @@ NOTE: This recipe augments [one at the raspberrypi.org website on the same subje
 
 
 
--------------  WORK IN PROCESS; PLEASE IGNORE (or not - up to you!) -----------------
+__-------------  WORK IN PROCESS; PLEASE IGNORE (or not - up to you!) -----------------__
 
 <!DOCTYPE html>
 <html>
