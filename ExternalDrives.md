@@ -177,7 +177,7 @@ Still no joy! [Googling the error yields this bad news](https://www.raspberrypi.
     pi@raspberrypi3b:~ $ sudo mount /dev/sda1 /home/pi/mntThumbDrv
     FUSE exfat 1.2.5
 
-Which [smells like nirvana](https://www.youtube.com/watch?v=FklUAoZ6KxY)! Persistence does pay off it seems. Before we move forward, let's verify we've got what we think we have, and we also need some additional information before we add this to the `/etc/fstab` file: 
+Which [smells like nirvana](https://www.youtube.com/watch?v=FklUAoZ6KxY)! We have just mounted our external USB drive, so persistence does pay off it seems. Before we move forward, let's verify we've got what we think we have, and we also need some additional information before we add this to the `/etc/fstab` file: 
 
     pi@raspberrypi3b:~ $ touch testfile.txt
     pi@raspberrypi3b:~ $ echo "this is a test" > testfile.txt
