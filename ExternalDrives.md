@@ -145,7 +145,7 @@ That done, let's consider our usage question above. Many will elect the 'routine
     pi@raspberrypi3b:~ $ sudo mount /dev/sda1 /home/pi/mntThumbDrv
     mount: unknown filesystem type 'exfat'
 
-Uh-oh... wtfo? We've encountered an `unknown filesystem` error. Looks like Raspbian 'stretch' is telling us there's no support for the `exfat` file system. ANd so it seems we must take a detour on the \*nix information superhighway :)  But surely there's support for `exfat` in a modern system like this one. Let's search the `apt` repository to check: 
+Uh-oh... wtfo? We've encountered an `unknown filesystem` error. Looks like Raspbian 'stretch' is telling us there's no support for the `exfat` file system. It seems we must take a detour on the \*nix information superhighway :)  But surely there's support for `exfat` in a modern system like this one. Let's search the `apt` repository to check: 
 
     pi@raspberrypi3b:~ $ apt-cache search exfat
     exfat-fuse - read and write exFAT driver for FUSE
