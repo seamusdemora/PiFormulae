@@ -177,7 +177,7 @@ Still no joy! [Googling the error yields this bad news](https://www.raspberrypi.
     pi@raspberrypi3b:~ $ sudo mount /dev/sda1 /home/pi/mntThumbDrv
     FUSE exfat 1.2.5
 
-Which [smells like nirvana](https://www.youtube.com/watch?v=FklUAoZ6KxY)! We have just mounted our external USB drive, so persistence does pay off it seems. Before we move forward, let's verify we've got what we think we have, and we also need some additional information before we add this to the `/etc/fstab` file: 
+Which [smells like nirvana](https://www.youtube.com/watch?v=FklUAoZ6KxY)! We have just mounted our external USB drive, so persistence does pay off. Before we move forward, let's verify we've got what we think we have. We also need some additional information to add this drive to the `/etc/fstab` file: 
 
     pi@raspberrypi3b:~ $ touch testfile.txt
     pi@raspberrypi3b:~ $ echo "this is a test" > testfile.txt
@@ -264,7 +264,7 @@ We have now seen that the `nofail` option in the `fstab` entry we crafted has do
     ├─mmcblk0p1 vfat   boot        5DB0-971B                            /boot
     └─mmcblk0p2 ext4   rootfs      060b57a8-62bd-4d48-a471-0d28466d1fbb /
 
-We have now seen that when we re-insert this USB thumb drive into our RPi, it will be "automatically" mounted. This new behavior will persist until we remove the `fstab` entry we created from `/etc/fstab`, or we change the `LABEL` on the USB drive. We're done! 
+We have now seen that when we re-insert this USB thumb drive into our RPi, it will be "automatically" mounted. This new behavior will persist until we remove the `fstab` entry we created from `/etc/fstab`, or we change the `LABEL` on the USB drive. That's it, we've completed the procedure and mounted a USB flash drive on a RPi. Congratulations!  
 
 FINAL NOTE: If you see an error in this "recipe", or you've got an idea to improve it, please fork this repository to your GitHub account, and once it's in your account, submit a "Pull Request" for the corrections or improvements you'd like to see. [Tom Hombergs has created a very good tutorial on how to do this](https://reflectoring.io/github-fork-and-pull/)
 
