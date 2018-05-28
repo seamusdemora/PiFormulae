@@ -266,7 +266,7 @@ We have now seen that the `nofail` option in the `fstab` entry we crafted has do
 
 We have now seen that when we re-insert this USB thumb drive into our RPi, it will be "automatically" mounted. This new behavior will persist until we remove the `fstab` entry we created from `/etc/fstab`, or we change the `LABEL` on the USB drive. That's it, we've completed the procedure and mounted a USB flash drive on a RPi. Congratulations!  
 
-If you need to share files on this external drive with your Mac, [follow this recipe to mount this same external drive from your Mac.](fileshare.md)
+If you need to share files on this external drive with your Mac, [follow this recipe to mount this same external drive from your Mac.](FileShare.md)
 
 FINAL NOTE: If you see an error in this "recipe", or you've got an idea to improve it, please fork this repository to your GitHub account, and once it's in your account, submit a "Pull Request" for the corrections or improvements you'd like to see. [Tom Hombergs has created a very good tutorial on how to do this](https://reflectoring.io/github-fork-and-pull/)
 
