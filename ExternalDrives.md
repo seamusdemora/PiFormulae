@@ -23,7 +23,7 @@ Since I deploy my RPi's in headless mode, and I'm a Mac user, the approach on th
 Before we plug our external drive into the RPi, let's check to learn what drives are already connected; we know there's (probably) at least one. Having a list of connected drives will provide a reliable baseline for comparison in the next step. 
 
     pi@raspberrypi3b:~ $ sudo fdisk --list
-    
+
 Your output may resemble mine (trimmed for brevity); you might see 16 "RAM Disks" (discussed below) listed in the output:    
     
     Disk /dev/ram0: 4 MiB, 4194304 bytes, 8192 sectors
@@ -37,7 +37,7 @@ Your output may resemble mine (trimmed for brevity); you might see 16 "RAM Disks
     I/O size (minimum/optimal): 4096 bytes / 4096 bytes
     
     ...  for /dev/ram2 -> /dev/ram15
-    
+
 
 If your RPi has an SD card, the listing continues as shown below. It will include at least one more device named `/dev/mmcblk0`. We should cover some semantics: A device name refers to the entire  disk; in this case `/dev/mmcblk0` is the entire SD card. Device names are usually cryptic abbreviations such as: `/dev/sda`, `/dev/sdb`, or in this case `/dev/mmcblk0`. The `/dev` identifies it as a device, and is followed by a name. The "mmc" part of the device name refers to "multi media card". As we shall see shortly, another common type of device is named "sd", which refers to "SCSI driver" - __not__ [Secure Digital](https://en.wikipedia.org/wiki/Secure_Digital). Oddly perhaps, `sd` device names are also used for USB drives; this, owing perhaps to culturally-biased decisions, or perhaps [this explanation is more accurate](https://en.wikipedia.org/wiki/SCSI_command). Following is the `fdisk` report on the SD card used in my RPi:
 
@@ -141,7 +141,7 @@ That done, let's consider our usage question above. Many will elect the 'routine
     mmcblk0                                                             
     ├─mmcblk0p1 vfat   boot        5DB0-971B                            /boot
     └─mmcblk0p2 ext4   rootfs      060b57a8-62bd-4d48-a471-0d28466d1fbb /
-
+    
     pi@raspberrypi3b:~ $ sudo mount /dev/sda1 /home/pi/mntThumbDrv
     mount: unknown filesystem type 'exfat'
 
@@ -266,7 +266,7 @@ We have now seen that the `nofail` option in the `fstab` entry we crafted has do
 
 We have now seen that when we re-insert this USB thumb drive into our RPi, it will be "automatically" mounted. This new behavior will persist until we remove the `fstab` entry we created from `/etc/fstab`, or we change the `LABEL` on the USB drive. That's it, we've completed the procedure and mounted a USB flash drive on a RPi. Congratulations!  
 
-If you need to share files on this external drive with your Mac, [follow this recipe to mount this same external drive from your Mac.](FileShare.md)
+If you wish to share files on this external drive with your Mac, [follow this recipe to mount this same external drive from your Mac.](FileShare.md)
 
 FINAL NOTE: If you see an error in this "recipe", or you've got an idea to improve it, please fork this repository to your GitHub account, and once it's in your account, submit a "Pull Request" for the corrections or improvements you'd like to see. [Tom Hombergs has created a very good tutorial on how to do this](https://reflectoring.io/github-fork-and-pull/)
 
