@@ -2,11 +2,11 @@
 
 ### Objective
 
-This "recipe" provides a method for sharing files over a local area network between a RPi and a Mac. It assumes that the files (and folders) to be shared are all on an `exFAT`-formatted partition on an external drive that is mounted on the RPi ([see recipe for mounting drive](ExternalDrives.md)). I use [Samba](https://www.samba.org/) for the file server here because I feel it is the best option for sharing an `exFAT` partition with a Mac. Some may disagree. You should do your research, and choose the approach that works for you. 
+This "recipe" provides a method for sharing files over a local area network between a RPi and a Mac. It assumes that the files (and folders) to be shared are all on an `exFAT`-formatted partition on an external drive that is mounted on the RPi ([see recipe for mounting drive](ExternalDrives.md)). I use [Samba](https://www.samba.org/) for the file server here because I feel it's the best option for sharing an `exFAT` partition with a Mac. Some may disagree. You should do your research, and choose the approach that works for you. 
 
 ### Why Would I Do This? 
 
-Answer: __convenience__. You could unmount the USB flash drive mounted on your RPi, remove it, and plug it into your Mac or Windows PC. If your RPi is on the other side of your desk, perhaps that's not much convenience. If it's upstairs, or in the garage, or in another country, the savings are more substantial. And it's not difficult to export a share using Samba. If you're ready, we'll get started: 
+Answer: __convenience__. You could unmount the USB flash drive mounted on your RPi, remove it, and plug it into your Mac or Windows PC. If your RPi is on the other side of your desk, perhaps that's not much convenience. If it's upstairs, or in the garage, or in another country, the convenience is more substantial. And it's not difficult to export a share using Samba. If you're ready, we'll get started: 
 
 ## 1. Check the `fstab` entry for the external drive
 
@@ -61,7 +61,7 @@ The default `smb.conf` provided with Raspbian contains a number of settings that
 1. I've prepared and tested [a minimal `smb.conf` file that you can download here](seamus_smb.conf) for use on your system. All I can promise is that it works on my RPi and Mac as of when this was written. Note that the `Domains` and `Misc` sections in this file are completely "commented out". I considered removing these sections, but left them in after considering the fact that some Windows users might follow this recipe  :0    
 2. The Samba project has a current configuration guide to [Setting up Samba as a Standalone Server](https://wiki.samba.org/index.php/Setting_up_Samba_as_a_Standalone_Server). You should consult this guide if you want to work through the configuration in a proper way. 
 
-I will mention one other item from the configuration file: the `[homes]` directive under the `Share Definitions` section implements a feature that you may wish to use. __If this is enabled, `/home/pi` is exported as a Samba share!__ Of course this only works if you log in as the `pi` user (and we do here), but it may be a useful feature for some. I've left it out of my configuration as I'm not sure of the security implications, and I wouldn't use it often. You may enable it by uncommenting the appropriate lines in `smb.conf`. 
+I will mention one other item from the configuration file: the `[homes]` directive under the `Share Definitions` section implements a feature that you may find useful. __If enabled, `/home/pi` is exported as a Samba share!__ Of course this only works if you log in as the `pi` user (as we do here). I've not enabled it as I'm not sure of the security implications, and wouldn't use it often. You may enable it by uncommenting the appropriate lines in `smb.conf`, beginning with the `[homes]` directive. 
 
 Complete any edits you wish to make in `smb.conf`, verify that the backup file you created earlier is still in place, and save the edited file to `etc/samba/smb.conf`
 
