@@ -23,3 +23,5 @@ DISCLAIMER: As typical, this page will be a placeholder for half-baked recipes a
 * [using an OpenWRT wifif router (GL-iNet AR150) as a __SDR Server__](https://www.rtl-sdr.com/creating-a-wireless-sdr-receiver-with-a-mini-wifi-router/)
 
 * [a google search on`hackrf one raspberry pi`](https://www.google.co.uk/search?hl=en&as_q=hackrf+one+raspberry+pi&as_epq=&as_oq=&as_eq=&as_nlo=&as_nhi=&lr=&cr=&as_qdr=y&as_sitesearch=&as_occt=any&safe=images&as_filetype=&as_rights=)
+
+S<sub>in</sub> (dBm) = NF (dB) + KTBRF (dBm) + Eb/No (dB) - PG (dB)
