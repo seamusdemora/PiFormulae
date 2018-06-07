@@ -36,6 +36,10 @@ Opinions vary on the details, but in general: (note: `sudo` needed for all comma
 
 NOTE: This recipe augments [one at the raspberrypi.org website on the same subject](https://www.raspberrypi.org/documentation/raspbian/updating.md), and from [this source for linux tutorials](https://www.howtoforge.com/tutorial/how-to-upgrade-debian-8-jessie-to-9-stretch/)
 
+## Installing and Removing Packages using `apt` 
+
+## Frequently Useful Commands in Aptitude
+
 
 
 __-------------  WORK IN PROCESS; PLEASE IGNORE (or not - up to you!) -----------------__
