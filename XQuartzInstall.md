@@ -54,7 +54,11 @@ pi@raspberrypi3b:~ $ idle3 &
 ```   
    Once the `XWindows` preliminaries are satisfied, you should be rewarded with the following: 
 
+<img src="./pix/IDLE_PyEditor.png" title="IDLE editor Xterm window on Mac OS" width="650px"/> 
 
+   And if you select `` from the menu, another window containing the Python shell will open. Note the syntax coloring and help text displayed during command entry: 
+
+<img src="./pix/IDLE_PyShell.png" title="IDLE Python shell Xterm window on Mac OS" width="650px"/>
 
 
 verify that the file ~/.Xauthority is present (https://www.raspberrypi.org/forums/viewtopic.php?t=161412) (https://www.raspberrypi.org/documentation/remote-access/ssh/unix.md)
