@@ -81,4 +81,6 @@ http://picamera.readthedocs.io/en/release-1.0/quickstart.html
 
 raspistill -o image003.jpg
 
-[comment]: <> (![XQuartz Screenshot](./pix/Quartz_xterm.png "XQuartz Xterm window on Mac OS"))
+<!---
+![XQuartz Screenshot](./pix/Quartz_xterm.png "XQuartz Xterm window on Mac OS")) 
+-->
