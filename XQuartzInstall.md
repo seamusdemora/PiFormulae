@@ -11,7 +11,7 @@ Installation and setup is easy:
 ### 2. Start XQuartz 
    From the Launchpad, or `open -a XQuartz` from `bash`. This will verify that XQuartz has been installed properly. You should see an Xterm window on your desktop as shown below: 
 
-<img src="./pix/Quartz_xterm.png" alt="drawing" width="200px"/>
+<img src="./pix/Quartz_xterm.png" alt="XQuartz Xterm window on Mac OS" width="650px"/>
    Dismiss this window before proceeding (enter `exit` at the command prompt in the Xterm window)
     
 ### 3. Open SSH connection to RPi: 
