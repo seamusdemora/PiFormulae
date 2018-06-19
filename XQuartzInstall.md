@@ -56,7 +56,7 @@ pi@raspberrypi3b:~ $ idle3 &
 
 <img src="./pix/IDLE_PyEditor.png" title="IDLE editor Xterm window on Mac OS" width="650px"/> 
 
-   And if you select `` from the menu, another window containing the Python shell will open. Note the syntax coloring and help text displayed during command entry: 
+   And if you select `Run, Python Shell` from the menu, another window containing the Python shell will open. Note the syntax coloring and help text displayed during command entry: 
 
 <img src="./pix/IDLE_PyShell.png" title="IDLE Python shell Xterm window on Mac OS" width="650px"/>
 
