@@ -10,7 +10,7 @@ Installation and setup is easy:
 
     This will verify that XQuartz has been installed properly. You should see an Xterm window on your desktop as shown below: 
 
-![XQuartz Screenshot](pix/Quartz_xterm.jpg "XQuartz Xterm window on Mac OS")
+![XQuartz Screenshot](pix/Quartz_xterm.png "XQuartz Xterm window on Mac OS")
 
 `ssh -Y pi@raspberrypi123.local`   NOTE: the `-Y` option enables X11 forwarding __(E-S-S-E-N-T-I-A-L-!-!-!)__
 
