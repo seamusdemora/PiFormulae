@@ -48,6 +48,14 @@ pi@raspberrypi3b:~ $ sudo apt-get install idle3
 pi@raspberrypi3b:~ $ ls -la | grep Xauthority
 -rw-------  1 pi   pi        177 Jun 19 11:11 .Xauthority
 ```
+   You may wish to run `idle3` in the background to keep your terminal window available for other chores: 
+```   
+pi@raspberrypi3b:~ $ idle3 &   
+```   
+   Once the `XWindows` preliminaries are satisfied, you should be rewarded with the following: 
+
+
+
 
 verify that the file ~/.Xauthority is present (https://www.raspberrypi.org/forums/viewtopic.php?t=161412) (https://www.raspberrypi.org/documentation/remote-access/ssh/unix.md)
 
