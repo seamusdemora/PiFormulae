@@ -13,7 +13,7 @@ Installation and setup is easy:
 
 ![XQuartz Screenshot](pix/Quartz_xterm.png "XQuartz Xterm window on Mac OS")
 
-    Dismiss this window (enter `exit` at the command prompt in the Xterm window)
+    Dismiss this window before proceeding (enter `exit` at the command prompt in the Xterm window)
     
 3. From the Mac's `terminal` app, initiate a Secure Shell connection to the RPi with the X11 forwarding option: `-Y`
 
