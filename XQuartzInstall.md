@@ -60,6 +60,7 @@ pi@raspberrypi3b:~ $ idle3 &
 
 <img src="./pix/IDLE_PyShell.png" title="IDLE Python shell Xterm window on Mac OS" width="650px"/>
 
+### C'est finis 
 So - that's all for now. You should have a working IDE that you can use remotely for Python development. And since the code and the IDE execute on the target RPi, you'll need not worry about surprises when you relocate your code from a foreign development environment. 
 
 <!--- 
