@@ -42,7 +42,7 @@ pi@raspberrypi3b:~ $ sudo apt-get install idle3
 ```
 
 ### 5. Start `idle3` on RPi:
-   Note that this may not be ["silky smooth"](https://www.raspberrypi.org/forums/viewtopic.php?t=161412); that is, it may not work the first time you start `idle3`. If it doesn't, simply `exit()` at the `idle3 prompt >>>`. Then, verify that the file `~/.Xauthority` is now present: 
+   Note that this may not be ["silky smooth"](https://www.raspberrypi.org/forums/viewtopic.php?t=161412); that is, it may not work the first time you start `idle3`. If it doesn't, simply exit or `Control-C` if things are hung in the shell. Then, verify that the file `~/.Xauthority` is now present in your RPi home directory: 
 
 ```
 pi@raspberrypi3b:~ $ ls -la | grep Xauthority
