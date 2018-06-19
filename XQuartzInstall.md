@@ -18,10 +18,14 @@ Installation and setup is easy:
    From the Mac's `terminal` app, initiate a Secure Shell connection to the RPi with the X11 forwarding option: `-Y` as follows:
 
 ```
-ssh -Y pi@raspberrypi123.local 
+ssh -Y pi@raspberrypi.local 
+  -- OR -- 
+ssh -Y pi@192.168.1.101
 ```
 
    NOTE: the `-Y` option enables X11 forwarding over SSH, and is **ESSENTIAL**
+
+### 4. Verify that `idle3` is installed (or install it) 
 
 verify that the file ~/.Xauthority is present (https://www.raspberrypi.org/forums/viewtopic.php?t=161412) (https://www.raspberrypi.org/documentation/remote-access/ssh/unix.md)
 
