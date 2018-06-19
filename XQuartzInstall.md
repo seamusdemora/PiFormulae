@@ -27,6 +27,20 @@ ssh -Y pi@192.168.1.101
 
 ### 4. Verify that `idle3` is installed (or install it) 
 
+```
+pi@raspberrypi3b:~ $ apt-mark showmanual | grep idle 
+**idle3**
+
+  -- If idle3 isn't listed, install it as follows: 
+
+pi@raspberrypi3b:~ $ sudo apt-get update
+   ... (status of update)
+pi@raspberrypi3b:~ $ sudo apt-get upgrade
+   ... (status of upgrade)
+pi@raspberrypi3b:~ $ sudo apt-get install idle3
+
+```
+
 verify that the file ~/.Xauthority is present (https://www.raspberrypi.org/forums/viewtopic.php?t=161412) (https://www.raspberrypi.org/documentation/remote-access/ssh/unix.md)
 
 sudo raspi-config [enable camera]
