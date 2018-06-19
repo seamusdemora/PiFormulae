@@ -52,14 +52,15 @@ pi@raspberrypi3b:~ $ ls -la | grep Xauthority
 ```   
 pi@raspberrypi3b:~ $ idle3 &   
 ```   
-   Once the `XWindows` preliminaries are satisfied, you should be rewarded with the following: 
+   Once the `XWindows` preliminaries are satisfied, you should be rewarded with the IDLE Editor window as follows: 
 
 <img src="./pix/IDLE_PyEditor.png" title="IDLE editor Xterm window on Mac OS" width="650px"/> 
 
-   And if you select `Run, Python Shell` from the menu, another window containing the Python shell will open. Note the syntax coloring and help text displayed during command entry: 
+   And if you select `Run, Python Shell` from the editor menu, another window containing the Python shell will open. Note the syntax coloring and help text displayed during command entry: 
 
 <img src="./pix/IDLE_PyShell.png" title="IDLE Python shell Xterm window on Mac OS" width="650px"/>
 
+So - that's all for now. You should have a working IDE that you can use remotely for Python development. And since the code and the IDE execute on the target RPi, you'll need not worry about surprises when you relocate your code from a foreign development environment. 
 
 <!--- 
 
