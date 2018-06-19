@@ -61,7 +61,9 @@ pi@raspberrypi3b:~ $ idle3 &
 <img src="./pix/IDLE_PyShell.png" title="IDLE Python shell Xterm window on Mac OS" width="650px"/>
 
 
-verify that the file ~/.Xauthority is present (https://www.raspberrypi.org/forums/viewtopic.php?t=161412) (https://www.raspberrypi.org/documentation/remote-access/ssh/unix.md)
+<!--- 
+
+## TO BE CONTINUED
 
 sudo raspi-config [enable camera]
 
@@ -77,9 +79,8 @@ WTF,O???
 
 How do I see the pics?
 
-## TO BE CONTINUED
+verify that the file ~/.Xauthority is present (https://www.raspberrypi.org/forums/viewtopic.php?t=161412) (https://www.raspberrypi.org/documentation/remote-access/ssh/unix.md)
 
-<!---
 #!/usr/bin/python
 
 http://picamera.readthedocs.io/en/release-1.0/quickstart.html
