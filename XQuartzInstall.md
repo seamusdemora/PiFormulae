@@ -4,17 +4,18 @@ There are several ways to approach development of Python code on a Raspberry Pi 
 ## Installation and Setup:
 Installation and setup is easy:
 
-### 1. ### Download & install [XQuartz](https://www.xquartz.org/). 
+### 1. Download & install [XQuartz](https://www.xquartz.org/). 
 
     The current version as of this writing is 2.7.11, and it does run on Mac OS High Sierra (10.13.5). 
 
-2. ### Start XQuartz 
+### 2. Start XQuartz 
     From the Launchpad, or `open -a XQuartz` from `bash`. This will verify that XQuartz has been installed properly. You should see an Xterm window on your desktop as shown below: 
 
 ![XQuartz Screenshot](pix/Quartz_xterm.png "XQuartz Xterm window on Mac OS")
     Dismiss this window before proceeding (enter `exit` at the command prompt in the Xterm window)
     
-3. From the Mac's `terminal` app, initiate a Secure Shell connection to the RPi with the X11 forwarding option: `-Y`
+### 3. Open SSH connection to RPi: 
+    From the Mac's `terminal` app, initiate a Secure Shell connection to the RPi with the X11 forwarding option: `-Y` as follows:
 
 ```
 ssh -Y pi@raspberrypi123.local 
