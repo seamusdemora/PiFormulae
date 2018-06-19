@@ -73,6 +73,9 @@ WTF,O???
 
 How do I see the pics?
 
+## TO BE CONTINUED
+
+<!---
 #!/usr/bin/python
 
 http://picamera.readthedocs.io/en/release-1.0/quickstart.html
@@ -81,6 +84,5 @@ http://picamera.readthedocs.io/en/release-1.0/quickstart.html
 
 raspistill -o image003.jpg
 
-<!---
 ![XQuartz Screenshot](./pix/Quartz_xterm.png "XQuartz Xterm window on Mac OS")) 
 -->
