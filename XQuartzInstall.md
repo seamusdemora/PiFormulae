@@ -25,11 +25,11 @@ ssh -Y pi@192.168.1.101
 
    NOTE: the `-Y` option enables X11 forwarding over SSH, and is **ESSENTIAL**
 
-### 4. Verify that `idle3` is installed (or install it) 
+### 4. Verify that `idle3` is installed (or install it) on RPi
 
 ```
 pi@raspberrypi3b:~ $ apt-mark showmanual | grep idle 
-**idle3**
+idle3
 
   -- If idle3 isn't listed, install it as follows: 
 
@@ -39,6 +39,14 @@ pi@raspberrypi3b:~ $ sudo apt-get upgrade
    ... (status of upgrade)
 pi@raspberrypi3b:~ $ sudo apt-get install idle3
 
+```
+
+### 5. Start `idle3` on RPi:
+   Note that this may not be ["silky smooth"](https://www.raspberrypi.org/forums/viewtopic.php?t=161412); that is, it may not work the first time you start `idle3`. If it doesn't, simply `exit()` at the `idle3 prompt >>>`. Then, verify that the file `~/.Xauthority` is now present: 
+
+```
+pi@raspberrypi3b:~ $ ls -la | grep Xauthority
+-rw-------  1 pi   pi        177 Jun 19 11:11 .Xauthority
 ```
 
 verify that the file ~/.Xauthority is present (https://www.raspberrypi.org/forums/viewtopic.php?t=161412) (https://www.raspberrypi.org/documentation/remote-access/ssh/unix.md)
