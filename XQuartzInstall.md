@@ -8,7 +8,8 @@ Installation and setup is easy:
 
     The current version as of this writing is 2.7.11, and it does run on Mac OS High Sierra (10.13.5). 
 
-2. Start XQuartz (from the Launchpad, or `open -a XQuartz` from `bash`) 
+2. #### Start XQuartz 
+    From the Launchpad, or `open -a XQuartz` from `bash`) 
 
     This will verify that XQuartz has been installed properly. You should see an Xterm window on your desktop as shown below: 
 
