@@ -4,11 +4,11 @@ There are several ways to approach development of Python code on a Raspberry Pi 
 ## Installation and Setup:
 Installation and setup is easy:
 
-1. #### Download & install [XQuartz](https://www.xquartz.org/). 
+### 1. ### Download & install [XQuartz](https://www.xquartz.org/). 
 
     The current version as of this writing is 2.7.11, and it does run on Mac OS High Sierra (10.13.5). 
 
-2. #### Start XQuartz 
+2. ### Start XQuartz 
     From the Launchpad, or `open -a XQuartz` from `bash`. This will verify that XQuartz has been installed properly. You should see an Xterm window on your desktop as shown below: 
 
 ![XQuartz Screenshot](pix/Quartz_xterm.png "XQuartz Xterm window on Mac OS")
