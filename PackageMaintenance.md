@@ -40,7 +40,7 @@ NOTE: This recipe augments [one at the raspberrypi.org website on the same subje
 
 ## Frequently Useful Commands in Aptitude
 
-
+<!---
 
 __-------------  WORK IN PROCESS; PLEASE IGNORE (or not - up to you!) -----------------__
 
@@ -116,3 +116,5 @@ table.minimalistBlack tfoot td {
 </table>
 </body>
 </html>
+
+-->
