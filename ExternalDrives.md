@@ -1,6 +1,6 @@
 # How To Connect an External Drive to Raspberry Pi?
 ### Objectives: 
-Following is a procedure to mount an external drive on a Raspberry Pi. I've added some background and context, rather than only list the steps in rote fashion. My aim here is to explain the steps required to execute this task under Raspbian. Another aim is to highlight stark differences between Mac OS and Linux, using Raspbian as a proxy for Linux. My hope is that this will make more sense than "copying and pasting" command lines into a terminal window. If you don't care about the explanations, ignore them; follow the steps inside the code blocks. 
+Following is a procedure to mount an external drive on a Raspberry Pi. I've added some background and context, rather than simply listing the steps in rote fashion. My aim here is to *explain* the steps required to execute this task under Raspbian. Another aim is to highlight stark differences between Mac OS and Linux, using Raspbian as a proxy for Linux. My hope is that this will be more useful than yet another "copy and paste tutorial" (*yacapat* ? :) that invites copying command lines from a blog into a terminal window without thinking about what they mean. And if you don't care about the explanations, ignore them; follow the steps inside the code blocks. 
 
 ### Why would I want to do connect an external drive?
 1. The Raspberry Pi 3B+ has 4 USB 2.0 ports, and 
