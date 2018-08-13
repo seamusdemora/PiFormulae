@@ -45,8 +45,9 @@ NOTE: This recipe augments [one at the raspberrypi.org website on the same subje
 > list available packages whose names contain the word or characters `XXXX`. For example if you're looking for a package, and you recall that its name contains the characters `priv`, then `apt-cache search priv` should list all matching packages in the repository for RPi.
 
 
-<body>
-<div id="scoped-content">   
+<html>
+<head>
+
 <style>
 table.minimalistBlack {
   width: 100%;
@@ -80,6 +81,9 @@ table.minimalistBlack tfoot td {
   font-size: 14px;
 }
 </style>
+</head>
+
+<body>
 <table class="minimalistBlack">
 <thead>
 <tr>
@@ -110,8 +114,8 @@ table.minimalistBlack tfoot td {
 </tr>
 </tbody>
 </table>
-</div> 
 </body>
+</html>
 
 
 
