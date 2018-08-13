@@ -42,7 +42,7 @@ NOTE: This recipe augments [one at the raspberrypi.org website on the same subje
 
 `apt-cache search XXXX`  
 
-list available packages whose names contain the word or characters `XXXX`. For example if you're looking for a package, and you recall that its name contains the characters `priv`, then `apt-cache search priv` should list all matching packages in the repository for RPi.
+> list available packages whose names contain the word or characters `XXXX`. For example if you're looking for a package, and you recall that its name contains the characters `priv`, then `apt-cache search priv` should list all matching packages in the repository for RPi.
 
 <!---
 
