@@ -68,17 +68,29 @@ NOTE: This recipe augments [one at the raspberrypi.org website on the same subje
 <td>check available space; `apt` doesn't!</td>
 </tr>
 <tr>
-<td>cell1_3</td>
-<td>cell2_3</td>
+<td><b>`sudo apt-get upgrade`,/b></td>
+<td>upgrade all installed packages to the latest version from the sources enumerated in  `/etc/apt/sources.list`, but under no circumstances are currently installed packages removed, or packages not already installed retrieved and installed. This is the "foolproof" version of an upgrade.</td>
 </tr>
 <tr>
-<td>cell1_4</td>
-<td>cell2_4</td>
+   <td><b>`sudo apt-get dist-upgrade`</b></td>
+<td>upgrade all installed packages to the latest version from the sources enumerated in  `/etc/apt/sources.list`. It will add & remove packages if necessary, and attempts to deal "intelligently" with changed dependencies. Exceptions may be declared in `apt_preferences(5)`.</td>
 </tr>
+<tr>
+   <td><b>`sudo apt-get clean`</b></td>
+<td>removes the cruft from `/var/cache/apt/archives` left by previous upgrades</td>
+</tr>
+<tr>
+   <td><b>`sudo reboot`</b></td>
+<td>when in doubt, or if "weird" things happen! [REFERENCE](https://www.raspberrypi.org/forums/viewtopic.php?t=184850)</td>
+</tr> 
 <tr>
 <td>cell1_5</td>
 <td>cell2_5</td>
 </tr>
+<tr>
+<td>cell1_5</td>
+<td>cell2_5</td>
+</tr>   
 </tbody>
 </table>
 </body>
