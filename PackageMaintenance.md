@@ -60,8 +60,8 @@ NOTE: This recipe augments [one at the raspberrypi.org website on the same subje
 </thead>
 <tbody>
 <tr>
-<td>cell1_1</td>
-<td>cell2_1</td>
+<td>`sudo apt-get update`</td>
+<td>updates the system's "Package List"</td>
 </tr>
 <tr>
 <td>cell1_2</td>
