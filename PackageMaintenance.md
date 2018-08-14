@@ -17,12 +17,12 @@
 </thead>
 <tbody>
 <tr>
-<td> <b>`df -h`</b></td>
-<td>check available space; `apt` doesn't!</td>
+<td width="34%"> <b>`df -h`</b></td>
+<td width="66%">check available space; `apt` doesn't!</td>
 </tr>   
 <tr>
-<td width="40%"><b>`sudo apt-get update`</b></td>
-<td width="60%">updates the system's "Package List"</td>
+<td><b>`sudo apt-get update`</b></td>
+<td>updates the system's "Package List"</td>
 </tr>
 
 <tr>
@@ -30,7 +30,7 @@
 <td>upgrade all installed packages to the latest version from the sources enumerated in  `/etc/apt/sources.list`, but under no circumstances are currently installed packages removed, or packages not already installed retrieved and installed. This is the "foolproof" version of an upgrade.</td>
 </tr>
 <tr>
-   <td><b>`sudo apt-get dist-upgrade`</b></td>
+<td><b>`sudo apt-get dist-upgrade`</b></td>
 <td>upgrade all installed packages to the latest version from the sources enumerated in  `/etc/apt/sources.list`. It will add & remove packages if necessary, and attempts to deal "intelligently" with changed dependencies. Exceptions may be declared in `apt_preferences(5)`.</td>
 </tr>
 <tr>
