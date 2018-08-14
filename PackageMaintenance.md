@@ -2,6 +2,58 @@
 
 ### Routine "in-version" updates and upgrades
 
+<html>
+<head>
+
+</head>
+
+<body>
+<table class="minimalistBlack">
+<thead>
+<tr>
+<th>Command</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td width="40%"><b>`sudo apt-get update`</b></td>
+<td width="60%">updates the system's "Package List"</td>
+</tr>
+<tr>
+<td> <b>`df -h`</b></td>
+<td>check available space; `apt` doesn't!</td>
+</tr>
+<tr>
+<td><b>`sudo apt-get upgrade`</b></td>
+<td>upgrade all installed packages to the latest version from the sources enumerated in  `/etc/apt/sources.list`, but under no circumstances are currently installed packages removed, or packages not already installed retrieved and installed. This is the "foolproof" version of an upgrade.</td>
+</tr>
+<tr>
+   <td><b>`sudo apt-get dist-upgrade`</b></td>
+<td>upgrade all installed packages to the latest version from the sources enumerated in  `/etc/apt/sources.list`. It will add & remove packages if necessary, and attempts to deal "intelligently" with changed dependencies. Exceptions may be declared in `apt_preferences(5)`.</td>
+</tr>
+<tr>
+   <td><b>`sudo apt-get clean`</b></td>
+<td>removes the cruft from `/var/cache/apt/archives` left by previous upgrades</td>
+</tr>
+<tr>
+   <td><b>`sudo reboot`</b></td>
+<td>when in doubt, or if "weird" things happen! [REFERENCE](https://www.raspberrypi.org/forums/viewtopic.php?t=184850)</td>
+</tr> 
+<tr>
+<td>cell1_5</td>
+<td>cell2_5</td>
+</tr>
+<tr>
+<td>cell1_5</td>
+<td>cell2_5</td>
+</tr>   
+</tbody>
+</table>
+</body>
+</html>
+
+
 | &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Command &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Explanation |
 | :---     | :---       |
 | `sudo apt-get update`| updates the system's "Package List" |
@@ -69,7 +121,7 @@ NOTE: This recipe augments [one at the raspberrypi.org website on the same subje
 <td>check available space; `apt` doesn't!</td>
 </tr>
 <tr>
-<td><b>`sudo apt-get upgrade`,/b></td>
+<td><b>`sudo apt-get upgrade`</b></td>
 <td>upgrade all installed packages to the latest version from the sources enumerated in  `/etc/apt/sources.list`, but under no circumstances are currently installed packages removed, or packages not already installed retrieved and installed. This is the "foolproof" version of an upgrade.</td>
 </tr>
 <tr>
