@@ -54,8 +54,8 @@ NOTE: This recipe augments [one at the raspberrypi.org website on the same subje
 <table class="minimalistBlack">
 <thead>
 <tr>
-<th>head1</th>
-<th>head2</th>
+<th>Command</th>
+<th>Explanation</th>
 </tr>
 </thead>
 <tbody>
