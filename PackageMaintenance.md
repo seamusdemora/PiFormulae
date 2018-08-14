@@ -41,12 +41,12 @@
 <td>when in doubt, or if "weird" things happen! [REFERENCE](https://www.raspberrypi.org/forums/viewtopic.php?t=184850)</td>
 </tr> 
 <tr>
-<td>cell1_5</td>
-<td>cell2_5</td>
+<td> </td>
+<td> </td>
 </tr>
 <tr>
-<td>cell1_5</td>
-<td>cell2_5</td>
+<td> </td>
+<td> </td>
 </tr>   
 </tbody>
 </table>
