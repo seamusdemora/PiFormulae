@@ -60,11 +60,11 @@ NOTE: This recipe augments [one at the raspberrypi.org website on the same subje
 </thead>
 <tbody>
 <tr>
-<td>**`sudo apt-get update`**</td>
+   <td><b>`sudo apt-get update`</b></td>
 <td>updates the system's "Package List"</td>
 </tr>
 <tr>
-<td> **`df -h`**</td>
+<td> <b>`df -h`</b></td>
 <td>check available space; `apt` doesn't!</td>
 </tr>
 <tr>
