@@ -48,39 +48,6 @@ NOTE: This recipe augments [one at the raspberrypi.org website on the same subje
 <html>
 <head>
 
-<style>
-table.minimalistBlack {
-  width: 100%;
-  text-align: left;
-  border-collapse: collapse;
-}
-table.minimalistBlack td, table.minimalistBlack th {
-  border: 1px solid #000000;
-  padding: 5px 4px;
-}
-table.minimalistBlack tbody td {
-  font-size: 13px;
-}
-table.minimalistBlack tr:nth-child(even) {
-  background: #CFD1D1;
-}
-table.minimalistBlack thead {
-  background: #CFCFCF;
-  background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
-  background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
-  background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
-  border-bottom: 2px solid #000000;
-}
-table.minimalistBlack thead th {
-  font-size: 15px;
-  font-weight: bold;
-  color: #000000;
-  text-align: center;
-}
-table.minimalistBlack tfoot td {
-  font-size: 14px;
-}
-</style>
 </head>
 
 <body>
