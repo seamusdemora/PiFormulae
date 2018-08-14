@@ -17,13 +17,14 @@
 </thead>
 <tbody>
 <tr>
+<td> <b>`df -h`</b></td>
+<td>check available space; `apt` doesn't!</td>
+</tr>   
+<tr>
 <td width="40%"><b>`sudo apt-get update`</b></td>
 <td width="60%">updates the system's "Package List"</td>
 </tr>
-<tr>
-<td> <b>`df -h`</b></td>
-<td>check available space; `apt` doesn't!</td>
-</tr>
+
 <tr>
 <td><b>`sudo apt-get upgrade`</b></td>
 <td>upgrade all installed packages to the latest version from the sources enumerated in  `/etc/apt/sources.list`, but under no circumstances are currently installed packages removed, or packages not already installed retrieved and installed. This is the "foolproof" version of an upgrade.</td>
