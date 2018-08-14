@@ -44,7 +44,7 @@ NOTE: This recipe augments [one at the raspberrypi.org website on the same subje
 
 > list available packages whose names contain the word or characters `XXXX`. For example if you're looking for a package, and you recall that its name contains the characters `priv`, then `apt-cache search priv` should list all matching packages in the repository for RPi.
 
-<!--- 
+
 
 <html>
 <head>
@@ -61,8 +61,8 @@ NOTE: This recipe augments [one at the raspberrypi.org website on the same subje
 </thead>
 <tbody>
 <tr>
-   <td><b>`sudo apt-get update`</b></td>
-<td>updates the system's "Package List"</td>
+<td width="40%"><b>`sudo apt-get update`</b></td>
+<td width="60%">updates the system's "Package List"</td>
 </tr>
 <tr>
 <td> <b>`df -h`</b></td>
@@ -98,7 +98,7 @@ NOTE: This recipe augments [one at the raspberrypi.org website on the same subje
 </html>
 
 
-
+<!--- 
 
 
 __-------------  WORK IN PROCESS; PLEASE IGNORE (or not - up to you!) -----------------__
