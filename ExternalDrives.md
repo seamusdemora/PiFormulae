@@ -1,6 +1,6 @@
 # How To Connect an External Drive to Raspberry Pi?  
 
-> NOTE: The current reciped here fails to consider potential impacts and differences due to that adoption of `systemd`. As `systemd` has now become "mainstream", the recipe must be revised accordingly. Until that happens, ***most*** of the following remains accurate and pertinent. 
+> NOTE: The current recipe here fails to consider potential impacts and differences due to the adoption of `systemd`. As `systemd` has now become "mainstream", the recipe must be revised accordingly. Until that happens, ***most*** of the following remains accurate and pertinent. If you'd like to add anything, please feel free to fork and issue a pull request - or simply open an issue. 
 
 ### Objectives:  
 Following is a procedure to mount an external drive on a Raspberry Pi. I've added some background and context, rather than simply listing the steps in rote fashion. My aim here is to *explain* the steps required to execute this task under Raspbian. Another aim is to highlight stark differences between Mac OS and Linux, using Raspbian as a proxy for Linux. My hope is that this will be more useful than yet another "copy and paste tutorial" (*yacapat* ? :) that invites copying command lines from a blog into a terminal window without thinking about what they mean. And if you don't care about the explanations, ignore them; follow the steps inside the code blocks. 
