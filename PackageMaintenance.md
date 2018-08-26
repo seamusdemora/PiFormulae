@@ -16,8 +16,9 @@
 </tr>
 </thead>
 <tbody>
+
 <tr>
-   <td width="30%"> <b><code>df -h</code></b></td>
+<td width="30%"> <b><code>df -h</code></b></td>
 <td width="70%">check available space; <code>apt</code> doesn't do this automatically, so it's up to you</td>
 </tr>   
 <tr>
@@ -27,7 +28,7 @@
 
 <tr>
 <td><b><code>sudo apt-get upgrade</code></b></td>
-<td>upgrade all installed packages to the latest version from the sources enumerated in  `/etc/apt/sources.list`, but under no circumstances are currently installed packages removed, or packages not already installed retrieved and installed. This is the "foolproof" version of an upgrade.</td>
+<td>upgrade all installed packages to the latest version from the sources enumerated in  <code>/etc/apt/sources.list</code>, but under no circumstances are currently installed packages removed, or packages not already installed retrieved and installed. <em>This is the "foolproof" version of an upgrade.</em></td>
 </tr>
 <tr>
 <td><b><code>sudo apt-get dist-upgrade</code></b></td>
@@ -35,7 +36,7 @@
 </tr>
 <tr>
    <td><b><code>sudo apt-get clean</code></b></td>
-<td>removes the cruft from `/var/cache/apt/archives` left by previous upgrades</td>
+<td>removes the cruft from <code>/var/cache/apt/archives</code> left by previous upgrades</td>
 </tr>
 <tr>
    <td><b><code>sudo reboot</code></b></td>
