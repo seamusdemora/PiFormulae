@@ -17,8 +17,8 @@
 </thead>
 <tbody>
 <tr>
-   <td width="34%"> <b><code>df -h</code></b></td>
-<td width="66%">check available space; <code>apt</code> doesn't do this automatically, so it's up to you</td>
+   <td width="30%"> <b><code>df -h</code></b></td>
+<td width="70%">check available space; <code>apt</code> doesn't do this automatically, so it's up to you</td>
 </tr>   
 <tr>
 <td><b><code>sudo apt-get update</code></b></td>
