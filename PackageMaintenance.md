@@ -17,7 +17,7 @@
 </thead>
 <tbody>
 <tr>
-<td width="34%"> <b>`df -h`</b></td>
+   <td width="34%"> <b><code>df -h</code></b></td>
 <td width="66%">check available space; `apt` doesn't!</td>
 </tr>   
 <tr>
