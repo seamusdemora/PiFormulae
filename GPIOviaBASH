@@ -1,3 +1,6 @@
+[From this Google search](https://www.google.com/search?client=firefox-b&q=set+GPIO+pullup+from+bash):
+[Then, from this page:](https://raspberrypi-aa.github.io/session2/bash.html)
+
 Using GPIO from bash
 
 The following commands should be run as root (type 'sudo bash' to become root). This code sets up pin 18 to be an output, 
