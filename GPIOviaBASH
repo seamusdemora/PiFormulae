@@ -1,0 +1,22 @@
+Using GPIO from bash
+
+The following commands should be run as root (type 'sudo bash' to become root). This code sets up pin 18 to be an output, 
+sets the pin high and then sets it low.
+
+#   Exports pin to userspace
+echo "18" > /sys/class/gpio/export                  
+
+# Sets pin 18 as an output
+echo "out" > /sys/class/gpio/gpio18/direction
+
+# Sets pin 18 to high
+echo "1" > /sys/class/gpio/gpio18/value
+
+# Sets pin 18 to low
+echo "0" > /sys/class/gpio/gpio18/value 
+
+This next snippet sets up pin 4 to be an input, then reads the value of the input.
+
+echo "4" > /sys/class/gpio/export
+echo "in" > /sys/class/gpio/gpio4/direction
+cat /sys/class/gpio/gpio4/value
