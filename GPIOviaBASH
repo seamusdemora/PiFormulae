@@ -20,3 +20,24 @@ This next snippet sets up pin 4 to be an input, then reads the value of the inpu
 echo "4" > /sys/class/gpio/export
 echo "in" > /sys/class/gpio/gpio4/direction
 cat /sys/class/gpio/gpio4/value
+
+---------
+
+root@raspberrypi3b:/home/pi# ls -l /sys/devices/platform/soc/3f200000.gpio/gpiochip0/gpio/gpio4
+total 0
+-rwxrwx--- 1 root gpio 4096 Jan 26 22:39 active_low
+lrwxrwxrwx 1 root gpio    0 Jan 26 22:39 device -> ../../../gpiochip0
+-rwxrwx--- 1 root gpio 4096 Jan 26 22:41 direction
+-rwxrwx--- 1 root gpio 4096 Jan 26 22:39 edge
+drwxrwx--- 2 root gpio    0 Jan 26 22:39 power
+lrwxrwxrwx 1 root gpio    0 Jan 26 22:39 subsystem -> ../../../../../../../class/gpio
+-rwxrwx--- 1 root gpio 4096 Jan 26 22:39 uevent
+-rwxrwx--- 1 root gpio 4096 Jan 26 22:39 value
+root@raspberrypi3b:/home/pi# cat /sys/devices/platform/soc/3f200000.gpio/gpiochip0/gpio/gpio4/direction
+in
+root@raspberrypi3b:/home/pi# cat /sys/devices/platform/soc/3f200000.gpio/gpiochip0/gpio/gpio4/active_low
+0
+root@raspberrypi3b:/home/pi# echo "1" > /sys/class/gpio/gpio4/active_low
+root@raspberrypi3b:/home/pi# cat /sys/devices/platform/soc/3f200000.gpio/gpiochip0/gpio/gpio4/active_low
+1
+root@raspberrypi3b:/home/pi# 
