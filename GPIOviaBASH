@@ -3,6 +3,7 @@
 [Perhaps a better search result:](https://duckduckgo.com/?q=set+GPIO+pullup+from+bash&t=ffnt&ia=web)
 [be sure to read this for background:](https://luketopia.net/2013/07/28/raspberry-pi-gpio-via-the-shell/)
 [and esp. read this for background:](https://iqjar.com/jar/programming-the-raspberry-pis-gpio-pins-from-command-line-and-bash-script/)
+[and esp. esp. read this one, as this guy is the author of gpio](https://projects.drogon.net/raspberry-pi/wiringpi/the-gpio-utility/)
 
 Using GPIO from bash
 
