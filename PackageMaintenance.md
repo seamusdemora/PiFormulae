@@ -84,6 +84,8 @@ NOTE: This recipe augments [one at the raspberrypi.org website on the same subje
 
 ## Installing and Removing Packages using `apt` 
 
+Some advocate using `apt`, others advocate using `apt-get`. At present, I favor `apt-get` if only because I'm used to it. The diffs aren't worth much discussion, but you will need to decide. [Here's one explanation that might help](https://itsfoss.com/apt-vs-apt-get-difference/), and there are many others available for the [cost of a search.](https://duckduckgo.com/?q=apt+vs+apt-get&t=ffnt&ia=web) 
+
 ## Frequently Useful Commands in Aptitude  
 
 `apt-cache search XXXX`  
