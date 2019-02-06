@@ -114,10 +114,6 @@ Some advocate using `apt`, others advocate using `apt-get`. At present, I favor 
 </body>
 </html>
 
-`sudo apt-get install XXXX`   Install a package   
-`sudo apt-get remove XXXX`    Remove a package, leaving its configuration files on the system   
-`sudo apt-get purge XXXX`     Remove a package, deleting its configuration files from the system   
-
 ## Frequently Useful Commands in Aptitude  
 
 `apt-cache search XXXX`  
