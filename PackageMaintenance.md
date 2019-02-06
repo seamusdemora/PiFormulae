@@ -86,6 +86,26 @@ NOTE: This recipe augments [one at the raspberrypi.org website on the same subje
 
 Some advocate using `apt`, others advocate using `apt-get`. At present, I favor `apt-get` if only because I'm used to it. The diffs aren't worth much discussion, but you will need to decide. [Here's one explanation that might help](https://itsfoss.com/apt-vs-apt-get-difference/), and there are many others available for the [cost of a search.](https://duckduckgo.com/?q=apt+vs+apt-get&t=ffnt&ia=web) 
 
+<table class="minimalistBlack">
+<thead>
+<tr>
+<th>Command</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td width="30%"> <b><code>sudo apt-get install XXXX</code></b></td>
+<td width="70%">Install a package "XXXX"</td>
+</tr>   
+
+
+</tbody>
+</table>
+</body>
+</html>
+
 `sudo apt-get install XXXX`   Install a package   
 `sudo apt-get remove XXXX`    Remove a package, leaving its configuration files on the system   
 `sudo apt-get purge XXXX`     Remove a package, deleting its configuration files from the system   
