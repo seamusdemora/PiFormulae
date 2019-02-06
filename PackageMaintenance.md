@@ -52,8 +52,7 @@
 </tr>   
 </tbody>
 </table>
-</body>
-</html>
+
 
 
 
@@ -100,6 +99,15 @@ Some advocate using `apt`, others advocate using `apt-get`. At present, I favor 
 <td width="70%">Install a package "XXXX"</td>
 </tr>   
 
+<tr>
+<td width="30%"> <b><code>sudo apt-get remove XXXX</code></b></td>
+<td width="70%">Remove a package "XXXX", leaving its configuration files on the system</td>
+</tr>
+
+<tr>
+<td width="30%"> <b><code>sudo apt-get purge XXXX</code></b></td>
+<td width="70%">Remove a package "XXXX", deleting its configuration files from the system</td>
+</tr>
 
 </tbody>
 </table>
