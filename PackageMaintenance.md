@@ -120,7 +120,11 @@ Some advocate using `apt`, others advocate using `apt-get`. At present, I favor 
 
 > list available packages whose names contain the word or characters `XXXX`. For example if you're looking for a package, and you recall that its name contains the characters `priv`, then `apt-cache search priv` should list all matching packages in the repository for RPi.
 
+Listing installed packages: 
 
+    sudo apt list --installed   
+    dpkg --get-selections 
+    dpkg -l  
 
 
 <!--- 
