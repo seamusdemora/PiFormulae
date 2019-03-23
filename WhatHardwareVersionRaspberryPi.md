@@ -2,10 +2,10 @@
 
 1. Get the "Revision" value from /proc/cpuinfo as follows: 
 
->
->    grep Revision /proc/cpuinfo
->
+```
+$ grep Revision /proc/cpuinfo
+```
 
-2. Consult: [https://elinux.org/RPi_HardwareHistory](https://elinux.org/RPi_HardwareHistory)
+2. Consult: [RPi_HardwareHistory webpage](https://elinux.org/RPi_HardwareHistory)
 
 	Enter the table using the "Revision" value from Step 1.
