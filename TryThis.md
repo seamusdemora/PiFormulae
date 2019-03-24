@@ -14,8 +14,8 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="ReadMeFirst.md">First steps...</a>[First steps...](ReadMeFirst.md)</td>
-<td>An approach to setting up a Raspberry Pi in "headless" mode, from setting up your microSD card to your first login over SSH, and then on to `raspi-config` to complete your initial setup.</td>
+<td><a href="https://stackoverflow.com/a/36215330/5395338">Making a rational Table in Markdown</a></td>
+<td>Here's a potential solution for this table nightmare in Markdown. It uses style sheets. The issue will be how to finesse it into the markdown code.</td>
 </tr>
 <tr>
 <td>[Find the IP address of a Raspberry Pi](FindMyPi.md)</td>
