@@ -8,18 +8,18 @@
 <table class="minimalistBlack">
 <thead>
 <tr>
-<th>head1</th>
-<th>head2</th>
+<th>Repo Files</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>cell1_1</td>
-<td>cell2_1</td>
+<td>[First steps...](ReadMeFirst.md)</td>
+<td>An approach to setting up a Raspberry Pi in "headless" mode, from setting up your microSD card to your first login over SSH, and then on to `raspi-config` to complete your initial setup.</td>
 </tr>
 <tr>
-<td>cell1_2</td>
-<td>cell2_2</td>
+<td>[Find the IP address of a Raspberry Pi](FindMyPi.md)</td>
+<td>This is potentially useful for those running their Pi in "headless mode". You can use this to find the IP address of your Pi, and having the address, initiate the necessary SSH connection to communicate with it.</td>
 </tr>
 <tr>
 <td>cell1_3</td>
