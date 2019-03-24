@@ -23,7 +23,7 @@
 </tr>
 <tr>
 <td><a href="https://stackoverflow.com/a/23040924/5395338">Another puzzle piece from this SE Q&A</a></td>
-<td>This shows where the .css file is located,and how to link to it in the .md/.html file. The link to the .css file is placed inside the &lt;head&gt; section.</td>
+<td>This shows where the .css file is located,and how to link to it in the .md/.html file. The link to the .css file is placed inside the <code>&lt;head&gt;</code> section.</td>
 </tr>
 <tr>
 <td>[Find the IP address of a Raspberry Pi](FindMyPi.md)</td>
