@@ -14,7 +14,7 @@
 </thead>
 <tbody>
 <tr>
-<td>[First steps...](ReadMeFirst.md)</td>
+<td><a href="ReadMeFirst.md">First steps...</a>[First steps...](ReadMeFirst.md)</td>
 <td>An approach to setting up a Raspberry Pi in "headless" mode, from setting up your microSD card to your first login over SSH, and then on to `raspi-config` to complete your initial setup.</td>
 </tr>
 <tr>
