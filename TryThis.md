@@ -8,8 +8,8 @@
 <table class="minimalistBlack">
 <thead>
 <tr>
-<th>Repo Files</th>
-<th>Description</th>
+<td width="35%"><th>Repo Files</th>
+<td width="65%"><th>Description</th>
 </tr>
 </thead>
 <tbody>
