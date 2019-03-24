@@ -22,6 +22,10 @@
 <td>Here's another part of the "stylesheet solution". It shows how to create the .css file, and where to put it on github. </td>
 </tr>
 <tr>
+<td><a href="https://stackoverflow.com/a/23040924/5395338">Another puzzle piece from this SE Q&A</a></td>
+<td>This shows where the .css file is located,and how to link to it in the .md/.html file. The link to the .css file is placed inside the \<head\> section.</td>
+</tr>
+<tr>
 <td>[Find the IP address of a Raspberry Pi](FindMyPi.md)</td>
 <td>This is potentially useful for those running their Pi in "headless mode". You can use this to find the IP address of your Pi, and having the address, initiate the necessary SSH connection to communicate with it.</td>
 </tr>
