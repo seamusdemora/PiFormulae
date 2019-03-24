@@ -14,30 +14,6 @@ https://www.whatismypublicip.com/
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 REFERENCES:
 
 1. [How can I get my external IP address in a shell script?](https://unix.stackexchange.com/questions/22615/how-can-i-get-my-external-ip-address-in-a-shell-script) (NOTE: See the final answer at the bottom of this page) 

@@ -92,12 +92,12 @@ Still no joy :(
 Possible solution #2 : 
 
 ```
-
+it's complicated...
 ```
 
 Which should verify the device is paired by listing its MAC adds and device type.
 
-Posted [question on RPi SE](https://raspberrypi.stackexchange.com/questions/95532/bluetooth-blues), 18 Mar 2019
+Posted [question on RPi SE](https://raspberrypi.stackexchange.com/questions/95532/bluetooth-blues), 18 Mar 2019
 
 
 
@@ -109,4 +109,5 @@ REFERENCES:
 4. [Bluetooth Educational Kits](https://www.bluetooth.com/develop-with-bluetooth/build/developer-kits?utm_campaign=developer&utm_source=internal&utm_medium=blog&utm_content=bluez-on-pi3) 
 5. [Bluetooth on Modern Linux, a YouTube presentation by Szymon Janc](https://www.youtube.com/watch?v=tclS9arLFzk) 
 6. [Connect Bluetooth speaker to Raspberry Pi](http://youness.net/raspberry-pi/how-to-connect-bluetooth-headset-or-speaker-to-raspberry-pi-3) 
+
 7. [The OMX Music Player for Raspberry Pi](https://www.raspberrypi.org/documentation/raspbian/applications/omxplayer.md) 

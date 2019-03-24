@@ -80,6 +80,3 @@ Note: Using a [simple `arp` will be "hit-or-miss"; here's why](https://github.co
     
     h. Tab to the `Finish` option at the bottom of the page and return to the command prompt. Congratulations, we're done here! 
     
- 
- 
- 
