@@ -1,5 +1,6 @@
 # PiFormulae
-A collection of "How-To" guides and recipes for the Raspberry Pi. The entries in this table are for the pages that have any potentially useful information. That's a low bar, but feel free to peruse any of the pages in the repo as well. More importantly, feel free to contribute... [fork-n-go if you like :)](http://jlord.us/forkngo/). If you find an error in any of these "recipes", or you've got an idea to improve it, please fork this repository to your GitHub account. Once it's in your account, submit a "Pull Request" for the corrections or improvements you'd like to see. [Tom Hombergs has created a very good tutorial on how to do this](https://reflectoring.io/github-fork-and-pull/)
+
+A collection of "How-To" guides and recipes for the Raspberry Pi. The entries in this table are for the pages that have any potentially useful information. That's a low bar, but feel free to peruse any of the pages in the repo as well. More importantly, feel free to contribute... [fork-n-go if you like :)](http://jlord.us/forkngo/). If you find an error in any of these "recipes", or you've got an idea to improve it, please fork this repository to your GitHub account. Once it's in your account, submit a "Pull Request" for the corrections or improvements you'd like to see. [Tom Hombergs has created a very good tutorial on how to do this](https://reflectoring.io/github-fork-and-pull/) 
 
 Repo Files | Description
 -------- | -------- 
