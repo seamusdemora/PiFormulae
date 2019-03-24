@@ -3,7 +3,7 @@ A collection of "How-To" guides and recipes for the Raspberry Pi. The entries in
 
 Repo Files | Description
 -------- | -------- 
-[First steps...](https://github.com/seamusdemora/PiFormulae/blob/master/ReadMeFirst.md) | An approach to setting up a Raspberry Pi in "headless" mode, from setting up your microSD card to your first login over SSH, and then on to `raspi-config` to complete your initial setup.
+[First steps...](ReadMeFirst.md) | An approach to setting up a Raspberry Pi in "headless" mode, from setting up your microSD card to your first login over SSH, and then on to `raspi-config` to complete your initial setup.
 [Find the IP address of a Raspberry Pi](https://github.com/seamusdemora/PiFormulae/blob/master/FindMyPi.md) | This is potentially useful for those running their Pi in "headless mode". You can use this to find the IP address of your Pi, and having the address, initiate the necessary SSH connection to communicate with it.
 [Mount an external drive](ExternalDrives.md) | This recipe will walk through the steps needed to mount an external drive on a Raspberry Pi, and explain in some detail what the commands do, and why they are necessary.
 [Share Files on RPi over the network](FileShare.md) | This recipe continues the [External Drives](ExternalDrives.md) recipe to share files and folders over your network.
