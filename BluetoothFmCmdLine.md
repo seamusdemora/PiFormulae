@@ -92,7 +92,7 @@ Still no joy :(
 Possible solution #2 : 
 
 ```
-
+it's complicated...
 ```
 
 Which should verify the device is paired by listing its MAC adds and device type.
