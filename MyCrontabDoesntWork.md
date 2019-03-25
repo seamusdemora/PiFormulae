@@ -17,4 +17,9 @@ MFEI #2: `cron` has no awareness of the state of other services when it starts. 
 
 Solutions: 
 
-- `sleep` before starting a script with service dependencies 
+- `sleep` before starting a script with service dependencies: 
+
+```bash
+@reboot ( /bin/sleep 30; /bin/bash /home/pi/startup.sh > /home/pi/cronjoblog 2>&1)
+```
+
