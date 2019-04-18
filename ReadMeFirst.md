@@ -15,7 +15,7 @@ But I digress. Here, for what it's worth, is how I do things:
   * you can use [rufus](https://rufus.akeo.ie/) on your Windows PC 
   * you can use [Etcher](https://etcher.io/) on Mac or Windows
 
-3. "Burn" the Raspbian image file to the media you're going to boot from. Typically, this will be an 8 GB or larger [microSD](https://simple.wikipedia.org/wiki/MicroSD) memory card, but you can boot from a number of devices, including the new-ish [mSATA SSDs](https://searchstorage.techtarget.com/definition/mSATA-SSD-mSATA-solid-state-drive) if you need greater storage, performance and longevity. If you're using
+3. "Burn" the Raspbian image file to the media you're going to boot from. Typically, this will be an 8 GB or larger [microSD](https://simple.wikipedia.org/wiki/MicroSD) memory card.
 
 ## Modify files in `/boot` on the micro SD card
 
