@@ -9,10 +9,11 @@
       * [But all of these instructions! Why is this so complicated? On my Mac, I plug the drive in, and it just works. I can read from it, and write to it immediately!](#but-all-of-these-instructions-why-is-this-so-complicated-on-my-mac-i-plug-the-drive-in-and-it-just-works-i-can-read-from-it-and-write-to-it-immediately)
       * [Getting to the job at hand (finally)](#getting-to-the-job-at-hand-finally)
    * [1. Determine what drives are currently connected to the RPi](#1-determine-what-drives-are-currently-connected-to-the-rpi)
-   * [2. Plug a USB drive into a USB connector on the Raspberry Pi](#2-plug-a-usb-drive-into-a-usb-connector-on-the-raspberry-pi)
-      * [2.a File systems and formats](#2a-file-systems-and-formats)
-      * [2.b Partitions and their uses](#2b-partitions-and-their-uses)  
-      * [2.c Mounting the drive](#2c-mounting-the-drive)
+   * [2. Plug the USB drive into the RPi](#2-plug-the-usb-drive-into-the-RPi)
+      * [NOTE 1: File systems and formats](#note-1-file-systems-and-formats)
+      * [NOTE 2: Partitions and their uses](#note-2-partitions-and-their-uses)  
+   * [3. Mount the USB drive](#3-mount-the-usb-drive) 
+   * [4. Create an entry in `/etc/fstab` to automount the USB drive](4-create-an-entry-in-etcfstab-to-automount-the-usb-drive)
 
 
 
@@ -98,7 +99,7 @@ Oh - one thing before we move on: There are several tools that show block device
 
 In other words, use `sudo blkid`, or don't use it at all! 
 
-## 2. Plug a USB drive into a USB connector on the Raspberry Pi
+## 2. Plug the USB drive into the RPi
 
 After the SanDisk 16GB USB drive is plugged in to the RPi, run `lsblk` again at the RPi command line:
 
@@ -119,10 +120,12 @@ Which tells us that the Disk listed as `sda` must be the SanDisk 16GB thumb driv
 
 We will press on for the answers to these questions. 
 
-### 2.a File systems and formats
+### NOTE 1: File systems and formats
+
 [Jack Sprat](https://en.wikipedia.org/wiki/Jack_Sprat) could eat no [`FAT`](https://en.wikipedia.org/wiki/File_Allocation_Table). If one thinks of "fat" as having to do with wealth or abundance, then the "File Allocation Table" certainly fits in well with that thinking. There are numerous types, extensions and derivatives of this file system, some with only subtle differences. [Design of the FAT file system is fluid](https://en.wikipedia.org/wiki/Design_of_the_FAT_file_system); so much so that the boundaries between the different flavors has blurred. And that seems to be what has happened with Apple's implementation of `FAT32`... they have become like Jack Sprat, and will eat no more `FAT`! The good news is that for most practical purposes, Apple's implementation (`FAT32`) works with the Linux (and therefore Raspbian) implementation (`vfat`). We'll not worry this point further, but the linked references have further details for those who are interested.
 
-### 2.b Partitions and their uses
+### NOTE 2: Partitions and their uses
+
 What's with the "extra" partition for `sda` labeled `EFI`? [Disk partitioning serves several useful purposes,](https://www.computerhope.com/jargon/p/partitio.htm) but it is typically done deliberately. So why has the Mac's [__Disk Utility__ app](https://www.howtogeek.com/212836/how-to-use-your-macs-disk-utility-to-partition-wipe-repair-restore-and-copy-drives/) created this `EFI` partition `sda1`? I didn't (intentionally) ask for this! To answer, we'll use `EFI` as our clue: Briefly, `EFI` stands for ["Extensible Firmware Interface"](https://en.wikipedia.org/wiki/EFI_system_partition). Its existence and its original design is a product of [Intel's laboratories](https://firmware.intel.com/learn/uefi/about-uefi). Since then, the __UEFI__ (now "Unified" :) specification has come under the control of the __UEFI Forum__ - a group of the computer industry's "heavy hitters", which includes Apple. 
 
 The hyperlinks here will provide hours of reading pleasure, but the answer to the question is found in the __Disk Utility__ interface: When the default __View__ option of __Show Only Volumes__ is selected, the __GUID Partition Map__ Scheme is also selected. [GUID Partition Table `GPT`](https://en.wikipedia.org/wiki/GUID_Partition_Table) is a subset of the UEFI specifications, and so, in the interest of sanity I suppose, Apple has tied the selection of __Show Only Volumes__ to selection of the __GUID Partition Map__ Scheme by default, although the specifications for `GPT` don't strictly prohibit `MBR`. Once the __Show All Devices__ option is selected, a __Scheme__ for `MBR` may be selected (see __Disk Utility__ screenshots below). And since `MBR` does not include an EFI partition, we should be able to lose that partition by selecting the __Master Boot Record__ Scheme.  
@@ -145,7 +148,8 @@ That looks like what was wanted: a single `exFAT` partition. But now that the `E
 
 And finally, as a good __nerd trivia__ question we might ask, "As currently formatted and partitioned, has this device now become non-compliant with the __UEFI__ specifications?" What do you think the answer is? 
 
-### 2.c Mounting the drive
+## 3. Mount the USB drive
+
 We've seen that Raspbian (indeed virtually all \*nix systems) will report details of an external drive when it is plugged into a USB port. Unfortunately (depending upon your cultural orientation), that is not sufficient to be able to read from or write to this external drive. The device must be `mount`ed before we can use it. 
 
 We have a choice to make here, and the right choice depends upon whether or not our needs for the external drive are for  'routine use', or for 'one-time use' (or very seldom). Regardless of our need, we'll need a [mount point](http://www.linfo.org/mount_point.html) in the RPi's file system, so let's do that first.  I like to have mount points in my `$HOME` directory, `/home/pi`. This may not be the best choice for a multi-user system, and others will counsel creating the mount point under `/media` or `/mnt`. You can do as you wish, but here's mine: 
@@ -211,6 +215,8 @@ Which [smells like nirvana](https://www.youtube.com/watch?v=FklUAoZ6KxY)! We hav
     this is a test
 
 We've written to, and read from, the `mount`ed drive, so it seems we've got it! Note that we received a couple of warnings (`Operation not permitted`); those are due to differences in the RPi's native file system `ext4` and the `exFAT` file system, and for our purposes here, we need not worry about them ([REF](https://superuser.com/questions/468291/chmoding-file-on-exfat)). 
+
+## 4. Create an entry in `/etc/fstab` to automount the USB drive
 
 We're nearly ready to modify the `/etc/fstab` file. In perusing `man fstab`, some of the [documentation](https://help.ubuntu.com/community/Fstab) available online and [advice](https://www.raspberrypi.org/forums/viewtopic.php?t=205016) on `fstab` that's published, we soon recognize there are some decisions to be made - options to be selected. There are six (6) fields in a `fstab` entry. Let's do them in order: 
 
