@@ -6,8 +6,8 @@
 [2. Format, partition and mount the USB drive](#2-format-partition-and-mount-a-USB-drive)  
 [3. Mounting a network storage device master source:](#3-mounting-a-network-storage-device-master-source)  
 [4. Copy/Sync Music repositories](#4-copysync-music-repositories)  
-[3.ALT Copy Music repositories using install](#3alt-copy-music-repositories-using-install)  
-[4. Serve!](#4-serve)  
+[4.ALT Copy Music repositories using `install` or `rsync`](#4alt-copy-music-repositories-using-install-or-rsync)  
+[5. Serve!](#5-serve)  
 [Linux vs. Samba <em><strong>permissions</strong></em>](#linux-vs-samba-permissions)  
 [Samba profile for single user pi](#samba-profile-for-single-user-pi)  
 [Samba profile for read-only guest access, write access for user pi](#samba-profile-for-read-only-guest-access-write-access-for-user-pi)  
@@ -199,11 +199,11 @@ $ find ~/mntPassport/music_library -type d -exec chmod 755 {} \;
 $
 ```
 
-#### 3.ALT Copy Music repositories using `install`  
+#### 4.ALT Copy Music repositories using `install` or `rsync`
 
 - PLACEHOLDER
 
-#### 4. Serve!
+#### 5. Serve!
 
 Since a [Samba server is already installed and operational](https://github.com/seamusdemora/PiFormulae/blob/master/FileShare.md) on my RPi, all that needs to begin serving the new partition is to add a new `profile` to the Samba configuration file `/etc/samba/smb.conf`. For better or worse, [Samba offers a bewildering number of options](https://www.samba.org/samba/docs/current/man-html/smb.conf.5.html) for shares. We'll cover two options below: 
 
