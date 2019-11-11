@@ -1,9 +1,5 @@
 ## Create a Rational and Portable File Server for Your Music Library 
 
-Table of Contents
-=================
-
-      * [Create a Rational and Portable File Server for Your Music Library](#create-a-rational-and-portable-file-server-for-your-music-library)
             * [0. Objective](#0-objective)
             * [1. Select the USB storage media](#1-select-the-usb-storage-media)
             * [2. Create and format a partition](#2-create-and-format-a-partition)
