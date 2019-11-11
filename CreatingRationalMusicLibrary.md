@@ -4,8 +4,8 @@
 [0. Objective](#0-objective)  
 [1. Select the USB storage media](#1-select-the-usb-storage-media)  
 [2. Format, partition and mount the USB drive](#2-format-partition-and-mount-a-USB-drive)  
-[2. Mounting a network storage device:](#2-mounting-a-network-storage-device)  
-[3. Copy/Sync Music repositories](#3-copysync-music-repositories)  
+[3. Mounting a network storage device master source:](#3-mounting-a-network-storage-device-master-source)  
+[4. Copy/Sync Music repositories](#4-copysync-music-repositories)  
 [3.ALT Copy Music repositories using install](#3alt-copy-music-repositories-using-install)  
 [4. Serve!](#4-serve)  
 [Linux vs. Samba <em><strong>permissions</strong></em>](#linux-vs-samba-permissions)  
@@ -127,7 +127,7 @@ $
 
 Which tells us that our `fstab` entry worked. Now we'll proceed to copy a music library to the partition we've just mounted.
 
-#### 2. Mounting a network storage device:
+#### 3. Mounting a network storage device master source:
 
 For purposes of this recipe, assume the music library to be copied is on a NAS file server on a local (private) IP network. `mount` NetgearNAS-3 on your RPi as follows: 
 
@@ -162,7 +162,7 @@ ncdu 1.12 ~ Use the arrow keys to navigate, press ? for help
 
 The `--si` option is useful as it gives sizes in terms that are usually relatable to USB drive specifications. Check out `man ncdu` for all the details. 
 
-#### 3. Copy/Sync Music repositories
+#### 4. Copy/Sync Music repositories
 
 Now that we've mounted the network (or local) storage device where the "master copies" of our music library are located, we'll we'll use it as the `source` to copy all files to the `destination` on the `sdb1` partition on the PASSPORT2TB device. The "copy", or `cp` command will be used, but `rsync` would work as well.  
 
