@@ -8,9 +8,9 @@
 [4. Copy/Sync Music repositories](#4-copysync-music-repositories)  
 [4.ALT Copy Music repositories using `install` or `rsync`](#4alt-copy-music-repositories-using-install-or-rsync)  
 [5. Serve!](#5-serve)  
-[Linux vs. Samba <em><strong>permissions</strong></em>](#linux-vs-samba-permissions)  
-[Samba profile for single user pi](#samba-profile-for-single-user-pi)  
-[Samba profile for read-only guest access, write access for user pi](#samba-profile-for-read-only-guest-access-write-access-for-user-pi)  
+- [Linux vs. Samba <em><strong>permissions</strong></em>](#linux-vs-samba-permissions)  
+- [Samba profile for single user pi](#samba-profile-for-single-user-pi)  
+- [Samba profile for read-only guest access, write access for user pi](#samba-profile-for-read-only-guest-access-write-access-for-user-pi)  
 
 #### 0. Objective
 
