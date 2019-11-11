@@ -125,6 +125,31 @@ sudo mount //192.168.1.246/music /home/pi/mntNetgearNAS-3 -o username=ringo,rw,v
 
 Obviously the IP address, file locations and `username` will vary in your installation, but the general approach will be the same. What is needed to conclude this step is to have a music library mounted on the RPi that can be used to source the file copy to the *Passport*. 
 
+Before moving on, we may wish to know how much data is on the network storage device. For example, how large does our USB storage device need to hold the music files we wish to copy? Perhaps the best way to obtain this information is using the `ncdu` utility. `ncdu` is included with at least some Raspbian distros, or easily installed using `apt`. `ncdu` is simple to use, and its output arranged in an easy-to-read format: 
+
+```bash
+$ ncdu --si ~/mntNetgearNAS-3/music_lib
+ncdu 1.12 ~ Use the arrow keys to navigate, press ? for help                                    
+--- /home/pi/mntNetgearNAS-3/music_lib ---------------------------------------------------
+     7.5 GB [#         ] /Compilations
+     6.9 GB [#         ] /Podcasts
+     5.2 GB [          ] /Ella Fitzgerald
+     1.7 GB [          ] /Billie Holiday
+     1.6 GB [          ] /The Beatles
+     1.0 GB [          ] /The Rolling Stones
+   966.0 MB [          ] /Louis Armstrong
+   909.7 MB [          ] /Thelonious Monk
+   892.2 MB [          ] /Fleetwood Mac
+   814.4 MB [          ] /Duke Ellington
+   
+   ...
+   
+   Total disk usage: 141.1 GB  Apparent size: 141.1 GB  Items: 18930
+
+```
+
+The `--si` option is useful as it gives sizes in terms that are usually relatable to USB drive specifications. Check out `man ncdu` for all the details. 
+
 #### 3. Copy/Sync Music repositories
 
 Now that we've mounted the network (or local) storage device where the "master copies" of our music library are located, we'll we'll use it as the `source` to copy all files to the `destination` on the `sdb1` partition on the PASSPORT2TB device. The "copy", or `cp` command will be used, but `rsync` would work as well.  
@@ -138,7 +163,7 @@ $ sudo cp --preserve=ownership,timestamps --recursive --update --verbose --paren
 $ 
 ```
 
-I'll backtrack here, and admit something: TL;DR. The `cp` command works fine, but in most cases you'll need to take additional steps of adjusting ownership and permissions after copying. Using the `install` command (instead of `cp`) can eliminate these extra steps. But we're here, so let's finish. We'll assume the top level directory for the music files is `music_library`. Proceed as follows: 
+I'll backtrack here, and admit something: TL;DR. The `cp` command works fine, but in most cases you'll need to take additional steps of adjusting ownership and permissions after copying. Using the `install` command (instead of `cp`) can eliminate these extra steps. But we're here, so let's finish. We'll assume the top level directory for the music files is `music_library`. Proceed as follows: 
 
 ```bash
 $ cd ~/mntPassport/music_library
@@ -172,11 +197,11 @@ Since a [Samba server is already installed and operational](https://github.com/s
 
 - #### Linux vs. Samba ***permissions***
 
-Before we proceed, a few words re. Linux vs. Samba permissions are in order: 
+Before we proceed, a few words re. Linux vs. Samba permissions are in order: 
 
 > Permissions assigned in `smb.conf` apply ***ONLY*** to Samba clients. That is, anyone who accesses the Samba share via the Samba server. Know that these Samba permissions ***DO NOT APPLY*** when logged into your RPi as a Linux user. However, this is not to say that Samba and Linux permissions are independent; they are ***NOT*** independent. 
 
-> Samba permissions are ***limited*** by Linux system permissions. Following is a [useful summary](https://www.cyberciti.biz/tips/how-do-i-set-permissions-to-samba-shares.html):
+> Samba permissions are ***limited*** by Linux system permissions. Following is a [useful summary](https://www.cyberciti.biz/tips/how-do-i-set-permissions-to-samba-shares.html):
 >
 > *"Limits set by kernel-level access control such as file permissions, file
 > system mount options, ACLs, and SELinux policies cannot be overridden
@@ -246,7 +271,7 @@ $ sudo service smbd restart
   - Why? Because `writeable` is an "inverted synonym" for `read only` 
 
 - `browseable = yes` was deleted 
-  - Why? Because `Yes` is the default value for `browseable` 
+  - Why? Because `Yes` is the default value for `browseable` 
 
 These options have been left in the configuration spec above only because, IMHO, it's more *readable*, and reinforces the intent when the default values are included. 
 
@@ -262,7 +287,7 @@ TO DO:
 
 - set up a `cron` job to maintain sync between source & dest 
 - evaluate `rsync` as alternative to `cp` ; see [REF](https://stackoverflow.com/questions/1529946/linux-copy-and-create-destination-dir-if-it-does-not-exist) 
-- update example `smb.conf` on github; [here](https://github.com/seamusdemora/PiFormulae/blob/master/seamus_smb.conf)  
+- update example `smb.conf` on github; [here](https://github.com/seamusdemora/PiFormulae/blob/master/seamus_smb.conf)  
 
 
 
