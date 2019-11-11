@@ -1,6 +1,12 @@
-## Create a Rational and Portable File Server for Your Music Library
+## Create a Rational and Portable File Server for Your Music Library 
 
-#### Objective
+
+
+[toc]
+
+[link](#create-and-format-a-partition) 
+
+#### 0. Objective
 
 If you own some or all of the music you listen to, you will have a set of files, a *music library*, to deal with. Each of these files contains an encoded version of an element of your music collection. In many cases, a [*player* application](https://en.wikipedia.org/wiki/Comparison_of_audio_player_software)  (e.g. iTunes, Sonos, WinAmp, etc.) will access a music library by mounting a networked file server or [NAS](https://en.wikipedia.org/wiki/Network-attached_storage). Compared to a music library stored *locally* on your phone, or on your computer's hard drive, a networked file server has the advantage of being able to share your music library with several different player applications and users simultaneously. 
 
@@ -19,7 +25,7 @@ Consider two general types of USB drives: A [USB flash drive (aka thumb drive](h
 
 As an example, consider a music library with 10,000 files requiring 80 GB of storage. The [SanDisk Cruzer Glide flash drive](https://www.sandisk.com/home/usb-flash/cruzer-glide) is available in 256 GB capacity at a price in the range of \$40 USD. If greater capacity is desired or needed, the [WD *Passport*](https://www.wd.com/products/portable-storage/my-passport.html) series of external drives may be a reasonable choice. A WD Passport with 2 TB capacity is available at a price in the range of \$70 USD. As a USB 2.0 compatible device, the WD Passport won't draw more than 500 mA current. 
 
-#### 2. Create a partition (if necessary), then format it
+#### 2. Create and format a partition
 
 As a starting point, we assume that a USB drive is connected to the RPi, but it is ***NOT*** mounted. Verify this from the `bash` command line in an RPi terminal window:  
 
@@ -148,7 +154,7 @@ ncdu 1.12 ~ Use the arrow keys to navigate, press ? for help
 
 ```
 
-The `--si` option is useful as it gives sizes in terms that are usually relatable to USB drive specifications. Check out `man ncdu` for all the details. 
+The `--si` option is useful as it gives sizes in terms that are usually relatable to USB drive specifications. Check out `man ncdu` for all the details. 
 
 #### 3. Copy/Sync Music repositories
 
@@ -299,11 +305,13 @@ REFERENCES:
 4. [cifs.com website: "All About CIFS"](https://www.cifs.com/) 
 5. [File system compatibility with CIFS](https://unix.stackexchange.com/questions/501982/file-system-compatibility-with-cifs) (My question on Unix&Linux StackExchange) 
 6. [Rsync (Remote Sync): 10 Practical Examples of Rsync Command in Linux](https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/) 
-7. [A Stack Overflow Q&A related to this recipe](https://stackoverflow.com/questions/1529946/linux-copy-and-create-destination-dir-if-it-does-not-exist) 
-8. [Related: Ideas on Managing a Music Library](https://www.techhive.com/article/3201150/how-to-manage-your-digital-music-library.html) 
-9. [HowTo: recursive `chown`](https://aplawrence.com/Unixart/chown.html) Also see [this answer on SE](https://superuser.com/a/260939/907399) 
-10. [Recursive permission changes to files and folders, a SE answer](https://stackoverflow.com/a/11512211/5395338) 
-11. [Use `install` instead of `cp` to copy files and ***set*** attributes](https://www.ostechnix.com/copy-files-change-ownership-permissions-time/) 
+7. [Rsync options to exclude certain subdirectories](https://stackoverflow.com/a/2194500/5395338) 
+8. [Unison as an alternative to Rsync for Bidirectional synchronization](https://www.cis.upenn.edu/~bcpierce/unison/), [Unison GitHub page](https://github.com/bcpierce00/unison)  
+9. [A Stack Overflow Q&A related to this recipe](https://stackoverflow.com/questions/1529946/linux-copy-and-create-destination-dir-if-it-does-not-exist) 
+10. [Related: Ideas on Managing a Music Library](https://www.techhive.com/article/3201150/how-to-manage-your-digital-music-library.html) 
+11. [HowTo: recursive `chown`](https://aplawrence.com/Unixart/chown.html) Also see [this answer on SE](https://superuser.com/a/260939/907399) 
+12. [Recursive permission changes to files and folders, a SE answer](https://stackoverflow.com/a/11512211/5395338) 
+13. [Use `install` instead of `cp` to copy files and ***set*** attributes](https://www.ostechnix.com/copy-files-change-ownership-permissions-time/) 
 
 
 
