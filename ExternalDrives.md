@@ -3,8 +3,8 @@
 > NOTE: The current recipe here does not consider potential differences due to the adoption of `systemd`. As `systemd` has now become "mainstream", the recipe must be revised accordingly. Until that happens, ***most*** of the following remains accurate and pertinent. If you'd like to add anything, please feel free to fork and issue a pull request - or simply open an issue. 
 
 ### Table of Contents
-   * [How To Connect a <a href="https://en.wikipedia.org/wiki/USB_flash_drive" rel="nofollow">USB Flash Drive</a> to Raspberry Pi?](#how-to-connect-a-usb-flash-drive-to-raspberry-pi)
-         * [Background and Objectives:](#background-and-objectives)
+   * [How To Connect a <a href="https://en.wikipedia.org/wiki/USB_flash_drive" rel="nofollow">USB Flash Drive</a> to Raspberry Pi?](#how-to-connect-a-usb-flash-drive-to-raspberry-pi)  
+      * [Background and Objectives:](#background-and-objectives)
       * [Why would I want to do connect an external drive?](#why-would-i-want-to-do-connect-an-external-drive)
          * [But all of these instructions! Why is this so complicated? On my Mac, I plug the drive in, and it just works. I can read from it, and write to it immediately!](#but-all-of-these-instructions-why-is-this-so-complicated-on-my-mac-i-plug-the-drive-in-and-it-just-works-i-can-read-from-it-and-write-to-it-immediately)
          * [Getting to the job at hand (finally)](#getting-to-the-job-at-hand-finally)
