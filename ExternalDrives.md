@@ -13,7 +13,7 @@
       * [NOTE 1: File systems and formats](#note-1-file-systems-and-formats)
       * [NOTE 2: Partitions and their uses](#note-2-partitions-and-their-uses)  
    * [3. Mount the USB drive](#3-mount-the-usb-drive) 
-   * [4. Create an entry in `/etc/fstab` to automount the USB drive](4-create-an-entry-in-etcfstab-to-automount-the-usb-drive)
+   * [4. Create an entry in `/etc/fstab` to automount the USB drive](#4-create-an-entry-in-etcfstab-to-automount-the-usb-drive) 
 
 
 
