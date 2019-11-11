@@ -5,9 +5,9 @@
 ### Table of Contents
 
    * [Background and Objectives:](#background-and-objectives)
-   * [Why would I want to do connect an external drive?](#why-would-i-want-to-do-connect-an-external-drive)
-   * [But all of these instructions! Why is this so complicated? On my Mac, I plug the drive in, and it just works. I can read from it, and write to it immediately!](#but-all-of-these-instructions-why-is-this-so-complicated-on-my-mac-i-plug-the-drive-in-and-it-just-works-i-can-read-from-it-and-write-to-it-immediately)
-   * [Getting to the job at hand (finally)](#getting-to-the-job-at-hand-finally)
+      * [Why would I want to do connect an external drive?](#why-would-i-want-to-do-connect-an-external-drive)
+      * [But all of these instructions! Why is this so complicated? On my Mac, I plug the drive in, and it just works. I can read from it, and write to it immediately!](#but-all-of-these-instructions-why-is-this-so-complicated-on-my-mac-i-plug-the-drive-in-and-it-just-works-i-can-read-from-it-and-write-to-it-immediately)
+      * [Getting to the job at hand (finally)](#getting-to-the-job-at-hand-finally)
    * [1. Determine what drives are currently connected to the RPi](#1-determine-what-drives-are-currently-connected-to-the-rpi)
    * [2. Plug a USB drive into a USB connector on the Raspberry Pi](#2-plug-a-usb-drive-into-a-usb-connector-on-the-raspberry-pi)
       * [2.a File systems and formats](#2a-file-systems-and-formats)
@@ -16,7 +16,7 @@
 
 
 
-### Background and Objectives:
+## Background and Objectives:
 
 Following is a procedure to mount a [USB Flash Drive](https://en.wikipedia.org/wiki/USB_flash_drive) on a Raspberry Pi. AKA "thumb drives", these are small, portable data storage devices typically used for data transfer. USB flash drives are [block storage devices](https://en.wikipedia.org/wiki/Block_(data_storage)) which implies that they will be *formatted* IAW a particular [file system](https://en.wikipedia.org/wiki/File_system). This recipe utilizes one of the so-called [FAT file systems](https://en.wikipedia.org/wiki/Design_of_the_FAT_file_system), chosen because of its compatibility with virtually all modern operating systems. Note however that while the FAT file system is ubiquitous, it does not compare particularly well *performance-wise* against other, more modern file systems. However, as performance is typically secondary to portability for USB flash drives, the FAT file system seems appropriate. 
 
