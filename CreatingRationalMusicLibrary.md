@@ -1,9 +1,19 @@
 ## Create a Rational and Portable File Server for Your Music Library 
 
+Table of Contents
+=================
 
-
-[link](#2-create-and-format-a-partition) 
-
+      * [Create a Rational and Portable File Server for Your Music Library](#create-a-rational-and-portable-file-server-for-your-music-library)
+            * [0. Objective](#0-objective)
+            * [1. Select the USB storage media](#1-select-the-usb-storage-media)
+            * [2. Create and format a partition](#2-create-and-format-a-partition)
+            * [2. Mounting a network storage device:](#2-mounting-a-network-storage-device)
+            * [3. Copy/Sync Music repositories](#3-copysync-music-repositories)
+            * [3.ALT Copy Music repositories using install](#3alt-copy-music-repositories-using-install)
+            * [4. Serve!](#4-serve)
+            * [Linux vs. Samba <em><strong>permissions</strong></em>](#linux-vs-samba-permissions)
+            * [Samba profile for single user pi](#samba-profile-for-single-user-pi)
+            * [Samba profile for read-only guest access, write access for user pi](#samba-profile-for-read-only-guest-access-write-access-for-user-pi)
 #### 0. Objective
 
 If you own some or all of the music you listen to, you will have a set of files, a *music library*, to deal with. Each of these files contains an encoded version of an element of your music collection. In many cases, a [*player* application](https://en.wikipedia.org/wiki/Comparison_of_audio_player_software)  (e.g. iTunes, Sonos, WinAmp, etc.) will access a music library by mounting a networked file server or [NAS](https://en.wikipedia.org/wiki/Network-attached_storage). Compared to a music library stored *locally* on your phone, or on your computer's hard drive, a networked file server has the advantage of being able to share your music library with several different player applications and users simultaneously. 
