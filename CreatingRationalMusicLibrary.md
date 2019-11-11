@@ -205,13 +205,13 @@ $
 
 #### 5. Serve!
 
-Since a [Samba server is already installed and operational](https://github.com/seamusdemora/PiFormulae/blob/master/FileShare.md) on my RPi, all that needs to begin serving the new partition is to add a new `profile` to the Samba configuration file `/etc/samba/smb.conf`. For better or worse, [Samba offers a bewildering number of options](https://www.samba.org/samba/docs/current/man-html/smb.conf.5.html) for shares. We'll cover two options below: 
+Since a [Samba server is already installed and operational](https://github.com/seamusdemora/PiFormulae/blob/master/FileShare.md) on my RPi, all that needs to begin serving the new partition is to add a new `profile` to the Samba configuration file `/etc/samba/smb.conf`. For better or worse, [Samba offers a bewildering number of options](https://www.samba.org/samba/docs/current/man-html/smb.conf.5.html) for shares. In an effort to minimize confusion regarding Samba ***permissions***, let's review this topic briefly. After that, we'll cover two options for potentially useful Samba *profiles* below: 
 
 - #### Linux vs. Samba ***permissions***
 
-Before we proceed, a few words re. Linux vs. Samba permissions are in order: 
+Before defining a Samba *profile*, a few words re. Linux vs. Samba permissions are in order: 
 
-> Permissions assigned in `smb.conf` apply ***ONLY*** to Samba clients. That is, anyone who accesses the Samba share via the Samba server. Know that these Samba permissions ***DO NOT APPLY*** when logged into your RPi as a Linux user. However, this is not to say that Samba and Linux permissions are independent; they are ***NOT*** independent. 
+> Know that permissions assigned in `smb.conf` apply ***ONLY*** to Samba clients. That is, anyone who accesses the Samba share via the Samba server. Know that these Samba permissions ***DO NOT APPLY*** when logged into your RPi as a Linux user. However, this is not to say that Samba and Linux permissions are independent; they are ***NOT*** independent. 
 
 > Samba permissions are ***limited*** by Linux system permissions. Following is a [useful summary](https://www.cyberciti.biz/tips/how-do-i-set-permissions-to-samba-shares.html):
 >
