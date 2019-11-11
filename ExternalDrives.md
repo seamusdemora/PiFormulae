@@ -4,15 +4,15 @@
 
 ### Table of Contents
 
-      * [Background and Objectives:](#background-and-objectives)   
-      * [Why would I want to do connect an external drive?](#why-would-i-want-to-do-connect-an-external-drive)  
-         * [But all of these instructions! Why is this so complicated? On my Mac, I plug the drive in, and it just works. I can read from it, and write to it immediately!](#but-all-of-these-instructions-why-is-this-so-complicated-on-my-mac-i-plug-the-drive-in-and-it-just-works-i-can-read-from-it-and-write-to-it-immediately)  
-         * [Getting to the job at hand (finally)](#getting-to-the-job-at-hand-finally)  
-      * [1. Determine what drives are currently connected to the RPi](#1-determine-what-drives-are-currently-connected-to-the-rpi)  
-      * [2. Plug a USB drive into a USB connector on the Raspberry Pi](#2-plug-a-usb-drive-into-a-usb-connector-on-the-raspberry-pi)  
-         * [2.a File systems and formats](#2a-file-systems-and-formats)  
+         * [Background and Objectives:](#background-and-objectives)
+      * [Why would I want to do connect an external drive?](#why-would-i-want-to-do-connect-an-external-drive)
+         * [But all of these instructions! Why is this so complicated? On my Mac, I plug the drive in, and it just works. I can read from it, and write to it immediately!](#but-all-of-these-instructions-why-is-this-so-complicated-on-my-mac-i-plug-the-drive-in-and-it-just-works-i-can-read-from-it-and-write-to-it-immediately)
+         * [Getting to the job at hand (finally)](#getting-to-the-job-at-hand-finally)
+      * [1. Determine what drives are currently connected to the RPi](#1-determine-what-drives-are-currently-connected-to-the-rpi)
+      * [2. Plug a USB drive into a USB connector on the Raspberry Pi](#2-plug-a-usb-drive-into-a-usb-connector-on-the-raspberry-pi)
+         * [2.a File systems and formats](#2a-file-systems-and-formats)
          * [2.b Partitions and their uses](#2b-partitions-and-their-uses)  
-         * [2.c Mounting the drive](#2c-mounting-the-drive)  
+         * [2.c Mounting the drive](#2c-mounting-the-drive)
 
 
 
