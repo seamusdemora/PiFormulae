@@ -1,19 +1,16 @@
 ## Create a Rational and Portable File Server for Your Music Library 
 
-Table of Contents
-=================
-
-      * [Create a Rational and Portable File Server for Your Music Library](#create-a-rational-and-portable-file-server-for-your-music-library)
-            * [0. Objective](#0-objective)
-            * [1. Select the USB storage media](#1-select-the-usb-storage-media)
-            * [2. Create and format a partition](#2-create-and-format-a-partition)
-            * [2. Mounting a network storage device:](#2-mounting-a-network-storage-device)
-            * [3. Copy/Sync Music repositories](#3-copysync-music-repositories)
-            * [3.ALT Copy Music repositories using install](#3alt-copy-music-repositories-using-install)
-            * [4. Serve!](#4-serve)
-            * [Linux vs. Samba <em><strong>permissions</strong></em>](#linux-vs-samba-permissions)
-            * [Samba profile for single user pi](#samba-profile-for-single-user-pi)
-            * [Samba profile for read-only guest access, write access for user pi](#samba-profile-for-read-only-guest-access-write-access-for-user-pi)
+#### Contents:  
+[0. Objective](#0-objective)  
+[1. Select the USB storage media](#1-select-the-usb-storage-media)  
+[2. Create and format a partition](#2-create-and-format-a-partition)  
+[2. Mounting a network storage device:](#2-mounting-a-network-storage-device)  
+[3. Copy/Sync Music repositories](#3-copysync-music-repositories)  
+[3.ALT Copy Music repositories using install](#3alt-copy-music-repositories-using-install)  
+[4. Serve!](#4-serve)  
+[Linux vs. Samba <em><strong>permissions</strong></em>](#linux-vs-samba-permissions)  
+[Samba profile for single user pi](#samba-profile-for-single-user-pi)  
+[Samba profile for read-only guest access, write access for user pi](#samba-profile-for-read-only-guest-access-write-access-for-user-pi)  
 
 #### 0. Objective
 
