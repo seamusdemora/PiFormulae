@@ -3,7 +3,7 @@
 #### Contents:  
 [0. Objective](#0-objective)  
 [1. Select the USB storage media](#1-select-the-usb-storage-media)  
-[2. Create and format a partition](#2-create-and-format-a-partition)  
+[2. Format, partition and mount the USB drive](#2-format-partition-and-mount-a-USB-drive)  
 [2. Mounting a network storage device:](#2-mounting-a-network-storage-device)  
 [3. Copy/Sync Music repositories](#3-copysync-music-repositories)  
 [3.ALT Copy Music repositories using install](#3alt-copy-music-repositories-using-install)  
@@ -31,7 +31,7 @@ Consider two general types of USB drives: A [USB flash drive (aka thumb drive](h
 
 As an example, consider a music library with 10,000 files requiring 80 GB of storage. The [SanDisk Cruzer Glide flash drive](https://www.sandisk.com/home/usb-flash/cruzer-glide) is available in 256 GB capacity at a price in the range of \$40 USD. If greater capacity is desired or needed, the [WD *Passport*](https://www.wd.com/products/portable-storage/my-passport.html) series of external drives may be a reasonable choice. A WD Passport with 2 TB capacity is available at a price in the range of \$70 USD. As a USB 2.0 compatible device, the WD Passport won't draw more than 500 mA current. 
 
-#### 2. Create and format a partition
+#### 2. Format, partition and mount a USB drive
 
 As a starting point, we assume that a USB drive is connected to the RPi, but it is ***NOT*** mounted. Verify this from the `bash` command line in an RPi terminal window:  
 
