@@ -2,7 +2,23 @@
 
 > NOTE: The current recipe here does not consider potential differences due to the adoption of `systemd`. As `systemd` has now become "mainstream", the recipe must be revised accordingly. Until that happens, ***most*** of the following remains accurate and pertinent. If you'd like to add anything, please feel free to fork and issue a pull request - or simply open an issue. 
 
-### Background and Objectives:  
+### Table of Contents
+
+   * [How To Connect a <a href="https://en.wikipedia.org/wiki/USB_flash_drive" rel="nofollow">USB Flash Drive</a> to Raspberry Pi?](#how-to-connect-a-usb-flash-drive-to-raspberry-pi)
+         * [Background and Objectives:](#background-and-objectives)
+         * [Why would I want to do connect an external drive?](#why-would-i-want-to-do-connect-an-external-drive)
+         * [But all of these instructions! Why is this so complicated? On my Mac, I plug the drive in, and it just works. I can read from it, and write to it immediately!](#but-all-of-these-instructions-why-is-this-so-complicated-on-my-mac-i-plug-the-drive-in-and-it-just-works-i-can-read-from-it-and-write-to-it-immediately)
+         * [Getting to the job at hand (finally)](#getting-to-the-job-at-hand-finally)
+      * [1. Determine what drives are currently connected to the RPi](#1-determine-what-drives-are-currently-connected-to-the-rpi)
+      * [2. Plug a USB drive into a USB connector on the Raspberry Pi](#2-plug-a-usb-drive-into-a-usb-connector-on-the-raspberry-pi)
+         * [2.a File systems and formats](#2a-file-systems-and-formats)
+         * [2.b Partitions and their uses](#2b-partitions-and-their-uses)
+         * [2.c Mounting the drive](#2c-mounting-the-drive)
+
+
+
+### Background and Objectives:
+
 Following is a procedure to mount a [USB Flash Drive](https://en.wikipedia.org/wiki/USB_flash_drive) on a Raspberry Pi. AKA "thumb drives", these are small, portable data storage devices typically used for data transfer. USB flash drives are [block storage devices](https://en.wikipedia.org/wiki/Block_(data_storage)) which implies that they will be *formatted* IAW a particular [file system](https://en.wikipedia.org/wiki/File_system). This recipe utilizes one of the so-called [FAT file systems](https://en.wikipedia.org/wiki/Design_of_the_FAT_file_system), chosen because of its compatibility with virtually all modern operating systems. Note however that while the FAT file system is ubiquitous, it does not compare particularly well *performance-wise* against other, more modern file systems. However, as performance is typically secondary to portability for USB flash drives, the FAT file system seems appropriate. 
 
 Rather than simply listing the steps in rote fashion, this recipe includes some background and context. This is done primarily for my benefit - as a learning exercise; my aim here is to *explain* the steps required to execute this task under Raspbian. Another aim is to highlight stark differences between Mac OS and Linux, using Raspbian as a proxy for Linux. I hope this approach will be useful to others as well, an alternative to the typical "copy and paste tutorial" that invites copying command lines from a blog into a terminal window without thinking about what they mean. But if you don't care about the explanations, ignore them; follow the steps inside the code blocks. 
