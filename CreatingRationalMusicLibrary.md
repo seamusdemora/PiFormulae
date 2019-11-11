@@ -2,9 +2,7 @@
 
 
 
-[toc]
-
-[link](#create-and-format-a-partition) 
+[link](#2.-create-and-format-a-partition) 
 
 #### 0. Objective
 
