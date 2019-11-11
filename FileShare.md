@@ -1,14 +1,14 @@
-# Sharing Files on a Raspberry Pi Over a Network
+## Sharing Files on Raspberry Pi Over a Network
 
 ### Objective
 
-This "recipe" provides a method for sharing files over a local area network between a RPi and a Mac. It assumes that the files (and folders) to be shared are all on an `exFAT`-formatted partition on an external drive that is mounted on the RPi ([see recipe for mounting drive](ExternalDrives.md)). I use [Samba](https://www.samba.org/) for the file server here because I feel it's the best option for sharing an `exFAT` partition with a Mac. Some may disagree. You should do your research, and choose the approach that works for you. 
+This "recipe" provides a method for sharing files over a local area network between a RPi and a Mac. It assumes that the files (and folders) to be shared are all on an `exFAT`-formatted partition on an external drive that is mounted on the RPi ([see recipe for mounting drive](ExternalDrives.md)). I use [Samba](https://www.samba.org/) for the file server here because I feel it's the best option for sharing non-native file system partitions (exFAT, ext4, etc) with a Mac. Some may disagree. You should do your research, and choose the approach that works for you. 
 
-### Why Would I Do This? 
+### Q&A: Why Would I Do This?
 
 Answer: __convenience__. You could unmount the USB flash drive mounted on your RPi, remove it, and plug it into your Mac or Windows PC. If your RPi is on the other side of your desk, perhaps that's not much convenience. If it's upstairs, or in the garage, or in another country, the convenience is more substantial. And it's not difficult to export a share using Samba. If you're ready, we'll get started: 
 
-## 1. Check the `fstab` entry for the external drive
+### 1. Check the `fstab` entry for the external drive
 
 Check that you have a mount point at `/home/pi/mntThumbDrv`, and `etc/fstab` contains an entry similar to this: 
 
@@ -16,7 +16,7 @@ Check that you have a mount point at `/home/pi/mntThumbDrv`, and `etc/fstab` con
 
 You can change this of course; these entries simply follow on the previous recipe for mounting an external drive. You do want the external drive auto-mounted if you're using Samba to serve it over the network. Auto-mount is accomplished through the `fstab` entry. 
 
-## 2. Install Samba:
+### 2. Install Samba:
 
 Before installing Samba, check to make sure it's not already installed: 
 
@@ -35,9 +35,9 @@ If you don't have both of these packages (`samba` and `samba-common-bin`) instal
 
 This should complete without error. The output may contain certain messages about Samba's Domain Controller (DC) feature being "masked". We don't need the DC, so these messages can be safely ignored. 
 
-## 3. Configure Samba: 
+### 3. Configure Samba:
 
-### 3.a Edit the Samba Configuration file
+#### 3.a Edit the Samba Configuration file
 
 Samba configuration is done through the file `etc/samba/smb.conf`. Make a backup copy of `smb.conf`, and use your favorite editor to modify this file as follows: 
 
@@ -65,7 +65,7 @@ I will mention one other item from the configuration file: the `[homes]` directi
 
 Complete any edits you wish to make in `smb.conf`, verify that the backup file you created earlier is still in place, and save the edited file to `etc/samba/smb.conf`
 
-### 3.b Add the user `pi` to Samba's password database file
+#### 3.b Add the user `pi` to Samba's password database file
 
 When we mount the exported Samba share, we'll authenticate as user `pi`. Samba knows nothing of `pi`'s password under Raspbian, so we'll need to create a password using `smbpasswd`. I'd recommend you use the same password in Samba that you use in Raspbian, but that's not required. Add `pi`'s Samba password as follows: 
 
@@ -73,7 +73,7 @@ When we mount the exported Samba share, we'll authenticate as user `pi`. Samba k
     New SMB password:
     Retype new SMB password:
 
-### 3.c Restart Samba to read the revised Samba Configuration file
+#### 3.c Restart Samba to read the revised Samba Configuration file
 
 (Re)Start the Samba daemons to read the new `smb.conf` file: 
 
@@ -81,7 +81,7 @@ When we mount the exported Samba share, we'll authenticate as user `pi`. Samba k
     [ ok ] Restarting nmbd (via systemctl): nmbd.service. 
     [ ok ] Restarting smbd (via systemctl): smbd.service. 
 
-## 4. Connect to the Samba share: 
+### 4. Connect to the Samba share:
 
 - Open a Finder window (or use one that's already open) 
 - From keyboard, enter `command-k`, or click `Go, Connect to Server...`
