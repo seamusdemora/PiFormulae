@@ -25,7 +25,6 @@ Table of Contents
          * [3.c Restart Samba to read the revised Samba Configuration file](#3c-restart-samba-to-read-the-revised-samba-configuration-file)  
    * [4. Connect to the Samba share:](#4-connect-to-the-samba-share)
 
-Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
 
 ### Objective
 
