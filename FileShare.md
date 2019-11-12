@@ -15,10 +15,10 @@
 Table of Contents
 =================
 
-      * [Sharing Files on Raspberry Pi Over a Network](#sharing-files-on-raspberry-pi-over-a-network)
-         * [Objective](#objective)
-         * [Q&amp;A: Why Would I Do This?](#qa-why-would-i-do-this)
-         * [1. Check the fstab entry for the external drive](#1-check-the-fstab-entry-for-the-external-drive)
+   * [Sharing Files on Raspberry Pi Over a Network](#sharing-files-on-raspberry-pi-over-a-network)
+      * [Objective](#objective)
+      * [Q&amp;A: Why Would I Do This?](#qa-why-would-i-do-this)
+      * [1. Check the fstab entry for the external drive](#1-check-the-fstab-entry-for-the-external-drive)
          * [2. Install Samba:](#2-install-samba)
          * [3. Configure Samba:](#3-configure-samba)
             * [3.a Edit the Samba Configuration file](#3a-edit-the-samba-configuration-file)
