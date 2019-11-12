@@ -16,10 +16,10 @@ Table of Contents
 =================
 
    * [Objective](#objective)
-      * [Q&amp;A: Why Would I Do This?](#qa-why-would-i-do-this)
-      * [1. Check the fstab entry for the external drive](#1-check-the-fstab-entry-for-the-external-drive)
-         * [2. Install Samba:](#2-install-samba)
-         * [3. Configure Samba:](#3-configure-samba)
+   * [Q&amp;A: Why Would I Do This?](#qa-why-would-i-do-this)
+   * [1. Check the fstab entry for the external drive](#1-check-the-fstab-entry-for-the-external-drive)
+      * [2. Install Samba:](#2-install-samba)
+      * [3. Configure Samba:](#3-configure-samba)
             * [3.a Edit the Samba Configuration file](#3a-edit-the-samba-configuration-file)
             * [3.b Add the user pi to Samba's password database file](#3b-add-the-user-pi-to-sambas-password-database-file)
             * [3.c Restart Samba to read the revised Samba Configuration file](#3c-restart-samba-to-read-the-revised-samba-configuration-file)
