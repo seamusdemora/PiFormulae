@@ -2,8 +2,8 @@
 
 ### Table of Contents  
 
-   [- Objective](#objective)  
-   [- Q&amp;A: Why Would I Do This?](#qa-why-would-i-do-this)  
+   [* Objective](#objective)  
+   [* Q&amp;A: Why Would I Do This?](#qa-why-would-i-do-this)  
    [1. Check the fstab entry for the external drive](#1-check-the-fstab-entry-for-the-external-drive)  
    [2. Install Samba:](#2-install-samba)  
    [3. Configure Samba:](#3-configure-samba)  
