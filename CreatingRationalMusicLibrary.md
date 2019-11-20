@@ -312,12 +312,13 @@ REFERENCES:
 5. [File system compatibility with CIFS](https://unix.stackexchange.com/questions/501982/file-system-compatibility-with-cifs) (My question on Unix&Linux StackExchange) 
 6. [Rsync (Remote Sync): 10 Practical Examples of Rsync Command in Linux](https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/) 
 7. [Rsync options to exclude certain subdirectories](https://stackoverflow.com/a/2194500/5395338) 
-8. [Unison as an alternative to Rsync for Bidirectional synchronization](https://www.cis.upenn.edu/~bcpierce/unison/), [Unison GitHub page](https://github.com/bcpierce00/unison)  
-9. [A Stack Overflow Q&A related to this recipe](https://stackoverflow.com/questions/1529946/linux-copy-and-create-destination-dir-if-it-does-not-exist) 
-10. [Related: Ideas on Managing a Music Library](https://www.techhive.com/article/3201150/how-to-manage-your-digital-music-library.html) 
-11. [HowTo: recursive `chown`](https://aplawrence.com/Unixart/chown.html) Also see [this answer on SE](https://superuser.com/a/260939/907399) 
-12. [Recursive permission changes to files and folders, a SE answer](https://stackoverflow.com/a/11512211/5395338) 
-13. [Use `install` instead of `cp` to copy files and ***set*** attributes](https://www.ostechnix.com/copy-files-change-ownership-permissions-time/) 
+8. [Non-Beginner's Guide to Rsync](https://www.howtogeek.com/175008/the-non-beginners-guide-to-syncing-data-with-rsync/) 
+9. [Unison as an alternative to Rsync for Bidirectional synchronization](https://www.cis.upenn.edu/~bcpierce/unison/), [Unison GitHub page](https://github.com/bcpierce00/unison)  
+10. [A Stack Overflow Q&A related to this recipe](https://stackoverflow.com/questions/1529946/linux-copy-and-create-destination-dir-if-it-does-not-exist) 
+11. [Related: Ideas on Managing a Music Library](https://www.techhive.com/article/3201150/how-to-manage-your-digital-music-library.html) 
+12. [HowTo: recursive `chown`](https://aplawrence.com/Unixart/chown.html) Also see [this answer on SE](https://superuser.com/a/260939/907399) 
+13. [Recursive permission changes to files and folders, a SE answer](https://stackoverflow.com/a/11512211/5395338) 
+14. [Use `install` instead of `cp` to copy files and ***set*** attributes](https://www.ostechnix.com/copy-files-change-ownership-permissions-time/) 
 
 
 
