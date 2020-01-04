@@ -201,6 +201,28 @@ $
 
 #### 4.ALT Copy Music repositories using `install` or `rsync`
 
+- `install` 
+
+- `rsync` may be used to copy the music library from the network drive to the USB drive, and also to keep the USB drive current (synchronized) with the network drive. However, you should know that `rsync` synchronizes in one direction: from *source* to *destination*; i.e. if you designate the USB drive as the *destination*, then add files to your USB drive, `rsync` will not update the master drive. Changes flow in one direction only. 
+
+  Note that `rsync` is a complex utility with a large number of arguments. You should read the `man` page carefully, and make use of the `--dry-run` argument to verify your command does what you intend. Following is a simple generic `rsync` command that will sync the `destination` drive with the `source` drive: 
+
+  ```bash
+  rsync -av source destination
+  ```
+
+  Assuming that we are running the `rsync` command as user `pi`, file ownership and permissions will be set to **???**. If this is not what is wanted, use the **???** option(s) to set ownership and permissions as needed. Also note that if you intend to run `rsync` as a `cron` job, you should understand that `cron`'s environment may be different 
+
+  
+
+  we mounted above to the USB drive we have mounted, and it will ignore directories designated:
+
+  ```bash
+  rsync -av --exclude='path1/to/exclude' --exclude='path2/to/exclude' ~/mntNetgearNAS-3/music_lib ~/mntPassport 
+  ```
+
+- If you need 2-way synchronization, the [`unison`](https://github.com/bcpierce00/unison) utility may be useful. In other words, changes made to either source or destination libraries will be propagated to the other. 
+
 - PLACEHOLDER
 
 #### 5. Serve!
@@ -312,7 +334,7 @@ REFERENCES:
 5. [File system compatibility with CIFS](https://unix.stackexchange.com/questions/501982/file-system-compatibility-with-cifs) (My question on Unix&Linux StackExchange) 
 6. [Rsync (Remote Sync): 10 Practical Examples of Rsync Command in Linux](https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/) 
 7. [Rsync options to exclude certain subdirectories](https://stackoverflow.com/a/2194500/5395338) 
-8. [Non-Beginner's Guide to Rsync](https://www.howtogeek.com/175008/the-non-beginners-guide-to-syncing-data-with-rsync/) 
+8. [Non-Beginner's Guide to Rsync](https://www.howtogeek.com/175008/the-non-beginners-guide-to-syncing-data-with-rsync/) 
 9. [Unison as an alternative to Rsync for Bidirectional synchronization](https://www.cis.upenn.edu/~bcpierce/unison/), [Unison GitHub page](https://github.com/bcpierce00/unison)  
 10. [A Stack Overflow Q&A related to this recipe](https://stackoverflow.com/questions/1529946/linux-copy-and-create-destination-dir-if-it-does-not-exist) 
 11. [Related: Ideas on Managing a Music Library](https://www.techhive.com/article/3201150/how-to-manage-your-digital-music-library.html) 
