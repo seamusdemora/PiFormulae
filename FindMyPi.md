@@ -18,7 +18,7 @@ For some of you, this is a "[nonproblem](https://www.collinsdictionary.com/dicti
 ssh pi@raspberrypi.local
 ```
 
-This often works because `pi` is the default user, and `raspberrypi` is the default hostname. The use of the `.local` suffix chosen by Bonjour and Avahi has been a [bit chaotic, in part because of Microsoft's inconsistent and conflicting support advice to their user base](https://en.wikipedia.org/wiki/.local). However, as **zeroconf** "picks up steam", this seems to be less problematic. 
+This often works because `pi` is the default user, and `raspberrypi` is the default hostname. The use of the `.local` suffix chosen by Bonjour and Avahi has been a [bit chaotic, in part because of Microsoft's inconsistent and conflicting support advice to their user base](https://en.wikipedia.org/wiki/.local). However, as **zeroconf** "picks up steam", this seems to be less problematic. 
 
 ### IP address discovery
 
@@ -26,9 +26,12 @@ All that said, here's an [approach I outlined in response to a question on Stack
 
 Try this first: 
 
-```arp -a | grep --ignore-case b8:27:eb``` 
+```
+arp -a | grep -E --ignore-case 'b8:27:eb|dc:a6:32'
+```
 
-If your RPi isn't in your arp cache that won't yield anything useful. If that's the case, then create the following file in your favorite editor on your Mac, and save/write it as `pingpong.sh`: 
+
+The two hex strings (`b8:27:eb|dc:a6:32`) in this command reflect the two [OUI](https://en.wikipedia.org/wiki/Organizationally_unique_identifier) values used by "The Foundation" for production of all RPi devices - through RPi ver 4B as of this writing. If your RPi isn't in your arp cache this command won't yield anything useful. If that's the case, then create the following file in your favorite editor on your Mac, and save/write it as `pingpong.sh`: 
 ```
 #!/bin/sh
 
@@ -38,7 +41,7 @@ subnet=$1
 for addr in `seq 0 1 255 `; do
 ( ping -c 3 -t 5 $subnet$addr > /dev/null ) &
 done
-arp -a | grep b8:27:eb
+arp -a | grep -E --ignore-case 'b8:27:eb|dc:a6:32'
 ```
 make it executable:
 
@@ -52,7 +55,7 @@ and then execute it (use __your__ network address here, not necessarily __192.16
 
 ```./pingpong.sh 192.168.1.```
 
-Your output may look like this: This output reflects my network; it has 2 RPis connected, and one of them is a 3B+ with WiFi enabled ***and*** the Ethernet port connected to a switch (or router): 
+Your output may look like this: This output reflects my network; it has 2 RPis connected, and one of them is a 3B+ with WiFi enabled ***and*** the Ethernet port connected to a switch (or router): 
 ```
 ? (192.168.1.19) at b8:27:eb:3a:b9:78 on en0 ifscope [ethernet]
 ? (192.168.1.27) at b8:27:eb:cd:2f:ff on en0 ifscope [ethernet]
