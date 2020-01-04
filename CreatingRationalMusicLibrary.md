@@ -201,7 +201,7 @@ $
 
 #### 4.ALT Copy Music repositories using `install` or `rsync`
 
-- `install` 
+- `install`  (PLACEHOLDER)
 
 - `rsync` may be used to copy the music library from the network drive to the USB drive, and also to keep the USB drive current (synchronized) with the network drive. However, you should know that `rsync` synchronizes in one direction: from *source* to *destination*; i.e. if you designate the USB drive as the *destination*, then add files to your USB drive, `rsync` will not update the master drive. Changes flow in one direction only. 
 
@@ -211,7 +211,7 @@ $
   rsync -av source destination
   ```
 
-  Assuming that we are running the `rsync` command as user `pi`, file ownership and permissions will be set to **???**. If this is not what is wanted, use the **???** option(s) to set ownership and permissions as needed. Also note that if you intend to run `rsync` as a `cron` job, you should understand that `cron`'s environment may be different 
+  Assuming that we are running the `rsync` command as user `pi`, file ownership and permissions will be set to **???**. If this is not what is wanted, use the **???** option(s) to set ownership and permissions as needed. Also note that if you intend to run `rsync` as a `cron` job, you should understand that `cron`'s environment may be different 
 
   
 
@@ -221,9 +221,8 @@ $
   rsync -av --exclude='path1/to/exclude' --exclude='path2/to/exclude' ~/mntNetgearNAS-3/music_lib ~/mntPassport 
   ```
 
-- If you need 2-way synchronization, the [`unison`](https://github.com/bcpierce00/unison) utility may be useful. In other words, changes made to either source or destination libraries will be propagated to the other. 
+- If you need 2-way synchronization, the [`unison`](https://github.com/bcpierce00/unison) utility may be useful. In other words, changes made to either source or destination libraries will be propagated to the other. 
 
-- PLACEHOLDER
 
 #### 5. Serve!
 
