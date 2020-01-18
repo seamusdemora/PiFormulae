@@ -162,7 +162,7 @@ ncdu 1.12 ~ Use the arrow keys to navigate, press ? for help
 
 The `--si` option is useful as it gives sizes in terms that are usually relatable to USB drive specifications. Check out `man ncdu` for all the details. 
 
-#### 4. Copy/Sync Music repositories
+#### 4. Copy the Music repository
 
 Now that we've mounted the network (or local) storage device where the "master copies" of our music library are located, we'll we'll use it as the `source` to copy all files to the `destination` on the `sdb1` partition on the PASSPORT2TB device. The "copy", or `cp` command will be used, but `rsync` would work as well.  
 
@@ -201,28 +201,45 @@ $
 
 #### 4.ALT Copy Music repositories using `install` or `rsync`
 
-- `install`  (PLACEHOLDER)
+- `install`  (PLACEHOLDER, TBD)
 
-- `rsync` may be used to copy the music library from the network drive to the USB drive, and also to keep the USB drive current (synchronized) with the network drive. However, you should know that `rsync` synchronizes in one direction: from *source* to *destination*; i.e. if you designate the USB drive as the *destination*, then add files to your USB drive, `rsync` will not update the master drive. Changes flow in one direction only. 
+- `rsync` may be used to copy the music library from the network drive to the USB drive, and also to keep the USB drive current (synchronized) with the network drive. However, you should know that ***`rsync` synchronizes in one direction: from source to destination***; i.e. if you designate the USB drive as the *destination*, then add files to your USB drive, `rsync` will not update the master drive. ***Changes flow in one direction only.*** 
 
-  Note that `rsync` is a complex utility with a large number of arguments. You should read the `man` page carefully, and make use of the `--dry-run` argument to verify your command does what you intend. Following is a simple generic `rsync` command that will sync the `destination` drive with the `source` drive: 
+  Note that `rsync` is a complex utility with a large number of arguments. You should read `man rsync`  carefully, and make use of the `--dry-run` argument to verify your command does what you intend. Following is the *syntax* of the `rsync` command: 
 
   ```bash
-  rsync -av source destination
+  rsync [options] source destination
   ```
 
-  Assuming that we are running the `rsync` command as user `pi`, file ownership and permissions will be set to **???**. If this is not what is wanted, use the **???** option(s) to set ownership and permissions as needed. Also note that if you intend to run `rsync` as a `cron` job, you should understand that `cron`'s environment may be different 
+  In this recipe, `rsync` is run from the command line of user `pi`, and it is desired that all files are owned by user `pi`. Permissions will be set such that the music files may be read by anyone, but only user `pi` has write permission. If this is not what you want/need, changing the permissions is straightforward as shown below. Note however that if you intend to run `rsync` as a `cron` job, you may need to make further adjustments. Following are source & destination on the RPi:
 
+  - `source` location: `//NetgearNAS-3/pri_library` ; mounted at `~/mntNetgearNAS-3` 
+  - `destination` location: ~/mntPassport/pri_library; a *permanently* mounted USB drive
+
+  Following is the `rsync` command used to sync destination to source: 
+
+  ```bash
+  rsync -rtpv --chmod=D1755,F644 '/home/pi/mntNetgearNAS-3/' '/home/pi/mntPassport/pri_library'
+  ```
+
+  Let's cover the options: 
+
+  - `-rtpv` is actually 4 options: `r`: *recursive*; `t`:sync file modification times; `p`: sync file/folder permissions; `v`: verbose output.
+  - `--chmod=D1755,F644`: sets **D**irectory & **F**ile permissions to `1755` and `644` respectively. 
+
+  [Here's a useful resource is useful for checking `permissions`](https://chmodcommand.com/chmod-1755/)   
+
+  Another useful option is:
+
+  `--dry-run`: as implied, it produces output, but does not actually move any files. Useful for debugging & confidence-building. :)  Here, it's used with a `redirect` to capture the `rsyns` output to a file with 3 servings of verbosity.  
+
+  ```bash
+   rsync -rtpvvv --chmod=D1755,F644 --dry-run '/home/pi/mntNetgearNAS-3/' '/home/pi/mntPassport/pri_library' > ~/rsync-out.txt
+  ```
   
-
-  we mounted above to the USB drive we have mounted, and it will ignore directories designated:
-
-  ```bash
-  rsync -av --exclude='path1/to/exclude' --exclude='path2/to/exclude' ~/mntNetgearNAS-3/music_lib ~/mntPassport 
-  ```
-
-- If you need 2-way synchronization, the [`unison`](https://github.com/bcpierce00/unison) utility may be useful. In other words, changes made to either source or destination libraries will be propagated to the other. 
-
+  As mentioned, `rsync` has numerous options. `man rsync` is your guide to understanding them.
+  
+- Finally, if you need ***2-way synchronization***, the [`Unison`](https://github.com/bcpierce00/unison) utility may be useful. In other words, changes made to either source or destination libraries will be propagated to the other. `Unison` is available is the RPi ports tree. 
 
 #### 5. Serve!
 
