@@ -227,7 +227,7 @@ $
   - `-rtpv` is actually 4 options: `r`: *recursive*; `t`:sync file modification times; `p`: sync file/folder permissions; `v`: verbose output.
   - `--chmod=D1755,F644`: sets **D**irectory & **F**ile permissions to `1755` and `644` respectively. 
 
-  [Here's a useful resource is useful for checking `permissions`](https://chmodcommand.com/chmod-1755/)   
+  [Here's a useful resource for checking `permissions`](https://chmodcommand.com/chmod-1755/)   
 
   Another useful option is:
 
