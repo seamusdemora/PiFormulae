@@ -231,7 +231,7 @@ $
 
   Another useful option is:
 
-  `--dry-run`: as implied, it produces output, but does not actually move any files. Useful for debugging & confidence-building. :)  Here, it's used with a `redirect` to capture the `rsyns` output to a file with 3 servings of verbosity.  
+  `--dry-run`: as implied, it produces output, but does not actually move any files. Useful for debugging & confidence-building. :)  Here, it's used with a `redirect` to capture the `rsync` output to a file with 3 servings of verbosity.  
 
   ```bash
    rsync -rtpvvv --chmod=D1755,F644 --dry-run '/home/pi/mntNetgearNAS-3/' '/home/pi/mntPassport/pri_library' > ~/rsync-out.txt
