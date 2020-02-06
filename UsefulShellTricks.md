@@ -1,6 +1,6 @@
 ### Useful shell tricks:
 
-[toc]
+[TOC]
 
 #### 1. Reload bash's .profile without restarting shell:
 
