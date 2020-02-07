@@ -1,10 +1,10 @@
-### Useful shell tricks: 
+### Useful shell tricks:
 
 [1. Reload bash's .profile without restarting shell:](#1-reload-bash-s-profile-without-restarting-shell-)
 
 [2. Clear the contents of a file without deleting the file:](#2-clear-the-contents-of-a-file-without-deleting-the-file-)
 
-[3. List all directories (not files, just directories); [ref Q&A](https://unix.stackexchange.com/questions/518777/shell-script-to-test-ls-output-for-directories)](#3-list-all-directories--not-files--just-directories----ref-q-a--https---unixstackexchangecom-questions-518777-shell-script-to-test-ls-output-for-directories-)
+[3. List all directories - not files, just directories:](#3-list-all-directories---not-files--just-directories-)
 
 [4. Sequential shell command execution:](#4-sequential-shell-command-execution-)
 
@@ -27,7 +27,7 @@ $ > somefile.xyz
 $ truncate -s 0 test.txt
 ```
 
-#### 3. List all directories (not files, just directories); [ref Q&A](https://unix.stackexchange.com/questions/518777/shell-script-to-test-ls-output-for-directories) 
+#### 3. List all directories - not files, just directories:
 
 ```bash
 $ find . -type d   # list all dirs in pwd (.)
