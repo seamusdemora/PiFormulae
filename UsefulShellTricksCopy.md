@@ -2,11 +2,11 @@
 
 #### Table of contents
 
-1. [Useful shell tricks:](#usefulshelltricks)
-    - [1. Reload bash's .profile without restarting shell:](#1reloadbashsprofilewithoutrestartingshell)
-    - [2. Clear the contents of a file without deleting the file:](#2clearthecontentsofafilewithoutdeletingthefile)
-    - [3. List all directories - not files, just directories:](#3listalldirectoriesnotfilesjustdirectories)
-    - [4. Sequential shell command execution: ](#4sequentialshellcommandexecution)
+1. [Useful shell tricks:](#useful-shell-tricks)
+    - [1. Reload bash's .profile without restarting shell:](#1-reload-bashs-profile-without-restarting-shell)
+    - [2. Clear the contents of a file without deleting the file:](#2-clear-the-contents-of-a-file-without-deleting-the-file)
+    - [3. List all directories - not files, just directories:](#3-list-all-directories---not-files-just-directories)
+    - [4. Sequential shell command execution: ](#4-sequential-shell-command-execution-)
 2. [REFERENCES:](#references)
 
 #### 1. Reload bash's .profile without restarting shell:
