@@ -237,9 +237,9 @@ $
    rsync -rtpvvv --chmod=D1755,F644 --dry-run '/home/pi/mntNetgearNAS-3/' '/home/pi/mntPassport/pri_library' > ~/rsync-out.txt
   ```
   
-  As mentioned, `rsync` has numerous options. `man rsync` is your guide to understanding them.
+  As mentioned, `rsync` has numerous options. `man rsync` is your guide to understanding them.
   
-- Finally, if you need ***2-way synchronization***, the [`Unison`](https://github.com/bcpierce00/unison) utility may be useful. In other words, changes made to either source or destination libraries will be propagated to the other. `Unison` is available is the RPi ports tree. 
+- Finally, if you need ***2-way synchronization***, the [`Unison`](https://github.com/bcpierce00/unison) utility may be useful. In other words, changes made to either source or destination libraries will be propagated to the other. `Unison` is available is the RPi ports tree. 
 
 #### 5. Serve!
 
@@ -357,6 +357,7 @@ REFERENCES:
 12. [HowTo: recursive `chown`](https://aplawrence.com/Unixart/chown.html) Also see [this answer on SE](https://superuser.com/a/260939/907399) 
 13. [Recursive permission changes to files and folders, a SE answer](https://stackoverflow.com/a/11512211/5395338) 
 14. [Use `install` instead of `cp` to copy files and ***set*** attributes](https://www.ostechnix.com/copy-files-change-ownership-permissions-time/) 
+15. [How to Partition and Format Drives](https://pimylifeup.com/partition-and-format-drives-on-linux/) 
 
 
 
