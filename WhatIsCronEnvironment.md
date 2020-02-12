@@ -95,4 +95,8 @@ You'll notice numerous differences. Having this information, knowing how the `cr
 REFERENCES AND FOLLOW-UP:
 
 1. A sequel could be [How to Set the environment for `cron`](https://www.unix.com/shell-programming-and-scripting/163494-setting-environment-variables-cron-file.html) 
-2. [Setting the environment variable defining the default editor in macos](http://osxdaily.com/2011/03/07/change-set-the-default-crontab-editor/) 
+2. Other approaches to setting cron's environment are in [this Q&A on SO](https://stackoverflow.com/questions/2229825/where-can-i-set-environment-variables-that-crontab-will-use) 
+
+3. Should `sudo` be used in a `crontab`? No, use root's crontab: `sudo crontab -e` [Q&A#1](https://askubuntu.com/questions/419548/how-to-set-up-a-root-cron-job-properly), [Q&A #2](https://askubuntu.com/questions/173924/how-to-run-a-cron-job-using-the-sudo-command) 
+
+4. [Setting the environment variable defining the default editor in macos](http://osxdaily.com/2011/03/07/change-set-the-default-crontab-editor/) 
