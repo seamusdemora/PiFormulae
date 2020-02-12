@@ -33,7 +33,8 @@ $ truncate -s 0 test.txt
 $ find . -type d   # list all dirs in pwd (.)
 ```
 
-#### 4. Sequential shell command execution: 
+#### 4. Sequential shell command execution:
+
 Sometimes we want to execute a series of commands, but only if all previous commands execute successfully. In this case, we should use **`&&`** to join the commands in the sequence: 
 
 ```bash
@@ -43,6 +44,30 @@ At other times we want to execute a series of commands regardless of whether or 
 
 ```bash
 cp /home/pi/README /home/auser; rsync -av /home/auser /mnt/BackupDrv/auser_backup/
+```
+
+#### 5. Get a date-time stamp for a log:
+
+It's often useful to insert a date-time stamp in a log file, inserted in a string, etc. Easily done: 
+
+```bash
+echo $(date) >> mydatalog.txt   # using `echo` inserts a newline after the date & time 
+echo $(date -u)                 # `-u` gives UTC 
+```
+
+There are numerous options with the `date` command. Check `man date`, or peruse this [*Lifewire* article 'How to Display the Date and Time Using Linux Command Line'](https://www.lifewire.com/display-date-time-using-linux-command-line-4032698). 
+
+#### 6. String manipulation with bash:
+
+It's often useful to manipulate string variables in bash. These websites have some examples: [website 1](https://www.tutorialkart.com/bash-shell-scripting/bash-string-manipulation-examples/); [website 2](https://www.thegeekstuff.com/2010/07/bash-string-manipulation/). For example:
+
+```bash
+$ str1="for everything there is a "
+$ str2="reason"
+$ str3="season"
+$ echo $str1$str2; echo $str1$str3
+for everything there is a reason
+for everything there is a season
 ```
 
 
@@ -66,4 +91,7 @@ cp /home/pi/README /home/auser; rsync -av /home/auser /mnt/BackupDrv/auser_backu
 6. [Q&A re use of the `shebang` line](https://unix.stackexchange.com/questions/517370/shebang-or-not-shebang) 
 7. [Q&A re clever use of `xargs` ](https://unix.stackexchange.com/questions/518186/usage-of-touch-with-pipeline)  
 8. [Exit status of last command using PROMPT_COMMAND](https://unix.stackexchange.com/questions/519680/exit-status-of-last-command-using-prompt-command) (An interesting thing worth further study) 
-9. [Q&A re executing multiple shell commands in one line](https://stackoverflow.com/questions/13077241/execute-combine-multiple-linux-commands-in-one-line) 
+9. [Q&A re executing multiple shell commands in one line](https://stackoverflow.com/questions/13077241/execute-combine-multiple-linux-commands-in-one-line) 
+10. [*Lifewire* article explains 'How to Display the Date and Time Using Linux Command Line'](https://www.lifewire.com/display-date-time-using-linux-command-line-4032698) 
+11. [*The Geek Stuff*: Bash String Manipulation Examples – Length, Substring, Find and Replace](https://www.thegeekstuff.com/2010/07/bash-string-manipulation/) 
+12. [*The Tutorial Kart*: bash string manipulation examples](https://www.tutorialkart.com/bash-shell-scripting/bash-string-manipulation-examples/) 
