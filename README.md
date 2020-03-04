@@ -1,6 +1,6 @@
 # PiFormulae
 
-This is a collection of ***recipes*** for using and maintaining a [*Raspberry Pi* - or ***RPi***](https://en.wikipedia.org/wiki/RPi). The entries in the table below link to some of the "How-To" guides in this ***repo***(*sitory*), and other pages that have any potentially useful information. Admittedly, that's a low bar for inclusion, but feel free to [peruse any or all of the pages in the repo](https://github.com/seamusdemora/PiFormulae) as well. 
+This is a collection of ***recipes*** for using and maintaining a [*Raspberry Pi* - or ***RPi***](https://en.wikipedia.org/wiki/RPi). The entries in the table below link to some of the "How-To" guides in this ***repo***(*sitory*), and other pages with potentially useful information. Admittedly, that's a low bar for inclusion, but feel free to [peruse any or all of the pages in the repo](https://github.com/seamusdemora/PiFormulae) as well. 
 
 Most importantly, feel free to ***contribute***… [GitHub explains](https://guides.github.com/activities/forking/) how to create a fork of this repo, or there's a good (and v. brief) [YouTube video that explains the process](https://www.youtube.com/watch?v=f5grYMXbAV0), and why you'd want to fork a repo. If you find an error in this repo, or feel any of these *recipes* could be improved, there are (at least) two ways to contribute:
 
@@ -25,6 +25,10 @@ Most importantly, feel free to ***contribute***… [GitHub explains](https://gui
 <td><a href="FindMyPi.md">Find the IP address of a RPi</a></td>
   <td>This is potentially useful for those running their RPi in "headless mode". You can use this to find the IP address of your RPi, and having the address, initiate the necessary SSH connection to communicate with it. Note that this may be unnecessary for Mac users, or other PCs, that employ <a href="https://en.wikipedia.org/wiki/Zero-configuration_networking">zero configuration networking.</a>  <a href="http://ommolketab.ir/aaf-lib/6429sutwymieo6db64h8t0tbavz3z7.pdf">PDF Book</a></td>
 </tr>
+<tr>  
+  <td></td>
+  <td></td>
+</tr>
 <tr>
 <td><a href="ExternalDrives.md">Mount an external drive</a></td>
 <td>This recipe will walk through the steps needed to mount an external drive on a RPi, and explain in some detail what the commands do, and why they are necessary.</td>
@@ -33,13 +37,53 @@ Most importantly, feel free to ***contribute***… [GitHub explains](https://gui
 <td><a href="FileShare.md">Share Files on RPi over the network using Samba</a></td>
   <td>This recipe continues the <a href="ExternalDrives.md">External Drives</a> recipe to share files and folders over your network.</td>
 </tr>
+<tr>  
+  <td><a href="CreatingRationalMusicLibrary.md">RPi file server for a music library</td>
+  <td>This recipe builds on the two recipes above to create a rational, portable file server for a music library</td>
+</tr>  
+<tr>  
+  <td></td>
+  <td></td>
+</tr>
 <tr>
 <td><a href="PiCameraAntics.md">Using the Pi Camera</a></td>
 <td>The Pi Camera is a popular accessory, but it does have some "quirks". This is a work in progress for using the Pi Camera from the command line; some of the examples may be useful to someone who's getting started.</td>
 </tr>
+<tr>  
+  <td></td>
+  <td></td>
+</tr>
 <tr>
 <td><a href="XQuartzInstall.md">How to do Python development on your RPi from your Mac</a></td>
 <td>For Python coders: I use <a href="https://www.xquartz.org/">XQuartz</a> as the X11 app on my Mac to run <a href="https://docs.python.org/3/library/idle.html">IDLE</a> on my Raspberry Pi in headless mode. This is an easy-to-follow guide to setting that up.</td>
+</tr>
+<tr>  
+  <td><a href="UseGitOnRPiToGitHub.md">Use `git` to sync your RPi projects with GitHub</a></td>
+  <td>Here's how to use `git` from your RPI's CLI to keep your projects synced with your GitHub repo</td>
+</tr>
+<tr>  
+  <td></td>
+  <td></td>
+</tr>
+<tr>  
+  <td><a href="UsefulShellTricks.md">Potentially useful ideas for the CLI</a></td>
+  <td>You need to learn how to use the shell (or go back to Windows). Here's a small sample of tips & tricks I've accumulated.</td>
+</tr>
+<tr>  
+  <td><a href="WhatHardwareAndSoftwareVersionRaspberryPi.md">What's my RPi hardware, and what version of Raspbian am I running?</a></td>
+  <td>If you've got more than one of these things, your recollection may fail occasionally. But your system always knows the correct answer!</td>
+</tr>
+<tr>  
+  <td><a href="MyCrontabDoesntWork.md">`cron` is straightforward to use if you know its limitations</a></td>
+  <td>Most failures with `cron` are caused by not understanding these limitations.</td>
+</tr>
+<tr>  
+  <td><a href="WhatIsCronEnvironment.md">What is <code>cron</code>'s <i>environment</i>?'</a></td>
+  <td>A fair question! It's easy to say, "cron's environment is different than your user environment.", but <b>what is its environment?</b> This is a simple script that will tell you.</td>
+</tr>
+<tr>  
+  <td></td>
+  <td></td>
 </tr>
 <tr>
 <td><a href="PackageMaintenance.md">My recipe for installing and updating software</a></td>
@@ -51,6 +95,7 @@ Most importantly, feel free to ***contribute***… [GitHub explains](https://gui
 </tr>
 </tbody>
 </table>
+
 ------
 
 OTHER REFERENCES: 
