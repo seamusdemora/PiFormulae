@@ -1,19 +1,18 @@
-### Useful shell tricks:
+## Useful shell tricks:
 
 #### Table of contents
 
-1. [Useful shell tricks:](#useful-shell-tricks)
-    - [1. Reload bash's .profile without restarting shell:](#1-reload-bashs-profile-without-restarting-shell)
-    - [2. Clear the contents of a file without deleting the file:](#2-clear-the-contents-of-a-file-without-deleting-the-file)
-    - [3. List all directories - not files, just directories:](#3-list-all-directories---not-files-just-directories)
-    - [4. Sequential shell command execution:](#4-sequential-shell-command-execution)
-    - [5. Get a date-time stamp for a log:](#5-get-a-date-time-stamp-for-a-log)
-    - [6. String manipulation with bash:](#6-string-manipulation-with-bash)
-2. [REFERENCES:](#references)
+* [Reload bash's .profile without restarting shell:](#reload-bashs-profile-without-restarting-shell)
+* [Clear the contents of a file without deleting the file:](#clear-the-contents-of-a-file-without-deleting-the-file)
+* [List all directories - not files, just directories:](#list-all-directories---not-files-just-directories)
+* [Sequential shell command execution:](#sequential-shell-command-execution)
+* [Get a date-time stamp for a log:](#get-a-date-time-stamp-for-a-log)
+* [String manipulation with bash:](#string-manipulation-with-bash)
+* [REFERENCES:](#references)
 
 
 
-#### 1. Reload bash's .profile without restarting shell:
+### Reload bash's .profile without restarting shell:
 
 
 ```
@@ -23,20 +22,20 @@
 
 >  If something is **removed** from `~/.profile`, that change will **not** take effect after `. ~/.profile` reload. For example, add a function to `~/.profile`: `function externalip () { curl http://ipecho.net/plain; echo; }`, then `~/.profile` - IT WORKS. Now remove that function from `~/.profile`, then `. ~/.profile` again. The function is still available - only restarting (log out & in) will remove it. 
 
-#### 2. Clear the contents of a file without deleting the file:
+### Clear the contents of a file without deleting the file:
 
 ```bash
 $ > somefile.xyz
 $ truncate -s 0 test.txt
 ```
 
-#### 3. List all directories - not files, just directories:
+### List all directories - not files, just directories:
 
 ```bash
 $ find . -type d   # list all dirs in pwd (.)
 ```
 
-#### 4. Sequential shell command execution:
+### Sequential shell command execution:
 
 Sometimes we want to execute a series of commands, but only if all previous commands execute successfully. In this case, we should use **`&&`** to join the commands in the sequence: 
 
@@ -49,7 +48,7 @@ At other times we want to execute a series of commands regardless of whether or 
 cp /home/pi/README /home/auser; rsync -av /home/auser /mnt/BackupDrv/auser_backup/
 ```
 
-#### 5. Get a date-time stamp for a log:
+### Get a date-time stamp for a log:
 
 It's often useful to insert a date-time stamp in a log file, inserted in a string, etc. Easily done: 
 
@@ -60,7 +59,7 @@ echo $(date -u)                 # `-u` gives UTC
 
 There are numerous options with the `date` command. Check `man date`, or peruse this [*Lifewire* article 'How to Display the Date and Time Using Linux Command Line'](https://www.lifewire.com/display-date-time-using-linux-command-line-4032698). 
 
-#### 6. String manipulation with bash:
+### String manipulation with bash:
 
 It's often useful to manipulate string variables in bash. These websites have some examples: [website 1](https://www.tutorialkart.com/bash-shell-scripting/bash-string-manipulation-examples/); [website 2](https://www.thegeekstuff.com/2010/07/bash-string-manipulation/). For example:
 
@@ -79,7 +78,6 @@ for everything there is a season
 
 
 <hr>
-
 ### REFERENCES:
 
 1. [commandlinefu.com - a searchable archive of command line wisdom](https://www.commandlinefu.com/commands/browse) 
