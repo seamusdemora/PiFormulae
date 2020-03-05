@@ -1,14 +1,17 @@
 ### Useful shell tricks:
 
-[1. Reload bash's .profile without restarting shell:](#1-reload-bash-s-profile-without-restarting-shell-)
+#### Table of contents
 
-[2. Clear the contents of a file without deleting the file:](#2-clear-the-contents-of-a-file-without-deleting-the-file-)
+1. [Useful shell tricks:](#useful-shell-tricks)
+    - [1. Reload bash's .profile without restarting shell:](#1-reload-bashs-profile-without-restarting-shell)
+    - [2. Clear the contents of a file without deleting the file:](#2-clear-the-contents-of-a-file-without-deleting-the-file)
+    - [3. List all directories - not files, just directories:](#3-list-all-directories---not-files-just-directories)
+    - [4. Sequential shell command execution:](#4-sequential-shell-command-execution)
+    - [5. Get a date-time stamp for a log:](#5-get-a-date-time-stamp-for-a-log)
+    - [6. String manipulation with bash:](#6-string-manipulation-with-bash)
+2. [REFERENCES:](#references)
 
-[3. List all directories - not files, just directories:](#3-list-all-directories---not-files--just-directories-)
 
-[4. Sequential shell command execution:](#4-sequential-shell-command-execution-)
-
-[REFERENCES:](#references-)
 
 #### 1. Reload bash's .profile without restarting shell:
 
