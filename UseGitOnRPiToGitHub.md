@@ -54,6 +54,8 @@
    If all goes well, you'll be prompted for GitHub userid & pswd, and changes will
    appear in the correct repo! 
 
+14. If you *break sync* in your GitHub repo, [read this](https://github.com/seamusdemora/seamusdemora.github.io/blob/master/MacStuff.md#15-how-to-recover-a-bodged-git-repository). You can *break sync* in a local repo if you have multiple copies (e.g. on more than one local machine), and allow uncommitted changes to accumulate on two or more of these machines. Be careful - this can be **very messy**!  
+
 <hr>
 
 ### REFERENCES:
