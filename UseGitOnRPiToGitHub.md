@@ -61,6 +61,7 @@
 ### REFERENCES:
 
 * [Getting Started with Git](https://www.taniarascia.com/getting-started-with-git/) 
+* [How to move a git repository into another directory and make that directory a git repository?](https://stackoverflow.com/questions/19097259/how-to-move-a-git-repository-into-another-directory-and-make-that-directory-a-gi) For shuffling things around! 
 
 
 
