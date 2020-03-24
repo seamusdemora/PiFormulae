@@ -50,11 +50,20 @@ cp /home/pi/README /home/auser; rsync -av /home/auser /mnt/BackupDrv/auser_backu
 
 ### Get a date-time stamp for a log:
 
-It's often useful to insert a date-time stamp in a log file, inserted in a string, etc. Easily done: 
+It's often useful to insert a date-time stamp in a log file, inserted in a string, etc. Easily done w/ `date`: 
 
 ```bash
 echo $(date) >> mydatalog.txt   # using `echo` inserts a newline after the date & time 
+# log entry will be in this format: Tue Mar 24 04:28:31 CDT 2020 + newline
 echo $(date -u)                 # `-u` gives UTC 
+```
+
+If you need more control over the format, use `printf` w/ `date`:
+
+```bash
+printf '%s' "$(date)" >> mydatalog.txt	# no newline is output
+# log entry will be in this format: Tue Mar 24 04:28:31 CDT 2020 
+printf '%s\n' "$(date)" >> mydatalog.txt	# newline is output
 ```
 
 There are numerous options with the `date` command. Check `man date`, or peruse this [*Lifewire* article 'How to Display the Date and Time Using Linux Command Line'](https://www.lifewire.com/display-date-time-using-linux-command-line-4032698). 
