@@ -25,8 +25,11 @@
 ### Clear the contents of a file without deleting the file:
 
 ```bash
-$ > somefile.xyz
-$ truncate -s 0 test.txt
+$ > somefile.xyz					# works in bash
+# -OR-
+% : > $LOGFILE						# works in zsh
+# -OR-
+$ truncate -s 0 test.txt	# any system w/ truncate
 ```
 
 ### List all directories - not files, just directories:
