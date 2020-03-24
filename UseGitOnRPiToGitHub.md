@@ -13,10 +13,12 @@
   this should download the repo into a folder named `PiPyMailer` on RPi
 
 3. `cd ./PiPyMailer`
-
-4. make your changes, test your code. when code is verified, proceed w/ next step
-
-5. `git status` to review additions & changes; e.g.
+   Alternatively, you can execute most `git` commands from *outside* the folder housing the repo by using the `-C` option; for example, to get `status` for the git repo PiPyMailer from another location: 
+```bash
+  git -C /path/to/PiPyMailer status
+```
+5. make your changes, test your code. when code is verified, proceed w/ next step
+6. `git status` to review additions & changes; e.g.
     On branch master
     Your branch is up-to-date with 'origin/master'.
     Changes not staged for commit:
@@ -61,7 +63,7 @@
 ### REFERENCES:
 
 * [Getting Started with Git](https://www.taniarascia.com/getting-started-with-git/) 
-* [How to move a git repository into another directory and make that directory a git repository?](https://stackoverflow.com/questions/19097259/how-to-move-a-git-repository-into-another-directory-and-make-that-directory-a-gi) For shuffling things around! 
+* [Q&A: How to move a git repository into another directory and make that directory a git repository?](https://stackoverflow.com/questions/19097259/how-to-move-a-git-repository-into-another-directory-and-make-that-directory-a-gi) For shuffling things around! 
 
 
 
