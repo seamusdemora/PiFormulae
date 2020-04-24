@@ -51,6 +51,8 @@ The solution is to fall back on HTML for tables. Good results are obtained when 
 </tr>
 </tbody>
 </table>
+---
+
 How is this done? You can discover that by looking at the source code for this page, and observing that there is a [folder named `css`](https://github.com/seamusdemora/PiFormulae/tree/master/css) in this repo (see it at the top of [this page](https://github.com/seamusdemora/PiFormulae)). The folder `css` contains a file -  the CSS *style sheet* used to render some of the tables in this repo. Feel free to copy any or all of this. 
 
 
