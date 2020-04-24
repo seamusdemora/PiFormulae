@@ -21,6 +21,8 @@ The Markdown *source code* for the table above follows. It's simple, and it prod
 
 The solution is to fall back on HTML for tables. Good results are obtained when the table is rendered IAW a *style sheet*, or CSS. This recipe illustrates how to do that. An HTML table is shown below for comparison.
 
+<html>
+
 <table class="minimalistBlack">
 <thead>
 <tr>
@@ -51,6 +53,8 @@ The solution is to fall back on HTML for tables. Good results are obtained when 
 </tr>
 </tbody>
 </table> 
+</html>
+
 ---
 
 How is this done? You can discover that by looking at the source code for this page, and observing that there is a [folder named `css`](https://github.com/seamusdemora/PiFormulae/tree/master/css) in this repo (see it at the top of [this page](https://github.com/seamusdemora/PiFormulae)). The folder `css` contains a file -  the CSS *style sheet* used to render some of the tables in this repo. Feel free to copy any or all of this. 
