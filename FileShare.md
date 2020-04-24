@@ -1,6 +1,6 @@
-## Sharing Files on Raspberry Pi Over a Network
+## Use Samba to Share Files on Raspberry Pi
 
-### Table of Contents  
+### Table of Contents
 
    * [Objective](#objective)  
    * [Q&amp;A: Why Would I Do This?](#qa-why-would-i-do-this)
@@ -15,38 +15,46 @@
 
 ### Objective
 
-This "recipe" provides a method for sharing files over a local area network between a RPi and a Mac. It assumes that the files (and folders) to be shared are all on an `exFAT`-formatted partition on an external drive that is mounted on the RPi ([see recipe for mounting drive](ExternalDrives.md)). I use [Samba](https://www.samba.org/) for the file server here because I feel it's the best option for sharing non-native file system partitions (exFAT, ext4, etc) with a Mac. Some may disagree. You should do your research, and choose the approach that works for you. 
+This "recipe" provides a method for sharing files over a local area network. Specifically, this recipe addresses configuring a **Raspberry Pi** (RPi) as a *file server* to share a USB thumb drive with *clients*. Sharing from the perspective of a **Mac** client is also addressed here; the process for sharing with a **Windows** or **Linux** client would be similar. 
 
-### Q&A: Why Would I Do This?
+The USB thumb drive is physically plugged into a USB port on a RPi. The thumb drive's only *partition* is formatted as an `exFAT` file system, and this file system is *mounted* on the RPi. Details for partitioning, formatting and mounting the thumb drive are covered in [another recipe](ExternalDrives.md). In this recipe we will install and configure [Samba](https://www.samba.org/) on the RPi. The **Samba** software will provide clients access to the files and folders on the thumb drive via the network. 
 
-Answer: __convenience__. You could unmount the USB flash drive mounted on your RPi, remove it, and plug it into your Mac or Windows PC. If your RPi is on the other side of your desk, perhaps that's not much convenience. If it's upstairs, or in the garage, or in another country, the convenience is more substantial. And it's not difficult to export a share using Samba. If you're ready, we'll get started: 
+The reader should know that there are alternative approaches to achieving the objectives outlined above. The approach that follows reflects my opinion of the best option, but others may disagree. You should do your research, and are of course free to choose the approach that works best for you. 
+
+### Q&A: Why Do This At All?
+
+Answer: __Convenience__. One could simply unmount the USB thumb drive on the RPi, remove it, and plug it into a USB port on the client. If your RPi is on the other side of your desk, perhaps that's not much convenience. If it's upstairs, or in the garage, or in another country, the convenience is more substantial. Another potential advantage is that Samba effectively *translates* the thumb drive's native file system format to [*CIFS*](https://en.wikipedia.org/wiki/Server_Message_Block) - a near-universal standard. For example if the thumb drive were formatted as [*ext4*](https://en.wikipedia.org/wiki/Ext4), it may be difficult-to-impossible for a Mac or Windows client to read and write the thumb drive. As you'll see, it's easier to share using Samba. If you're ready, we'll get started: 
 
 ### 1. Check the `fstab` entry for the external drive
 
-Check that you have a mount point at `/home/pi/mntThumbDrv`, and `etc/fstab` contains an entry similar to this: 
+Check that you have a valid *mount point* - in this case at `/home/pi/mntThumbDrv`. The entry in `etc/fstab` will be similar to this: 
 
 `LABEL=SANDISK16GB /home/pi/mntThumbDrv exfat rw,user,nofail 0 0` 
 
-You can change this of course; these entries simply follow on the previous recipe for mounting an external drive. You do want the external drive auto-mounted if you're using Samba to serve it over the network. Auto-mount is accomplished through the `fstab` entry. 
+You can change this of course; these entries simply follow on the [previous recipe for mounting an external drive](https://github.com/seamusdemora/PiFormulae/blob/master/ExternalDrives.md). You do want the thumb drive/external drive to be auto-mounted if you're using Samba to serve it over the network. Auto-mount is accomplished through the `fstab` entry. 
 
 ### 2. Install Samba:
 
 Before installing Samba, check to make sure it's not already installed: 
 
-    pi@raspberrypi3b:~ $ apt-mark showmanual | grep samba
-    samba
-    samba-common-bin
+```bash
+$ apt-mark showmanual | grep samba
+samba
+samba-common-bin
+```
 
 If you don't have both of these packages (`samba` and `samba-common-bin`) installed, install them as follows: 
 
-    pi@raspberrypi3b:~ $ sudo apt-get update
-    ...
-    pi@raspberrypi3b:~ $ sudo apt-get upgrade
-    ...
-    pi@raspberrypi3b:~ $ sudo apt-get install samba samba-common-bin 
-    ...
+```bash
+$ sudo apt-get update
+...
+$ sudo apt-get upgrade
+...
+$ sudo apt-get install samba samba-common-bin 
+...
+```
 
-This should complete without error. The output may contain certain messages about Samba's Domain Controller (DC) feature being "masked". We don't need the DC, so these messages can be safely ignored. 
+This should complete without error. The output may contain messages about Samba's Domain Controller (DC) feature being "masked". We don't need the DC, so these messages may be ignored. 
 
 ### 3. Configure Samba:
 
@@ -54,8 +62,10 @@ This should complete without error. The output may contain certain messages abou
 
 Samba configuration is done through the file `etc/samba/smb.conf`. Make a backup copy of `smb.conf`, and use your favorite editor to modify this file as follows: 
 
-    pi@raspberrypi3b:~ $ sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bkup
-    pi@raspberrypi3b:~ $ sudo pico /etc/samba/smb.conf
+```bash
+$ sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bkup
+$ sudo pico /etc/samba/smb.conf
+```
 
 Add the following lines to the tail of `smb.conf`:
 
@@ -69,20 +79,17 @@ Add the following lines to the tail of `smb.conf`:
     directory mask = 0700
     force user = pi
 
-The default `smb.conf` provided with Raspbian contains a number of settings that, frankly, I don't understand. Some of these settings are due to Samba's heritage as a Windows file server; some are due to other mysteries that I have not investigated (likely I never will). Rather than wade through that bog here, I'll recommend two alternatives:
+The default `smb.conf` in Raspbian contains a number of settings that are not clear to me. Rather than wade through that, consider downloading and using this [minimal `smb.conf` file](seamus_smb.conf). As of this writing, it works on my RPi and supports my Mac client.  Alternatively, refer to the Samba project's configuration guide to [Setting up Samba as a Standalone Server](https://wiki.samba.org/index.php/Setting_up_Samba_as_a_Standalone_Server).  
 
-1. I've prepared and tested [a minimal `smb.conf` file that you can download here](seamus_smb.conf) for use on your system. All I can promise is that it works on my RPi and Mac as of when this was written. Note that the `Domains` and `Misc` sections in this file are completely "commented out". I considered removing these sections, but left them in after considering the fact that some Windows users might follow this recipe  :0    
-2. The Samba project has a current configuration guide to [Setting up Samba as a Standalone Server](https://wiki.samba.org/index.php/Setting_up_Samba_as_a_Standalone_Server). You should consult this guide if you want to work through the configuration in a proper way. 
+One other item from the configuration file: the `[homes]` directive under the `Share Definitions` section implements a feature that you may find useful. __If enabled, `/home/pi` is exported as a Samba share!__ This only works if you log in as the `pi` user (as we do here). It's not enabled here, but you may enable it by uncommenting the appropriate lines in `smb.conf`, beginning with the `[homes]` directive. 
 
-I will mention one other item from the configuration file: the `[homes]` directive under the `Share Definitions` section implements a feature that you may find useful. __If enabled, `/home/pi` is exported as a Samba share!__ Of course this only works if you log in as the `pi` user (as we do here). I've not enabled it as I'm not sure of the security implications, and wouldn't use it often. You may enable it by uncommenting the appropriate lines in `smb.conf`, beginning with the `[homes]` directive. 
-
-Complete any edits you wish to make in `smb.conf`, verify that the backup file you created earlier is still in place, and save the edited file to `etc/samba/smb.conf`
+To use this configuration file, complete any edits you wish to make in `smb.conf`, verify that the backup file you created earlier is still in place, and save the edited file to `etc/samba/smb.conf`
 
 #### 3.b Add the user `pi` to Samba's password database file
 
 When we mount the exported Samba share, we'll authenticate as user `pi`. Samba knows nothing of `pi`'s password under Raspbian, so we'll need to create a password using `smbpasswd`. I'd recommend you use the same password in Samba that you use in Raspbian, but that's not required. Add `pi`'s Samba password as follows: 
 
-    pi@raspberrypi3b:~ $ sudo smbpasswd -a pi 
+    $ sudo smbpasswd -a pi 
     New SMB password:
     Retype new SMB password:
 
@@ -90,7 +97,7 @@ When we mount the exported Samba share, we'll authenticate as user `pi`. Samba k
 
 (Re)Start the Samba daemons to read the new `smb.conf` file: 
 
-    pi@raspberrypi3b:~ $ sudo /etc/init.d/samba restart 
+    $ sudo /etc/init.d/samba restart 
     [ ok ] Restarting nmbd (via systemctl): nmbd.service. 
     [ ok ] Restarting smbd (via systemctl): smbd.service. 
 
