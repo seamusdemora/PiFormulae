@@ -8,6 +8,10 @@
 * [Sequential shell command execution:](#sequential-shell-command-execution)
 * [Get a date-time stamp for a log:](#get-a-date-time-stamp-for-a-log)
 * [String manipulation with bash:](#string-manipulation-with-bash)
+* [The Shell Parameters of bash](#the-shell-parameters-of-bash)
+* [Some Options with `grep`](#some-options-with-grep) 
+* [Know the Difference Between `NULL` and an Empty String](#know-the-difference-between-null-and-an-empty-string) 
+* [How do I see my *environment*?](#how-do-i-see-my-environment)
 * [REFERENCES:](#references)
 
 
@@ -119,15 +123,13 @@ Testing the equality of two strings is a common task in shell scripts.
 
 
 
-
-
 ### Know the Difference Between `NULL` and an Empty String
 
 `NULL` is nothing, an empty string is still a string, but it has zero length. You may need to experiment with that one to understand the difference. Here are some [examples from nixCraft](https://www.cyberciti.biz/faq/bash-shell-find-out-if-a-variable-has-null-value-or-not/).
 
 
 
-### How do I see my *environment*? 
+### How do I see my *environment*?
 
 ```zsh
 % printenv | less
