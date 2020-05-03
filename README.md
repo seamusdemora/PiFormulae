@@ -94,7 +94,7 @@ Most importantly, feel free to ***contribute***… [GitHub explains](https://gui
 <td>This isn't even a skeleton yet, and there's very little if anything of any use here now (except a nice picture of the gorgeous Hedy Lamarr). I've got some interest in this area, and will update going forward.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/seamusdemora/PiFormulae/blob/master/CheckPiTemperature.md"> Get Operating Temperatures of Raspberry Pi</a></td>
+<td><a href="https://github.com/seamusdemora/PiFormulae/blob/master/CheckPiTemperature.md"> Get Operating Temperatures of Raspberry Pi: GPU, CPU, PMIC</a></td>
 <td>Various methods of reading the operating temperature explained</td>
 </tr>
 </tbody>
