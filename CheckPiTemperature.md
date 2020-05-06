@@ -70,7 +70,7 @@ $
 
 ---
 
-<b id="f1">Note 1:</b> If you have more than a few aliases or functions, you may find it preferable to put them in a separate file; e.g. `~/.bash_aliases`. Why? Frequent edits to `~/.bashrc` may result in accidental changes that affect `bash` default behavior, and putting it back might be difficult - the restoration will certainly require more of your time! Therefore, placing your aliases and functions in `~/.bash_aliases` may be a better approach. Note also that the filename `~/.bash_aliases` works **because** this filename is defined in `~/.bashrc` as follows: 
+<b id="f1">Note 1:</b> If you have more than a few aliases (or functions), you may find it preferable to put them in a separate file; e.g. `~/.bash_aliases`. Why? Frequent edits to `~/.bashrc` may result in accidental changes that affect `bash` default behavior, and restoring it might be difficult - the restoration will certainly require more of your time! Therefore, placing your aliases and functions in `~/.bash_aliases` may be a better approach. Note also that the filename `~/.bash_aliases` works **because** this filename is defined in `~/.bashrc` as follows: 
 
 ```bash
 if [ -f ~/.bash_aliases ]; then
@@ -99,6 +99,8 @@ CURRENT: 000137ad
 ```
 
 If the command fails, or if you get a different output, you may need to run the upgrade process. 
+
+*The Organization* did thermal testing on this firmware. Their [test results were briefed in this blog post](https://www.raspberrypi.org/blog/thermal-testing-raspberry-pi-4/?from=hackcv&hmsr=hackcv.com). The blog highlights the improvements of the various firmware upgrades, and explains that the power-dissipation management firmware can be gotten through the normal `apt full-upgrade` process.
 
 ---
 
