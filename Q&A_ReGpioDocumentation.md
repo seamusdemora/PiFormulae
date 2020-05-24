@@ -6,6 +6,7 @@
 - [The Hardware documentation](https://www.raspberrypi.org/documentation/hardware/raspberrypi/gpio/README.md) 
 - [The Supplementary documentation](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2835/README.md), incl the [BCM2835 *"System on a Chip"* documentation](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2835/BCM2835-ARM-Peripherals.pdf) 
 - [There is also an "errata sheet" on the BCM2835 maintained by eLinux](https://elinux.org/BCM2835_datasheet_errata), several pertain to GPIO details. 
+- [The Raspberry Pi Compute Module Data Sheet](https://github.com/raspberrypi/documentation/blob/master/hardware/computemodule/datasheets/rpi_DATA_CM_2p0.pdf) 
 
 There is an extensive set of documentation then, published or referenced by "The Foundation". However, there is more that's outside that set of documentation. The following is not intended to be a comprehensive list, but will be updated from time to time as new sources are identified: 
 
