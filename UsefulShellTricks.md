@@ -80,7 +80,7 @@ printf '%s' "$(date)" >> mydatalog.txt	# no newline is output
 printf '%s\n' "$(date)" >> mydatalog.txt	# newline is output
 ```
 
-There are numerous options with the `date` command. Check `man date`, or peruse this [*Lifewire* article 'How to Display the Date and Time Using Linux Command Line'](https://www.lifewire.com/display-date-time-using-linux-command-line-4032698). 
+There are numerous options with the `date` command. Check `man date`, or peruse this [*Lifewire* article 'How to Display the Date and Time Using Linux Command Line'](https://www.lifewire.com/display-date-time-using-linux-command-line-4032698) - it lists *all* of the format options for displaying the output of `date`. 
 
 ### String manipulation with bash:
 
