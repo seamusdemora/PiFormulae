@@ -3,9 +3,11 @@
 **A:** The "definitive sources" of documentation on the Raspberry Pi are published by the [Raspberry Pi Foundation](https://en.wikipedia.org/wiki/Raspberry_Pi_Foundation) on the [RPi documentation website](https://www.raspberrypi.org/documentation/), and on the [RPi GitHub documentation page](https://github.com/raspberrypi/documentation). The GPIO documentation is part of this overall web-based repository, and it is augmented by several documents that provide additional details. Raspberry Pi's documentation on the GPIO is mostly contained in, or available through, the following URLs: 
 
 - [The "Usage" documentation](https://www.raspberrypi.org/documentation/usage/gpio/README.md) 
-- [The Hardware documentation](https://www.raspberrypi.org/documentation/hardware/raspberrypi/gpio/README.md) 
-- [The Supplementary documentation](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2835/README.md), incl the [BCM2835 *"System on a Chip"* documentation](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2835/BCM2835-ARM-Peripherals.pdf) 
-- [There is also an "errata sheet" on the BCM2835 maintained by eLinux](https://elinux.org/BCM2835_datasheet_errata), several pertain to GPIO details. 
+- [The GPIO documentation](https://www.raspberrypi.org/documentation/hardware/raspberrypi/gpio/README.md)
+- [The Hardware documentation](https://www.raspberrypi.org/documentation/hardware/raspberrypi/) (which is a bit inconsistent in places) includes:  
+  - the [BCM2837B0, a.k.a. the Broadcom processor used in Raspberry Pi 3B+ and 3A+](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2837b0/README.md) (no PDF)
+  - the [BCM2711, a.k.a. the Broadcom processor used in Raspberry Pi 4B](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2711/rpi_DATA_2711_1p0.pdf) (PDF)
+- [There is also an "errata sheet" on the BCM2835 maintained by eLinux](https://elinux.org/BCM2835_datasheet_errata), several pertain to GPIO details. The data on this eLinux site is a bit out-of-date last checked, but may still be useful. 
 - [The Raspberry Pi Compute Module Data Sheet](https://github.com/raspberrypi/documentation/blob/master/hardware/computemodule/datasheets/rpi_DATA_CM_2p0.pdf) 
 
 There is an extensive set of documentation then, published or referenced by "The Foundation". However, there is more that's outside that set of documentation. The following is not intended to be a comprehensive list, but will be updated from time to time as new sources are identified: 
