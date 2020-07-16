@@ -116,7 +116,9 @@ The EEPROM firmware has now been modified, and the system has booted with this m
 
 If the system failed to `reboot`, execute the [Recovery Plan](#recovery-plan) & repeat the steps above after determination of the mis-step. 
 
-How did these modifications affect power consumption? Here are the results: 
+How did these modifications affect power consumption? See the results in the table below:
+
+> NOTE: All measurements made with Ethernet cable connecting RPi 4 to Ethernet Switch.
 
 | BEFORE BOOTLOADER MODIFICATION                               | AFTER BOOTLOADER MODIFICATION                                |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
