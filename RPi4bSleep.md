@@ -1,4 +1,4 @@
-## Minimize Raspberry Pi 4B Power Consumption in `halt`
+## Minimize Raspberry Pi 4B Power Consumption in `poweroff`
 
 This all started when I read a post made by a "Raspberry Pi Engineer" in the Raspberry Pi Organization's forum. [In this post, dated June 24, 2019](https://www.raspberrypi.org/forums/viewtopic.php?p=1484347#p1484347) it was claimed: 
 
@@ -130,7 +130,7 @@ How did these modifications affect power consumption? Here are the results:
 
 #### 5. Summary 
 
-That's a 90% reduction in power consumption in `halt` mode. It's certainly an improvement, but especially given the initial claim, it is also very disappointing! Not only is it an [order of magnitude greater than claimed by "Raspberry Pi Engineer"](https://www.raspberrypi.org/forums/viewtopic.php?p=1484347#p1484347), it's not even close to a value that would permit battery-powered operation in many remote-sensor applications. The claim was *misleading*, perhaps a *Raspberry Lie*? 
+That's a 90% reduction in power consumption in `halt`/`poweroff` mode. It's certainly an improvement, but especially given the initial claim, it is also very disappointing! Not only is it an [order of magnitude greater than claimed by "Raspberry Pi Engineer"](https://www.raspberrypi.org/forums/viewtopic.php?p=1484347#p1484347), it's not even close to a value that would permit battery-powered operation in many remote-sensor applications. The claim was *misleading*, perhaps a *Raspberry Lie*? 
 
 #### 6. Revert to original firmware - OPTION
 
