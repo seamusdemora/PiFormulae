@@ -126,9 +126,9 @@ How did these modifications affect power consumption? See the results in the tab
 | `WAKE_ON_GPIO=1`                                             | `WAKE_ON_GPIO=0`                                             |
 | `POWER_OFF_ON_HALT=0`                                        | `POWER_OFF_ON_HALT=1`                                        |
 | Measured current while running: 0.51A                        | Measured current while running: 0.50A                        |
-| ![](/Users/jmoore/Documents/GitHub/PiFormulae/pix/run-510mA.jpeg) | ![](/Users/jmoore/Documents/GitHub/PiFormulae/pix/run-500mA.jpeg) |
+| ![](pix/run-510mA.jpeg) | ![](pix/run-500mA.jpeg) |
 | Measured current after `halt`/`poweroff`: 0.37A              | Measured current after `halt`/`poweroff`: 0.04A              |
-| ![](/Users/jmoore/Documents/GitHub/PiFormulae/pix/halt-370mA.jpeg) | ![](/Users/jmoore/Documents/GitHub/PiFormulae/pix/halt-40mA.jpeg) |
+| ![](pix/halt-370mA.jpeg) | ![](pix/halt-40mA.jpeg) |
 
 #### 5. Summary 
 
