@@ -118,7 +118,7 @@ If the system failed to `reboot`, execute the [Recovery Plan](#recovery-plan) & 
 
 How did these modifications affect power consumption? See the results in the table below:
 
-> NOTE: All measurements made with Ethernet cable connecting RPi 4 to Ethernet Switch.
+> NOTE: All measurements made with Ethernet cable connecting RPi 4 to Ethernet Switch. 
 
 | BEFORE BOOTLOADER MODIFICATION                               | AFTER BOOTLOADER MODIFICATION                                |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
