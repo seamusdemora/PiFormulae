@@ -98,6 +98,8 @@ When we mount the exported Samba share, we'll authenticate as user `pi`. Samba k
 (Re)Start the Samba daemons to read the new `smb.conf` file: 
 
     $ sudo /etc/init.d/samba restart 
+    # OR ALTERNATIVELY IF THAT FAILS (e.g. on stretch)
+    $ sudo /etc/init.d/smbd restart 
     [ ok ] Restarting nmbd (via systemctl): nmbd.service. 
     [ ok ] Restarting smbd (via systemctl): smbd.service. 
 
