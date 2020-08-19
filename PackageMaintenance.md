@@ -114,7 +114,7 @@ Some advocate using `apt`, others advocate using `apt-get`. At present, I favor 
 </body>
 </html>
 
-## Frequently Useful Commands in Aptitude  
+## Frequently Useful Commands in Aptitude
 
 `apt-cache search XXXX`  
 
@@ -127,6 +127,11 @@ Listing installed packages:
     dpkg -l  
 
 
+
+## REFERENCES: 
+
+1. [Debian CLI for APT package management tools](https://wiki.debian.org/AptCLI) 
+
 <!--- 
 
 
@@ -135,7 +140,7 @@ Listing installed packages:
 | `sudo apt-get update`| updates the system's "Package List" |
 | `df -h`      | check available space; `apt` doesn't! |
 | `sudo apt-get upgrade` | upgrade all installed packages to the latest version from the sources enumerated in  `/etc/apt/sources.list`, but under no circumstances are currently installed packages removed, or packages not already installed retrieved and installed. This is the "foolproof" version of an upgrade. |
-| `sudo apt-get dist-upgrade` | upgrade all installed packages to the latest version from the sources enumerated in  `/etc/apt/sources.list`. It will add & remove packages if necessary, and attempts to deal "intelligently" with changed dependencies. Exceptions may be declared in `apt_preferences(5)`. |  
+| `sudo apt-get dist-upgrade` | upgrade all installed packages to the latest version from the sources enumerated in  `/etc/apt/sources.list`. It will add & remove packages if necessary, and attempts to deal "intelligently" with changed dependencies. Exceptions may be declared in `apt_preferences(5)`. |
 | `sudo apt-get clean` | removes the cruft from `/var/cache/apt/archives` left by previous upgrades |
 | `sudo reboot` | when in doubt, or if "weird" things happen! [REFERENCE](https://www.raspberrypi.org/forums/viewtopic.php?t=184850) |
 
