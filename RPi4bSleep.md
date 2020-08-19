@@ -178,6 +178,11 @@ In the event something goes wrong, let's marshal the resources needed for recove
 
 ---
 
+## OTHER REFERENCES:
+
+1. [Raspberry Pi 4 Bootloader Firmware Updating / Recovery Guide](https://jamesachambers.com/raspberry-pi-4-bootloader-firmware-updating-recovery-guide/) from  James Chambers' *Legendary Technology Blog* 
+2. 
+
 <!--- 
 
 You can hide shit in here  :)   LOL 
