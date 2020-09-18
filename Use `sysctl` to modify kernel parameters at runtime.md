@@ -1,8 +1,8 @@
-## HOW TO: Disable/Enable ping response in Linux
+## Example: using `sysctl` to Disable/Enable `ping` replies 
 
-Few days ago I was dealing with **SYSCTL** (man sysctl)  utility and I was looking for a certain kernel parameter, I wish to set  it on the fly and I've found other useful information too.
+Dealing with the **`sysctl`** (`man sysctl`)  utility recently,  looking for a certain kernel parameter I wish to set  it on the fly. I've found other useful information:
 
-sysctl is used to modify kernel parameters at runtime, one of these  parameter could be ping daemon response, if you want to disable ping  reply on your network you just simply need to issue something like:
+`sysctl` is used to modify kernel parameters at runtime. As an example, one of these  kernel parameters controls the system's response to a `ping` issued from another host. If you want to disable `ping`  responses, you can do that with `sysctl`:
 
 ```bash
 $ sudo sysctl -w net.ipv4.icmp_echo_ignore_all=1 
@@ -10,8 +10,8 @@ net.ipv4.icmp_echo_ignore_all = 1
 $ 
 ```
 
-Now try to ping your machine, you'll get no replies at all.
-To  re-enable ping replies: 
+Now try to `ping` your machine, to verify it does not respond.
+Afterwards, to  re-enable `ping` replies: 
 
 ```bash
 $ sudo sysctl -w net.ipv4.icmp_echo_ignore_all=0
@@ -19,7 +19,13 @@ net.ipv4.icmp_echo_ignore_all = 0
 $
 ```
 
-The `-w` flag is used if you want to change some settings, take a look at kernel flags you can set at runtime (linux sources) 
+The `-w` flag is used if you want to change some settings. `sysctl` will also provide a list of all kernel parameters on your system that can set at runtime:
+
+```bash
+$ sysctl -a
+```
+
+
 
 
 
