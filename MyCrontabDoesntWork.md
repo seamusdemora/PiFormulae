@@ -1,10 +1,12 @@
-Why does my crontab not work? 
-
-cron is simple in some respects, but enigmatic in others.
+### Why does my crontab not work? 
 
 
 
-#### MFEI #1: the `cron` user has a different environment than you; specifically, the PATH env var is different
+#### A: `cron` is simple in some respects, but enigmatic in others
+
+
+
+#### Issue #1: the `cron` user has a different environment than you; specifically, the PATH environment variable is different
 
 Solutions:
 
@@ -14,15 +16,39 @@ Solutions:
 
 
 
-#### MFEI #2: `cron` has no awareness of the state of other services when it starts. This is typically only an issue when using the `@reboot` facility
+#### Issue #2: `cron` has no awareness of the state of other services when it starts. This is typically only an issue when using the `@reboot` facility
 
 Solutions: 
 
 - `sleep` before starting a script with service dependencies: 
 
 ```bash
-@reboot ( /bin/sleep 30; /bin/bash /home/pi/startup.sh > /home/pi/cronjoblog 2>&1)
+@reboot ( /bin/sleep 30; /bin/bash /home/pi/startup.sh )
 ```
+
+#### Issue #3: `cron` errors go to /dev/null
+
+Solutions: 
+
+* redirect the output of your `cron` job to capture `stderr` & `stdout` to a file:
+
+   ```bash
+@reboot ( /bin/sleep 30; /bin/bash /home/pi/startup.sh > /home/pi/cronjoblog 2>&1)
+   ```
+
+* enable logging for `cron`
+
+   Edit the file `/etc/rsyslog.conf` to remove the comment (#) from `#cron`: 
+
+   ```bash
+   FROM:  #cron.*                         /var/log/cron.log  
+   
+   TO:     cron.*                         /var/log/cron.log
+   ```
+
+  
+
+ 
 
 
 
