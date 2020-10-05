@@ -131,6 +131,16 @@ Listing installed packages:
 ## REFERENCES: 
 
 1. [Debian CLI for APT package management tools](https://wiki.debian.org/AptCLI) 
+2. [Q&A: clean, autoclean, and autoremove — combining them is a good step?](https://askubuntu.com/a/984800/831935) 
+3. [Why you need apt-get clean options?](https://linuxhint.com/why_apt_get_clean/) 
+4. [Debian / Ubuntu Linux Delete Old Kernel Images Command](https://www.cyberciti.biz/faq/debian-ubuntu-linux-delete-old-kernel-images-command/) 
+5. [A Guide to Yum and Apt](https://www.baeldung.com/linux/yum-and-apt) 
+6. [Chapter 4. Upgrades from Debian 9 (stretch)](https://www.debian.org/releases/buster/amd64/release-notes/ch-upgrading.en.html) 
+7. [How to upgrade Debian 9 to Debian 10 Buster using the CLI](https://www.cyberciti.biz/faq/update-upgrade-debian-9-to-debian-10-buster/) 
+8. [How to Configure sources.list on Debian 10](https://linoxide.com/linux-how-to/configure-sources-list-on-debian/) 
+9. [Ubuntu ‘apt-get’ list of commands (list, update, upgrade, cheatsheet)](https://alvinalexander.com/linux-unix/ubuntu-apt-get-cache-list-search-commands-cheat-sheet/) 
+10. [How to Install Development Tools on Debian 10/9/8](https://tecadmin.net/install-development-tools-on-debian/) 
+11. [10 Cool Linux Terminal Commands](https://helpdeskgeek.com/linux-tips/10-cool-linux-terminal-commands-you-have-to-try/) - a couple of these actually *do* look cool! 
 
 <!--- 
 
