@@ -8,10 +8,12 @@
 * [Sequential shell command execution:](#sequential-shell-command-execution)
 * [Get a date-time stamp for a log:](#get-a-date-time-stamp-for-a-log)
 * [String manipulation with bash:](#string-manipulation-with-bash)
+* [Test equality of two strings in bash:](#test-equality-of-two-strings-in-bash)
 * [The Shell Parameters of bash](#the-shell-parameters-of-bash)
 * [Some Options with `grep`](#some-options-with-grep) 
 * [Know the Difference Between `NULL` and an Empty String](#know-the-difference-between-null-and-an-empty-string) 
-* [How do I see my *environment*?](#how-do-i-see-my-environment)
+* [How do I see my *environment*?](#how-do-i-see-my-environment) 
+* [What do file and directory permissions mean?](#what-do-file-and-directory-permissions-mean) 
 * [REFERENCES:](#references)
 
 
@@ -97,7 +99,43 @@ for everything there is a season
 
 ### Test equality of two strings in bash:
 
-Testing the equality of two strings is a common task in shell scripts.
+Testing the equality of two strings is a common task in shell scripts. You'll need to watch your step as there are numerous ways to screw this up! Consider a few examples: 
+
+```bash
+$ string1="Anchors aweigh"
+$ string2="Anchors Aweigh"
+$ if [[ $string1 == "Anchors aweigh" ]]; then echo "equal"; else echo "not equal"; fi
+equal
+$ if [ "$string1" == "Anchors aweigh" ]; then echo "equal"; else echo "not equal"; fi
+equal
+$ if [ "$string1" = "Anchors aweigh" ]; then echo "equal"; else echo "not equal"; fi
+equal
+
+# but if you forget something; e.g.
+
+$ if [ $string1 == "Anchors aweigh" ]; then echo "equal"; else echo "not equal"; fi
+-bash: [: too many arguments
+not equal
+# BOOM! no quotes "" - you crash and burn :) 
+
+$ [ "$string1" = "Anchors aweigh" ] && echo equal || echo not-equal
+equal 
+$ [ "$string1" -eq "Anchors aweigh" ] && echo equal || echo not-equal
+-bash: [: Anchors aweigh: integer expression expected
+not-equal
+# BOOM! `-eq` is for numbers, not strings - you crash and burn :) 
+
+$ [ "$string1" = "$string2" ] && echo equal || echo not-equal
+not-equal 
+$ [[ $string1 = $string2 ]] && echo equal || echo not-equal
+not-equal 
+$ [[ ${string1,,} = ${string2,,} ]] && echo equal || echo not-equal
+equal
+# NOTE! this case-conversion only works in bash v4 & above
+ 
+```
+
+So much *arcanery* here, and limited *portability*. Here are a list of references peculiar to this one small problem: [SO Q&A 1](https://stackoverflow.com/questions/3265803/bash-string-equality), [SO Q&A 2](https://stackoverflow.com/questions/2600281/what-is-the-difference-between-operator-and-in-bash/2601583#2601583), [*Linuxize*](https://linuxize.com/post/how-to-compare-strings-in-bash/), [UL Q&A 1](https://unix.stackexchange.com/questions/306111/what-is-the-difference-between-the-bash-operators-vs-vs-vs), [SO Q&A 3](https://stackoverflow.com/questions/20449543/shell-equality-operators-eq), [SO Q&A 4](https://stackoverflow.com/questions/1728683/case-insensitive-comparison-of-strings-in-shell-script). AFAIK there's no *unabridged* reference for string manipulation in `bash`, but section [**'10.1. Manipulating Strings'** of the **'Advanced Bash-Scripting Guide'**](https://tldp.org/LDP/abs/html/string-manipulation.html) comes reasonably close. 
 
 
 
@@ -121,13 +159,9 @@ Testing the equality of two strings is a common task in shell scripts.
 
 >*NOTE: This is not an exact match for an IP address, only an approximation, and may occasionally return something other than an IP address. An [exact match](https://www.regextester.com/22) is available here.* 
 
-
-
 ### Know the Difference Between `NULL` and an Empty String
 
 `NULL` is nothing, an empty string is still a string, but it has zero length. You may need to experiment with that one to understand the difference. Here are some [examples from nixCraft](https://www.cyberciti.biz/faq/bash-shell-find-out-if-a-variable-has-null-value-or-not/).
-
-
 
 ### How do I see my *environment*?
 
@@ -135,7 +169,19 @@ Testing the equality of two strings is a common task in shell scripts.
 % printenv | less
 ```
 
+### What do file and directory permissions mean?
 
+>**File permissions:**   
+>
+>r = read the contents of the file  
+>w = modify the file  
+>x = run the file as an executable  
+
+> **Directory permissions:**  
+>
+> r = list the contents of the directory, but not 'ls' into it  
+> w = delete or add a file in the directory  
+> x = move into the directory  
 
 
 
