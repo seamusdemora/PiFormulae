@@ -101,6 +101,10 @@ Most importantly, feel free to ***contribute***… [GitHub explains](https://gui
 <td><a href="https://github.com/seamusdemora/PiFormulae/blob/master/fsckForRaspberryPi.md">Using `fsck` to check & repair your filesystem</a></td>
 <td>The recommended way to invoke `fsck` on each boot, and where to find the log entries created</td>
 </tr>
+<tr>
+<td><a href="https://github.com/seamusdemora/PiFormulae/blob/master/CanNotLoginToMyRPi.md">I've Broken Something, and I Can't Login to my RPi</a></td>
+<td>Oooops! It happens to everyone - you've screwed up, and can't login. This may help.</td>
+</tr>
 </tbody>
 </table>
 ------
