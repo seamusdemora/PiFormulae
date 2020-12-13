@@ -1,8 +1,8 @@
 ## Adding and Removing Users
 
-You may go for years (as I have) without needing to add (or remove) a user from your Raspberry Pi. But chances are good that at some point, you will need to do this - if only to have an unprivileged user to use as a test object. 
+You may go for years (as I have) without needing to add (or remove) a user from your Raspberry Pi. But chances are good that at some point, you will need to do this - if only to have an unprivileged user for testing. 
 
-WARNING: There is far too much [**incorrect** guidance](https://www.tecmint.com/add-users-in-linux/) that may place highly in your search results. In the best case, this poor guidance will waste your time. At worst, it creates a mess that may get out of hand if not dealt with quickly. Here's the **correct** way to add a user for **RPi OS**, but note that this may vary with other distributions:
+**WARNING:** There is far too much [**incorrect** guidance](https://www.tecmint.com/add-users-in-linux/) that may place highly in your search results. In the best case, this poor guidance will waste your time. At worst, it creates a mess that may get out of hand if not dealt with quickly. Here's the **correct** way to add a user for **RPi OS**, but note that this may vary with other distributions:
 
 ### `adduser`, or `useradd`... What's the difference?
 
