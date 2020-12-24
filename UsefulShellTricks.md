@@ -221,11 +221,13 @@ You might also learn something of the difference between *single quotes* `''`, a
 
 ### Using `which` to find commands
 
-You've installed a package - but where is it? The `which` command can help, but there are some things you *need to know*: 
+For `zsh` users: You've installed a package - but where is it? The `which` command can help, but there are some things you *need to know*: 
 
 * `which` relies on a *cache* to provide its results; this *cache* may not be *timely* or current.
 * To *refresh* the *cache*, run `rehash` or `hash -r`.
 * There are *subtle differences* depending on your shell; `which` is a *built-in* for `zsh`, and a *discrete command* in `bash` 
+
+In `bash`, `which` is a *stand-alone* command instead of a *builtin*.  Consequently `hash -r` is not needed to get timely results from`which`. 
 
 
 
