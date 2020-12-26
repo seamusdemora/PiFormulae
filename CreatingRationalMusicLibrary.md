@@ -5,9 +5,10 @@
 [1. Select the USB storage media](#1-select-the-usb-storage-media)  
 [2. Format, partition and mount the USB drive](#2-format-partition-and-mount-a-USB-drive)  
 [3. Mounting a network storage device master source:](#3-mounting-a-network-storage-device-master-source)  
-[4. Copy/Sync Music repositories](#4-copysync-music-repositories)  
+[4. Copy/Sync Music repositories](#4-copy-the-music-repository)  
 [4.ALT Copy Music repositories using `install` or `rsync`](#4alt-copy-music-repositories-using-install-or-rsync)  
 [5. Serve!](#5-serve)  
+
 - [Linux vs. Samba <em><strong>permissions</strong></em>](#linux-vs-samba-permissions)  
 - [Samba profile for single user pi](#samba-profile-for-single-user-pi)  
 - [Samba profile for read-only guest access, write access for user pi](#samba-profile-for-read-only-guest-access-write-access-for-user-pi)  
@@ -164,6 +165,8 @@ The `--si` option is useful as it gives sizes in terms that are usually relatabl
 
 #### 4. Copy the Music repository
 
+**N.B. :** **Most people** will be best-served by following the procedure that uses `rsync` to copy the *"master repository"* to the *"portable repository"* for use by RPi. Why? Because - if you're like most - you're continuously adding new music to your  *"master repository"*.  `rsync` will maintain your *"portable repository"* in sync with less effort than repeating the `copy` operation. **In other words :** [***Skip to the next section now.***](#4alt-copy-music-repositories-using-install-or-rsync) 
+
 Now that we've mounted the network (or local) storage device where the "master copies" of our music library are located, we'll we'll use it as the `source` to copy all files to the `destination` on the `sdb1` partition on the PASSPORT2TB device. The "copy", or `cp` command will be used, but `rsync` would work as well.  
 
 Options for `cp` will maintain ownership and timestamps on all files, recursively copy all folders, sub-folders and files from the source, copy only files that don't exist on the destination, or have an older time stamp, and use the `pri_library` folder as the `parent` folder. The command below also logs the `verbose` output to a file, `cp_LOG`. 
@@ -199,11 +202,11 @@ $ find ~/mntPassport/music_library -type d -exec chmod 755 {} \;
 $
 ```
 
-#### 4.ALT Copy Music repositories using `install` or `rsync`
+The `install` utility may be used as an alternative to `copy`. See `man install` for details. 
 
-- `install`  (PLACEHOLDER, TBD)
+#### 4.ALT Copy Music repositories using  `rsync`
 
-- `rsync` may be used to copy the music library from the network drive to the USB drive, and also to keep the USB drive current (synchronized) with the network drive. However, you should know that ***`rsync` synchronizes in one direction: from source to destination***; i.e. if you designate the USB drive as the *destination*, then add files to your USB drive, `rsync` will not update the master drive. ***Changes flow in one direction only.*** 
+`rsync` may be used to copy the music library from the network drive to the USB drive, and also to keep the USB drive current (synchronized) with the network drive. However, you should know that ***`rsync` synchronizes in one direction: from source to destination***; i.e. if you designate the USB drive as the *destination*, then add files to your USB drive, `rsync` will not update the master drive. ***Changes flow in one direction only.*** 
 
   Note that `rsync` is a complex utility with a large number of arguments. You should read `man rsync`  carefully, and make use of the `--dry-run` argument to verify your command does what you intend. Following is the *syntax* of the `rsync` command: 
 
@@ -236,9 +239,9 @@ $
   ```bash
    rsync -rtpvvv --chmod=D1755,F644 --dry-run '/home/pi/mntNetgearNAS-3/' '/home/pi/mntPassport/pri_library' > ~/rsync-out.txt
   ```
-  
+
   As mentioned, `rsync` has numerous options. `man rsync` is your guide to understanding them.
-  
+
 - Finally, if you need ***2-way synchronization***, the [`Unison`](https://github.com/bcpierce00/unison) utility may be useful. In other words, changes made to either source or destination libraries will be propagated to the other. `Unison` is available is the RPi ports tree. 
 
 #### 5. Serve!
@@ -375,4 +378,4 @@ rm --recursive --interactive=never ~/mntPassport/pri_library
 
 ```
 
-—>
+--->
