@@ -6,7 +6,7 @@
 [2. Format, partition and mount the USB drive](#2-format-partition-and-mount-a-USB-drive)  
 [3. Mounting a network storage device master source:](#3-mounting-a-network-storage-device-master-source)  
 [4. Copy the Music Repository](#4-copy-the-music-repository)  
-[4.ALT Copy Music Repositories using `rsync`](#4alt-copy-music-repositories-using-rsync)  
+[4.ALT Copy Music Repositories using `rsync`](#4alt-copy-music-repositories-using--rsync)  
 [5. Serve!](#5-serve)  
 
 - [Linux vs. Samba <em><strong>permissions</strong></em>](#linux-vs-samba-permissions)  
@@ -165,7 +165,7 @@ The `--si` option is useful as it gives sizes in terms that are usually relatabl
 
 #### 4. Copy the Music repository
 
-**N.B. :** **Most people** will be best-served by following the procedure that uses `rsync` to copy the *"master repository"* to the *"portable repository"* for use by RPi. Why? Because - if you're like most - you're continuously adding new music to your  *"master repository"*.  `rsync` will maintain your *"portable repository"* in sync with less effort than repeating the `copy` operation. **In other words :** [***Skip to the next section now.***](#4alt-copy-music-repositories-using-install-or-rsync) 
+**N.B. :** **Most people** will be best-served by following the procedure that uses `rsync` to copy the *"master repository"* to the *"portable repository"* for use by RPi. Why? Because - if you're like most - you're continuously adding new music to your  *"master repository"*.  `rsync` will maintain your *"portable repository"* in sync with less effort than repeating the `copy` operation. **In other words :** [***Skip to the next section now.***](#4alt-copy-music-repositories-using--rsync) 
 
 Now that we've mounted the network (or local) storage device where the "master copies" of our music library are located, we'll we'll use it as the `source` to copy all files to the `destination` on the `sdb1` partition on the PASSPORT2TB device. The "copy", or `cp` command will be used, but `rsync` would work as well.  
 
