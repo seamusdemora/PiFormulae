@@ -326,20 +326,7 @@ $ sudo service smbd restart
 These options have been left in the configuration spec above only because, IMHO, it's more *readable*, and reinforces the intent when the default values are included. 
 
 
-
-
-
-<!---
-
-
-
-TO DO:
-
-- set up a `cron` job to maintain sync between source & dest 
-- evaluate `rsync` as alternative to `cp` ; see [REF](https://stackoverflow.com/questions/1529946/linux-copy-and-create-destination-dir-if-it-does-not-exist) 
-- update example `smb.conf` on github; [here](https://github.com/seamusdemora/PiFormulae/blob/master/seamus_smb.conf)  
-
-
+---
 
 REFERENCES:
 
@@ -358,6 +345,17 @@ REFERENCES:
 13. [Recursive permission changes to files and folders, a SE answer](https://stackoverflow.com/a/11512211/5395338) 
 14. [Use `install` instead of `cp` to copy files and ***set*** attributes](https://www.ostechnix.com/copy-files-change-ownership-permissions-time/) 
 15. [How to Partition and Format Drives](https://pimylifeup.com/partition-and-format-drives-on-linux/) 
+
+
+<!---
+
+
+
+TO DO:
+
+- set up a `cron` job to maintain sync between source & dest 
+- evaluate `rsync` as alternative to `cp` ; see [REF](https://stackoverflow.com/questions/1529946/linux-copy-and-create-destination-dir-if-it-does-not-exist) 
+- update example `smb.conf` on github; [here](https://github.com/seamusdemora/PiFormulae/blob/master/seamus_smb.conf)  
 
 
 
