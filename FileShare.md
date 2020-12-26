@@ -9,9 +9,9 @@
    * [3. Configure Samba:](#3-configure-samba)  
          * [3.a Edit the Samba Configuration file](#3a-edit-the-samba-configuration-file)  
          * [3.b Add the user pi to Samba's password database file](#3b-add-the-user-pi-to-sambas-password-database-file)  
-         * [3.c Restart Samba to read the revised Samba Configuration file](#3c-restart-samba-to-read-the-revised-samba-configuration-file)  
+         * [3.c An example of Samba permissions](#3c-a-brief-overview-of-samba-permissions) 
+         * [3.d Restart Samba to read the revised Samba Configuration file](#3d-restart-samba-to-read-the-revised-samba-configuration-file)  
    * [4. Connect to the Samba share:](#4-connect-to-the-samba-share)
-
 
 ### Objective
 
@@ -93,7 +93,11 @@ When we mount the exported Samba share, we'll authenticate as user `pi`. Samba k
     New SMB password:
     Retype new SMB password:
 
-#### 3.c Restart Samba to read the revised Samba Configuration file
+#### 3.c A Brief Overview of Samba Permissions
+
+Clicking [this link](https://github.com/seamusdemora/PiFormulae/blob/master/CreatingRationalMusicLibrary.md#5-serve) will take you to another page in this repo. It's worth a quick review. After you've looked it over, you can return here by using your browser's **Back** button.
+
+#### 3.d Restart Samba to read the revised Samba Configuration file
 
 (Re)Start the Samba daemons to read the new `smb.conf` file: 
 
