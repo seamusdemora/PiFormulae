@@ -5,8 +5,8 @@
 [1. Select the USB storage media](#1-select-the-usb-storage-media)  
 [2. Format, partition and mount the USB drive](#2-format-partition-and-mount-a-USB-drive)  
 [3. Mounting a network storage device master source:](#3-mounting-a-network-storage-device-master-source)  
-[4. Copy/Sync Music repositories](#4-copy-the-music-repository)  
-[4.ALT Copy Music repositories using `install` or `rsync`](#4alt-copy-music-repositories-using-install-or-rsync)  
+[4. Copy the Music Repository](#4-copy-the-music-repository)  
+[4.ALT Copy Music Repositories using `rsync`](#4alt-copy-music-repositories-using-rsync)  
 [5. Serve!](#5-serve)  
 
 - [Linux vs. Samba <em><strong>permissions</strong></em>](#linux-vs-samba-permissions)  
@@ -204,7 +204,7 @@ $
 
 The `install` utility may be used as an alternative to `copy`. See `man install` for details. 
 
-#### 4.ALT Copy Music repositories using  `rsync`
+#### 4.ALT Copy Music Repositories Using  `rsync`
 
 `rsync` may be used to copy the music library from the network drive to the USB drive, and also to keep the USB drive current (synchronized) with the network drive. However, you should know that ***`rsync` synchronizes in one direction: from source to destination***; i.e. if you designate the USB drive as the *destination*, then add files to your USB drive, `rsync` will not update the master drive. ***Changes flow in one direction only.*** 
 
