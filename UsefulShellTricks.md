@@ -15,7 +15,7 @@
 * [How do I see my *environment*?](#how-do-i-see-my-environment) 
 * [What do file and directory permissions mean?](#what-do-file-and-directory-permissions-mean) 
 * [Using `which` to find commands](#using-which-to-find-commands) - *accurately!* 
-* Using your shell command history
+* [Using your shell command history](#using-your-shell-command-history) 
 * [REFERENCES:](#references)
 
 
