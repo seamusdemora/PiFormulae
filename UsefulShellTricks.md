@@ -297,11 +297,16 @@ I had every intention of including a set of *adjustments* to the default behavio
 6. [Advanced Bash-Scripting Guide: Chapter 10.1. Manipulating Strings](http://tldp.org/LDP/abs/html/string-manipulation.html); details! 
 7. [The Wooledge Wiki is a trove of string manipulation methods for `bash`](https://mywiki.wooledge.org/BashFAQ/100#How_do_I_do_string_manipulations_in_bash.3F).
 
-### Using `grep` to find things 
+### Using `grep` to find things
 
 1. [Q&A Can grep return true/false or are there alternative methods?](https://unix.stackexchange.com/questions/48535/can-grep-return-true-false-or-are-there-alternative-methods).
 2. [Q&A grep on a variable](https://unix.stackexchange.com/questions/163810/grep-on-a-variable).
-3. [Grep OR – Grep AND – Grep NOT – Match Multiple Patterns](https://www.shellhacks.com/grep-or-grep-and-grep-not-match-multiple-patterns/); `grep -E "PATTERN1|PATTERN2" file` 
+3. [Grep OR – Grep AND – Grep NOT – Match Multiple Patterns](https://www.shellhacks.com/grep-or-grep-and-grep-not-match-multiple-patterns/); `grep -E "PATTERN1|PATTERN2" file`  
+
+### Using `awk` for heavy lifting
+
+1. [Learn AWK](https://www.tutorialspoint.com/awk/index.htm) - a comprehensive tutorial from *tutorialspoint.com*. 
+2. [Q&A: Difference between gawk & awk](https://unix.stackexchange.com/questions/29576/difference-between-gawk-vs-awk); several *"flavors"* - choose your weapon! 
 
 ### Operators & special characters
 
