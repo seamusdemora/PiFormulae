@@ -1,6 +1,6 @@
 ## `exim4` Issues - a Review of `/var/log/exim4/paniclog`
 
-[`exim4`](https://en.wikipedia.org/wiki/Exim) is a *local* mail server on your RPi. It's a Mail Transfer Agent (MTA), but as configured on my RPi, it cannot send or receive mail from the Internet. It is [passed down to RPi from Debian](https://wiki.debian.org/Exim), and used on the RPi primarily as a means for service daemons (e.g. `cron`) to communicate **issues** to the administrator. For that reason alone, it should be maintained. 
+[`exim4`](https://en.wikipedia.org/wiki/Exim) is a *local* mail server on RPi. It's a full Mail Transfer Agent (MTA), but as configured on my RPi, it cannot send or receive mail from the Internet. It is [passed down to RPi from Debian](https://wiki.debian.org/Exim), and used on the RPi primarily as a means for service daemons (e.g. `cron`) to communicate **issues** to the administrator. For that reason alone, it should be maintained. 
 
 If you rummage about in the log files occasionally as I do, you may have noticed several files in`/var/log` : `mail.warn`, `mail.info`, `mail.err`, `mail.log`, `syslog` and `daemon.log` containing the following ALERT:  
 
