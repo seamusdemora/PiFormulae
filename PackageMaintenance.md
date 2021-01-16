@@ -141,6 +141,7 @@ Listing installed packages:
 9. [Ubuntu ‘apt-get’ list of commands (list, update, upgrade, cheatsheet)](https://alvinalexander.com/linux-unix/ubuntu-apt-get-cache-list-search-commands-cheat-sheet/) 
 10. [How to Install Development Tools on Debian 10/9/8](https://tecadmin.net/install-development-tools-on-debian/) 
 11. [10 Cool Linux Terminal Commands](https://helpdeskgeek.com/linux-tips/10-cool-linux-terminal-commands-you-have-to-try/) - a couple of these actually *do* look cool! 
+12. [Debian Package Dependencies](https://linuxhint.com/debian_package_dependencies/); another *useful* guide from [Frank Hofmann](https://linuxhint.com/author/frank_hofmann/) 
 
 <!--- 
 
