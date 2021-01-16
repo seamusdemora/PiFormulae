@@ -46,7 +46,17 @@ Solutions:
    TO:     cron.*                         /var/log/cron.log
    ```
 
-  
+* use the `MAILTO` variable in your `crontab` 
+
+   Assuming you have an MTA installed on your system, you may insert the `MAILTO` variable in your `crontab` to send email notifications to all your `cron` jobs - or to each one individually. See `man 5 crontab` for details, or peruse the references listed below. 
+   
+   If you want to install an MTA for *local* use only, the package `exim4-daemon-light` will serve that purpose : 
+   
+   ```bash
+   $ sudo apt-get install exim4-daemon-light
+   ```
+   
+   
 
  
 
@@ -71,3 +81,4 @@ REFERENCES:
 13. [How To Read and Set Environmental and Shell Variables on a Linux VPS](https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-a-linux-vps#setting-environmental-variables-at-login) fm DigitalOcean.
 14. [Set and List Environment Variables in Linux](https://linoxide.com/linux-how-to/how-to-set-environment-variables-in-linux/) fm LinOxide 
 15. [How to Add to the Shell Path in macOS Catalina 10.5 using Terminal](https://coolestguidesontheplanet.com/how-to-add-to-the-shell-path-in-macos-using-terminal/)  
+16. [Crontab Email Settings ( MAILTO )](https://www.cyberciti.biz/faq/linux-unix-crontab-change-mailto-settings/) 
