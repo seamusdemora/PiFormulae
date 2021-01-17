@@ -16,6 +16,7 @@
 * [What do file and directory permissions mean?](#what-do-file-and-directory-permissions-mean) 
 * [Using `which` to find commands](#using-which-to-find-commands) - *accurately!* 
 * [Using your shell command history](#using-your-shell-command-history) 
+* [Access compressed log files easily](#access-compressed-log-files-easily) 
 * [REFERENCES:](#references)
 
 
@@ -235,6 +236,52 @@ In `bash`, `which` is a *stand-alone* command instead of a *builtin*.  Consequen
 For those of us who don't have a [photographic memory](https://en.wikipedia.org/wiki/Eidetic_memory), our shell **command history** may be very useful. Knowing how command history works, and how to configure its operation, allows us to use it with greater effect. While some aspects of the command history are *shell-dependent*, they have more in common than they have differences. An [overview of the command history](https://github.com/seamusdemora/seamusdemora.github.io/blob/master/CommandHistoryIntro-zsh.md) - from a `zsh` perspective - is provided in another section of this repo. The semantics for configuring the `bash` command history options are covered in some of the [REFERENCES](#references), and here in [this section of the `bash` manual](https://www.gnu.org/software/bash/manual/html_node/Using-History-Interactively.html). 
 
 I had every intention of including a set of *adjustments* to the default behavior of the `bash` command history. But then I read [T. Laurenson's blog post on `bash` history](https://www.thomaslaurenson.com/blog/2018/07/02/better-bash-history/), and tried his [command history configuration script](https://gist.github.com/thomaslaurenson/ae72d4b4ec683f5a1850d42338a9a4ab); I'm still evaluating, but this is **quite** good. And I love that it's a script - it can be easily applied to all my hosts.
+
+### Access compressed log files easily
+
+If you ever find yourself rummaging around in `/var/log`... Maybe you're *'looking for something, but don't know exactly what'*.  In the `/var/log` file listing, you'll see a sequence of `syslog` files (and several others) arranged something like this: 
+
+```
+-rw-r----- 1 root        adm    3919 Jan 17 01:38 syslog
+-rw-r----- 1 root        adm  176587 Jan 17 00:00 syslog.1
+-rw-r----- 1 root        adm   11465 Jan 16 00:00 syslog.2.gz
+-rw-r----- 1 root        adm   19312 Jan 15 00:00 syslog.3.gz
+-rw-r----- 1 root        adm    4893 Jan 14 00:00 syslog.4.gz
+-rw-r----- 1 root        adm    5398 Jan 13 00:00 syslog.5.gz
+-rw-r----- 1 root        adm    4472 Jan 12 00:00 syslog.6.gz
+-rw-r----- 1 root        adm    4521 Jan 11 00:00 syslog.7.gz
+```
+
+The `.gz` files are compressed with `gzip` of course - but **how to view the contents?**  There are some tools to make that job a little easier.  `zgrep` and `zless` are the most useful in my experience, but `zdiff` and `zcat` are also there if you need them. Note that these "`z`" utilities will also handle *non-compressed* files, but don't be tempted to use them as a substitute since not all options are available in the "`z`" version. For example, `grep -R` doesn't translate to `zgrep`. 
+
+As a potentially useful example, consider listing all of the `Under-voltage` warnings in `/var/log/syslog*`. Note that the `syslog*` *filename expansion / globbing* will get **all** the syslog files - compressed or uncompressed. Since there may be quite a few, piping them to the `less` pager won't clutter your screen: 
+
+```bash
+$ zgrep voltage /var/log/syslog* | less
+```
+
+If you want daily totals of `Under-voltage` events, use the `-c` option: 
+
+```bash
+$ zgrep -c voltage /var/log/syslog*
+/var/log/syslog:0
+/var/log/syslog.1:8
+/var/log/syslog.2.gz:3
+/var/log/syslog.3.gz:5
+/var/log/syslog.4.gz:4
+/var/log/syslog.5.gz:10
+/var/log/syslog.6.gz:0
+/var/log/syslog.7.gz:0
+```
+
+Or weekly totals of  `Under-voltage` events: 
+
+```bash
+$ zgrep -o voltage /var/log/syslog* | wc -l
+30
+```
+
+Still more is possible if you care to pipe these results to `awk`. 
 
 
 
