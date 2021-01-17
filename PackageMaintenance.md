@@ -105,6 +105,11 @@ Some advocate using `apt`, others advocate using `apt-get`. At present, I favor 
 </tr>
 
 <tr>
+<td width="30%"> <b><code>sudo apt-get autoremove</code></b></td>
+<td width="70%">remove packages that were automatically installed as dependencies and are no longer needed</td>
+</tr>
+
+<tr>
 <td width="30%"> <b><code>sudo apt-get purge XXXX</code></b></td>
 <td width="70%">Remove a package "XXXX", deleting its configuration files from the system</td>
 </tr>
