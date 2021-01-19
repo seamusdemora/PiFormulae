@@ -17,7 +17,7 @@
 * [Using `which` to find commands](#using-which-to-find-commands) - *accurately!* 
 * [Using your shell command history](#using-your-shell-command-history) 
 * [Access compressed log files easily](#access-compressed-log-files-easily) 
-* [Filename expansion; a.k.a. "globbing"](#filename-expansion-a.k.a-globbing)
+* [Filename expansion; a.k.a. "globbing"](#filename-expansion-aka-globbing)
 * [REFERENCES:](#references)
 
 
