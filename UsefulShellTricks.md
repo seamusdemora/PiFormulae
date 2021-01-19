@@ -17,6 +17,7 @@
 * [Using `which` to find commands](#using-which-to-find-commands) - *accurately!* 
 * [Using your shell command history](#using-your-shell-command-history) 
 * [Access compressed log files easily](#access-compressed-log-files-easily) 
+* [Filename expansion; a.k.a. "globbing"](#filename-expansion-a-k-a-globbing)
 * [REFERENCES:](#references)
 
 
@@ -283,7 +284,15 @@ $ zgrep -o voltage /var/log/syslog* | wc -l
 
 Still more is possible if you care to pipe these results to `awk`. 
 
+### Filename expansion; a.k.a. "globbing"
 
+The astute reader might have noticed the syntax from above:
+
+`$ zgrep -c voltage /var/log/syslog*`
+
+What does that *asterisk* (`*`) mean; what does it do? 
+
+It's one of the more powerful [idioms](https://en.wikipedia.org/wiki/Programming_idiom) available in `bash`, and extremely useful when working with files. Consider the alternatives to instructing `bash` to loop through all the files with `syslog` in their filename. Read more about its possibilities, and study the examples in the [Advanced Bash-Scripting Guide](https://tldp.org/LDP/abs/html/globbingref.html). 
 
 
 
@@ -325,6 +334,9 @@ Still more is possible if you care to pipe these results to `awk`.
 7. [Functions in bash scripting](https://ryanstutorials.net/bash-scripting-tutorial/bash-functions.php) from Ryan's Tutorials - a good and thorough overview w/ examples. 
 8. [Q&A: Shell scripting: -z and -n options with if](https://unix.stackexchange.com/questions/109625/shell-scripting-z-and-n-options-with-if)  - recognizing *null strings* 
 9. [Q&A re executing multiple shell commands in one line](https://stackoverflow.com/questions/13077241/execute-combine-multiple-linux-commands-in-one-line); sometimes you don't need a *script* **!** 
+10. [*"Filename expansion"*; a.k.a. ***"globbing"***](https://tldp.org/LDP/abs/html/globbingref.html); what is it, and why should I care?  
+11. [A GitHub repo of globbing](https://github.com/begin/globbing); odd choice for a repo methinks, but contains some useful info. 
+12. [Globbing and Regex: So Similar, So Different](https://www.linuxjournal.com/content/globbing-and-regex-so-similar-so-different); some of the *fine points* discussed here.
 
 ### General guides to `bash`
 
@@ -398,4 +410,5 @@ Still more is possible if you care to pipe these results to `awk`.
 7. [Q&A: How to convert HTML to text?](https://superuser.com/questions/673878/how-to-convert-html-to-text); short answer: `curl <html URL> | html2text`  
 8. [Use `findmnt` to check if a filesystem is mounted](https://unix.stackexchange.com/a/444553/286615); `findmnt` [explained further in this Q&A](https://stackoverflow.com/a/46025626/5395338).
 9. [Q&A: How to create a link to a directory](https://stackoverflow.com/a/9587490/5395338) - I think he got it right! 
+10. [How To Read And Work On Gzip Compressed Log Files In Linux](https://itsfoss.com/read-compressed-log-files-linux/) 
 
