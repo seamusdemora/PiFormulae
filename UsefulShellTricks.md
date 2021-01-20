@@ -250,12 +250,6 @@ The Figure below is intended to show the relationship between the *two different
 
 There are [numerous variables and commands (*built-ins*)](https://www.gnu.org/software/bash/manual/html_node/Using-History-Interactively.html) that control the behavior of the command history, and there are [numerous guides and recommendations](https://duckduckgo.com/?t=ffnt&q=how+to+configure+bash+command+history&ia=web) on how to configure the command history.  But you must understand ***how the command history works*** to make informed decisions about how to configure yours. 
 
-<!---
-
-Note the session histories 1 through **n** in the Figure above, where **n** is the number of active sessions on a host. Typically, one session exists in each terminal window (or tab); it is an *instance* of the `bash` interactive shell.  For now, assume you have just installed your OS, and just launched your *first-ever* session on this machine (i.e. the file at `~/.bash_history` is empty). As you begin to type commands into your session, they will be recorded in your session history #1. When you have entered a certain number of commands 
-
-—>
-
  [T. Laurenson's blog post on `bash` history](https://www.thomaslaurenson.com/blog/2018/07/02/better-bash-history/), and his [command history configuration script](https://gist.github.com/thomaslaurenson/ae72d4b4ec683f5a1850d42338a9a4ab) are excellent IMHO. However, my command history configuration is different; I don't need (or want) my session histories merged immediately; I prefer they remain unique for the duration of that session. For me, this makes a command recall quicker and simpler as I tend to use different sessions for different tasks. 
 
  The semantics for configuring the `bash` command history options are covered in some of the [REFERENCES](#command-history), and here in [this section of the `bash` manual](https://www.gnu.org/software/bash/manual/html_node/Using-History-Interactively.html). If you're just starting with the command history, there may be some benefit to a brief perusal to appreciate the scope of this component of `bash`. If your objective is to gain some proficiency, your time will be well-spent in conducting some experiments to see for yourself how  a basic set of variables and commands affect command history behavior.
@@ -437,3 +431,14 @@ It's one of the more powerful [idioms](https://en.wikipedia.org/wiki/Programming
 9. [Q&A: How to create a link to a directory](https://stackoverflow.com/a/9587490/5395338) - I think he got it right! 
 10. [How To Read And Work On Gzip Compressed Log Files In Linux](https://itsfoss.com/read-compressed-log-files-linux/) 
 
+
+
+---
+
+<!---
+
+for command history:
+
+Note the session histories 1 through **n** in the Figure above, where **n** is the number of active sessions on a host. Typically, one session exists in each terminal window (or tab); it is an *instance* of the `bash` interactive shell.  For now, assume you have just installed your OS, and just launched your *first-ever* session on this machine (i.e. the file at `~/.bash_history` is empty). As you begin to type commands into your session, they will be recorded in your session history #1. When you have entered a certain number of commands 
+
+-->
