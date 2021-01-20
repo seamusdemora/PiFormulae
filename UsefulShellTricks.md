@@ -234,9 +234,33 @@ In `bash`, `which` is a *stand-alone* command instead of a *builtin*.  Consequen
 
 ### Using your shell command history
 
-For those of us who don't have a [photographic memory](https://en.wikipedia.org/wiki/Eidetic_memory), our shell **command history** may be very useful. Knowing how command history works, and how to configure its operation, allows us to use it with greater effect. While some aspects of the command history are *shell-dependent*, they have more in common than they have differences. An [overview of the command history](https://github.com/seamusdemora/seamusdemora.github.io/blob/master/CommandHistoryIntro-zsh.md) - from a `zsh` perspective - is provided in another section of this repo. The semantics for configuring the `bash` command history options are covered in some of the [REFERENCES](#references), and here in [this section of the `bash` manual](https://www.gnu.org/software/bash/manual/html_node/Using-History-Interactively.html). 
+For those of us who don't have a [photographic memory](https://en.wikipedia.org/wiki/Eidetic_memory), our shell **command history** is very useful.  Our primary objective in this brief segment is to gain some understanding of how the command history works.  Once this is understood, the configuration of command history becomes more clear, and allows us to use it with greater effect - to *tailor* it for how we work. 
 
-I had every intention of including a set of *adjustments* to the default behavior of the `bash` command history. But then I read [T. Laurenson's blog post on `bash` history](https://www.thomaslaurenson.com/blog/2018/07/02/better-bash-history/), and tried his [command history configuration script](https://gist.github.com/thomaslaurenson/ae72d4b4ec683f5a1850d42338a9a4ab); I'm still evaluating, but this is **quite** good. And I love that it's a script - it can be easily applied to all my hosts.
+The Figure below is intended to show the relationship between the *two different mechanisms* used by `bash` for storing **command history**. The dashed lines and arrows show the **"flow"** between the **"file history"**, and the **"session histories"**:
+
+* Each *session* maintains its own unique history; it contains only commands issued in that session.
+* When a session is ended, or its history filled to capacity, its history "flows" into the *file history*.
+* A *session history* is deleted when the session is closed.
+* The *file history* is an *aggregation* of all of a user's session histories. 
+* The *file history* is a permanent record, typically stored in `~/.bash_history`.
+* When a new session is launched, commands from the *file history* "flow in" to fill the *session history*.
+* In summary, command histories "flow" in both directions between the *file history* & *session histories*.
+
+![commandhistory2](pix/commandhistory2.png)
+
+There are [numerous variables and commands (*built-ins*)](https://www.gnu.org/software/bash/manual/html_node/Using-History-Interactively.html) that control the behavior of the command history, and there are [numerous guides and recommendations](https://duckduckgo.com/?t=ffnt&q=how+to+configure+bash+command+history&ia=web) on how to configure the command history.  But you must understand ***how the command history works*** to make informed decisions about how to configure yours. 
+
+<!---
+
+Note the session histories 1 through **n** in the Figure above, where **n** is the number of active sessions on a host. Typically, one session exists in each terminal window (or tab); it is an *instance* of the `bash` interactive shell.  For now, assume you have just installed your OS, and just launched your *first-ever* session on this machine (i.e. the file at `~/.bash_history` is empty). As you begin to type commands into your session, they will be recorded in your session history #1. When you have entered a certain number of commands 
+
+—>
+
+ [T. Laurenson's blog post on `bash` history](https://www.thomaslaurenson.com/blog/2018/07/02/better-bash-history/), and his [command history configuration script](https://gist.github.com/thomaslaurenson/ae72d4b4ec683f5a1850d42338a9a4ab) are excellent IMHO. However, my command history configuration is different; I don't need (or want) my session histories merged immediately; I prefer they remain unique for the duration of that session. For me, this makes a command recall quicker and simpler as I tend to use different sessions for different tasks. 
+
+ The semantics for configuring the `bash` command history options are covered in some of the [REFERENCES](#command-history), and here in [this section of the `bash` manual](https://www.gnu.org/software/bash/manual/html_node/Using-History-Interactively.html). If you're just starting with the command history, there may be some benefit to a brief perusal to appreciate the scope of this component of `bash`. If your objective is to gain some proficiency, your time will be well-spent in conducting some experiments to see for yourself how  a basic set of variables and commands affect command history behavior.
+
+*What if you use a shell other than `bash`?* While some aspects of the command history are *shell-dependent*, they have more in common than they have differences. An [overview of the command history](https://github.com/seamusdemora/seamusdemora.github.io/blob/master/CommandHistoryIntro-zsh.md) - from a `zsh` perspective - is provided in another section of this repo. 
 
 ### Access compressed log files easily
 
@@ -386,18 +410,19 @@ It's one of the more powerful [idioms](https://en.wikipedia.org/wiki/Programming
 2. [Q&A: Why isn't the first executable in my $PATH being used?](https://unix.stackexchange.com/questions/91173/why-isnt-the-first-executable-in-my-path-being-used) more help with `which` 
 3. [Q&A: Why not use “which”? What to use then?](https://unix.stackexchange.com/a/626017/286615) more on `which`, alternatives & `hash` for cache updates 
 
-### Command history 
+### Command history
 
-1. [How to Use Your Bash History in the Linux or macOS Terminal](https://www.howtogeek.com/howto/44997/how-to-use-bash-history-to-improve-your-command-line-productivity/); a *How-To-Geek* article
-2. [Using History Interactively - A bash User's Guide](https://www.gnu.org/software/bash/manual/html_node/Using-History-Interactively.html); from the good folks at GNU. 
-3. [The Definitive Guide to Bash Command Line History](https://catonmat.net/the-definitive-guide-to-bash-command-line-history); not quite - but it's certainly worth a look. 
-4. H[ow To Use Bash History Commands and Expansions on Linux](https://www.digitalocean.com/community/tutorials/how-to-use-bash-history-commands-and-expansions-on-a-linux-vps); useful 
-5. [Bash History Command Examples](https://www.rootusers.com/17-bash-history-command-examples-in-linux/); 17 of them at last count :) 
-6. [Improved BASH history for ...](https://www.thomaslaurenson.com/blog/2018/07/02/better-bash-history/); **MUST READ**; yeah - this one is good. And as a [**BONUS...**](https://gist.github.com/seamusdemora/7211f77d3860d705d654234351d6b486) 
-7. [Using Bash History More Efficiently: HISTCONTROL](https://www.linuxjournal.com/content/using-bash-history-more-efficiently-histcontrol); from the Linux Journal
-8. [Preserve Bash History in Multiple Terminal Windows](https://www.baeldung.com/linux/preserve-history-multiple-windows); from baeldung.com 
-9. [7 Tips – Tuning Command Line History in Bash](https://www.shellhacks.com/tune-command-line-history-bash/); is good
-10. [Working With History in Bash](https://macromates.com/blog/2008/working-with-history-in-bash/); useful tips for `bash` history 
+1. [How to Use Your Bash History in the Linux or macOS Terminal](https://www.howtogeek.com/howto/44997/how-to-use-bash-history-to-improve-your-command-line-productivity/); a *How-To-Geek* article 
+2. [Q&A: Where is bash's history stored?](https://unix.stackexchange.com/questions/145250/where-is-bashs-history-stored); good insights available here!
+3. [Using History Interactively - A bash User's Guide](https://www.gnu.org/software/bash/manual/html_node/Using-History-Interactively.html); from the good folks at GNU. 
+4. [The Definitive Guide to Bash Command Line History](https://catonmat.net/the-definitive-guide-to-bash-command-line-history); not quite - but it's certainly worth a look. 
+5. H[ow To Use Bash History Commands and Expansions on Linux](https://www.digitalocean.com/community/tutorials/how-to-use-bash-history-commands-and-expansions-on-a-linux-vps); useful 
+6. [Bash History Command Examples](https://www.rootusers.com/17-bash-history-command-examples-in-linux/); 17 of them at last count :) 
+7. [Improved BASH history for ...](https://www.thomaslaurenson.com/blog/2018/07/02/better-bash-history/); a **MUST READ**; yeah - this one is good. 
+8. [Using Bash History More Efficiently: HISTCONTROL](https://www.linuxjournal.com/content/using-bash-history-more-efficiently-histcontrol); from the Linux Journal
+9. [Preserve Bash History in Multiple Terminal Windows](https://www.baeldung.com/linux/preserve-history-multiple-windows); from baeldung.com 
+10. [7 Tips – Tuning Command Line History in Bash](https://www.shellhacks.com/tune-command-line-history-bash/); is good
+11. [Working With History in Bash](https://macromates.com/blog/2008/working-with-history-in-bash/); useful tips for `bash` history 
 
 ### Miscellaneous
 
