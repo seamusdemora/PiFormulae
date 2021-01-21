@@ -246,7 +246,7 @@ The Figure below is intended to show the relationship between the *two different
 * When a new session is launched, commands from the *file history* "flow in" to fill the *session history*.
 * In summary, command histories "flow" in both directions between the *file history* & *session histories*.
 
-![commandhistory2](pix/commandhistory2.png)
+![commandhistory2](pix/commandhistory-bash.png)
 
 There are [numerous variables and commands (*built-ins*)](https://www.gnu.org/software/bash/manual/html_node/Using-History-Interactively.html) that control the behavior of the command history, and there are [numerous guides and recommendations](https://duckduckgo.com/?t=ffnt&q=how+to+configure+bash+command+history&ia=web) on how to configure the command history.  But you must understand ***how the command history works*** to make informed decisions about how to configure yours. 
 
