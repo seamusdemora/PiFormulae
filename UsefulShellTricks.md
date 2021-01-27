@@ -439,6 +439,32 @@ It's one of the more powerful [idioms](https://en.wikipedia.org/wiki/Programming
 
 for command history:
 
-Note the session histories 1 through **n** in the Figure above, where **n** is the number of active sessions on a host. Typically, one session exists in each terminal window (or tab); it is an *instance* of the `bash` interactive shell.  For now, assume you have just installed your OS, and just launched your *first-ever* session on this machine (i.e. the file at `~/.bash_history` is empty). As you begin to type commands into your session, they will be recorded in your session history #1. When you have entered a certain number of commands 
+Note the session histories 1 through **n** in the Figure above, where **n** is the number of active sessions on a host. Typically, one session exists in each terminal window (or tab); it is an *instance* of the `bash` interactive shell.  For now, assume you have just installed your OS, and just launched your *first-ever* session on this machine (i.e. the file at `~/.bash_history` is empty). As you begin to type commands into your session, they will be recorded in your session history #1. When you have entered a certain number of commands   
+
+
+
+An `awk` section? 
+
+The structure of an `awk` program: 
+
+```awk
+#!/bin/awk -f
+BEGIN {}  # Begin section
+{}        # Loop section
+END{}     # End section
+```
+
+There are (at least) two ways to execute an `awk` script: 
+
+1. put `#!/bin/awk -f` on the first line & make the file executable (`chmod`)  
+2. put the `awk` code in a file, and then: `awk -f my.awk life.csv >output.txt` 
+
+
+
+
+
+REF:
+
+1. [Q&A: How to run a .awk file?](https://stackoverflow.com/questions/9991858/how-to-run-a-awk-file) 
 
 -->
