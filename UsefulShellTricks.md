@@ -17,7 +17,8 @@
 * [Using `which` to find commands](#using-which-to-find-commands) - *accurately!* 
 * [Using your shell command history](#using-your-shell-command-history) 
 * [Access compressed log files easily](#access-compressed-log-files-easily) 
-* [Filename expansion; a.k.a. "globbing"](#filename-expansion-aka-globbing)
+* [Filename expansion; a.k.a. "globbing"](#filename-expansion-aka-globbing) 
+* [Using the default editor `nano` effectively](#using-the-default-editor-nano-effectively)
 * [REFERENCES:](#references)
 
 
@@ -311,6 +312,12 @@ The astute reader might have noticed the syntax from above:
 What does that *asterisk* (`*`) mean; what does it do? 
 
 It's one of the more powerful [idioms](https://en.wikipedia.org/wiki/Programming_idiom) available in `bash`, and extremely useful when working with files. Consider the alternatives to instructing `bash` to loop through all the files with `syslog` in their filename. Read more about its possibilities, and study the examples in the [Advanced Bash-Scripting Guide](https://tldp.org/LDP/abs/html/globbingref.html). 
+
+### Using the default editor `nano` effectively
+
+I was writing this section when I found [Patrick's tips for using `nano` in Raspberry Pi OS](https://raspberrytips.com/nano-commands-shortcuts/). Also see this [answer in U&L SE.](https://unix.stackexchange.com/a/634503/286615) 
+
+
 
 
 
