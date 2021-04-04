@@ -181,7 +181,8 @@ In the event something goes wrong, let's marshal the resources needed for recove
 ## OTHER REFERENCES:
 
 1. [Raspberry Pi 4 Bootloader Firmware Updating / Recovery Guide](https://jamesachambers.com/raspberry-pi-4-bootloader-firmware-updating-recovery-guide/) from  James Chambers' *Legendary Technology Blog* 
-2. [The Foundation's GitHub page for *device tree overlays*](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README) - everything you wanted to know, but ...
+2. [The Foundation's GitHub page for *device tree overlays*](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README) - everything you wanted to know, but ... 
+3. [An RPi Forum post with some insights on the *raison d'etre* for the device tree](https://www.raspberrypi.org/forums/viewtopic.php?t=97314) 
 
 <!--- 
 
