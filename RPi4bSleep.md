@@ -1,4 +1,8 @@
-## Minimize Raspberry Pi 4B Power Consumption in `poweroff`
+## Minimize Raspberry Pi 4B Power Consumption in `shutdown`, `halt` or `poweroff` 
+
+   N.B. If you are using - or have plans to use - the `dtoverlay=gpio-poweroff` in `/boot/config.txt`, please review the [UPDATES](#UPDATES) before you proceed here.
+
+---
 
 This all started when I read a post made by a "Raspberry Pi Engineer" in the Raspberry Pi Organization's forum. [In this post, dated June 24, 2019](https://www.raspberrypi.org/forums/viewtopic.php?p=1484347#p1484347) it was claimed: 
 
@@ -6,7 +10,7 @@ This all started when I read a post made by a "Raspberry Pi Engineer" in the Ras
 >
 >There's user-modifiable EEPROM setting to change this behaviour (halt  instead of poweroff, allows GPIO pin wake) but these are currently  deliberately undocumented until we have a reliable, scripted way to  change these.
 
-More than a year and several firmware revisions later `sudo poweroff` still results in a current drain of approximately 370mA on my RPi 4b. That's just under 2 Watts - enough to make a Raspberry Pi 4B a nice hand-warmer on a frosty day. ***What happened?!*** 
+More than a year and several firmware revisions later `sudo poweroff` still results in a current drain of approximately 370mA on my RPi 4b. That's just under 2 Watts - enough to make a Raspberry Pi 4B a nice hand-warmer on a frosty day. Also, power consumption is unchanged between `poweroff`, `halt` and `shutdown`. ***What happened?!*** 
 
 During a [SE Q&A](https://raspberrypi.stackexchange.com/questions/114092/does-raspberry-pi-4-consume-considerable-amount-of-power-in-soft-off-state) I became aware of this addition to the Raspberry Pi documentation: [Pi 4 Bootloader Configuration](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2711_bootloader_config.md). Their documentation implies that changing certain bootloader EEPROM values will disable the PMIC after a `halt` command, resulting in the *"lowest possible power state"*. That seems a curious choice of words, and a rather *"slippery" bit of specsmanship*. We'll try to do better than that in the sequel below. 
 
@@ -16,7 +20,7 @@ The RPi 4B represents a break from previous models in that boot code is stored i
 
 ### Make the change:
 
-***But first...*** You should review "The Organization's" documentation on [Pi 4 Bootloader Configuration](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2711_bootloader_config.md) before proceeding here, if only to confirm these instructions are still valid. This is a *"new era"* for Raspberry Pi, and there may be changes that supersede these procedures. As you'll see, changing the boot configuration is not complicated, but improving one's forward visibility is always prudent. 
+***But first...*** You should review "The Organization's" documentation on [Pi 4 Bootloader Configuration](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2711_bootloader_config.md), and these [details on EEPROM configuration](https://www.raspberrypi.org/documentation/hardware/raspberrypi/booteeprom.md) before proceeding here, if only to confirm these instructions are still valid. You may also consult `man rpi-eeprom-config`, thought it's fairly sparse. N.B. Storing the RPi bootcode in EEPROM is a *"new era"* for Raspberry Pi, and there may be changes that supersede these procedures. As you'll see, changing the boot configuration is not complicated, but improving one's forward visibility is always prudent. 
 
 #### 1. Show the current EEPROM bootloader configuration: 
 
@@ -25,10 +29,28 @@ $ vcgencmd bootloader_config
 BOOT_UART=0
 WAKE_ON_GPIO=1
 POWER_OFF_ON_HALT=0
-FREEZE_VERSION=0
+FREEZE_VERSION=0  
   ```
 
-***NOTE:*** `vcgencmd bootloader_config` **MAY NOT** list all the editable config variables. The EEPROM firmware (boot code) is very much in a state of flux as of this writing, and the set of configuration variables is changing.
+***ALTERNATIVELY:***
+
+```bash
+$ rpi-eeprom-config
+[all]
+BOOT_UART=0
+WAKE_ON_GPIO=0
+POWER_OFF_ON_HALT=1
+DHCP_TIMEOUT=45000
+DHCP_REQ_TIMEOUT=4000
+TFTP_FILE_TIMEOUT=30000
+ENABLE_SELF_UPDATE=1
+DISABLE_HDMI=0
+BOOT_ORDER=0xf41
+```
+
+
+
+***NOTE:*** `vcgencmd bootloader_config` **MAY NOT** list all the editable config variables - depending upon which version you are using. The EEPROM firmware (boot code) and associated tools are very much in a state of flux as of this writing, and the configuration variables may have changed.
 
 The values of interest here are: `WAKE_ON_GPIO` and `POWER_OFF_ON_HALT`. Disabling the PMIC in `halt` mode requires these values be set as follows: 
 
@@ -41,12 +63,12 @@ Raspberry Pi 4 has some new tools for managing the bootloader configuration: `rp
 
 ##### 2.1 make a local copy of the current EEPROM bootloader firmware file:
 
-   `man rpi-eeprom-update` tells us where to look for our EEPROM firmware files:
+ `man rpi-eeprom-update` tells us our EEPROM firmware files are located in `/lib/firmware/raspberrypi/bootloader` and its sub-folders. The subfolders indicate the *release status* of the files within: 
   >  >**Release status:**
   >  >
-  >  >**critical**: The latest production release plus important security or hardware compatibility bug fixes.
+  >  >**critical / *default***: The latest production release plus important security or hardware compatibility bug fixes.
   >  >
-  >  >**stable**:  Contains new features that have already undergone some beta testing.  These are candidates for new production releases.
+  >  >**stable / *latest***:  Contains new features that have already undergone some beta testing.  These are candidates for new production releases.
   >  >
   >  >**beta**: New features, bug fixes for development/test purposes. Use at your own risk!
 
@@ -132,7 +154,7 @@ How did these modifications affect power consumption? See the results in the tab
 
 #### 5. Summary 
 
-That's a 90% reduction in power consumption in `halt`/`poweroff` mode. It's certainly an improvement, but especially given the initial claim, it is also very disappointing! Not only is it an [order of magnitude greater than claimed by "Raspberry Pi Engineer"](https://www.raspberrypi.org/forums/viewtopic.php?p=1484347#p1484347), it's not even close to a value that would permit battery-powered operation in many remote-sensor applications. The claim was *misleading* - a *typo* or a *Raspberry Lie*? 
+That's a 90% reduction in power consumption in `halt`/`poweroff` mode. It's certainly an improvement, but given the initial claim, it is also disappointing! Not only is it an [order of magnitude greater than claimed by "Raspberry Pi Engineer"](https://www.raspberrypi.org/forums/viewtopic.php?p=1484347#p1484347), it's not low enough to permit battery-powered operation in many remote-sensor applications. ***The claim was misleading***. 
 
 #### 6. Revert to original firmware - OPTION
 
@@ -183,6 +205,18 @@ In the event something goes wrong, let's marshal the resources needed for recove
 1. [Raspberry Pi 4 Bootloader Firmware Updating / Recovery Guide](https://jamesachambers.com/raspberry-pi-4-bootloader-firmware-updating-recovery-guide/) from  James Chambers' *Legendary Technology Blog* 
 2. [The Foundation's GitHub page for *device tree overlays*](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README) - everything you wanted to know, but ... 
 3. [An RPi Forum post with some insights on the *raison d'etre* for the device tree](https://www.raspberrypi.org/forums/viewtopic.php?t=97314) 
+
+
+
+## UPDATES:
+
+**2021/04/24:** For reasons that are [not _entirely clear_](https://github.com/raspberrypi/rpi-eeprom/issues/330), the "low power configuration" outlined here cannot be used with the `dtoverlay=gpio-poweroff` in `/boot/config.txt`. IOW: **You may use** the "low power configuration" described here, _**OR**_ the gpio-poweroff overlay **BUT NOT BOTH**.
+
+
+
+
+
+
 
 <!--- 
 
