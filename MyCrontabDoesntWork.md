@@ -30,7 +30,9 @@ Solutions:
    @reboot ( /bin/sleep 30; /bin/bash /home/pi/startup.sh )
    ```
 
-#### Issue #3: `cron` errors go to /dev/null
+#### Issue #3: `cron` output goes to `/dev/null` 
+
+New users sometimes wonder why they don't see any output at the terminal from their `cron` jobs - as they did when they ran the same program from their interactive shell (e.g. `bash`). 
 
 Solutions: 
 
