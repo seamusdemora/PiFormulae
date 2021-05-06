@@ -37,7 +37,7 @@ Solutions:
 * redirect the output of your `cron` job to capture `stderr` & `stdout` to a file:
 
    ```bash
-@reboot ( /bin/sleep 30; /bin/bash /home/pi/startup.sh > /home/pi/cronjoblog 2>&1)
+   @reboot ( /bin/sleep 30; /bin/bash /home/pi/startup.sh > /home/pi/cronjoblog 2>&1)
    ```
 
 * enable logging for `cron`
