@@ -88,7 +88,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/gam
 SHELL=/bin/bash
 ```
 
-You'll notice numerous differences. Having this information, knowing how the `cron` user's environment differs from yours, will help create rational `cron` jobs, and help troubleshooting when they don't behave as you'd like. Finally, you can change the *environment* for `cron`; modify it to better meet your needs. We'll cover that in another recipe.  
+You'll notice numerous differences. Having this information, knowing how the `cron` user's environment differs from yours, will help create rational `cron` jobs, and help troubleshooting when they don't behave as you'd like. Finally, you can change the *environment* for `cron`; modify it to better meet your needs. See the REFERENCES below, and [this recipe](https://github.com/seamusdemora/PiFormulae/blob/master/MyCrontabDoesntWork.md) for more `cron`-related stuff.  
 
 ------
 

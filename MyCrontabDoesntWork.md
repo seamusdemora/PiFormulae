@@ -6,25 +6,29 @@
 
 
 
-#### Issue #1: the `cron` user has a different environment than you; specifically, the PATH environment variable is different
+#### Issue #1: the PATH environment variable is different. 
+
+Your `cron` user has a different *environment* than your interactive shell (e.g. `bash`) user.  
 
 Solutions:
 
 - use absolute path statements: `/home/user/scriptname.sh` instead of `scriptname.sh` or `./scriptname.sh` 
 - be really clever, and set the `cron` user's environment:  [set env for cron](https://stackoverflow.com/questions/2229825/where-can-i-set-environment-variables-that-crontab-will-use); [run cron with existing env](https://unix.stackexchange.com/questions/27289/how-can-i-run-a-cron-command-with-existing-environmental-variables) ; [more info in this answer on SE](https://serverfault.com/a/337921/515728) ; [still more on SE](https://stackoverflow.com/questions/2135478/how-to-simulate-the-environment-cron-executes-a-script-with) 
-- ask `cron` to tell you what `environment` it's using - [here's how to ask](WhatIsCronEnvironment.md).
+- know the differences! Ask `cron` to tell you what `environment` it's using - [here's how to ask](WhatIsCronEnvironment.md).
 
 
 
-#### Issue #2: `cron` has no awareness of the state of other services when it starts. This is typically only an issue when using the `@reboot` facility
+#### Issue #2: `cron` has no awareness of the state of other system services.
+
+This is typically only an issue when using the `@reboot` scheduling facility - before all the system's other services are available.  When `cron` starts, it 
 
 Solutions: 
 
 - `sleep` before starting a script with service dependencies: 
 
-```bash
-@reboot ( /bin/sleep 30; /bin/bash /home/pi/startup.sh )
-```
+   ```bash
+   @reboot ( /bin/sleep 30; /bin/bash /home/pi/startup.sh )
+   ```
 
 #### Issue #3: `cron` errors go to /dev/null
 
@@ -82,3 +86,4 @@ REFERENCES:
 14. [Set and List Environment Variables in Linux](https://linoxide.com/linux-how-to/how-to-set-environment-variables-in-linux/) fm LinOxide 
 15. [How to Add to the Shell Path in macOS Catalina 10.5 using Terminal](https://coolestguidesontheplanet.com/how-to-add-to-the-shell-path-in-macos-using-terminal/)  
 16. [Crontab Email Settings ( MAILTO )](https://www.cyberciti.biz/faq/linux-unix-crontab-change-mailto-settings/) 
+17. [Q&A: How to temporarily disable a user's cronjobs?](https://unix.stackexchange.com/questions/188501/how-to-temporarily-disable-a-users-cronjobs) - Yes, even `cron` is managed by `systemd`! 
