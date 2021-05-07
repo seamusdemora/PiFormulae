@@ -1,12 +1,12 @@
-### Why does my crontab not work? 
+## Q: Why does my crontab not work?
 
 
 
-#### A: `cron` is simple in some respects, but enigmatic in others
+## A: `cron` is simple in some respects, but enigmatic in others:
 
 
 
-#### Issue #1: the PATH environment variable is different. 
+### Issue #1: the PATH environment variable is different.
 
 Your `cron` user has a different *environment* than your interactive shell (e.g. `bash`) user.  
 
@@ -18,9 +18,9 @@ Solutions:
 
 
 
-#### Issue #2: `cron` has no awareness of the state of other system services.
+### Issue #2: `cron` has no awareness of the state of other system services.
 
-This is typically only an issue when using the `@reboot` scheduling facility - before all the system's other services are available.  When `cron` starts, it 
+This is typically only an issue when using the `@reboot` scheduling facility in `cron` - before all the system's other services are available.  When services are managed under `systemd`, system service dependencies (e.g. network is available) may be declared in a *"unit file"*, but `cron` is designed to support any program.  
 
 Solutions: 
 
@@ -30,7 +30,15 @@ Solutions:
    @reboot ( /bin/sleep 30; /bin/bash /home/pi/startup.sh )
    ```
 
-#### Issue #3: `cron` output goes to `/dev/null` 
+* write your program/script to check availability of required resources 
+* `cron` itself is a service, and yes - it may be managed under `systemd`! 
+
+   The service file for `cron` is found in `/lib/systemd/system/cron.service`.  You may modify this file to add dependencies. For example: If many of your `cron` jobs require an active, operational network service be available, you may wish to [add the following](https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/) to the `[Unit]` section your `cron.service` unit file:
+   ```
+   After=network-online.target
+   ```
+
+### Issue #3: `cron` output goes to `/dev/null`
 
 New users sometimes wonder why they don't see any output at the terminal from their `cron` jobs - as they did when they ran the same program from their interactive shell (e.g. `bash`). 
 
@@ -63,10 +71,6 @@ Solutions:
    ```
    
    
-
- 
-
-
 
 ------
 
