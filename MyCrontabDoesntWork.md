@@ -33,7 +33,7 @@ Solutions:
 * write your program/script to check availability of required resources 
 * `cron` itself is a service, and yes - it may be managed under `systemd`! 
 
-   The service file for `cron` is found in `/lib/systemd/system/cron.service`.  You may modify this file to add dependencies. For example: If many of your `cron` jobs require an active, operational network service be available, you may wish to [add the following](https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/) to the `[Unit]` section your `cron.service` unit file:
+   The service file for `cron` is found in `/lib/systemd/system/cron.service`.  You may modify this file to add dependencies. For example: If many of your `cron` jobs require an active, operational network service be available, you may wish to [add the following](https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/) to the `[Unit]` section your `cron.service` file:
    ```
    After=network-online.target
    ```
