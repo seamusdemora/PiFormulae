@@ -212,6 +212,8 @@ In the event something goes wrong, let's marshal the resources needed for recove
 
 **2021/04/24:** For reasons that are [not _entirely clear_](https://github.com/raspberrypi/rpi-eeprom/issues/330), the "low power configuration" outlined here cannot be used with the `dtoverlay=gpio-poweroff` in `/boot/config.txt`. IOW: **You may use** the "low power configuration" described here, _**OR**_ the gpio-poweroff overlay **BUT NOT BOTH**.
 
+**2021/04/30:** This seems to be resolved now, but I've not gotten around to testing it yet. Will post again when I have. 
+
 
 
 
