@@ -16,35 +16,7 @@ And so perhaps using a RPi in an off-grid system is like [driving square pegs in
 
 After a brief market survey, I selected a [DS3231 real time clock (RTC)](https://www.ebay.com/itm/DS3231-Real-Time-Clock-RTC-Module-for-Raspberry-Pi-Arduino-3-3V-5V-Battery/383739121217). At this point I really knew next-to-nothing, but the [DS3231](https://www.maximintegrated.com/en/products/analog/real-time-clocks/DS3231.html) seemed to be in wide use, it seemed to have greater flexibility than many of the alternatives and I could buy one on [eBay for about $3](https://www.ebay.com/itm/383925085990).  I learned later that my eBay RTC was made with a counterfeit DS3231 - a *word to the wise*. 
 
-On to the integration: This is fairly detailed - I wrote this as I did it. I've included some steps that are peripheral, and some that may seem trivial. If you know what you're doing, feel free to skim through.
-
-<!--- 
-
-You can hide shit in here  :)   LOL 
-
-and added it to my **RPi 3b**. It seems to work as far as keeping time, but I wanted _more_.
-
-I'd like to be able to set alarms to trigger the INT/SQW pin on the chip (while retaining the basic timekeeping function I currently have), but I've been unable to find any way to do that with the _toolset_ in RPi. I've installed `python-smbus` and `i2c-tools` as part of the RTC configuration. Have I overlooked something? - how should I go about reading & writing the DS3231's internal registers to set up the alarm function on my **RPi 3b**?
-
----
-
-It took a while for me to discover this, but the `i2ctools` package that was installed as the first step in installing the DS3231 RTC is apparently only a "cover" for the actual tools - the packages that actually do something: 
-
-
-
-| Command     | Description                                                  |
-| ----------- | ------------------------------------------------------------ |
-| i2cdetect   | Detect I2C chips connected to the bus                        |
-| i2cdump     | Examine and read I2C registers on a connected device         |
-| i2cget      | Read from I2C/SMBus chip registers on a connected device     |
-| i2cset      | Set I2C registers on a connected device with new data or values |
-| i2ctransfer | Send user defined I2C messages in one transfer to a connected device |
-
-Each of these commands has an associated `man` page explaining its function, and the arguments. Oddly, `man i2ctools` does not exist. Further, there seems to be a dearth of examples/how-tos/tutorials on configuring the the DS3231 alarm function using these `i2ctools`. I found [one that was brief, and far from extensive](https://www.waveshare.com/wiki/Raspberry_Pi_Tutorial_Series:_I2C).          
-
-As an observation, My Internet searches suggest there are many more examples/how-tos/tutorials for the Arduino platform. Absent an easy method to convert Arduino sketches to RPi-executable code, this leaves me at least with perhaps a fairly steep learning curve. 
-
-—>
+***On to the integration***: This is fairly detailed - I wrote this as I did it. I've included some steps that are peripheral, and some that may seem trivial. If you know what you're doing, feel free to skim through.
 
 1. Power down your RPi before making the necessary wiring connections to the RTC. 
 
@@ -159,79 +131,7 @@ As an observation, My Internet searches suggest there are many more examples/how
 
 17. ***OPTIONAL:*** Move your RTC from **I2C channel 1** to **I2C channel 0** - [here's how](https://github.com/seamusdemora/PiFormulae/blob/master/MoveRTCfromI2C1-to-I2C0.md) 
 
-<!--- 
 
-You can hide shit in here  :)   LOL 
-
-
-
-1. We'll need the alarm feature for the next installment, so we'may be added with a simple addition of the `wakeup-source` parameter to the dtoverlay: 
-
-     ```bash
-   dtoverlay=i2c-rtc,ds3231,wakeup-source
-     ```
-
-
-## Change from channel  I2C1 to I2C0:
-
-If you need/want to use an I2C *channel* other than `i2c1` (the default), this is possible using the configuration steps shown below. One reason for using a *non-default* I2C channel is that the clock signal for `i2c1` (`SCL1)`) uses GPIO 3 (pin 5). In this recipe, I'll use `i2c0`. Yes - there are warnings re use of `i2c0`, but the current `dtoverlay=i2c-rtc`  provides only one parameter option for I2C: `i2c0 `; it does not provide parameter options for `i2c3` - `i2c6` or for the  `dtoverlay=i2c-rtc-gpio` option. Note the latter is in software/"bit-banging" instead of hardware.  See `/boot/overlays/README` for details.
-
-   * **Remove Power and Change Wiring Connections for Using I2C0**
-
-| 3231 RTC | `i2c0` GPIO | `i2c0` pin # |
-| :-----------: | :---------------: | :---------------: |
-|       SDA       |       GPIO 0        |       pin 27 (from pin 3)       |
-|       SCL       |       GPIO 1        |       pin 28 (from pin 5)       |
-
-   > **NOTE:** Verify your RTC has *pullups* (2K𝛀 is reasonable) on SDA & SCL lines - otherwise, you will need to add them to pins 27 & 28.
-
-* **Apply Power and Re-configure the device tree in `/boot/config.txt`:** 
-
-| param/overlay | FROM | TO |  CMT  |
-| :-------: | :---------------: | :---------------: | :---------------  |
-| dtparam | dtparam=i2c_arm=on | #dtparam=i2c_arm=on | disables (#) i2c1 |
-| dtparam |  | dtparam=i2c_vc=on | enables i2c0 (Pi 4) |
-| dtoverlay | dtoverlay=i2c-rtc,ds3231,wakeup-source | dtoverlay=i2c-rtc,ds3231,wakeup-source,i2c0 | connect RTC via i2c0 |
-
-> **NOTE:**  Some of the settings above are *hardware-dependent* (RPi version). Consult `/boot/overlays/README` for details. 
-
-* **Verification:** 
-
-   ```bash
-   $ sudo i2cdetect -y 0
-        0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
-   00:          -- -- -- -- -- -- -- -- -- -- -- -- --
-   10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-   20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-   30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-   40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-   50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-   60: -- -- -- -- -- -- -- -- UU -- -- -- -- -- -- --
-   70: -- -- -- -- -- -- -- --
-   ```
-
-   ```bash
-   $ timedatectl
-                  Local time: Sat 2021-06-19 20:17:08 CDT
-              Universal time: Sun 2021-06-20 01:17:08 UTC
-                    RTC time: Sun 2021-06-20 01:17:09
-                   Time zone: America/Chicago (CDT, -0500)
-   System clock synchronized: yes
-                 NTP service: active
-             RTC in local TZ: no
-   ```
-
-   ```bash
-   ls /dev/*i2c*
-   /dev/i2c-0  /dev/i2c-10  /dev/i2c-11 
-   
-   # NOTE: This is likely an errant result of the RPi4's I2C Multiplexer*
-   # Follow-up required.
-   ```
-
-   > \*\ [Re: dtoverlay i2c0 - kernel troubles 5.4.59-v7l+](https://www.raspberrypi.org/forums/viewtopic.php?t=284036#p1720835)
-
-—> 
 
 
 ---
@@ -253,5 +153,104 @@ If you need/want to use an I2C *channel* other than `i2c1` (the default), this i
 <!--- 
 
 You can hide shit in here  :)   LOL 
+
+and added it to my **RPi 3b**. It seems to work as far as keeping time, but I wanted _more_.
+
+I'd like to be able to set alarms to trigger the INT/SQW pin on the chip (while retaining the basic timekeeping function I currently have), but I've been unable to find any way to do that with the _toolset_ in RPi. I've installed `python-smbus` and `i2c-tools` as part of the RTC configuration. Have I overlooked something? - how should I go about reading & writing the DS3231's internal registers to set up the alarm function on my **RPi 3b**?
+
+---
+
+It took a while for me to discover this, but the `i2ctools` package that was installed as the first step in installing the DS3231 RTC is apparently only a "cover" for the actual tools - the packages that actually do something: 
+
+
+
+| Command     | Description                                                  |
+| ----------- | ------------------------------------------------------------ |
+| i2cdetect   | Detect I2C chips connected to the bus                        |
+| i2cdump     | Examine and read I2C registers on a connected device         |
+| i2cget      | Read from I2C/SMBus chip registers on a connected device     |
+| i2cset      | Set I2C registers on a connected device with new data or values |
+| i2ctransfer | Send user defined I2C messages in one transfer to a connected device |
+
+Each of these commands has an associated `man` page explaining its function, and the arguments. Oddly, `man i2ctools` does not exist. Further, there seems to be a dearth of examples/how-tos/tutorials on configuring the the DS3231 alarm function using these `i2ctools`. I found [one that was brief, and far from extensive](https://www.waveshare.com/wiki/Raspberry_Pi_Tutorial_Series:_I2C).          
+
+As an observation, My Internet searches suggest there are many more examples/how-tos/tutorials for the Arduino platform. Absent an easy method to convert Arduino sketches to RPi-executable code, this leaves me at least with perhaps a fairly steep learning curve. 
+
+---
+
+
+
+
+
+1. We'll need the alarm feature for the next installment, so we'may be added with a simple addition of the `wakeup-source` parameter to the dtoverlay: 
+
+     ```bash
+   dtoverlay=i2c-rtc,ds3231,wakeup-source
+     ```
+
+## Change from channel  I2C1 to I2C0:
+
+If you need/want to use an I2C *channel* other than `i2c1` (the default), this is possible using the configuration steps shown below. One reason for using a *non-default* I2C channel is that the clock signal for `i2c1` (`SCL1)`) uses GPIO 3 (pin 5). In this recipe, I'll use `i2c0`. Yes - there are warnings re use of `i2c0`, but the current `dtoverlay=i2c-rtc`  provides only one parameter option for I2C: `i2c0 `; it does not provide parameter options for `i2c3` - `i2c6` or for the  `dtoverlay=i2c-rtc-gpio` option. Note the latter is in software/"bit-banging" instead of hardware.  See `/boot/overlays/README` for details.
+
+   * **Remove Power and Change Wiring Connections for Using I2C0**
+
+| 3231 RTC | `i2c0` GPIO |    `i2c0` pin #     |
+| :------: | :---------: | :-----------------: |
+|   SDA    |   GPIO 0    | pin 27 (from pin 3) |
+|   SCL    |   GPIO 1    | pin 28 (from pin 5) |
+
+   > **NOTE:** Verify your RTC has *pullups* (2K𝛀 is reasonable) on SDA & SCL lines - otherwise, you will need to add them to pins 27 & 28.
+
+* **Apply Power and Re-configure the device tree in `/boot/config.txt`:** 
+
+| param/overlay |                  FROM                  |                     TO                      | CMT                  |
+| :-----------: | :------------------------------------: | :-----------------------------------------: | :------------------- |
+|    dtparam    |           dtparam=i2c_arm=on           |             #dtparam=i2c_arm=on             | disables (#) i2c1    |
+|    dtparam    |                                        |              dtparam=i2c_vc=on              | enables i2c0 (Pi 4)  |
+|   dtoverlay   | dtoverlay=i2c-rtc,ds3231,wakeup-source | dtoverlay=i2c-rtc,ds3231,wakeup-source,i2c0 | connect RTC via i2c0 |
+
+> **NOTE:**  Some of the settings above are *hardware-dependent* (RPi version). Consult `/boot/overlays/README` for details. 
+
+* **Verification:** 
+
+  ```bash
+  $ sudo i2cdetect -y 0
+       0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+  00:          -- -- -- -- -- -- -- -- -- -- -- -- --
+  10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+  20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+  30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+  40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+  50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+  60: -- -- -- -- -- -- -- -- UU -- -- -- -- -- -- --
+  70: -- -- -- -- -- -- -- --
+  ```
+
+  ```bash
+  $ timedatectl
+                 Local time: Sat 2021-06-19 20:17:08 CDT
+             Universal time: Sun 2021-06-20 01:17:08 UTC
+                   RTC time: Sun 2021-06-20 01:17:09
+                  Time zone: America/Chicago (CDT, -0500)
+  System clock synchronized: yes
+                NTP service: active
+            RTC in local TZ: no
+  ```
+
+  ```bash
+  ls /dev/*i2c*
+  /dev/i2c-0  /dev/i2c-10  /dev/i2c-11 
+  
+  # NOTE: This is likely an errant result of the RPi4's I2C Multiplexer*
+  # Follow-up required.
+  ```
+
+  > \*\ [Re: dtoverlay i2c0 - kernel troubles 5.4.59-v7l+](https://www.raspberrypi.org/forums/viewtopic.php?t=284036#p1720835)
+
+
+
+
+
+
 
 —>
