@@ -10,6 +10,8 @@ You might be wondering - *"What does a RTC have to do with the RPi's power consu
 
 And so perhaps using a RPi in an off-grid system is like [driving square pegs into round holes](https://en.wikipedia.org/wiki/Square_peg_in_a_round_hole) - a Rube Goldberg invention? Think about that for a minute while enjoying [this clip](). 
 
+*Sorry - the html iframe doesn't work here... I'll look into this soon - in the meantime, the link above will take you off-site to see the video if you're interested.*
+
 <iframe src="https://commons.wikimedia.org/wiki/File:Something_for_nothing_(1940).ogv?embedplayer=yes" width="384" height="384" frameborder="0" ></iframe>
 
 ### Step 1: Select a RTC and Integrate It With the RPi
