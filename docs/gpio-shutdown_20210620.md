@@ -2,7 +2,7 @@
 
 ### `gpio-shutdown` from `/boot/overlays/README` as of Jun 20, 2021
 
-```bash
+```
 Name:   gpio-shutdown
 Info:   Initiates a shutdown when GPIO pin changes. The given GPIO pin
         is configured as an input key that generates KEY_POWER events.
@@ -40,10 +40,10 @@ Info:   Initiates a shutdown when GPIO pin changes. The given GPIO pin
                 # init q
 
         This overlay only handles shutdown. After shutdown, the system
-        can be powered up again by driving GPIO3 low. The default
-        configuration uses GPIO3 with a pullup, so if you connect a
-        button between GPIO3 and GND (pin 5 and 6 on the 40-pin header),
-        you get a shutdown and power-up button. Please note that
+*       can be powered up again by driving GPIO3 low. **The default
+*       configuration uses GPIO3 with a pullup, so if you connect a
+*       button between GPIO3 and GND (pin 5 and 6 on the 40-pin header),
+*       you get a shutdown and power-up button.** Please note that
         Raspberry Pi 1 Model B rev 1 uses GPIO1 instead of GPIO3.
 Load:   dtoverlay=gpio-shutdown,<param>=<val>
 Params: gpio_pin                GPIO pin to trigger on (default 3)
