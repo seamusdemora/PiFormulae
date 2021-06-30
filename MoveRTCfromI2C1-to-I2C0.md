@@ -1,6 +1,8 @@
 ### Move your Real-Time Clock (RTC) from channel  I2C1 to I2C0:
 
-If you need/want to use an I2C *channel* other than `i2c1` (the default for `dtoverlay=i2c-rtc`), this is possible using the configuration steps shown below. One reason for doing so is that the clock signal for `i2c1` (`SCL1)`) uses GPIO 3 (physical pin 5); GPIO 3 is apparently **unique** in that it is required for the [*"single-button-run-stop"* feature](https://github.com/seamusdemora/PiFormulae/blob/master/docs/gpio-shutdown_20210620.md). In this recipe, we'll move the RTC **from** I2C bus channel `i2c1` **to** channel`i2c0`. 
+If you need/want to use an I2C *channel* other than `i2c1` (the default for `dtoverlay=i2c-rtc`), this is possible using the configuration steps shown below. One reason for doing so is that the clock signal for `i2c1` (`SCL1)`) uses GPIO 3 (physical pin 5); GPIO 3 is apparently **unique** in that it is required for the [*"single-button-run-stop"* feature](https://github.com/seamusdemora/PiFormulae/blob/master/docs/gpio-shutdown_20210620.md). *(see also the [complete & current version of the `/boot/overlays/README` file](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README))* 
+
+In this recipe, we'll move the RTC **from** I2C bus channel `i2c1` **to** channel`i2c0`, and verify its function. 
 
 There are warnings re use of `i2c0`. In some cases, things change over time, which create [some confusion](https://www.raspberrypi.org/forums/viewtopic.php?f=44&t=138897#p922764). But today - unless you use a *HAT with EEPROM*, the *Pi Camera*, or the *"Official" 7" Pi display - you shouldn't encounter any issues using `i2c0` with the RTC. In fact, the current `dtoverlay=i2c-rtc`  supports the use of `i2c0 ` via a *parameter* option. See `/boot/overlays/README` for details. 
 
