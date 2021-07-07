@@ -135,6 +135,12 @@ After a brief market survey, I selected a [DS3231 real time clock (RTC)](https:/
 
 
 
+### Step 2: Communicate & Control the RTC From the RPi 
+
+The first choice to make here is whether to control the RTC directly, or delegate that to the [driver](https://github.com/raspberrypi/linux/blob/rpi-5.10.y/drivers/rtc/rtc-ds1307.c). There isn't much of a hardware interface to the RTC; e.g. an alarm interrupt cannot be cleared in hardware; that requires a write to the Alarm Flag in register 0x0F to clear the Alarm & return the INT/SQW pin to its "pulled-up" state. 
+
+Electing to use the RTC driver in favor of direct control isn't an *irrevocable* choice. Exceptions that arise - i.e. performing a function the driver does not support - may be handed off to a direct control function or app after releasing the driver using `modprobe`. 
+
 
 ---
 
@@ -188,7 +194,7 @@ As an observation, My Internet searches suggest there are many more examples/how
 
      ```bash
    dtoverlay=i2c-rtc,ds3231,wakeup-source
-     ```
+   ```
 
 ## Change from channel  I2C1 to I2C0:
 
