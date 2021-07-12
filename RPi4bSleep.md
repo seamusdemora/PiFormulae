@@ -109,6 +109,7 @@ If you are using the [*"One Button Startup/Shutdown"*](https://www.stderr.nl/Blo
 1. [Raspberry Pi 4 Bootloader Firmware Updating / Recovery Guide](https://jamesachambers.com/raspberry-pi-4-bootloader-firmware-updating-recovery-guide/) from  James Chambers' *Legendary Technology Blog* 
 2. [The Foundation's GitHub page for *device tree overlays*](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README) - everything you wanted to know, but ... 
 3. [An RPi Forum post with some insights on the *raison d'etre* for the device tree](https://www.raspberrypi.org/forums/viewtopic.php?t=97314) 
+4. While contemplating absence of sleep mode in RPI, review `man logind.conf`, and `man sleep.conf`  
 
 
 
@@ -116,7 +117,7 @@ If you are using the [*"One Button Startup/Shutdown"*](https://www.stderr.nl/Blo
 
 **2021/04/24:** For reasons that are [not _entirely clear_](https://github.com/raspberrypi/rpi-eeprom/issues/330), the "low power configuration" outlined here cannot be used with the `dtoverlay=gpio-poweroff` in `/boot/config.txt`. IOW: **You may use** the "low power configuration" described here, _**OR**_ the gpio-poweroff overlay **BUT NOT BOTH**.
 
-**2021/04/30:** This seems to be [resolved now](https://github.com/raspberrypi/rpi-eeprom/issues/330#issuecomment-827417475). It was classified by the RPi maintainers as [not a bug](https://github.com/raspberrypi/rpi-eeprom/labels/not a bug), but eventually the team made some changes in the `gpio-poweroff` kernel code to remediate the issue I reported. I've not gotten around to testing the it yet. Will post again when I have. 
+**2021/04/30:** This seems to be [resolved now](https://github.com/raspberrypi/rpi-eeprom/issues/330#issuecomment-827417475). It was classified by the RPi maintainers as **not a bug**, but eventually the team made some changes in the `gpio-poweroff` kernel code to remediate the issue. I've not gotten around to testing the it yet. Will post again when I have. 
 
 
 
