@@ -1,16 +1,133 @@
-## Minimize Raspberry Pi 4B Power Consumption in `shutdown`, `halt` or `poweroff` 
+## Minimize Raspberry Pi 4B Power Consumption After `halt`... or `shutdown`... or `poweroff` 
 
    N.B. If you are using - or have plans to use - the `dtoverlay=gpio-poweroff` in `/boot/config.txt`, please review the [UPDATES](#UPDATES) before you proceed here.
 
 ---
 
+### Who cares about minimizing power consumption?
+
+For those considering the RPi 4B for a role in an *off-grid* project, a *mobile* application, or anyone else who needs to power the RPi 4B from a battery for more than a few minutes, this recipe may be of interest. Or, perhaps, anyone who simply doesn't wish to see [energy wasted](https://en.wikipedia.org/wiki/Conservation_of_energy) - that is to say converted to heat, without anything useful being accomplished in the expenditure. 
+
+Unfortunately, no RPi has yet been been designed or produced with a [*"sleep mode"*](https://en.wikipedia.org/wiki/Sleep_mode). Worse still, no RPi has been designed or built that complies with the  [*"One Watt Initiative"*](https://en.wikipedia.org/wiki/One_Watt_Initiative) - which has actually been the *one-half watt initiative* since 2013! Perhaps the folk pimping Pis in the name of charitable education in Cambridge, UK are ignorant of the *"One Watt Initiative"*? With well [over 30 million RPi units manufactured and sold](https://en.wikipedia.org/wiki/Raspberry_Pi#Sales) to date, and volumes now in the range of 10 million units per year, an outsider can only wonder why this is steadfastly ignored. It's been opined by supplicants that the RPi does not incorporate energy saving features because they would add to the cost... I'll let the readers think on that one. For now, it's time to end the rant, and get on with the subject at hand. 
+
+
+
+### Some background
+
 This all started when I read a post made by a "Raspberry Pi Engineer" in the Raspberry Pi Organization's forum. [In this post, dated June 24, 2019](https://www.raspberrypi.org/forums/viewtopic.php?p=1484347#p1484347) it was claimed: 
 
->"sudo poweroff" will shut down the PMIC at the  conclusion of the shutdown sequence. This reduces power consumption to  about 3mA but requires pulling GLOBAL_EN low (or cycling input power) to wake the PMIC up.
+>"sudo poweroff" will shut down the PMIC *[Power Management Integrated Circuit - a RPi hardware component that controls power distribution]* at the  conclusion of the shutdown sequence. This reduces power consumption to  about 3mA but requires pulling GLOBAL_EN low (or cycling input power) to wake the PMIC up.
 >
 >There's user-modifiable EEPROM setting to change this behaviour (halt  instead of poweroff, allows GPIO pin wake) but these are currently  deliberately undocumented until we have a reliable, scripted way to  change these.
 
-More than a year and several firmware revisions later `sudo poweroff` still results in a current drain of approximately 370mA on my RPi 4b. That's just under 2 Watts - enough to make a Raspberry Pi 4B a nice hand-warmer on a frosty day. Also, power consumption is unchanged between `poweroff`, `halt` and `shutdown`. ***What happened?!*** 
+More than two years and several firmware revisions later, this claim remains unrealized, although giving full credit, it seems there have been some improvements. Following are the results of measurements made on my RPi 4B since this *recipe* was initially published: 
+
+* While up and running: 
+
+  * The Apr 29 2021 version of the bootloader: approx 2.0 Watts; 400mA  
+  * The Jun 15, 2020 version of the bootloader: approx 2.5 Watts; 500mA  
+
+* Following `shutdown`, `halt` or `poweroff` with **default** bootloader configuration: 
+
+  * The Apr 29 2021 version of the bootloader: approx 1.35 Watts; 270mA
+  * The Jun 15, 2020 version of the bootloader: approx 1.85 Watts; 370mA
+
+* Following `shutdown`, `halt` or `poweroff` with **Low Power Mode** bootloader configuration: 
+
+  * The Apr 29 2021 version of the bootloader: approx 0.15 Watts; 35mA
+  * The Jun 15, 2020 version of the bootloader: approx 0.2 Watts; 40mA
+
+  <sub>NOTE 1: `buster`OS, `Lite` distro for RPi, no monitor, quiescent/idle compute load, CPU governor: `ondemand`</sub> 
+
+  <sub>NOTE 2: No differences in power consumption noted between `halt`, `shutdown` `poweroff`</sub> 
+
+
+
+### What is "Low Power Mode" (LPM) - Is it a "Sleep Mode"? 
+
+No... **the Raspberry Pi has no [Sleep mode](https://en.wikipedia.org/wiki/Sleep_mode)**; it does not have a complete set of any of the states considered to constitute "Sleep mode". It only has the ability to reduce its power consumption following a `halt`, `shutdown`, or `poweroff` command. Consequently, "Low Power Mode" (LPM) is simply a state of **reduced** power consumption after processing has been terminated - it does not save state, and offers no way to *restore* or *resume* processing. Restoring the RPi to an operational state may only be accomplished by removing and re-installing power (*"pulling the plug"*), or by using some external hardware to trigger a `reboot`. 
+
+
+
+### How to configure Low Power Mode for the RPi 4B:
+
+The RPi 4B represents a break from previous models in that bootloader code is stored in EEPROM - the boot code is now resident in the hardware instead of in the `bootcode.bin` file on the SD card. With this change came a new set of configuration parameters, and new software tools to assist managing the bootloader. Most of the "official documentation" on the EEPROM-based bootloader is in two locations:
+
+* [Raspberry Pi 4 boot EEPROM](https://www.raspberrypi.org/documentation/hardware/raspberrypi/booteeprom.md) - covers administration of the bootloader code in EEPROM
+* [Raspberry Pi 4 bootloader configuration](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2711_bootloader_config.md) - an explanation of the configuration parameters
+
+The *"Low Power Mode (**LPM**)"* is not the *default* bootloader configuration. However, reviewing the referenced documents above tells us what we need know to re-configure the system. As you see below, making this configuration change is very simple now: 
+
+<sup>*NOTE: Review the "official" documentation to confirm these instructions remain valid*.</sup> 
+
+   1. Open the bootloader configuration file for editing:
+
+      ```bash
+      $ sudo -E rpi-eeprom-config --edit 
+      [all]
+      BOOT_UART=0
+      WAKE_ON_GPIO=1
+      POWER_OFF_ON_HALT=0
+      DHCP_TIMEOUT=45000
+      DHCP_REQ_TIMEOUT=4000
+      TFTP_FILE_TIMEOUT=30000
+      ENABLE_SELF_UPDATE=1
+      DISABLE_HDMI=0
+      BOOT_ORDER=0xf41
+      ```
+
+   2. Change two (2) parameters (`WAKE_ON_GPIO` and `POWER_OFF_ON_HALT`) in the editor as follows: 
+
+      ```bash
+      # WAKE_ON_GPIO:       CHANGE FROM: 1  TO: 0
+      # POWER_OFF_ON_HALT:  CHANGE FROM: 0  TO: 1
+      ```
+
+   3. Save changes & re-boot 
+
+      ```bash
+      # Save the changes, and exit the editor. 
+      # After the editor closes, you'll be prompted to reboot into the new configuration
+      
+      $ sudo reboot
+      ```
+
+Configured in this way, you will see a marked reduction in power consumption (and current draw) the next time you issue a `halt`, `shutdown`, or `poweroff` command - or shut down your system using the desktop. 
+
+
+
+### Is there a *downside* to LPM? 
+
+If you are using the [*"One Button Startup/Shutdown"*](https://www.stderr.nl/Blog/Hardware/RaspberryPi/PowerButton.html#comments) feature enabled by the `gpio-shutdown` `dtoverlay` [REF](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README), you will find this no longer works. As [The Foundation](https://en.wikipedia.org/wiki/Raspberry_Pi_Foundation) currently has things jiggered, the only way (other than *"pulling the plug"*) to reboot the RPi is to pull down & release the `GLOBAL_EN` node (see figure below). For now, this will require adding a separate switch/button tied to `GLOBAL_EN`, or some additional hardware - [as in this example](https://github.com/seamusdemora/PiFormulae/blob/master/LoPwrOneButtonStartStop.md). 
+
+![global_en_location](pix/global_en_location.jpg)
+
+---
+
+## OTHER REFERENCES:
+
+1. [Raspberry Pi 4 Bootloader Firmware Updating / Recovery Guide](https://jamesachambers.com/raspberry-pi-4-bootloader-firmware-updating-recovery-guide/) from  James Chambers' *Legendary Technology Blog* 
+2. [The Foundation's GitHub page for *device tree overlays*](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README) - everything you wanted to know, but ... 
+3. [An RPi Forum post with some insights on the *raison d'etre* for the device tree](https://www.raspberrypi.org/forums/viewtopic.php?t=97314) 
+
+
+
+## UPDATES:
+
+**2021/04/24:** For reasons that are [not _entirely clear_](https://github.com/raspberrypi/rpi-eeprom/issues/330), the "low power configuration" outlined here cannot be used with the `dtoverlay=gpio-poweroff` in `/boot/config.txt`. IOW: **You may use** the "low power configuration" described here, _**OR**_ the gpio-poweroff overlay **BUT NOT BOTH**.
+
+**2021/04/30:** This seems to be [resolved now](https://github.com/raspberrypi/rpi-eeprom/issues/330#issuecomment-827417475). It was classified by the RPi maintainers as [not a bug](https://github.com/raspberrypi/rpi-eeprom/labels/not a bug), but eventually the team made some changes in the `gpio-poweroff` kernel code to remediate the issue I reported. I've not gotten around to testing the it yet. Will post again when I have. 
+
+
+
+<!--- 
+
+You can hide shit in here  :)   LOL 
+
+---
+
+
+ `sudo poweroff` results in a current drain of approximately 270mA on my RPi 4b. That's just under 1.5 Watts - enough to make a Raspberry Pi 4B a nice hand-warmer on a frosty day. Also, power consumption is unchanged between `poweroff`, `halt` and `shutdown`. ***What happened?!*** 
 
 During a [SE Q&A](https://raspberrypi.stackexchange.com/questions/114092/does-raspberry-pi-4-consume-considerable-amount-of-power-in-soft-off-state) I became aware of this addition to the Raspberry Pi documentation: [Pi 4 Bootloader Configuration](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2711_bootloader_config.md). Their documentation implies that changing certain bootloader EEPROM values will disable the PMIC after a `halt` command, resulting in the *"lowest possible power state"*. That seems a curious choice of words, and a rather *"slippery" bit of specsmanship*. We'll try to do better than that in the sequel below. 
 
@@ -200,19 +317,6 @@ In the event something goes wrong, let's marshal the resources needed for recove
 
 ---
 
-## OTHER REFERENCES:
-
-1. [Raspberry Pi 4 Bootloader Firmware Updating / Recovery Guide](https://jamesachambers.com/raspberry-pi-4-bootloader-firmware-updating-recovery-guide/) from  James Chambers' *Legendary Technology Blog* 
-2. [The Foundation's GitHub page for *device tree overlays*](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README) - everything you wanted to know, but ... 
-3. [An RPi Forum post with some insights on the *raison d'etre* for the device tree](https://www.raspberrypi.org/forums/viewtopic.php?t=97314) 
-
-
-
-## UPDATES:
-
-**2021/04/24:** For reasons that are [not _entirely clear_](https://github.com/raspberrypi/rpi-eeprom/issues/330), the "low power configuration" outlined here cannot be used with the `dtoverlay=gpio-poweroff` in `/boot/config.txt`. IOW: **You may use** the "low power configuration" described here, _**OR**_ the gpio-poweroff overlay **BUT NOT BOTH**.
-
-**2021/04/30:** This seems to be [resolved now](https://github.com/raspberrypi/rpi-eeprom/issues/330#issuecomment-827417475). It was classified by the RPi maintainers as [not a bug](https://github.com/raspberrypi/rpi-eeprom/labels/not a bug), but eventually the team made some changes in the `gpio-poweroff` kernel code to remediate the issue I reported. I've not gotten around to testing the it yet. Will post again when I have. 
 
 
 
@@ -220,9 +324,6 @@ In the event something goes wrong, let's marshal the resources needed for recove
 
 
 
-<!--- 
-
-You can hide shit in here  :)   LOL 
 
 
 
