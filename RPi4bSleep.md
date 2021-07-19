@@ -45,13 +45,13 @@ More than two years and several firmware revisions later, this claim remains unr
 
 ### What is "Low Power Mode" (LPM) - Is it a "Sleep Mode"? 
 
-No... **the Raspberry Pi has no [Sleep mode](https://en.wikipedia.org/wiki/Sleep_mode)**; it does not have a complete set of any of the states considered to constitute "Sleep mode". It only has the ability to reduce its power consumption following a `halt`, `shutdown`, or `poweroff` command. Consequently, "Low Power Mode" (LPM) is simply a state of **reduced** power consumption after processing has been terminated - it does not save state, and offers no way to *restore* or *resume* processing. Restoring the RPi to an operational state may only be accomplished by removing and re-installing power (*"pulling the plug"*), or by using some external hardware to trigger a `reboot`. 
+No... **the Raspberry Pi has no [Sleep mode](https://en.wikipedia.org/wiki/Sleep_mode)**; it does not have a complete set of any of the states considered to constitute "Sleep mode". It only has the ability to reduce its power consumption following a `halt`, `shutdown`, or `poweroff` command. Consequently, "Low Power Mode" (LPM) is simply a state of **reduced power consumption** after all processing has been terminated - it does not save state, and offers no way to *restore* or *resume* processing. Restoring the RPi to an operational mode may only be accomplished by a `reboot`.  A `reboot` is triggered by removing and re-installing power (*"pulling the plug"*), or by using an external switch to trigger a `reboot`; for example the `RUN` or `GLOBAL_EN` terminals on the board. 
 
 
 
-### How to configure Low Power Mode for the RPi 4B:
+### How to configure LPM for the RPi 4B:
 
-The RPi 4B represents a break from previous models in that bootloader code is stored in EEPROM - the boot code is now resident in the hardware instead of in the `bootcode.bin` file on the SD card. With this change came a new set of configuration parameters, and new software tools to assist managing the bootloader. Most of the "official documentation" on the EEPROM-based bootloader is in two locations:
+The RPi 4B represents a break from previous models in that bootloader code is stored in EEPROM - the boot code is now resident in the hardware instead of in the `/boot/bootcode.bin` file on the SD card. With this change came a new set of configuration parameters, and new software tools to assist managing the bootloader. Most of the "official documentation" on the EEPROM-based bootloader is in two locations:
 
 * [Raspberry Pi 4 boot EEPROM](https://www.raspberrypi.org/documentation/hardware/raspberrypi/booteeprom.md) - covers administration of the bootloader code in EEPROM
 * [Raspberry Pi 4 bootloader configuration](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2711_bootloader_config.md) - an explanation of the configuration parameters
