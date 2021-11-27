@@ -120,3 +120,9 @@ Clicking [this link](https://github.com/seamusdemora/PiFormulae/blob/master/Crea
 
 <img src="pix/sambashare_finder.png" alt="Samba Share in Finder" width="520">
 
+### Troubleshooting:
+
+Assuming you followed the steps above, connected to your smb server and found it to be locked, or read-only or anything of the sort do not worry. This should only apply if the filesystem of your external drive is exfat because setting up fstab is slightly different for exfat permissions. To start use `ls -la` within the directory your disk is mounted to, if the owner of the directory is root, instead of your username (likely pi) then these next steps should apply to you. 
+ - First unmount from the disk using `sudo umount /home/pi/mntThumbDrv` with your specific directory if you used one
+ - Then add `/dev/sdXX /home/pi/mntThumbDrv exfat defaults,uid=1000,gid=1000 0 0` to `/etc/fstab` using `sudo nano /etc/fstab` replace the XX with the name of your drive, this can be determined using `lsblk`
+ - Run `sudo mount -a` and reconnect, the problem should be resolved
