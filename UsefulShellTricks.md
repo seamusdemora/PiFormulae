@@ -18,8 +18,9 @@
 * [Using your shell command history](#using-your-shell-command-history) 
 * [Access compressed log files easily](#access-compressed-log-files-easily) 
 * [Filename expansion; a.k.a. "globbing"](#filename-expansion-aka-globbing) 
-* [Using the default editor `nano` effectively](#using-the-default-editor-nano-effectively)
-* [REFERENCES:](#references)
+* [Using the default editor `nano` effectively](#using-the-default-editor-nano-effectively) 
+* [Filtering `grep` processes from `grep` output](#filtering-grep-processes-from-grep-output) 
+* [REFERENCES:](#references) 
 
 
 
@@ -317,6 +318,25 @@ It's one of the more powerful [idioms](https://en.wikipedia.org/wiki/Programming
 
 I was writing this section when I found [Patrick's tips for using `nano` in Raspberry Pi OS](https://raspberrytips.com/nano-commands-shortcuts/). Also see this [answer in U&L SE.](https://unix.stackexchange.com/a/634503/286615) 
 
+### Filtering `grep` processes from `grep` output
+
+`grep` provides a very useful filter in many situations. However, when filtering a list of *processes* using `ps`, `grep` introduces an annoying artifact: its output also includes the `grep` process that is filtering the output of `ps`. This is illustrated in the following example: 
+
+```bash
+$ ps aux | grep cron
+root       357  0.0  0.1   7976  2348 ?        Ss   16:47   0:00 /usr/sbin/cron -f
+pi        1246  0.0  0.0   7348   552 pts/0    S+   18:46   0:00 grep --color=auto cron
+```
+
+Removal is simply a matter of piping in another `grep`: 
+
+```bash
+$ ps aux | grep name_of_process | grep -v grep 
+root       357  0.0  0.1   7976  2348 ?        Ss   16:47   0:00 /usr/sbin/cron -f
+```
+
+
+
 
 
 
@@ -386,6 +406,7 @@ I was writing this section when I found [Patrick's tips for using `nano` in Rasp
 1. [Q&A Can grep return true/false or are there alternative methods?](https://unix.stackexchange.com/questions/48535/can-grep-return-true-false-or-are-there-alternative-methods).
 2. [Q&A grep on a variable](https://unix.stackexchange.com/questions/163810/grep-on-a-variable).
 3. [Grep OR – Grep AND – Grep NOT – Match Multiple Patterns](https://www.shellhacks.com/grep-or-grep-and-grep-not-match-multiple-patterns/); `grep -E "PATTERN1|PATTERN2" file`  
+3. [How To find process information in Linux  -PID and more](https://linuxconfig.net/manuals/howto/how-to-find-out-the-pid-of-process-in-linux.html) 
 
 ### Using `awk` for heavy lifting
 
