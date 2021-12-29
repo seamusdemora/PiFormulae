@@ -20,6 +20,7 @@
 * [Filename expansion; a.k.a. "globbing"](#filename-expansion-aka-globbing) 
 * [Using the default editor `nano` effectively](#using-the-default-editor-nano-effectively) 
 * [Filtering `grep` processes from `grep` output](#filtering-grep-processes-from-grep-output) 
+* [Find what you need in that huge `man` page](#find-what-you-need-in-that-huge-man-page) 
 * [REFERENCES:](#references) 
 
 
@@ -206,8 +207,11 @@ You might also learn something of the difference between *single quotes* `''`, a
 
 ### How do I see my *environment*?
 
+In most distros, both `env` and `printenv` output the environment in which the command is entered. In other words, the `env`/`printenv` output in `sh` will be different than in `zsh` and different in `cron`, etc. And as is typical, the output may be `piped` to another program, redirected to a file, etc, etc. 
 ```zsh
-% printenv | less
+% printenv | less   # pipe to less to view in the pager
+# OR #
+% env               # to view in the terminal
 ```
 
 ### What do file and directory permissions mean?
@@ -335,7 +339,17 @@ $ ps aux | grep name_of_process | grep -v grep
 root       357  0.0  0.1   7976  2348 ?        Ss   16:47   0:00 /usr/sbin/cron -f
 ```
 
+### Find what you need in that huge `man` page:
 
+Not a *shell trick* exactly, but ***useful***: Most systems use the *pager* named `less` to display `man` pages in a terminal. Most frequently, `man` pages are consulted for a reference to a *specific* item of information - e.g. the meaning of an *argument*, or to find a particular section. `less` gives one the ability to search for words, phrases or even single letters by simply entering `/` from the keyboard, and then entering a *search term*. This search can be made much more *effective* with the addition of a [*regular expression*](https://www.regular-expressions.info/quickstart.html) or *regex* to define a *pattern* for the search. This is best explained by examples: 
+
+* find the list of `flags` in `man ps`:
+
+​        Entering `/flags` in `less` will get you there eventually, but you'll have to skip through several irrelevant matches. Knowing that the list of possible `flags` is at the beginning of a line suggests that a *regex* which finds a match with flags at the beginning of a line preceded by whitespace. Calling upon our mastery of *regex* suggests that the search expression should be *anchored* at the beginning of a line, followed by 0 or more spaces or tabs preceding our keyword `flags` will do the job; i.e.:  **`/^[ \t]*flags`**
+
+* find the syntax of the `case` statement in `bash`: 
+
+​         Again, as we are looking to match a term at the beginning of a line, use the **`^`** anchor, followed by the *whitespace* character class repeated 1 or more times **`[ \t]+`**, followed by the search term `case`. In this search, we'll look for matches having whitespace *after* the regex also:  **`/^[ \t]+case[ \t]+`**  
 
 
 
@@ -460,6 +474,7 @@ root       357  0.0  0.1   7976  2348 ?        Ss   16:47   0:00 /usr/sbin/cron 
 8. [Use `findmnt` to check if a filesystem is mounted](https://unix.stackexchange.com/a/444553/286615); `findmnt` [explained further in this Q&A](https://stackoverflow.com/a/46025626/5395338).
 9. [Q&A: How to create a link to a directory](https://stackoverflow.com/a/9587490/5395338) - I think he got it right! 
 10. [How To Read And Work On Gzip Compressed Log Files In Linux](https://itsfoss.com/read-compressed-log-files-linux/) 
+10. [Using anchor ^ pattern when using less / search command](https://unix.stackexchange.com/questions/684165/using-anchor-pattern-when-using-less-search-command); find what you need in that huge `man` page
 
 
 
