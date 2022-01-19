@@ -21,6 +21,7 @@
 * [Using the default editor `nano` effectively](#using-the-default-editor-nano-effectively) 
 * [Filtering `grep` processes from `grep` output](#filtering-grep-processes-from-grep-output) 
 * [Find what you need in that huge `man` page](#find-what-you-need-in-that-huge-man-page) 
+* [Verify the OS version](#verify-the-os-version)
 * [REFERENCES:](#references) 
 
 
@@ -351,6 +352,19 @@ Not a *shell trick* exactly, but ***useful***: Most systems use the *pager* name
 
 ​         Again, as we are looking to match a term at the beginning of a line, use the **`^`** anchor, followed by the *whitespace* character class repeated 1 or more times **`[ \t]+`**, followed by the search term `case`. In this search, we'll look for matches having whitespace *after* the regex also:  **`/^[ \t]+case[ \t]+`**  
 
+### Verify the OS version:
+
+This works on RPi OS, but may not work on distros that are not Debian derivates. But if it works, it's useful: 
+
+```bash
+$ lsb_release -a
+No LSB modules are available. # note that lsb itself may not be installed by default
+Distributor ID:	Raspbian
+Description:	Raspbian GNU/Linux 11 (bullseye)
+Release:	11
+Codename:	bullseye
+```
+
 
 
 
@@ -428,6 +442,7 @@ Not a *shell trick* exactly, but ***useful***: Most systems use the *pager* name
 
 1. [Learn AWK](https://www.tutorialspoint.com/awk/index.htm) - a comprehensive tutorial from *tutorialspoint.com*. 
 2. [Q&A: Difference between gawk & awk](https://unix.stackexchange.com/questions/29576/difference-between-gawk-vs-awk); several *"flavors"* - choose your weapon! 
+2. 
 
 ### Operators & special characters
 
