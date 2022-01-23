@@ -23,7 +23,7 @@ Most importantly, feel free to ***contribute***… [GitHub explains](https://gui
 </tr>
 <tr>
 <td><a href="FindMyPi.md">Find the IP address of a RPi</a></td>
-  <td>This is potentially useful for those running their RPi in "headless mode". You can use this to find the IP address of your RPi, and having the address, initiate the necessary SSH connection to communicate with it. Note that this may be unnecessary for Mac users, or other PCs, that employ <a href="https://en.wikipedia.org/wiki/Zero-configuration_networking">zero configuration networking.</a>  <a href="http://ommolketab.ir/aaf-lib/6429sutwymieo6db64h8t0tbavz3z7.pdf">PDF Book</a></td>
+  <td>This is potentially useful for those running their RPi in "headless mode". You can use this to find the IP address of your RPi, and having the address, initiate the necessary SSH connection to communicate with it. Note that this may be unnecessary for Mac users, or other PCs, that employ <a href="https://en.wikipedia.org/wiki/Zero-configuration_networking">zero configuration networking.</a></td>
 </tr>
 <tr>  
   <td></td>
