@@ -4,7 +4,7 @@
 
 ##### Here are some ideas and procedures for using `git` on a RPi to interface with GitHub repositories. We use the [`PiPyMailer` repo](https://github.com/seamusdemora/PiPyMailer) as an example. PiPyMailer is run only on a Raspberry Pi, and so it makes sense to source it there.
 
-#### Initial Conditions:
+### I. Initial Conditions:
 
 
 > * you have a github account - in this example: `https://github.com/seamusdemora`. 
@@ -15,7 +15,73 @@
 
 Before we begin, know that the [*semantics*](https://en.wikipedia.org/wiki/Semantics) of `git` and GitHub can be confusing. You should be prepared to spend time to master the vocabulary; frustration and failure are the alternatives.  
 
-#### Copy/clone your local repo to the remote
+### II. Authenticate your RPi host
+
+From August 13, 2021, GitHub no longer accepts account passwords when authenticating Git operations. There are [several methods](https://docs.github.com/en/authentication) that may be used for authentication, but for RPi - especially for *headless* RPi - SSH authentication may be the simplest. 
+
+In this case, RPi is the client, and GitHub is the server. SSH key generation is done on the *client*, and the process is the same as setting up RPi as an SSH server - except that the roles are reversed. The procedure is straightforward; 4 steps from start to finish: 
+
+##### 1. SSH Key Generation on the RPi:
+
+NOTE: I opted for no passphrase
+
+```
+$ ssh-keygen -t ed25519 -C "seamusdemora@gmail.com"
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/pi/.ssh/id_ed25519):
+...
+```
+
+##### 2. Start the SSH agent, and add the public key:
+
+NOTE: `ssh-agent` started here for [non-interactive authentication](https://www.cyberciti.biz/faq/how-to-use-ssh-agent-for-authentication-on-linux-unix/) 
+
+```bash
+$ eval "$(ssh-agent -s)"
+Agent pid 7697
+$ ssh-add ~/.ssh/id_ed25519
+Identity added: /home/pi/.ssh/id_ed25519 (seamusdemora@gmail.com)
+```
+
+
+
+##### 3. Add the public key to a GitHub account:
+
+For this step, use both an SSH terminal window to the RPi from a Mac/Windows/Linux system, and a web browser connected to a GitHub account. In the SSH terminal window, show the public key on the CLI: 
+
+```bash
+$ cat ~/.ssh/id_ed25519.pub
+ssh-ed25519 AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPPPPQQQQ seamusdemora@gmail.com
+```
+
+Login to your GitHub account: 
+
+* click **`Settings`** next to your profile picture, click **`SSH & GPG Keys`** in the list of items, click the **`New SSH Key`** button - which will bring up the interface for adding & naming the key
+* select & copy the public key string generated above beginning with `ssh-ed25519`, paste it into the `key` text area, and assign a name for this key in the browser window
+* click the **`Add SSH Key`** button to refresh the browser window
+
+The public key generated above should now be listed in the browser window. [See here for the latest details from GitHub.](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) 
+
+##### 4. Finally, test your SSH authentication from your RPi command line:
+
+```bash
+$ ssh -T git@github.com
+The authenticity of host 'github.com (140.82.113.3)' can't be established.
+ECDSA key fingerprint is SHA256:p2QAMXNIC1TJYWeIOttrVc98/R1BUFWu3/LiyKgUfQM.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'github.com,140.82.113.3' (ECDSA) to the list of known hosts.
+Hi seamus! You successfully authenticated, but GitHub does not provide shell access.
+```
+
+Check the fingerprint above against [GitHub's ECDSA key fingerprint](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints): 
+
+>`SHA256:p2QAMXNIC1TJYWeIOttrVc98/R1BUFWu3/LiyKgUfQM` (ECDSA) 
+
+In the event of issues with this recipe, please refer to the [latest version of the instructions for configuring SSH Authentication for Linux clients](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) to GitHub. 
+
+#### **Authentication should now be complete, allowing the user to - for example - submit updates from the authenticated RPi to the GitHub repo*.
+
+### III. Copy/clone your local repo to the remote
 
 In other words, upload your local files to a named repository at GitHub
 
@@ -86,7 +152,7 @@ $ git remote add origin https://github.com/seamusdemora/PiPyMailer
 
 16. If you *break sync* in your GitHub repo, [read this](https://github.com/seamusdemora/seamusdemora.github.io/blob/master/MacStuff.md#15-how-to-recover-a-bodged-git-repository). You can *break sync* in a local repo if you have multiple copies (e.g. on more than one local machine), and allow uncommitted changes to accumulate on two or more of these machines. Be careful - this can be **very messy**!  
 
-#### If You Make a Mistake
+### If You Make a Mistake
 
 ##### If you make mistakes in your local repo and you realize this *before* you commit (i.e. this will dispose of all un-committed changes, mistakes or not):
 
@@ -115,7 +181,11 @@ $ git -C /path/to/PiPyMailer reset --hard
 9. [How do I revert a Git repository to a previous commit?](https://stackoverflow.com/questions/4114095/how-do-i-revert-a-git-repository-to-a-previous-commit); too much information? 
 10. [Q&A: How to save username and password in GIT](https://stackoverflow.com/questions/35942754/how-to-save-username-and-password-in-git-gitextension) - a cacophony of answers! 
 11. [How do I provide a username and password when running “git clone git@remote.git”?](https://stackoverflow.com/questions/10054318/how-do-i-provide-a-username-and-password-when-running-git-clone-gitremote-git) - more answers! 
-12. [Git – Config Username & Password – Store Credentials](https://www.shellhacks.com/git-config-username-password-store-credentials/) - still more.
+12. [Git – Config Username & Password – Store Credentials](https://www.shellhacks.com/git-config-username-password-store-credentials/) - still more. 
+12. [About authentication to GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github)  - a child of [this page on Authentication](https://docs.github.com/en/authentication)
+12. [Installing `gh` - GitHub's CLI - on Linux and BSD](https://github.com/cli/cli/blob/trunk/docs/install_linux.md) 
+12. [How to install Github CLI on Linux](https://garywoodfine.com/how-to-install-github-cli-on-linux/) -  an alternative set of install instructions
+12. [The GitHub CLI manual](https://cli.github.com/manual/) 
 
 <!--- 
 
