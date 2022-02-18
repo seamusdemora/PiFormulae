@@ -321,7 +321,14 @@ It's one of the more powerful [idioms](https://en.wikipedia.org/wiki/Programming
 
 ### Using the default editor `nano` effectively
 
-I was writing this section when I found [Patrick's tips for using `nano` in Raspberry Pi OS](https://raspberrytips.com/nano-commands-shortcuts/). Also see this [answer in U&L SE.](https://unix.stackexchange.com/a/634503/286615) 
+I was writing this section in conjunction with an [answer in U&L SE.](https://unix.stackexchange.com/a/634503/286615)  Why?... I felt the [project documentation](https://www.nano-editor.org/dist/v2.8/nano.html) left something to be desired. A search turned up [HTG's *"Guide to Nano"*](https://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/), and more recently this post: [*"Getting Started With Nano Text Editor"*](https://itsfoss.com/nano-editor-guide/).  `nano` doesn't change rapidly, but perhaps the *timeless* method for finding documentation on `nano` is to [find a descriptive *term*, and do your own search](https://duckduckgo.com/?q=nano+text+editor+user+guide&t=ffab&atb=v278-1&ia=web)? 
+
+This is all well & good, but the sources above do not answer nano's ***burning question***: 
+
+> The help screen in nano (^G) lists many options, but using most of them requires one to know what key represents `M`- the *"meta key"*... what is the "meta key"?
+
+* On macOS, it is the <kbd>esc</kbd> key 
+* On Linux & Windows(?), it is the <kbd>Escape</kbd> key
 
 ### Filtering `grep` processes from `grep` output
 
@@ -339,6 +346,93 @@ Removal is simply a matter of piping in another `grep`:
 $ ps aux | grep name_of_process | grep -v grep 
 root       357  0.0  0.1   7976  2348 ?        Ss   16:47   0:00 /usr/sbin/cron -f
 ```
+
+<!---
+
+### Do you really need `grep` if you know `awk`?
+
+`grep` is certainly useful for *finding* things, and it's widely used - probably because it's easy to use. On the other hand, `awk`  seems to have a reputation as being more difficult to use. But is that really true - is `awk` so difficult to use...  it's a more powerful tool, but is it worth the effort? 
+
+In the sequel, I'll argue that `awk` is ***not*** more difficult than `grep` - at least for the things that `grep` can do! ***My recommendation:*** cast `grep` aside, and begin using `awk`. The examples below should convince the reader that the learning curve is trivial, and by using `awk` for relatively trivial tasks, one will gain familiarity with a tool that is infinitely more capable than `grep`. Consider these examples as a beginning: 
+
+<table class="minimalistBlack">
+<thead>
+<tr>
+<th width="34%">Task</th>
+<th width="33%"><code>grep</code></th>
+<th width="33%"><code>awk</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Mission summary</td>
+  <td>print lines that match patterns</td>
+  <td>pattern scanning and [text] processing language</td>
+</tr>
+<tr>
+  <td>print line(s) matching a pattern or *regex* in a file/stream</td>
+  <td><code><small>grep apattern <i>somefile.txt</i></small></code></td>
+  <td><code><small>awk '/apattern/' <i>somefile.txt</i></small></code></td>
+</tr>
+<tr>
+  <td>print line(s) that match <code>pattern1</code> <b>OR</b> <code>pattern2</code></td>
+  <td><code><small>grep</small></code></td>
+  <td><code><small>awk '/pattern1/ || /pattern2/'</small></code></td>
+</tr>
+<tr>
+  <td>print line(s) that match <code>pattern1</code> <b>AND</b> <code>pattern2</td>
+  <td><code><small>grep 'pattern1' filename | grep 'pattern2'
+</small></code></td>
+  <td><code><small>awk '/pattern1/ && /pattern2/'</small></code></td>
+</tr>
+</tbody>
+</table>
+-->
+
+
+### What version of `awk` is available on my Raspberry Pi? 
+
+Know first that (*mostly*) because RPiOS is a *Debian derivative*, its *default AWK* is `mawk`. `mawk` has been characterized as having only *basic features*, and being *very fast*. This seems a reasonable compromise for the RPi; in particular the *Zero*, and the older RPis.  But here's an [*odd thing*](https://github.com/ploxiln/mawk-2): the release date for the `mawk` package in `buster` was 1996, but the release date for the `mawk` package in `bullseye` was in Jan, 2020. And so the version included in your system depends on the OS version; i.e. Debian 10/`buster`, or Debian 11/`bullseye`.  You can get awk's version # & other details as follows: 
+
+```bash
+$ cat /etc/debian_version
+10.11
+$ awk -W version
+mawk 1.3.3 Nov 1996, Copyright (C) Michael D. Brennan
+...
+```
+
+ ```bash
+ $ cat /etc/debian_version
+ 11.2
+ $ awk -W version
+ mawk 1.3.4 20200120
+ Copyright 2008-2019,2020, Thomas E. Dickey
+ Copyright 1991-1996,2014, Michael D. Brennan
+ ...
+ ```
+
+* From the [`buster` list of packages](https://packages.debian.org/buster/amd64/allpackages): 
+
+   >[mawk](https://packages.debian.org/buster/amd64/mawk) (1.3.3-17+b3)
+
+* From the [`bullseye` list of packages]()
+
+   >[mawk](https://packages.debian.org/bullseye/amd64/mawk) (1.3.4.20200120-2) 
+
+And of course, since `gawk` has been in the RPiOS package repository for a while, installing that is also an option. The `update-alternatives` utility can make the changes necessary to make `gawk` the default for `awk`. Once `gawk` is declared the default for `awk`, you can confirm that as follows: 
+
+```bash
+$ awk -W version
+GNU Awk 4.2.1, API: 2.0 (GNU MPFR 4.0.2, GNU MP 6.1.2)
+Copyright (C) 1989, 1991-2018 Free Software Foundation.
+...
+```
+
+Know that version 5 of `gawk` is available in `bullseye`'s package repo, but the `buster` repo is limited to version 4. ICYI, the [LWN article](https://lwn.net/Articles/820829/) mentioned in the [References](#using-awk-for-heavy-lifting) goes into some detail on the feature differences between `gawk` ver 4 & ver 5.
+
+
+
 
 ### Find what you need in that huge `man` page:
 
@@ -440,9 +534,16 @@ Codename:	bullseye
 
 ### Using `awk` for heavy lifting
 
+1. [The state of AWK](https://lwn.net/Articles/820829/) - an *extensive* article in the May 2020 issue of LWN
 1. [Learn AWK](https://www.tutorialspoint.com/awk/index.htm) - a comprehensive tutorial from *tutorialspoint.com*. 
-2. [Q&A: Difference between gawk & awk](https://unix.stackexchange.com/questions/29576/difference-between-gawk-vs-awk); several *"flavors"* - choose your weapon! 
-2. 
+2. [The GNU awk User's Guide](https://www.gnu.org/software/gawk/manual/gawk.html) - The Real Thing 
+3. References explaining the many flavors of `awk`: 
+   * [Q&A: Differences: gawk v. awk](https://unix.stackexchange.com/questions/29576/difference-between-gawk-vs-awk) 
+   * [Q&A: Differences: gawk v. mawk](https://stackoverflow.com/questions/21289110/the-differences-between-gawk-and-mawk-column-width) (NOTE: Why `mawk` is RPiOS default) 
+   * [AWK Vs NAWK Vs GAWK](https://www.thegeekstuff.com/2011/06/awk-nawk-gawk/) 
+   * [Q&A: Differences: awk, mawk, gawk , nawk, busybox](https://unix.stackexchange.com/a/29583/286615) 
+   * [AWK - the Wikipedia article](https://en.wikipedia.org/wiki/AWK) 
+
 
 ### Operators & special characters
 
@@ -490,7 +591,8 @@ Codename:	bullseye
 9. [Q&A: How to create a link to a directory](https://stackoverflow.com/a/9587490/5395338) - I think he got it right! 
 10. [How To Read And Work On Gzip Compressed Log Files In Linux](https://itsfoss.com/read-compressed-log-files-linux/) 
 10. [Using anchor ^ pattern when using less / search command](https://unix.stackexchange.com/questions/684165/using-anchor-pattern-when-using-less-search-command); find what you need in that huge `man` page 
-10. [Regular-Expressions.info: the premier regex website](https://www.regular-expressions.info/index.html) - really useful & detailed
+10. [Regular-Expressions.info: the premier regex website](https://www.regular-expressions.info/index.html) - really useful & detailed 
+10. [Q&A: What key does `M` refer to in `nano`?](https://stackoverflow.com/a/26285867/5395338) 
 
 
 
