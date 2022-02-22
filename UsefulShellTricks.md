@@ -2,6 +2,7 @@
 
 #### Table of contents
 
+* [Tell me about my system: OS, Kernel, Hardware, etc](#tell-me-about-my-system)
 * [Reload bash's .profile without restarting shell:](#reload-bashs-profile-without-restarting-shell)
 * [Clear the contents of a file without deleting the file:](#clear-the-contents-of-a-file-without-deleting-the-file)
 * [List all directories - not files, just directories:](#list-all-directories---not-files-just-directories)
@@ -23,6 +24,103 @@
 * [Find what you need in that huge `man` page](#find-what-you-need-in-that-huge-man-page) 
 * [Verify the OS version](#verify-the-os-version)
 * [REFERENCES:](#references) 
+
+
+
+### Tell me about my system:
+
+##### Hardware model: 
+
+Stored in `/proc/cpu`
+
+```bash
+$ cat /proc/cpuinfo 
+processor	: 0
+model name	: ARMv6-compatible processor rev 7 (v6l)
+BogoMIPS	: 697.95
+Features	: half thumb fastmult vfp edsp java tls
+CPU implementer	: 0x41
+CPU architecture: 7
+CPU variant	: 0x0
+CPU part	: 0xb76
+CPU revision	: 7
+
+Hardware	: BCM2835
+Revision	: 0010
+Serial		: 000000003e3ab978
+Model		: Raspberry Pi Model B Plus Rev 1.2 
+
+# OR, on a 4B: 
+
+$ cat /proc/cpuinfo 
+processor	: 0
+model name	: ARMv7 Processor rev 3 (v7l)
+BogoMIPS	: 108.00
+Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32
+CPU implementer	: 0x41
+CPU architecture: 7
+CPU variant	: 0x0
+CPU part	: 0xd08
+CPU revision	: 3
+
+# repeat for processor	: 1, processor	: 2, processor	: 3
+
+Hardware	: BCM2711
+Revision	: b03111
+Serial		: 100000006cce8fc1
+Model		: Raspberry Pi 4 Model B Rev 1.1
+
+# OR, an abbreviated report
+
+$ cat /proc/cpuinfo | awk '/Model/' 
+Model		: Raspberry Pi 4 Model B Rev 1.1
+```
+
+##### Kernel version: 
+
+```bash
+$ man uname        # see options & other usage info
+
+# RPi B+ (buster)
+$ uname -a
+Linux raspberrypi1bp 5.10.63+ #1496 Wed Dec 1 15:57:05 GMT 2021 armv6l GNU/Linux
+
+# RPi 3B+ (bullseye)
+$ uname -a
+Linux raspberrypi3b 5.10.92-v7+ #1514 SMP Mon Jan 17 17:36:39 GMT 2022 armv7l GNU/Linux
+
+# RPi 4B: (buster)
+$ uname -a
+Linux raspberrypi4b 5.10.63-v7l+ #1496 SMP Wed Dec 1 15:58:56 GMT 2021 armv7l GNU/Linux
+```
+
+##### OS version:
+
+This works on RPi OS, but may not work on distros that are not Debian derivates. But if it works, it's useful: 
+
+```bash
+$ man lsb_release   # print distribution-specific info; see manual for options, usage
+
+$ lsb_release -a
+No LSB modules are available. # note that lsb itself may not be installed by default
+Distributor ID:	Raspbian
+Description:	Raspbian GNU/Linux 11 (bullseye)
+Release:	11
+Codename:	bullseye
+```
+
+##### hostnamectl: 
+
+```bash
+$ hostnamectl     # p/o systemd, see man hostnamectl for options & usage info
+   Static hostname: raspberrypi3b
+         Icon name: computer
+        Machine ID: be49a9402c954d689ba79ffd5f71ad67
+           Boot ID: 986ab27386444b52bddae1316c5e1ee1
+  Operating System: Raspbian GNU/Linux 11 (bullseye)
+            Kernel: Linux 5.10.92-v7+
+      Architecture: arm
+```
 
 
 
@@ -349,44 +447,90 @@ root       357  0.0  0.1   7976  2348 ?        Ss   16:47   0:00 /usr/sbin/cron 
 
 <!---
 
-### Do you really need `grep` if you know `awk`?
+### Finding pattern matches: `grep` or `awk`?
 
-`grep` is certainly useful for *finding* things, and it's widely used - probably because it's easy to use. On the other hand, `awk`  seems to have a reputation as being more difficult to use. But is that really true - is `awk` so difficult to use...  it's a more powerful tool, but is it worth the effort? 
+While researching this piece, I came across [this Q&A](https://stackoverflow.com/questions/4487328/match-two-strings-in-one-line-with-grep) on Stack Overflow. As I read through the answers, I was surprised that some experienced users answered the question incorrectly! As I write this (Feb 2022), there are at least six (6) answers that are wrong - including one of the *most highly voted* answers.  I can't guess why so many upvoted incorrect answers, but the question is clear: `Match two strings in one line with grep?`; confirmed in the body of the question. 
 
-In the sequel, I'll argue that `awk` is ***not*** more difficult than `grep` - at least for the things that `grep` can do! ***My recommendation:*** cast `grep` aside, and begin using `awk`. The examples below should convince the reader that the learning curve is trivial, and by using `awk` for relatively trivial tasks, one will gain familiarity with a tool that is infinitely more capable than `grep`. Consider these examples as a beginning: 
+But *the point* here is not to chide for incorrect answers. The SO Q&A serves only to *underscore* the point  that it pays to consider which tool (`awk` or `grep` in this case) is "best" for the job.  "Best" is of course subjective, so here I attempt to *illustrate the alternatives by example*, and the reader may decide the *best* answer for himself. Before the example, let's review the mission statements of awk & grep from their man pages: 
+
+* `man grep`: ***print lines that match patterns***; for details see [GNU grep online manual](https://www.gnu.org/software/grep/manual/) 
+* `man awk`: ***pattern scanning and processing language***; for details see [GNU awk/gawk online manual](https://www.gnu.org/software/gawk/manual/) 
+
+So - `awk`'s ***processing*** adds significant scope compared to that of `grep`. But for the business of *pattern matching*, it is not necessary to bring all of that additional scope to bear on the problem. Let me explain: An `awk` statement has two parts: a ***pattern***, and an associated ***action***. A key feature of `awk` is that the ***action*** part of a statement **may be omitted**. This, because in the absence of an explicit action, `awk`'s ***default action*** is `print`.  Alternatively, [`awk`'s **basic** function](https://www.gnu.org/software/gawk/manual/gawk.html#Getting-Started)  is to search text for patterns; this is `grep`'s **only** function. 
+
+Finally, know that AWK is a language, `awk` is an implementation of that language, and there are [several implementations](https://unix.stackexchange.com/a/29583/286615) available. Also know that there are far more implementations of grep - which is an [acronym - explained here](https://linuxhandbook.com/what-is-grep/). There are also wide variations in the various grep implementations, as you may notice from reading the previously cited [SO Q&A](https://stackoverflow.com/questions/4487328/match-two-strings-in-one-line-with-grep), and many other Q&A on grep usage. 
+
+Before beginning with the examples, I'll introduce the following file - used to verify the accuracy of the commands in the examples shown in the table below: 
+
+```bash
+ $ cat -n testsearch.txt
+     1	just a random collection on this line
+     2	string1 then some more words string2 #BOTH TARGETS
+     3	string2 blah blah blub blub noodella #ONLY TARGET2
+     4	#FROM 'Paradise Lost':
+     5	They, looking back, all the eastern side beheld
+     6	Of Paradise, so late their happy seat,
+     7	Waved over by that flaming brand; the gate
+     8	With dreadful faces thronged and fiery arms.
+     9	Some natural tears they dropped, but wiped them soon;
+    10	The world was all before them, where to choose
+    11	Their place of rest, and Providence their guide.
+    12	They, hand in hand, with wandering steps and slow,
+    13	Through Eden took their solitary way.
+    14	string1 this line contains only one #ONLY TARGET1
+```
+
+And here are the examples. All have been tested using the file `testsearch.txt`, on Debian bullseye using **GNU grep ver 3.6**, and **GNU Awk 5.1.0, API: 3.0 (GNU MPFR 4.1.0, GNU MP 6.2.1)**. 
 
 <table class="minimalistBlack">
 <thead>
 <tr>
-<th width="34%">Task</th>
-<th width="33%"><code>grep</code></th>
-<th width="33%"><code>awk</code></th>
+<th width="48%"><code><center><b>grep</b></center></code></th>
+<th width="2%">RES</th>
+<th width="48%"><code><center><b>awk</b></center></code></th>
+<th width="2%">RES</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-  <td>Mission summary</td>
-  <td>print lines that match patterns</td>
-  <td>pattern scanning and [text] processing language</td>
+  <td colspan="4"><center><b>Ex. 1:</b> Print line(s) from the file/stream that contain <b><code>string1</code> AND <code>string2</code></b></center></td>
 </tr>
 <tr>
-  <td>print line(s) matching a pattern or *regex* in a file/stream</td>
-  <td><code><small>grep apattern <i>somefile.txt</i></small></code></td>
-  <td><code><small>awk '/apattern/' <i>somefile.txt</i></small></code></td>
+  <td colspan="4"><center><i>Correct Output (<b>RES</b>) is Line #2 Only:</i><b><code>      "string1 then some more words string2 #BOTH TARGETS"      </code></b></center></td>
 </tr>
 <tr>
-  <td>print line(s) that match <code>pattern1</code> <b>OR</b> <code>pattern2</code></td>
-  <td><code><small>grep</small></code></td>
-  <td><code><small>awk '/pattern1/ || /pattern2/'</small></code></td>
+  <td><code><small>grep 'string1' testsearch.txt | grep 'string2'</small></code></td>
+  <td><center>Yes</center></td>
+  <td><code><small>awk '/string1/ && /string2/' testsearch.txt</small></code></td>
+  <td><center>Yes</center></td>
 </tr>
 <tr>
-  <td>print line(s) that match <code>pattern1</code> <b>AND</b> <code>pattern2</td>
-  <td><code><small>grep 'pattern1' filename | grep 'pattern2'
-</small></code></td>
-  <td><code><small>awk '/pattern1/ && /pattern2/'</small></code></td>
+  <td><code><small>grep -P '(?=.*string1)(?=.*string2)' testsearch.txt</small></code></td>
+  <td><center>Yes</center></td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td><code><small>grep 'string1\|string2' testsearch.txt</small></code></td>
+  <td><center>No</center></td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td><code><small>grep -E "string1|string2" testsearch.txt</small></code></td>
+  <td><center>No</center></td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td><code><small>grep -e 'string1' -e 'string2' testsearch.txt</small></code></td>
+  <td><center>No</center></td>
+  <td></td>
+  <td></td>
 </tr>
 </tbody>
 </table>
+
 -->
 
 
@@ -445,21 +589,6 @@ Not a *shell trick* exactly, but ***useful***: Most systems use the *pager* name
 * find the syntax of the `case` statement in `bash`: 
 
 ​         Again, as we are looking to match a term at the beginning of a line, use the **`^`** anchor, followed by the *whitespace* character class repeated 1 or more times **`[ \t]+`**, followed by the search term `case`. In this search, we'll look for matches having whitespace *after* the regex also:  **`/^[ \t]+case[ \t]+`**  
-
-### Verify the OS version:
-
-This works on RPi OS, but may not work on distros that are not Debian derivates. But if it works, it's useful: 
-
-```bash
-$ lsb_release -a
-No LSB modules are available. # note that lsb itself may not be installed by default
-Distributor ID:	Raspbian
-Description:	Raspbian GNU/Linux 11 (bullseye)
-Release:	11
-Codename:	bullseye
-```
-
-
 
 
 
