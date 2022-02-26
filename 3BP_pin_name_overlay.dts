@@ -1,0 +1,28 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2837", "raspberrypi,3-model-b-plus";
+
+	fragment@0 {
+		target = <&gpio>;
+		__overlay__ {
+			gpio-line-names =
+				"ID_SDA", "ID_SCL", "SDA1", "SCL1", // 0-3
+				"GPIO_GCLK", "GPIO5", "GPIO6", "SPI_CE1_N", // 4-7
+				"SPI_CE0_N", "SPI_MISO", "SPI_MOSI", "SPI_SCLK", // 8-11
+				"GPIO12", "GPIO13", "TXD0", "RXD0", // 12-15
+				"GPIO16", "GPIO17", "GPIO18", "GPIO19", // 16-19
+				"GPIO20", "GPIO21", "GPIO22", "GPIO23", // 20-23
+				"GPIO24", "GPIO25", "GPIO26", "GPIO27", // 24-27
+				"SDA0", "SCL0", "NC", "LAN_RUN", // 28-31
+				"CAM_GPIO1", "NC", "NC", "PWR_LOW_N", // 32-35
+				"NC", "NC", "USB_LIMIT", "NC", // 36-39
+				"PWM0_OUT", "CAM_GPIO0", "NC", "NC", // 40-43
+				"ETH_CLK", "PWM1_OUT", "HDMI_HPD_N", "STATUS_LED", // 44-47
+				"SD_CLK_R", "SD_CMD_R", "SD_DATA0_R", "SD_DATA1_R", // 48-51
+				"SD_DATA2_R", "SD_DATA3_R"; // 52-53
+		};
+	};
+};
+
