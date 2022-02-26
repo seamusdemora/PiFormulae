@@ -11,7 +11,6 @@
 * [String manipulation with bash:](#string-manipulation-with-bash)
 * [Testing things in bash:](#testing-things-in-bash)
 * [The Shell Parameters of bash](#the-shell-parameters-of-bash)
-* [Some Options with `grep`](#some-options-with-grep) 
 * [Know the Difference Between `NULL` and an Empty String](#know-the-difference-between-null-and-an-empty-string) 
 * [How do I see my *environment*?](#how-do-i-see-my-environment) 
 * [What do file and directory permissions mean?](#what-do-file-and-directory-permissions-mean) 
@@ -20,7 +19,10 @@
 * [Access compressed log files easily](#access-compressed-log-files-easily) 
 * [Filename expansion; a.k.a. "globbing"](#filename-expansion-aka-globbing) 
 * [Using the default editor `nano` effectively](#using-the-default-editor-nano-effectively) 
+* [Some Options with `grep`](#some-options-with-grep) 
 * [Filtering `grep` processes from `grep` output](#filtering-grep-processes-from-grep-output) 
+* [Finding pattern matches: `grep` or `awk`?](#finding-pattern-matches-grep-or-awk) 
+* [What version of `awk` is available on my Raspberry Pi?](#what-version-of-awk-is-available-on-my-raspberry-pi) 
 * [Find what you need in that huge `man` page](#find-what-you-need-in-that-huge-man-page) 
 * [Verify the OS version](#verify-the-os-version)
 * [REFERENCES:](#references) 
@@ -284,22 +286,6 @@ You might also learn something of the difference between *single quotes* `''`, a
 
 `bash` has two types of [*paramaters*](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameters): positional parameters and special parameters. They are the *odd-looking* variables you may have seen in scripts, such as: `$0`, `$1`, `$@`, `$?`, etc.  But they come in very handy, and you should learn to use them. The [Bash Reference Manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html) isn't as informative as it could be, but there are better explanations available that include examples: [positional parameters](https://www.thegeekstuff.com/2010/05/bash-shell-positional-parameters/), [special parameters](https://www.thegeekstuff.com/2010/05/bash-shell-special-parameters/). 
 
-### Some Options with `grep`
-
-`grep` has many variations which makes it useful in many situations. We can't cover them all here (not even close), but just to whet the appetite: 
-
-* `grep` can return TRUE/FALSE: `grep -q PATTERN [FILE]`; `0` if TRUE, `non-zero` if FALSE
-* `grep` can return the matching object only: `grep -o PATTERN [FILE]` instead of the entire line
-* you can `pipe` the output of a command to `grep`:  `cat somefile.txt | grep 'Christmas' 
-* `grep` can process a [`Here String`](https://linux.die.net/abs-guide/x15683.html):  `grep PATTERN <<< "$VALUE"`, where  `$VALUE` is expanded & fed to `grep`. 
-* `grep`*'s* `PATTERN` may be a literal string, or a regular expression; e.g. to find **IPv4 ADDRESSES** in a file: 
-
-```bash
-    sudo grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}" /etc/network/interfaces
-```
-
->*NOTE: This is not an exact match for an IP address, only an approximation, and may occasionally return something other than an IP address. An [exact match](https://www.regextester.com/22) is available here.* 
-
 ### Know the Difference Between `NULL` and an Empty String
 
 `NULL` is nothing, an empty string is still a string, but it has zero length. You may need to experiment with that one to understand the difference. Here are some [examples from nixCraft](https://www.cyberciti.biz/faq/bash-shell-find-out-if-a-variable-has-null-value-or-not/).
@@ -428,6 +414,22 @@ This is all well & good, but the sources above do not answer nano's ***burning q
 * On macOS, it is the <kbd>esc</kbd> key 
 * On Linux & Windows(?), it is the <kbd>Escape</kbd> key
 
+### Some Options with `grep`
+
+`grep` has many variations which makes it useful in many situations. We can't cover them all here (not even close), but just to whet the appetite: 
+
+* `grep` can return TRUE/FALSE: `grep -q PATTERN [FILE]`; `0` if TRUE, `non-zero` if FALSE
+* `grep` can return the matching object only: `grep -o PATTERN [FILE]` instead of the entire line
+* you can `pipe` the output of a command to `grep`:  `cat somefile.txt | grep 'Christmas' 
+* `grep` can process a [`Here String`](https://linux.die.net/abs-guide/x15683.html):  `grep PATTERN <<< "$VALUE"`, where  `$VALUE` is expanded & fed to `grep`. 
+* `grep`*'s* `PATTERN` may be a literal string, or a regular expression; e.g. to find **IPv4 ADDRESSES** in a file: 
+
+```bash
+    sudo grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}" /etc/network/interfaces
+```
+
+>*NOTE: This is not an exact match for an IP address, only an approximation, and may occasionally return something other than an IP address. An [exact match](https://www.regextester.com/22) is available here.* 
+
 ### Filtering `grep` processes from `grep` output
 
 `grep` provides a very useful filter in many situations. However, when filtering a list of *processes* using `ps`, `grep` introduces an annoying artifact: its output also includes the `grep` process that is filtering the output of `ps`. This is illustrated in the following example: 
@@ -533,8 +535,7 @@ And here are the examples. All have been tested using the file `testsearch.txt`,
 
 -->
 
-
-### What version of `awk` is available on my Raspberry Pi? 
+### What version of `awk` is available on my Raspberry Pi?
 
 Know first that (*mostly*) because RPiOS is a *Debian derivative*, its *default AWK* is `mawk`. `mawk` has been characterized as having only *basic features*, and being *very fast*. This seems a reasonable compromise for the RPi; in particular the *Zero*, and the older RPis.  But here's an [*odd thing*](https://github.com/ploxiln/mawk-2): the release date for the `mawk` package in `buster` was 1996, but the release date for the `mawk` package in `bullseye` was in Jan, 2020. And so the version included in your system depends on the OS version; i.e. Debian 10/`buster`, or Debian 11/`bullseye`.  You can get awk's version # & other details as follows: 
 
