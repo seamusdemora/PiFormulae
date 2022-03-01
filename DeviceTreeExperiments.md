@@ -29,7 +29,7 @@ gpiochip1 - 8 lines:
 
 Which didn't look very helpful as none of the 62 listed GPIO pins had a `pin name` - all were `unnamed`. I tried this same command on my RPi 4B, and the `gpioinfo` output had `pin names` for all GPIO pins... but why? Some research turned up a discussion on GitHub where it was written by one of the maintainers that while the device tree blobs for *some* RPi models had been updated, others had not. A link was given to a source for the `pin names`, and it was suggested that anyone interested in `pin names` for an unsupported model was welcome to *roll their own*. I decided to give it a go - I figured that there would never be a simpler overlay to write than one that added pin names, and I had an example that was *reasonably* close. 
 
-After some frustration, and a few trials and errors, I cobbled this [device tree overlay source file that adds pin names for the RPi 3B+](source/3BP_pin_name_overlay.dts) - it seems to  work! Following are the steps to compile, add and test it: 
+After some frustration, and a few trials and errors, I cobbled this [device tree overlay source file that adds pin names for the RPi 3B+](source/3BP_pin_name_overlay.dts) - it seems to  work! Copy the source file to your RPi 3B=, and follow these steps to compile, add and test it: 
 
 ```bash
 $ dtc -@ -Hepapr -I dts -O dtb -o 3BPpin_nm.dtbo 3BP_pin_name_overlayRev1.dts 
