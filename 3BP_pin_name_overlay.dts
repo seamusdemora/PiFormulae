@@ -24,5 +24,13 @@
 				"SD_DATA2_R", "SD_DATA3_R"; // 52-53
 		};
 	};
+        fragment@1 {
+                target = <&expgpio>;
+                __overlay__ {
+                        gpio-line-names =
+                                "BT_ON", "WL_ON", "PWR_LED_R", "LAN_RUN", //0-3
+                                "NC", "CAM_GPIO0", "CAM_GPIO1", "NC"; // 4-7
+                };
+        };
 };
 
