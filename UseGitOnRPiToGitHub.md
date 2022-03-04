@@ -19,7 +19,7 @@ Before we begin, know that the [*semantics*](https://en.wikipedia.org/wiki/Seman
 
 From August 13, 2021, GitHub no longer accepts account passwords when authenticating Git operations. There are [several methods](https://docs.github.com/en/authentication) that may be used for authentication, but for RPi - especially for *headless* RPi - SSH authentication may be the simplest. 
 
-In this case, RPi is the client, and GitHub is the server. SSH key generation is done on the *client*, and the process is the same as setting up RPi as an SSH server - except that the roles are reversed. The procedure is straightforward; 4 steps from start to finish: 
+In this case, RPi is the client, and GitHub is the server. SSH key generation is done on the *client*, and the process is the same as setting up RPi as an SSH server - except that the roles are reversed. The procedure is straightforward until Step 4; after that you're screwed if you don't know about Step 5!: 
 
 ##### 1. SSH Key Generation on the RPi:
 
@@ -62,7 +62,7 @@ Login to your GitHub account:
 
 The public key generated above should now be listed in the browser window. [See here for the latest details from GitHub.](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) 
 
-##### 4. Finally, test your SSH authentication from your RPi command line:
+##### 4. Finally (*not quite*), test your SSH authentication from your RPi command line:
 
 ```bash
 $ ssh -T git@github.com
@@ -79,7 +79,39 @@ Check the fingerprint above against [GitHub's ECDSA key fingerprint](https://doc
 
 In the event of issues with this recipe, please refer to the [latest version of the instructions for configuring SSH Authentication for Linux clients](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) to GitHub. 
 
-#### **Authentication should now be complete, allowing the user to - for example - submit updates from the authenticated RPi to the GitHub repo*.
+###### You might think, after reading [GitHub's documentation](https://docs.github.com/en/authentication/connecting-to-github-with-ssh), and [testing your SSH connection](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/testing-your-ssh-connection) that you've completed all the steps needed to - for example - submit updates from the authenticated RPi to the GitHub repo. But as soon as you try this, you will learn that you cannot do *shit*!! ... one more step is needed:
+
+##### 5. Each repo must declare itself as authorized for SSH authentication 
+
+This is where you realize GitHub's documentation has *left you stranded*. It fails to explain there is more to their SSH authentication than simply generating keys & storing them on your GitHub site. The omission becomes apparent when an attempt is made to - for example - `push` a commit to the remote GitHub repo:
+
+```bash
+# F.A.I.L.U.R.E.:
+$ git -C ~/PiPyMailer push --dry-run origin master
+Username for 'https://github.com': seamusdemora
+Password for 'https://seamusdemora@github.com':
+remote: Support for password authentication was removed on August 13, 2021. Please use a personal access token instead.
+remote: Please see https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/ for more information.
+fatal: Authentication failed for 'https://github.com/seamusdemora/PiPyMailer/'
+```
+
+In this case, GitHub responded with prompts for `username` & `password` as if it were not aware its own administrators had deprecated password authentication. GitHub also declared itself ignorant of the fact that SSH keys had already been loaded! This seems a spectacular failure. Worse, no clues are given in error report, or [the GitHub documentation](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) for a resolution. This is such an obvious omission, one might wonder if it was deliberately omitted. 
+
+After some research, a solution was found: the `.git/config` file is not *"configured"* :P Without belaboring this any further, this is what must be done to enable SSH authentication for each of the local repos on your RPi; the command modifies the `.git/config` file: 
+
+```bash
+# S.U.C.C.E.S.S.:
+# The format of this command is: 
+# git remote set-url origin git@github.com:gitusername/repository.git
+# for this example:
+
+$ git remote set-url origin git@github.com:seamusdemora/PiPyMailer.git 
+
+# And Now: 
+
+$ git -C ~/PiPyMailer push --dry-run origin master
+Everything up-to-date    # Because there were no changes in the local repo
+```
 
 ### III. Copy/clone your local repo to the remote
 
