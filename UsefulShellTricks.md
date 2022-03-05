@@ -593,7 +593,7 @@ Not a *shell trick* exactly, but ***useful***: Most systems use the *pager* name
 
 ### A useful tool for GPIO hackers: `raspi-gpio`
 
-`raspi-gpio` is a useful tool for those interested in working with external hardware. It's included as a standard package - even in the `Lite` distro, but was developed by an individual - i.e. outside "The Foundation". The [raspi-gpio GitHub repo](https://github.com/RPi-Distro/raspi-gpio) has some useful resources; there is no `man raspi-gpio`, but `raspi-gpio help` will do just that. 
+`raspi-gpio` is a useful tool for those interested in working with external hardware. It's included as a standard package - even in the `Lite` distro, but was developed by an individual - i.e. outside "The Foundation". The [raspi-gpio GitHub repo](https://github.com/RPi-Distro/raspi-gpio) has some useful resources; there is no `man raspi-gpio`, but `raspi-gpio help` will do just that. You can compare it against the [`gpio` directive](https://www.raspberrypi.com/documentation/computers/config_txt.html#gpio)... ponder that for a moment :) 
 
 <hr>
 
