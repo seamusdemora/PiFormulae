@@ -24,7 +24,8 @@
 * [Finding pattern matches: `grep` or `awk`?](#finding-pattern-matches-grep-or-awk) 
 * [What version of `awk` is available on my Raspberry Pi?](#what-version-of-awk-is-available-on-my-raspberry-pi) 
 * [Find what you need in that huge `man` page](#find-what-you-need-in-that-huge-man-page) 
-* [Verify the OS version](#verify-the-os-version)
+* [Verify the OS version](#verify-the-os-version) 
+* [A useful tool for GPIO hackers: `raspi-gpio`](#a-useful-tool-for-gpio-hackers-raspi-gpio) 
 * [REFERENCES:](#references) 
 
 
@@ -578,7 +579,6 @@ Know that version 5 of `gawk` is available in `bullseye`'s package repo, but the
 
 
 
-
 ### Find what you need in that huge `man` page:
 
 Not a *shell trick* exactly, but ***useful***: Most systems use the *pager* named `less` to display `man` pages in a terminal. Most frequently, `man` pages are consulted for a reference to a *specific* item of information - e.g. the meaning of an *argument*, or to find a particular section. `less` gives one the ability to search for words, phrases or even single letters by simply entering `/` from the keyboard, and then entering a *search term*. This search can be made much more *effective* with the addition of a [*regular expression*](https://www.regular-expressions.info/quickstart.html) or *regex* to define a *pattern* for the search. This is best explained by examples: 
@@ -591,7 +591,9 @@ Not a *shell trick* exactly, but ***useful***: Most systems use the *pager* name
 
 ​         Again, as we are looking to match a term at the beginning of a line, use the **`^`** anchor, followed by the *whitespace* character class repeated 1 or more times **`[ \t]+`**, followed by the search term `case`. In this search, we'll look for matches having whitespace *after* the regex also:  **`/^[ \t]+case[ \t]+`**  
 
+### A useful tool for GPIO hackers: `raspi-gpio`
 
+`raspi-gpio` is a useful tool for those interested in working with external hardware. It's included as a standard package - even in the `Lite` distro, but was developed by an individual - i.e. outside "The Foundation". The [raspi-gpio GitHub repo](https://github.com/RPi-Distro/raspi-gpio) has some useful resources; there is no `man raspi-gpio`, but `raspi-gpio help` will do just that. 
 
 <hr>
 
