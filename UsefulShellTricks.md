@@ -294,7 +294,7 @@ $ echo $WORKFILE
 /tmp/ssh_stats-BiA5m
 ```
 
-Within this session (or script) `$WORKFILE` will contain the location of your *tmp file*.
+Within this session (or script) `$WORKFILE` will contain the location of your *tmp file*. [<sup>*ref*</sup>](https://pupli.net/2022/03/assign-output-of-shell-command-to-variable-in-bash/)
 
 ### The Shell Parameters of `bash`
 
@@ -659,6 +659,7 @@ Not a *shell trick* exactly, but ***useful***: Most systems use the *pager* name
 3. [How to find all the `bash` How-Tos on linux.com](https://www.linux.com/?s=bash) ; this really shouldn't be necessary!  
 4. [commandlinefu.com - a searchable archive of command line wisdom](https://www.commandlinefu.com/commands/browse)  
 5.  [*Cool Unix and Linux CLI Commands* - nearly 10,000 items!](https://www.scribd.com/doc/232825009/Cool-Unix-CLI) 
+5.  [Assign Output of Shell Command To Variable in Bash](https://pupli.net/2022/03/assign-output-of-shell-command-to-variable-in-bash/) 
 
 ### Working with strings in `bash` 
 
