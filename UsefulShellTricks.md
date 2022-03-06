@@ -10,7 +10,8 @@
 * [Get a date-time stamp for a log:](#get-a-date-time-stamp-for-a-log)
 * [String manipulation with bash:](#string-manipulation-with-bash)
 * [Testing things in bash:](#testing-things-in-bash)
-* [The Shell Parameters of bash](#the-shell-parameters-of-bash)
+* [The Shell Parameters of bash](#the-shell-parameters-of-bash) 
+* [Assign shell command output to a variable in `bash`](#assign-shell-command-output-to-a-variable-in-bash) 
 * [Know the Difference Between `NULL` and an Empty String](#know-the-difference-between-null-and-an-empty-string) 
 * [How do I see my *environment*?](#how-do-i-see-my-environment) 
 * [What do file and directory permissions mean?](#what-do-file-and-directory-permissions-mean) 
@@ -282,6 +283,18 @@ Sound the alarm!!!
 ```
 
 You might also learn something of the difference between *single quotes* `''`, and *double quotes* `""`.
+
+### Assign shell command output to a variable in `bash`:
+
+Sometimes you need the output of a shell command to be *persistent*; assign it to a variable for use later. Consider the case of a *tmp file* you've created. Here's how: 
+
+```bash
+$ $ WORKFILE=$(mktemp /tmp/ssh_stats-XXXXX)
+$ echo $WORKFILE
+/tmp/ssh_stats-BiA5m
+```
+
+Within this session (or script) `$WORKFILE` will contain the location of your *tmp file*.
 
 ### The Shell Parameters of `bash`
 
