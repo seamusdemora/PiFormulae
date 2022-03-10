@@ -3,9 +3,9 @@
 #### Table of contents
 
 * [Tell me about my system: OS, Kernel, Hardware, etc](#tell-me-about-my-system)
-* [Reload bash's .profile without restarting shell:](#refresh-shell-configuration-without-restarting)
+* [Reload `bash` or `zsh` ``.profile` without restarting shell:](#refresh-shell-configuration-without-restarting)
 * [Clear the contents of a file without deleting the file:](#clear-the-contents-of-a-file-without-deleting-the-file)
-* [List all directories - not files, just directories:](#list-all-directories---not-files-just-directories)
+* [List all directories - not files, just directories:](#list-all-directories---not-files-just-directories) 
 * [Sequential shell command execution:](#sequential-shell-command-execution)
 * [Get a date-time stamp for a log:](#get-a-date-time-stamp-for-a-log)
 * [String manipulation with bash:](#string-manipulation-with-bash)
