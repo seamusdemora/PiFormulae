@@ -3,7 +3,7 @@
 #### Table of contents
 
 * [Tell me about my system: OS, Kernel, Hardware, etc](#tell-me-about-my-system)
-* [Reload bash's .profile without restarting shell:](#reload-bashs-profile-without-restarting-shell)
+* [Reload bash's .profile without restarting shell:](#reload-bash-profile-without-restarting-shell)
 * [Clear the contents of a file without deleting the file:](#clear-the-contents-of-a-file-without-deleting-the-file)
 * [List all directories - not files, just directories:](#list-all-directories---not-files-just-directories)
 * [Sequential shell command execution:](#sequential-shell-command-execution)
