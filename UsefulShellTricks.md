@@ -14,7 +14,7 @@
 * [Assign shell command output to a variable in `bash`](#assign-shell-command-output-to-a-variable-in-bash) 
 * [Know the Difference Between `NULL` and an Empty String](#know-the-difference-between-null-and-an-empty-string) 
 * [How do I see my *environment*?](#how-do-i-see-my-environment) 
-* [Shell variables: UPPER case, lower case, or SoMe_ThInG_eLsE...?](#shell-variables-upper-case-lower-case-or-something-else) 
+* [Shell variables: UPPER case, lower case, or SoMe_ThInG_eLsE...?](#shell-variables-upper-case-lower-case-or-some-thing-else) 
 * [What do file and directory permissions mean?](#what-do-file-and-directory-permissions-mean) 
 * [Using `which` to find commands](#using-which-to-find-commands) - *accurately!* 
 * [Using your shell command history](#using-your-shell-command-history) 
