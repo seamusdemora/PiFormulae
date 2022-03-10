@@ -26,7 +26,6 @@
 * [Finding pattern matches: `grep` or `awk`?](#finding-pattern-matches-grep-or-awk) 
 * [What version of `awk` is available on my Raspberry Pi?](#what-version-of-awk-is-available-on-my-raspberry-pi) 
 * [Find what you need in that huge `man` page](#find-what-you-need-in-that-huge-man-page) 
-* [Verify the OS version](#verify-the-os-version) 
 * [A useful tool for GPIO hackers: `raspi-gpio`](#a-useful-tool-for-gpio-hackers-raspi-gpio) 
 * [REFERENCES:](#references) 
 
@@ -496,8 +495,6 @@ $ ps aux | grep name_of_process | grep -v grep
 root       357  0.0  0.1   7976  2348 ?        Ss   16:47   0:00 /usr/sbin/cron -f
 ```
 
-<!---
-
 ### Finding pattern matches: `grep` or `awk`?
 
 While researching this piece, I came across [this Q&A](https://stackoverflow.com/questions/4487328/match-two-strings-in-one-line-with-grep) on Stack Overflow. As I read through the answers, I was surprised that some experienced users answered the question incorrectly! As I write this (Feb 2022), there are at least six (6) answers that are wrong - including one of the *most highly voted* answers.  I can't guess why so many upvoted incorrect answers, but the question is clear: `Match two strings in one line with grep?`; confirmed in the body of the question. 
@@ -582,7 +579,7 @@ And here are the examples. All have been tested using the file `testsearch.txt`,
 </tbody>
 </table>
 
--->
+**TO BE CONTINUED...**
 
 ### What version of `awk` is available on my Raspberry Pi?
 
