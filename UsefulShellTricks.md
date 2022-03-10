@@ -14,7 +14,7 @@
 * [Assign shell command output to a variable in `bash`](#assign-shell-command-output-to-a-variable-in-bash) 
 * [Know the Difference Between `NULL` and an Empty String](#know-the-difference-between-null-and-an-empty-string) 
 * [How do I see my *environment*?](#how-do-i-see-my-environment) 
-* [Shell variables: UPPER case, lower case, or SoMeThInG_eLsE...?](#shell-variables-upper-case-lower-case-or-something-else) 
+* [Shell variables: UPPER case, lower case, or SoMeThInG_eLsE...?](#shell-variables-what-is-the-best-naming-convention) 
 * [What do file and directory permissions mean?](#what-do-file-and-directory-permissions-mean) 
 * [Using `which` to find commands](#using-which-to-find-commands) - *accurately!* 
 * [Using your shell command history](#using-your-shell-command-history) 
@@ -314,7 +314,7 @@ In most distros, both `env` and `printenv` output the environment in which the c
 % env               # to view in the terminal
 ```
 
-### Shell variables: UPPER case, lower case, or SoMeThInG_eLsE...?
+### Shell variables: What is the Best Naming Convention?
 
 For purposes of this recipe, *"shell variables"* refers to variables that are local in scope; i.e. not *"environment variables"* ([REF](https://unix.stackexchange.com/questions/222913/bash-shell-vs-environment-variable)). I've always used upper-case characters & underscores when I need to create a *"shell variable"*. Yes - I use the *same* *convention* for "shell variables" as is used for "environment variables".  I adopted this *convention* years ago because I read somewhere that lower-case variable names could easily be confused with commands. This was very true for me, esp during early learning days. At any rate, it made sense at the time & I've stuck with it for many years. 
 
