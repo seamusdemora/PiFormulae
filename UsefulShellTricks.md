@@ -3,7 +3,7 @@
 #### Table of contents
 
 * [Tell me about my system: OS, Kernel, Hardware, etc](#tell-me-about-my-system)
-* [Reload bash's .profile without restarting shell:](#refresh-zsh-or-bash-configuration-without-restarting-shell)
+* [Reload bash's .profile without restarting shell:](#refresh-shell-configuration-without-restarting)
 * [Clear the contents of a file without deleting the file:](#clear-the-contents-of-a-file-without-deleting-the-file)
 * [List all directories - not files, just directories:](#list-all-directories---not-files-just-directories)
 * [Sequential shell command execution:](#sequential-shell-command-execution)
@@ -129,7 +129,7 @@ $ hostnamectl     # p/o systemd, see man hostnamectl for options & usage info
 
 
 
-### Refresh `zsh` or `bash`  configuration without restarting shell:
+### Refresh shell configuration without restarting:
 
 There are two user-owned files that control many aspects of the `bash` shell's behavior - uh, *interactive shells, that is*: `~/.profile` & `~/.bashrc`. Likewise for `zsh`, the `~/.zprofile` & `~/.zshrc`. There will be occasions when changes to these files will need to be made in the current session - without exiting one shell session, and starting a new one. Examples of such changes are changes to the `PATH`, or addition of an `alias`. 
 
