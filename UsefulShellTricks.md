@@ -14,6 +14,7 @@
 * [Assign shell command output to a variable in `bash`](#assign-shell-command-output-to-a-variable-in-bash) 
 * [Know the Difference Between `NULL` and an Empty String](#know-the-difference-between-null-and-an-empty-string) 
 * [How do I see my *environment*?](#how-do-i-see-my-environment) 
+* [Shell variables: UPPER case, lower case, or SoMe_ThInG_eLsE...?](#shell-variables-upper-case-lower-case-or-something-else) 
 * [What do file and directory permissions mean?](#what-do-file-and-directory-permissions-mean) 
 * [Using `which` to find commands](#using-which-to-find-commands) - *accurately!* 
 * [Using your shell command history](#using-your-shell-command-history) 
@@ -312,6 +313,40 @@ In most distros, both `env` and `printenv` output the environment in which the c
 # OR #
 % env               # to view in the terminal
 ```
+
+### Shell variables: UPPER case, lower case, or SoMe_ThInG_eLsE...?
+
+For purposes of this recipe, *"shell variables"* refers to variables that are local in scope; i.e. not *"environment variables"* ([REF](https://unix.stackexchange.com/questions/222913/bash-shell-vs-environment-variable)). I've always used upper-case characters & underscores when I need to create a *"shell variable"*. Yes - I use the *same* *convention* for "shell variables" as is used for "environment variables".  I adopted this *convention* years ago because I read somewhere that lower-case variable names could easily be confused with commands. This was very true for me, esp during early learning days. At any rate, it made sense at the time & I've stuck with it for many years. 
+
+But *"change is the only constant"* as the saying goes, and I wanted to verify that my adopted convention remains *in bounds*.  I've been unable to find a *standard* (e.g. POSIX) that prescribes a convention for "shell variables", but I've found there are certainly differences in *opinion*. Here's a summary of my research: 
+
+* From Stack Overflow, this Q&A has some [interesting opinions and discussion](https://stackoverflow.com/questions/673055/correct-bash-and-shell-script-variable-capitalization) - well worth the read IMHO. 
+* From a HTG post: [How to Work with Variables in Bash](https://www.howtogeek.com/442332/how-to-work-with-variables-in-bash/) : 
+
+> A variable name cannot start with a number, nor can it contain spaces.  It can, however, start with an underscore. Apart from that, you can use  any mix of upper- and lowercase alphanumeric characters. 
+
+* This NEWBEDEV post [Correct Bash and shell script variable capitalization](https://newbedev.com/correct-bash-and-shell-script-variable-capitalization) contains some good suggestions, including the use of ***"snake case"***  (all lowercase and underscores) for "shell variables". The post is well-written, and informative, but rather opinionated. The author refers to something called   *"internal shell variables"* which isn't well-defined, but specifically recommends lower case/*snake case* for *"shell variables"*. He also refers to a POSIX standards document, but it is **soft** on the upper vs. lower case conventions. 
+* This post [Bash Variable Name Rules: Legal and Illegal](https://linuxhint.com/bash-variable-name-rules-legal-illegal/) is also quite opinionated, but without reference to anything except what the author refers to as *"good practice"*:
+
+> The variable name must be in the upper case as it is considered good practice in bash scripting. 
+
+##### Summary: 
+
+I've found no reliable reference or relevant standard that recommends against the use of the `upper-case characters & underscore` convention. As I understand it the *opinions* favoring  `lower-case characters & underscore`  are based on claims that  [`"this convention avoids accidentally overriding environmental and internal variables"`](https://stackoverflow.com/a/673940/5395338).  However, it is not possible to change an *"environment variable"* using the assignment operator `=`  <sup>[REF 1](https://unix.stackexchange.com/a/74634/286615), [REF 2](https://stackoverflow.com/a/1506185/5395338), [REF 3](https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-linux#setting-shell-and-environmental-variables)</sup>. In addition, there's a rather straightforward method of testing a "shell variable" to ensure it is not an "environment variable" using the shell *built-in* `set` command: 
+
+```bash
+# For this example, suppose we consider using MAILCHECK as a shell variable:
+$ set | grep MAILCHECK
+MAILCHECK=60
+# whoops! better try something else:
+$ set | grep CHECK_MAIL
+$
+# OK - that will work
+```
+
+For now, I will remain *skeptical* that ***"snake case"*** or any other case-related ***convention*** holds a compelling advantage over others. [Do let me know](https://github.com/seamusdemora/PiFormulae/issues) if you feel differently, or find a broadly used standard (e.g. POSIX).
+
+**To be clear:** The term *"shell variables"* is ambiguous. I have adopted one definition here that fits my objectives for this recipe, but do not suggest that there is only one definition. In fact, the GNU Bash Reference Manual uses an entirely different definition for [Shell Variables](https://www.gnu.org/software/bash/manual/bash.html#Shell-Variables). 
 
 ### What do file and directory permissions mean?
 
@@ -651,10 +686,12 @@ Not a *shell trick* exactly, but ***useful***: Most systems use the *pager* name
 12. [Globbing and Regex: So Similar, So Different](https://www.linuxjournal.com/content/globbing-and-regex-so-similar-so-different); some of the *fine points* discussed here. 
 12. [Writing to files using `bash`.](https://linuxize.com/post/bash-write-to-file/) Covers redirection and use of `tee` 
 12. Using *formatted* text in your outputs with `printf`: [REF 1](https://www.computerhope.com/unix/uprintf.htm), [REF 2](https://linuxhandbook.com/bash-printf/) - beats `echo` every time! 
+12. [sh - the POSIX Shell ](https://www.grymoire.com/Unix/Sh.html#toc_Sh_-_the_POSIX_Shell_); from Bruce Barnett, aka Grymoire
 
 ### General guides to `bash`
 
 1. [GNU's `bash` Reference Manual](https://www.gnu.org/software/bash/manual/bash.html) 
+1. [Bash POSIX Mode](https://www.gnu.org/software/bash/manual/html_node/Bash-POSIX-Mode.html); a brief guide for using `POSIX mode` in `bash`   
 2. [Wooledge's Bash Guide](http://mywiki.wooledge.org/BashGuide); can be puzzling to navigate, getting a bit dated, but still useful 
 3. [How to find all the `bash` How-Tos on linux.com](https://www.linux.com/?s=bash) ; this really shouldn't be necessary!  
 4. [commandlinefu.com - a searchable archive of command line wisdom](https://www.commandlinefu.com/commands/browse)  
