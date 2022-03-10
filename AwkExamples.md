@@ -1,6 +1,6 @@
 ### Some `awk` Examples:
 
-I've found that examples of `awk` usage has been a huge help to me. I'm adding these for myself, and for any others who practice *learning by example*. 
+I've found  `awk` examples have been a big help to me. I'm adding these for myself, and others who *learn by example*. 
 
 ##### 1. Parse a stream from `journalctl` to extract SSH logins & logouts:
 
