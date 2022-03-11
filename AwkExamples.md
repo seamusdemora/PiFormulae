@@ -33,6 +33,6 @@ fi
    Notable: 
 
 * Line 1: The ability to store the output of a command into a variable is called **command substitution**, `variable=$(commands)` and it’s one of the most useful features of `bash`. 
-* `count++` = increment the variable `count`; it is the *action* executed when the patterns match `pi` & `pts` in the same line/record.
-* `END` is the command executed after the last record is read.
 * `[ comparison ]`is shorthand for the `bash` *built-in* `test` ; `-gt` is a *numerical* comparison 
+* `count++` = increment the variable `count`; it is the *action* executed when the patterns match `pi` & `pts` in the same line/record.
+* `END` is the command executed by `awk` after the last record is read.
