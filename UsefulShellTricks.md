@@ -3,8 +3,8 @@
 #### Table of contents
 
 * [How do I tell my system to tell me about my system: OS, Kernel, Hardware, etc](#tell-me-about-my-system) 
-* [Reload `bash` or `zsh` ``.profile` without restarting shell:](#refresh-shell-configuration-without-restarting)
-* [Clear the contents of a file without deleting the file:](#clear-the-contents-of-a-file-without-deleting-the-file)
+* [Reload `bash` or `zsh` `.profile` without restarting shell:](#refresh-shell-configuration-without-restarting)
+* [Clear the contents of a file without deleting the file:](#clear-the-contents-of-a-file-without-deleting-the-file) 
 * [List all directories - not files, just directories:](#list-all-directories---not-files-just-directories) 
 * [Sequential shell command execution:](#sequential-shell-command-execution)
 * [Get a date-time stamp for a log:](#get-a-date-time-stamp-for-a-log)
@@ -12,7 +12,7 @@
 * [Testing things in bash:](#testing-things-in-bash)
 * [The Shell Parameters of bash](#the-shell-parameters-of-bash) 
 * [Assign shell command output to a variable in `bash`](#assign-shell-command-output-to-a-variable-in-bash); a.k.a. **command substitution** 
-* [Know the Difference Between `NULL` and an Empty String](#know-the-difference-between-null-and-an-empty-string) 
+* [Know the Difference Between `NULL` and an Empty String](#the-difference-between-null-and-empty-strings) 
 * [How do I see my *environment*?](#how-do-i-see-my-environment) 
 * [Shell variables: UPPER case, lower case, or SoMeThInG_eLsE...?](#shell-variables-what-is-the-best-naming-convention) 
 * [What do file and directory permissions mean?](#what-do-file-and-directory-permissions-mean) 
@@ -276,7 +276,7 @@ else
 fi  
 ```
 
-That might be unfortunate - that might get you [*Court-martialed*](), and it certainly would cause your superiors to question your competence as a `bash` programmer! But having been enlightened by this tutorial, you would be prepared for a someone's failure to enter a value for `CaptainsOrders`: 
+That might be unfortunate - that might get you [*Court-martialed*](), and it certainly would cause your superiors to question your competence as a `bash` programmer! But having been enlightened by this tutorial, you would be prepared for someone's failure to enter a value for `CaptainsOrders`: 
 
 ```bash
 $ [ -z "$CaptainsOrders" ] && echo 'Sound the alarm!!!' || echo "Proceed as planned"
@@ -301,9 +301,24 @@ Within this session (or script) `$WORKFILE` will contain the location of your *t
 
 `bash` has two types of [*paramaters*](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameters): positional parameters and special parameters. They are the *odd-looking* variables you may have seen in scripts, such as: `$0`, `$1`, `$@`, `$?`, etc.  But they come in very handy, and you should learn to use them. The [Bash Reference Manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html) isn't as informative as it could be, but there are better explanations available that include examples: [positional parameters](https://www.thegeekstuff.com/2010/05/bash-shell-positional-parameters/), [special parameters](https://www.thegeekstuff.com/2010/05/bash-shell-special-parameters/). 
 
-### Know the Difference Between `NULL` and an Empty String
+### The Difference Between Null and Empty Strings
 
-`NULL` is nothing, an empty string is still a string, but it has zero length. You may need to experiment with that one to understand the difference. Here are some [examples from nixCraft](https://www.cyberciti.biz/faq/bash-shell-find-out-if-a-variable-has-null-value-or-not/).
+At least in `bash`, a null string ***is*** an empty/zero-length string; in other words, ***there is no difference***. In `bash`, a string (e.g. `my_string`) can be tested to determine if it is a null/empty string as follows: 
+
+```bash
+#!/usr/bin/env bash
+# some processing has taken place, and now...
+if [ -z "$my_string" ]
+then
+   echo "ERROR: NULL 'my_string'; script execution aborted" 1>&2
+   exit 1
+else
+   echo "No error - march on"
+fi
+echo "Completed if-then-else test for shell variable my_string"
+```
+
+A couple of References: [Examples from nixCraft](https://www.cyberciti.biz/faq/bash-shell-find-out-if-a-variable-has-null-value-or-not/), and [a Q&A from Linux SE](https://unix.stackexchange.com/a/524492/286615).
 
 ### How do I see my *environment*?
 
