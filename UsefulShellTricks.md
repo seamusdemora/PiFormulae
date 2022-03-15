@@ -11,7 +11,7 @@
 * [String manipulation with bash:](#string-manipulation-with-bash)
 * [Testing things in bash:](#testing-things-in-bash)
 * [The Shell Parameters of bash](#the-shell-parameters-of-bash) 
-* [Assign shell command output to a variable in `bash`](#assign-shell-command-output-to-a-variable-in-bash); a.k.a. **command substitution** 
+* [Assign shell command output to a variable in `bash`](#assign-shell-command-output-to-a-variable-in-bash); a.k.a. *command substitution* 
 * [Know the Difference Between `NULL` and an Empty String](#the-difference-between-null-and-empty-strings) 
 * [How do I see my *environment*?](#how-do-i-see-my-environment) 
 * [Shell variables: UPPER case, lower case, or SoMeThInG_eLsE...?](#shell-variables-what-is-the-best-naming-convention) 
@@ -770,7 +770,8 @@ It's occasionally useful to create a program/script that runs continuously, perf
 
 ### Scripting with `bash`  
 
-1. [Advanced Bash-Scripting Guide](https://tldp.org/LDP/abs/html/index.html) - comprehensive  
+1. [Advanced Bash-Scripting Guide](https://tldp.org/LDP/abs/html/index.html) - useful, but a bit out-of-date; 10 Mar 2014 when last checked
+1. [Q&A: In a Bash script, how can I exit the entire script if a certain condition occurs?](https://stackoverflow.com/questions/1378274/in-a-bash-script-how-can-i-exit-the-entire-script-if-a-certain-condition-occurs)   
 2. [Command Line Arguments in Bash](https://tecadmin.net/tutorial/bash-scripting/bash-command-arguments/) - a good, brief overview. 
 3. [*How to Create & Use `bash` Scripts* - a very good tutorial by Tania Rascia](https://www.taniarascia.com/how-to-create-and-use-bash-scripts/)  
 4. Passing arguments to bash:
