@@ -27,6 +27,7 @@
 * [What version of `awk` is available on my Raspberry Pi?](#what-version-of-awk-is-available-on-my-raspberry-pi) 
 * [Find what you need in that huge `man` page](#find-what-you-need-in-that-huge-man-page) 
 * [A useful tool for GPIO hackers: `raspi-gpio`](#a-useful-tool-for-gpio-hackers-raspi-gpio) 
+* [Background, nohup, infinite loops, daemons](#background-nohup-infinite-loops-daemons) 
 * [REFERENCES:](#references) 
 
 
@@ -640,6 +641,74 @@ Not a *shell trick* exactly, but ***useful***: Most systems use the *pager* name
 
 `raspi-gpio` is a useful tool for those interested in working with external hardware. It's included as a standard package - even in the `Lite` distro, but was developed by an individual - i.e. outside "The Foundation". The [raspi-gpio GitHub repo](https://github.com/RPi-Distro/raspi-gpio) has some useful resources; there is no `man raspi-gpio`, but `raspi-gpio help` will do just that. You can compare it against the [`gpio` directive](https://www.raspberrypi.com/documentation/computers/config_txt.html#gpio)... ponder that for a moment :) 
 
+### Background, nohup, infinite loops, daemons
+
+It's occasionally useful to create a program/script that runs continuously, performing some task. Background, nohup and infinite loops are all *ingredients* that allow us to create [*daemons*](https://en.wikipedia.org/wiki/Daemon_(computing)) - very useful actors in accomplishing many objectives. Here's a brief discussion of these ingredients, and a brief example showing how they work together: 
+
+* ***infinite loop:*** this is a set of instructions that run continuously by default; instructions that are executed repetitively until stopped or interrupted. In a literary sense, the infinite loop could be characterized as the daemon's beating heart. 
+
+  The infinite loop provides the framework for a task that should be performed continuously; for example a *software thermostat* that monitors your home temperature, and turns a fan ON or OFF depending upon the temperature.  Infinite loops may be set up in a number of different ways; see the [references](#scripting-with-bash) below for details. Since our topic here is *shell tricks*, we'll use the most common `bash` implementation of an infinite loop - the `while` condition. 
+
+  Shown below is a complete, functional program (though not quite useful) that will be *daemon-ized* in the sequel, illustrating the simplicity of this recipe. You may copy and paste these 5 lines of code into a file on your RPi, save it as `mydaemond`, and make it *executable* (`chmod 755 mydaemond` ): 
+
+  ```bash
+    #!/usr/bin/env bash
+    while :
+    do
+      echo "Hello, current UTC date & time: $(date -u)"
+      sleep 60
+    done
+  ```
+
+* ***background (`&`) and `nohup`:*** `nohup` is a *"command invocation modifier"* , and the ampersand symbol **`&`** is a *"control operator"* in `bash`.  These obscure, but powerful instructions are covered in the [GNU documentation for `bash`](https://www.gnu.org/software/bash/manual/bash.html#Lists) (**`&`**), and [GNU documentation for core utilities - `coreutils`](https://www.gnu.org/software/coreutils/manual/coreutils.html#nohup-invocation) (**`nohup`**).  Used together, they can  *daemon-ize* our simple script: **`&`** will free your terminal/shell session for other activities by causing the script to run in the ***background***, and **`nohup`** allows it to continue running after your terminal or shell session is ended.  To paraphrase Dr. Frankenstein, [*"**It's alive!**"*](https://www.youtube.com/watch?v=xos2MnVxe-c). 
+
+  Let's play Dr. Frankenstein for a moment, and bring `mydaemond` to life from our terminal: 
+  
+  ```bash
+    $ chmod 755 mydaemond
+    $ nohup ./mydaemond &
+    [1] 14530
+    $ nohup: ignoring input and appending output to 'nohup.out'
+    $ logout
+  ```
+  
+  Note the output: `[1] 14530`; this line informs us primarily that the *process id (PID)* of `mydaemond` is `14530`. The next line tells us what we already knew from reading the [`nohup` documentation](https://www.gnu.org/software/coreutils/manual/coreutils.html#nohup-invocation) - or `man nohup`: the default case is to redirect all stdout to the file `nohup.out`.  
+  
+  The `logout` command ends this terminal session: the interactive shell from which `mydaemond` was launched - and its *parent* process - no longer exists.  Linux doesn't normally *orphan* processes, and as of now `mydaemond` has a *new parent process* whose PID is `1`.  In Linux, PID 1 is reserved for `init` - a generic name for what is now called `systemd`. [*mind blown*](https://www.youtube.com/watch?v=5GZcCLfeH28) 
+  
+  This can all be confirmed by launching a new terminal/login/SSH connection. Once you've got a new terminal up, there are at least two ways to confirm that  `mydaemond` is still "alive": 
+  
+  1. Monitor `nohup.out` using `tail -f` as shown below:
+  
+  ```bash
+    $ tail -f nohup.out 
+    Hello, current UTC date & time: Tue 15 Mar 01:13:52 UTC 2022
+    Hello, current UTC date & time: Tue 15 Mar 01:14:52 UTC 2022
+    # ... etc, etc
+  ```
+  
+  2. Ask `ps` for a report:
+  
+    ```bash
+    $ ps -eo pid,ppid,state,start,user,tpgid,tty,cmd | grep "^14530"
+    14530     1 S 01:13:51 pi          -1 ?        /bin/sh ./mydaemond
+    ```
+  
+    `ps` is the more informative method. This may look complicated, but it's not. We've eschewed the *old* BSD syntax for the standard syntax. The `-o` option (`man ps`, `OUTPUT FORMAT CONTROL` section)  allows one to create a customized report using keywords defined in the  `STANDARD FORMAT SPECIFIERS` section. Note the `ppid` (parent PID) is `1`, corresponding to `systemd`'s PID, the `start` time at `01:13:51`, the `user` name `pi`, `tpgid` of `-1` means not attached to a TTY, same as `tty`=`?` and finally the issuing command `cmd` of `./mydaemond`. All matching with actual history. For another view, try the command `pstree -pua`; the *tree* shows `mydaemond` as a branch from the `systemd` *trunk* .
+
+* ***OK, but now I want to stop `mydaemond` :*** `mydaemond` has been instructional, but it has now served its purpose. To free up the resources it is now consuming, we must `kill` the process, and remove the contents of the `nohup.out` file: 
+
+   ```bash
+   $ kill 14530
+  $ # confirm kill
+  $ ps -e | grep ^14530
+  $ # 'rm nohup.out' to remove the file; alternatively, empty file without removing it 
+  $ > nohup.out   # empty the file
+  ```
+  
+  And that's it.  
+
+
 <hr>
 
 
@@ -674,7 +743,12 @@ Not a *shell trick* exactly, but ***useful***: Most systems use the *pager* name
    - [A small `getopts` tutorial](https://wiki.bash-hackers.org/howto/getopts_tutorial) (p/o the bash hackers wiki) 
    - [Q&A on StackOverflow: ](https://stackoverflow.com/questions/7069682/how-to-get-arguments-with-flags-in-bash) (How to get arguments with flags in `bash`)
 5. [Q&A re use of the `shebang` line](https://unix.stackexchange.com/questions/517370/shebang-or-not-shebang)  
-6. [Bash Infinite Loop Examples](https://www.cyberciti.biz/faq/bash-infinite-loop/) 
+6. [Bash Infinite Loop Examples](https://www.cyberciti.biz/faq/bash-infinite-loop/) - infinite loops
+6. [Bash Scripting – the `while` loop](https://www.geeksforgeeks.org/bash-scripting-while-loop/) - infinite loops
+6. [How to loop forever in bash](https://www.networkworld.com/article/3562576/how-to-loop-forever-in-bash-on-linux.html) - infinite loops
+6. [Create A Infinite Loop in Shell Script](https://tecadmin.net/create-a-infinite-loop-in-shell-script/) - infinite loops
+6. [Infinite while loop](https://bash.cyberciti.biz/guide/Infinite_while_loop) - infinite loops
+6. [Q&A: Terminating an infinite loop](https://unix.stackexchange.com/questions/42287/terminating-an-infinite-loop) - infinite loops
 7. [Functions in bash scripting](https://ryanstutorials.net/bash-scripting-tutorial/bash-functions.php) from Ryan's Tutorials - a good and thorough overview w/ examples. 
 8. [Q&A: Shell scripting: -z and -n options with if](https://unix.stackexchange.com/questions/109625/shell-scripting-z-and-n-options-with-if)  - recognizing *null strings* 
 9. [Q&A re executing multiple shell commands in one line](https://stackoverflow.com/questions/13077241/execute-combine-multiple-linux-commands-in-one-line); sometimes you don't need a *script* **!** 
