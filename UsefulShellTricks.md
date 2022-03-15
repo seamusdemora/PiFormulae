@@ -2,7 +2,7 @@
 
 #### Table of contents
 
-* [Tell me about my system: OS, Kernel, Hardware, etc](#tell-me-about-my-system)
+* [How do I tell my system to tell me about my system: OS, Kernel, Hardware, etc](#tell-me-about-my-system) 
 * [Reload `bash` or `zsh` ``.profile` without restarting shell:](#refresh-shell-configuration-without-restarting)
 * [Clear the contents of a file without deleting the file:](#clear-the-contents-of-a-file-without-deleting-the-file)
 * [List all directories - not files, just directories:](#list-all-directories---not-files-just-directories) 
@@ -11,7 +11,7 @@
 * [String manipulation with bash:](#string-manipulation-with-bash)
 * [Testing things in bash:](#testing-things-in-bash)
 * [The Shell Parameters of bash](#the-shell-parameters-of-bash) 
-* [Assign shell command output to a variable in `bash`](#assign-shell-command-output-to-a-variable-in-bash) 
+* [Assign shell command output to a variable in `bash`](#assign-shell-command-output-to-a-variable-in-bash); a.k.a. **command substitution** 
 * [Know the Difference Between `NULL` and an Empty String](#know-the-difference-between-null-and-an-empty-string) 
 * [How do I see my *environment*?](#how-do-i-see-my-environment) 
 * [Shell variables: UPPER case, lower case, or SoMeThInG_eLsE...?](#shell-variables-what-is-the-best-naming-convention) 
@@ -114,7 +114,7 @@ Release:	11
 Codename:	bullseye
 ```
 
-##### hostnamectl: 
+##### hostnamectl:
 
 ```bash
 $ hostnamectl     # p/o systemd, see man hostnamectl for options & usage info
@@ -186,7 +186,7 @@ cp /home/pi/README /home/auser; rsync -av /home/auser /mnt/BackupDrv/auser_backu
 
 ### Get a date-time stamp for a log:
 
-It's often useful to insert a date-time stamp in a log file, inserted in a string, etc. Easily done w/ `date`: 
+It's often useful to insert a date-time stamp in a log file, inserted in a string, etc. Easily done w/ `date` using [*command substitution*](https://bash.cyberciti.biz/guide/Command_substitution): 
 
 ```bash
 echo $(date) >> mydatalog.txt   # using `echo` inserts a newline after the date & time 
@@ -287,7 +287,7 @@ You might also learn something of the difference between *single quotes* `''`, a
 
 ### Assign shell command output to a variable in `bash`:
 
-Sometimes you need the output of a shell command to be *persistent*; assign it to a variable for use later. Consider the case of a *tmp file* you've created. Here's how: 
+Sometimes you need the output of a shell command to be *persistent*; assign it to a variable for use later. This is known as [**command substitution**](https://bash.cyberciti.biz/guide/Command_substitution). Consider the case of a *tmp file* you've created. Here's how: 
 
 ```bash
 $ $ WORKFILE=$(mktemp /tmp/ssh_stats-XXXXX)
@@ -307,11 +307,16 @@ Within this session (or script) `$WORKFILE` will contain the location of your *t
 
 ### How do I see my *environment*?
 
-In most distros, both `env` and `printenv` output the environment in which the command is entered. In other words, the `env`/`printenv` output in `sh` will be different than in `zsh` and different in `cron`, etc. And as is typical, the output may be `piped` to another program, redirected to a file, etc, etc. 
+In most distros, both `env` and `printenv` output the environment in which the command is entered. In other words, the `env`/`printenv` output in `sh` will be different than in `zsh` and different in `cron`, etc. And as is typical, the output may be `piped` to another program, redirected to a file, etc, etc.
+
+For special cases, `set` is a *bultin* that's rather complex ([see the documentation](https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin)). Used with no options, it lists the names and values of ***all*** shell variables, environment variables and even functions - huge amount of output.
+
 ```zsh
-% printenv | less   # pipe to less to view in the pager
-# OR #
-% env               # to view in the terminal
+% printenv 
+% # OR #
+% env          # to view in the terminal 
+% # OR #
+% set | less   # HUGE output! pipe to less to view in the pager
 ```
 
 ### Shell variables: What is the Best Naming Convention?
@@ -460,8 +465,8 @@ This is all well & good, but the sources above do not answer nano's ***burning q
 
 > The help screen in nano (^G) lists many options, but using most of them requires one to know what key represents `M`- the *"meta key"*... what is the "meta key"?
 
-* On macOS, it is the <kbd>esc</kbd> key 
-* On Linux & Windows(?), it is the <kbd>Escape</kbd> key
+* On macOS, `M`- the *"meta key"* - is the <kbd>esc</kbd> key 
+* On Linux & Windows(?), `M`- the *"meta key"* - is the <kbd>Escape</kbd> key
 
 ### Some Options with `grep`
 
@@ -489,11 +494,14 @@ root       357  0.0  0.1   7976  2348 ?        Ss   16:47   0:00 /usr/sbin/cron 
 pi        1246  0.0  0.0   7348   552 pts/0    S+   18:46   0:00 grep --color=auto cron
 ```
 
-Removal is simply a matter of piping in another `grep`: 
+Removal of this artifact can be accomplished in one of two ways: 
 
 ```bash
+$ #1: use grep -v grep to filter grep processes
 $ ps aux | grep name_of_process | grep -v grep 
-root       357  0.0  0.1   7976  2348 ?        Ss   16:47   0:00 /usr/sbin/cron -f
+root       357  0.0  0.1   7976  2348 ?        Ss   16:47   0:00 /usr/sbin/cron -f 
+$ #2: use a regular expression instead of a string for grep's filter
+$ ps aux | grep [n]ame_of_process 
 ```
 
 ### Finding pattern matches: `grep` or `awk`?
@@ -643,7 +651,7 @@ Not a *shell trick* exactly, but ***useful***: Most systems use the *pager* name
 
 ### Background, nohup, infinite loops, daemons
 
-It's occasionally useful to create a program/script that runs continuously, performing some task. Background, nohup and infinite loops are all *ingredients* that allow us to create [*daemons*](https://en.wikipedia.org/wiki/Daemon_(computing)) - very useful actors in accomplishing many objectives. Here's a brief discussion of these ingredients, and a brief example showing how they work together: 
+It's occasionally useful to create a program/script that runs continuously, performing some task. Background, nohup and infinite loops are all *ingredients* that allow us to create [*daemons*](https://en.wikipedia.org/wiki/Daemon_(computing)) - very useful actors for accomplishing many objectives. Here's a brief discussion of these ingredients, and a brief example showing how they work together: 
 
 * ***infinite loop:*** this is a set of instructions that run continuously by default; instructions that are executed repetitively until stopped or interrupted. In a literary sense, the infinite loop could be characterized as the daemon's beating heart. 
 
@@ -674,7 +682,7 @@ It's occasionally useful to create a program/script that runs continuously, perf
   
   Note the output: `[1] 14530`; this line informs us primarily that the *process id (PID)* of `mydaemond` is `14530`. The next line tells us what we already knew from reading the [`nohup` documentation](https://www.gnu.org/software/coreutils/manual/coreutils.html#nohup-invocation) - or `man nohup`: the default case is to redirect all stdout to the file `nohup.out`.  
   
-  The `logout` command ends this terminal session: the interactive shell from which `mydaemond` was launched - and its *parent* process - no longer exists.  Linux doesn't normally *orphan* processes, and as of now `mydaemond` has a *new parent process* whose PID is `1`.  In Linux, PID 1 is reserved for `init` - a generic name for what is now called `systemd`. [*mind blown*](https://www.youtube.com/watch?v=5GZcCLfeH28) 
+  The `logout` command ends this terminal session: the interactive shell from which `mydaemond` was launched - the *parent* process of `mydaemond`- no longer exists.  Linux doesn't normally *orphan* processes, and as of now `mydaemond` has been adopted; its *new parent process* has PID `1`.  In Linux, PID 1 is reserved for `init` - a generic name for what is now called `systemd`. [*mind blown*](https://www.youtube.com/watch?v=5GZcCLfeH28) 
   
   This can all be confirmed by launching a new terminal/login/SSH connection. Once you've got a new terminal up, there are at least two ways to confirm that  `mydaemond` is still "alive": 
   
@@ -694,9 +702,9 @@ It's occasionally useful to create a program/script that runs continuously, perf
     14530     1 S 01:13:51 pi          -1 ?        /bin/sh ./mydaemond
     ```
   
-    `ps` is the more informative method. This may look complicated, but it's not. We've eschewed the *old* BSD syntax for the standard syntax. The `-o` option (`man ps`, `OUTPUT FORMAT CONTROL` section)  allows one to create a customized report using keywords defined in the  `STANDARD FORMAT SPECIFIERS` section. Note the `ppid` (parent PID) is `1`, corresponding to `systemd`'s PID, the `start` time at `01:13:51`, the `user` name `pi`, `tpgid` of `-1` means not attached to a TTY, same as `tty`=`?` and finally the issuing command `cmd` of `./mydaemond`. All matching with actual history. For another view, try the command `pstree -pua`; the *tree* shows `mydaemond` as a branch from the `systemd` *trunk* .
+    `ps` is the more informative method. This may look complicated, but it's not. We've eschewed the *old* BSD syntax for the standard syntax. The `-o` option (`man ps`, `OUTPUT FORMAT CONTROL` section)  allows one to create a customized report using keywords defined in the  `STANDARD FORMAT SPECIFIERS` section. Note the `ppid` (parent PID) is `1`, corresponding to `systemd`'s PID, the `start` time at `01:13:51`, the `user` name `pi`, `tpgid` of `-1` means not attached to a TTY, same as `tty`=`?` and finally the issuing command `cmd` of `./mydaemond`. All matching with actual history. For another view, try the command `pstree -pua`; the *tree* shows `mydaemond` as a *branch* from the `systemd` *trunk*.
 
-* ***OK, but now I want to stop `mydaemond` :*** `mydaemond` has been instructional, but it has now served its purpose. To free up the resources it is now consuming, we must `kill` the process, and remove the contents of the `nohup.out` file: 
+* ***OK, but how do I stop `mydaemond`? :*** `mydaemond` has been instructional, but it has now served its purpose. To free up the resources it is now consuming, we must `kill` the process, and remove the contents of the `nohup.out` file: 
 
    ```bash
    $ kill 14530
@@ -713,6 +721,19 @@ It's occasionally useful to create a program/script that runs continuously, perf
 
 
 ## REFERENCES:
+
+### General guides to `bash`
+
+1. [GNU's `bash` Reference Manual](https://www.gnu.org/software/bash/manual/) - in a variety of formats
+1. [GNU's Core Utilities - 'coreutils'](https://www.gnu.org/software/coreutils/manual/) - in a variety of formats 
+1. [Shell Builtin Commands](https://www.gnu.org/software/bash/manual/html_node/Shell-Builtin-Commands.html#Shell-Builtin-Commands) - an index to all the builtins
+1. [Bash POSIX Mode](https://www.gnu.org/software/bash/manual/html_node/Bash-POSIX-Mode.html); a brief guide for using `POSIX mode` in `bash`   
+1. [Baeldung's Linux Tutorials and Guides](https://www.baeldung.com/linux/list-programs-started-nohup) - excellent & searchable
+2. [Wooledge's Bash Guide](http://mywiki.wooledge.org/BashGuide); can be puzzling to navigate, may be a bit dated, but still useful 
+3. [How to find all the `bash` How-Tos on linux.com](https://www.linux.com/?s=bash) ; this really shouldn't be necessary!  
+4. [commandlinefu.com - a searchable archive of command line wisdom](https://www.commandlinefu.com/commands/browse)  
+5.  [*Cool Unix and Linux CLI Commands* - nearly 10,000 items!](https://www.scribd.com/doc/232825009/Cool-Unix-CLI) 
+5.  [Assign Output of Shell Command To Variable in Bash](https://pupli.net/2022/03/assign-output-of-shell-command-to-variable-in-bash/); a.k.a. **command substitution**  
 
 ### The `~/.bashrc` & `~/.bash_profile` files
 
@@ -758,16 +779,6 @@ It's occasionally useful to create a program/script that runs continuously, perf
 12. [Writing to files using `bash`.](https://linuxize.com/post/bash-write-to-file/) Covers redirection and use of `tee` 
 12. Using *formatted* text in your outputs with `printf`: [REF 1](https://www.computerhope.com/unix/uprintf.htm), [REF 2](https://linuxhandbook.com/bash-printf/) - beats `echo` every time! 
 12. [sh - the POSIX Shell ](https://www.grymoire.com/Unix/Sh.html#toc_Sh_-_the_POSIX_Shell_); from Bruce Barnett, aka Grymoire
-
-### General guides to `bash`
-
-1. [GNU's `bash` Reference Manual](https://www.gnu.org/software/bash/manual/bash.html) 
-1. [Bash POSIX Mode](https://www.gnu.org/software/bash/manual/html_node/Bash-POSIX-Mode.html); a brief guide for using `POSIX mode` in `bash`   
-2. [Wooledge's Bash Guide](http://mywiki.wooledge.org/BashGuide); can be puzzling to navigate, getting a bit dated, but still useful 
-3. [How to find all the `bash` How-Tos on linux.com](https://www.linux.com/?s=bash) ; this really shouldn't be necessary!  
-4. [commandlinefu.com - a searchable archive of command line wisdom](https://www.commandlinefu.com/commands/browse)  
-5.  [*Cool Unix and Linux CLI Commands* - nearly 10,000 items!](https://www.scribd.com/doc/232825009/Cool-Unix-CLI) 
-5.  [Assign Output of Shell Command To Variable in Bash](https://pupli.net/2022/03/assign-output-of-shell-command-to-variable-in-bash/) 
 
 ### Working with strings in `bash` 
 
