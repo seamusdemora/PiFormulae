@@ -41,7 +41,7 @@ Before we can proceed, one question must be answered: *"What are the possible va
    none rc-feedback kbd-scrolllock kbd-numlock kbd-capslock kbd-kanalock kbd-shiftlock kbd-altgrlock kbd-ctrllock kbd-altlock kbd-shiftllock kbd-shiftrlock kbd-ctrlllock kbd-ctrlrlock timer oneshot heartbeat backlight gpio cpu cpu0 cpu1 cpu2 cpu3 default-on input panic actpwr mmc1 [mmc0] rfkill-any rfkill-none rfkill0 rfkill1
    ```
 
-If you experiment with all of the `trigger` values here, you will learn that many of them don't seem to work, or at least provide to visual evidence. And some values work on some models - but not on others. You'll need to do your own experimentation to learn these values. The values that seem to work with the models I tested were:
+If you experiment with all of the `trigger` values here, you will learn that many of them don't seem to work, or at least provide no visual evidence. And some values work on some models - but not on others. You'll need to do your own experimentation to learn these values. The values that seem to work with the models tested were:
 
 ```
 none, timer, heartbeat, default-on, mmc0: Worked consistently across tested models RPi
@@ -77,7 +77,7 @@ And so we may now have enough information to determine how these `dtparam` setti
     dtparam=pwr_led_trigger=heartbeat   # heartbeat activity
     # dtparam=pwr_led_activelow=
     
-    # BEHAVIOR: GREEN LED is OFF during SD card activity, ON otherwise; RED LED flashesON & OFF in a "heartbeat" pattern
+    # BEHAVIOR: GREEN LED is OFF during SD card activity, ON otherwise; RED LED flashes ON & OFF in a "heartbeat" pattern
     ```
 
   * ```bash
