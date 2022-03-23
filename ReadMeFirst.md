@@ -1,10 +1,10 @@
-# Setup Raspberry Pi for Headless Operation
+## Setup Raspberry Pi for Headless Operation
 
 It seems that many follow instructions to set up their microSD card, but don't give much thought to what comes afterwards. That's understandable, and it's generally not that big a deal if you're connecting a keyboard, mouse and TV/monitor. In the "GUI" environment, you can issue commands to your RPi, and there are tools and tips and cues to point you toward connecting to your network, and other basic tasks that users typically perform. 
 
 However, some don't want (or aren't able) to connect keyboards, mice and monitors. This is how I usually do it; I run my RPi's ["headless"](https://en.wikipedia.org/wiki/Headless_computer)... I have one "head" on my Mac, and I don't want any more heads to deal with :)  But I digress. Here, for what it's worth, is how I do things: 
 
-## Download the Raspbian Image, and Burn It to the microSD Card 
+### Step 1: Download the Raspbian Image, and Burn It to the microSD Card
 
 1. Download the [latest Raspbian image file from the Raspberry Pi website](https://www.raspberrypi.com/software/operating-systems/). Unzip the downloaded *`.zip`* file to reveal a *`.img`* file. The  *`.img`* file is the one that will be *burned* or *flashed* to the microSD card.
 
@@ -13,9 +13,9 @@ However, some don't want (or aren't able) to connect keyboards, mice and monitor
   * you can use [rufus](https://rufus.akeo.ie/) on your Windows PC 
   * you can use [Etcher](https://etcher.io/) on Mac or Windows
 
-3. "Burn" the Raspbian image file to the media you're going to boot from. Typically, this will be an 16 GB or larger [microSD](https://simple.wikipedia.org/wiki/MicroSD) memory card.
+3. "Burn" the Raspbian image file to the media you're going to boot from. Typically, this will be a  [microSD](https://simple.wikipedia.org/wiki/MicroSD) memory card of 16 GB or larger.
 
-## Modify files in `/boot` on the micro SD card
+### Step 2: Modify files in `/boot` on the micro SD card
 
 After you've *flashed* your downloaded image file to the uSD card, you will need to make some changes to it. Before you can make these changes, the `/boot` partition must be *mounted*. You can `mount` the `/boot` drive using the `Finder` app on mac OS, or its equivalent in Linux or Windows. N.B. that `/boot` is a FAT32 partition, and therefore may be read or written to by virtually any system on the planet. Unless you're certain you know what you're doing, you should leave the `root` partition (`/`) alone. It is formatted as an `ext4` filesystem, and can only be read & written by certain Linux OS-based distros. 
 
@@ -46,7 +46,7 @@ Once you've made these changes, `eject/umount` the microSD card.
 
 3. If you plan to connect your RPi using Ethernet, nothing additional need be done. The `/etc/dhcpcd.conf` file contains the appropriate configuration to connect to your LAN & communicate with your DHCP server.
 
-## Insert the microSD card into your RPi & apply power
+### Step 3: Insert the microSD card into your RPi & apply power
 
 Having completed the above steps, your RPi should boot successfully upon application of a suitable power source, and connect itself to your WiFi or LAN (once you've connected the RPi to a router or switch using a standard Ethernet patch cable). 
 
@@ -69,7 +69,7 @@ In either case, before you initiate an SSH connection to your new RPi, you may n
 
 Note: Using a [simple `arp` will be "hit-or-miss"; here's why](https://github.com/seamusdemora/PiFormulae/blob/master/ThinkingAboutARP.md) that's so. If you've reached the end of the list, and you still don't have your Pi's IP address, then something may be broken or misconfigured. Try [one of the forums](https://raspberrypi.stackexchange.com/) for support, and as always, please try to be as specific as you can in describing your problem.  
 
-## Login to your RPi using SSH to complete the setup:
+### Step 4: Login to your RPi using SSH to complete the setup:
 
 There are several things you should tend to soon after the installation. We'll use the terminal for all this, but an alternative approach is to use `raspi-config`. What follows is a reasonably complete transcript of the entire *post-install* process. The terminal output can get verbose, and in consequence the actual **commands** may get lost in this transcript. In an effort to avoid obscuring the required command sequence, each command prompt is designated by the following character string:  
 
