@@ -6,7 +6,6 @@ Notification of changed dynamic (public) IP address
 4. Put this in a script; the argument will specify public or private
 5. Put the script in a function, and place the function in .profile
 6. Send notification of IP address changes to designated party via a) Apple iMessage, or b) GMail using Python. 
-7. 
 
 ------
 
@@ -23,7 +22,7 @@ Notification of changed dynamic (public) IP address
 
 2. My private IP address is best obtained from `ip`. `ip` is current, maintained, and perhaps most importantly for scripting purposes, it produces a consistent & parsable output. In particular, `ip route`works on hosts with single or multiple interfaces, and/or route specifications. : 
 ```
-$ ip route get 8.8.8.8 | awk '{ print $NF; exit }'
+$ ip route get 8.8.8.8 | awk '{ print $7; exit }'
 ```
 
 3. We'll use a file named `watchip.sh.csv` as a database to save our results, and keep a log of when we detect IP address changes. We won't make an entry in the file unless there has been a change. We will record a change by appending the new IP address and a timestamp of our file. 
@@ -44,8 +43,6 @@ date +"%s
 ```bash
 
 ```
-
-4. 
 
 ------
 
