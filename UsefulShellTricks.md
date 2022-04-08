@@ -135,15 +135,15 @@ There are two user-owned files that control many aspects of the `bash` shell's b
 
 
 ```zsh
-$ source ~/.profile				# use this for bash 
+$ source ~/.profile       # use this for bash 
 $ source ~/.bashrc        #        "
-% source ~/.zprofile			# use this for zsh 
+% source ~/.zprofile      # use this for zsh 
 % source ~/.zshrc         #        " 
 # OR ALTERNATIVELY: 
-$ . ~/.profile						# use for bash + see Notes below 
-$ . ~/.bashrc
-% . ~/.zprofile						# use for zsh + see Notes below 
-% . ~/.zshrc
+$ . ~/.profile            # use for bash + see Notes below 
+$ . ~/.bashrc             #        "
+% . ~/.zprofile           # use for zsh + see Notes below 
+% . ~/.zshrc              #        "
 ```
 
 >> **Note 1:** The [dot operator](https://ss64.com/bash/source.html); `.` is a synonym for `source`. Also, it's POSIX-compliant (`source` is not).
