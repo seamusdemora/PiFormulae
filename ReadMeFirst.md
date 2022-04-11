@@ -1,4 +1,4 @@
-## Setup Raspberry Pi for Headless Operation
+## Setup Raspberry Pi for Headless Operation (see this [note](#not-quite))
 
 It seems that many follow instructions to set up their microSD card, but don't give much thought to what comes afterwards. That's understandable, and it's generally not that big a deal if you're connecting a keyboard, mouse and TV/monitor. In the "GUI" environment, you can issue commands to your RPi, and there are tools and tips and cues to point you toward connecting to your network, and other basic tasks that users typically perform. 
 
@@ -148,10 +148,11 @@ There are several things you should tend to soon after the installation. We'll u
    ==> pi@raspberrypi0w:~ $ sudo reboot
    ```
 
-5. Reboot & login - your new system is current & ready to go.
+5. Reboot & login - your new system is current & ready to go.  ⬇️ 
 
 
-Well... [not quite](https://github.com/seamusdemora/PiFormulae/issues/9)
+## [Not quite](https://github.com/seamusdemora/PiFormulae/issues/9)
+There are new changes to be factored in light of [this news announcement](https://www.raspberrypi.com/news/raspberry-pi-bullseye-update-april-2022/). IOW, a big revision is forthcoming!
 
 
 
