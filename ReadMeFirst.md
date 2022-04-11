@@ -151,7 +151,7 @@ There are several things you should tend to soon after the installation. We'll u
 5. Reboot & login - your new system is current & ready to go.
 
 
-
+Well... [not quite](https://github.com/seamusdemora/PiFormulae/issues/9)
 
 
 
@@ -210,7 +210,6 @@ DEPRECATED FOR NOW; MAY BE RESURRECTED LATER?
     - To change the hostname of your RPi, use either `raspi-config`, or edit `/etc/hostname`
     
     Congratulations, we're done here! 
-
 
 
 —>
