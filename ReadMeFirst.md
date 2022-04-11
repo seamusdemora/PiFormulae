@@ -1,4 +1,4 @@
-## Setup Raspberry Pi for Headless Operation (see this [note](#not-quite))
+## Setup Raspberry Pi for Headless Operation (see this [pending revision note](#not-quite))
 
 It seems that many follow instructions to set up their microSD card, but don't give much thought to what comes afterwards. That's understandable, and it's generally not that big a deal if you're connecting a keyboard, mouse and TV/monitor. In the "GUI" environment, you can issue commands to your RPi, and there are tools and tips and cues to point you toward connecting to your network, and other basic tasks that users typically perform. 
 
