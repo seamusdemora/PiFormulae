@@ -29,6 +29,14 @@ All of that said, we'll proceed as follows:
 >
 > 1. Some settings are *hardware-dependent* (RPi version). Consult `/boot/overlays/README` for details. 
 > 2. Disabling `i2c1` is ***optional***, but *iaw* recommendation not to enable unused features. 
+> 3. On more than one occasion, after setting everything up as detailed above, I have gottn an **ERROR** when I run `i2cdetect`:
+
+      ```bash
+      $ sudo i2cdetect -y 0
+      Error: Could not open file `/dev/i2c-0' or `/dev/i2c/0': No such file or directory
+      ``` 
+      The solution that has worked each time is to run **`sudo raspi-config`** to enable the `i2c` interface. 
+      I do not know why, or what causes this, nor have I seen it mentioned anywhere else.
 
 * **Verification:** 
 
