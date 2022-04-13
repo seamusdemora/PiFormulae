@@ -2,9 +2,9 @@
 
 If you need/want to use an I2C *channel* other than `i2c1` (the default for `dtoverlay=i2c-rtc`), this is possible using the configuration steps shown below. One reason for doing so is that the clock signal for `i2c1` (`SCL1)`) uses GPIO 3 (physical pin 5); GPIO 3 is apparently **unique** in that it is required for the [*"single-button-run-stop"* feature](https://github.com/seamusdemora/PiFormulae/blob/master/docs/gpio-shutdown_20210620.md). *(see also the [complete & current version of the `/boot/overlays/README` file](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README))* 
 
-In this recipe, we'll move the RTC **from** I2C bus channel `i2c1` **to** channel`i2c0`, and verify its function. 
+In this recipe, we'll move the RTC **from** I2C bus channel `i2c1` **to** channel`i2c0`, and verify its function. And if you've not installed your RTC at all yet, this recipe should still work fine if you *pay attention* :) 
 
-There are warnings re use of `i2c0`. In some cases, things change over time, which create [some confusion](https://www.raspberrypi.org/forums/viewtopic.php?f=44&t=138897#p922764). But today - unless you use a *HAT with EEPROM*, the *Pi Camera*, or the *"Official" 7" Pi display - you shouldn't encounter any issues using `i2c0` with the RTC. In fact, the current `dtoverlay=i2c-rtc`  supports the use of `i2c0 ` via a *parameter* option. See `/boot/overlays/README` for details. 
+There have been warnings scattered about re use of `i2c0`. In some cases, things change over time, which may create [some confusion](https://www.raspberrypi.org/forums/viewtopic.php?f=44&t=138897#p922764). But today - unless you use a *HAT with EEPROM*, the *Pi Camera*, or the *"Official" 7" Pi display - you shouldn't encounter any issues using `i2c0` with the RTC. In fact, the current `dtoverlay=i2c-rtc`  supports the use of `i2c0 ` via a *parameter* option. See `/boot/overlays/README` for details. 
 
 All of that said, we'll proceed as follows:
 
@@ -25,18 +25,18 @@ All of that said, we'll proceed as follows:
 |    dtparam    |                                        |              dtparam=i2c_vc=on              | enables i2c0 (Pi 4)             |
 |   dtoverlay   | dtoverlay=i2c-rtc,ds3231,wakeup-source | dtoverlay=i2c-rtc,ds3231,wakeup-source,i2c0 | connect RTC via i2c0            |
 
-> **NOTES:**  
+> **IMPORTANT NOTES:**  
 >
 > 1. Some settings are *hardware-dependent* (RPi version). Consult `/boot/overlays/README` for details. 
 > 2. Disabling `i2c1` is ***optional***, but *iaw* recommendation not to enable unused features. 
-> 3. On more than one occasion, after setting everything up as detailed above, I have gottn an **ERROR** when I run `i2cdetect`:
+> 3. On more than one occasion, after setting everything up as detailed here, I have gotten an **ERROR** when I run `i2cdetect`:
 
    ```bash
       $ sudo i2cdetect -y 0
       Error: Could not open file `/dev/i2c-0' or `/dev/i2c/0': No such file or directory
    ```
 The solution that has worked each time is to run **`sudo raspi-config`** to enable the `i2c` interface. 
-I do not know why, or what causes this, nor have I seen it mentioned anywhere else. But of course you can now run `raspi-config` from the command line; an [enlightening tutorial](https://pi3g.com/2021/05/20/enabling-and-checking-i2c-on-the-raspberry-pi-using-the-command-line-for-your-own-scripts/) explains how in detail. 
+I do not know why, or what causes this, nor have I seen it mentioned anywhere else. In my experience it has **only** occurred with systems that have never had `i2c` enabled previously. If you abhor the `raspi-config` user interface, you can now run `raspi-config` from the command line; this [enlightening tutorial](https://pi3g.com/2021/05/20/enabling-and-checking-i2c-on-the-raspberry-pi-using-the-command-line-for-your-own-scripts/) explains how in detail. 
 
 > 4. **_BEWARE of the SIDE EFFECTS_** of using **`sudo raspi-config`** to enable the `i2c` interface. `raspi-config` will write to your `/boot/config.txt` file: `dtparam=i2c_arm=on`. This enables `i2c1`, which is not what was wanted. It can *break* other overlays you have; e.g. the `gpio-shutdown` overlay which uses GPIO 3 by default. Since [GPIO 3 is the `SCL` line for `i2c1`](https://pinout.xyz/pinout/pin5_gpio3#), setting the `dtparam=i2c_arm=on` renders GPIO 3 useless for the `gpio-shutdown` overlay. The solution? After running `raspi-config`, you will need to edit the `/boot/config.txt` file to remove the *side-effects*. Alternatively, you can use the `dtoverlay` utility to repair the damage at run-time; [a dynamic device tree](https://www.raspberrypi.com/documentation/computers/configuration.html#part3.5).
 
@@ -73,5 +73,6 @@ I do not know why, or what causes this, nor have I seen it mentioned anywhere el
   # NOTE: List device nodes created by the kernel & device tree
   ```
   
-> \* REF:  [Re: dtoverlay i2c0 - kernel troubles 5.4.59-v7l+](https://www.raspberrypi.org/forums/viewtopic.php?t=284036#p1720835) 
+   * REF:  [Re: dtoverlay i2c0 - kernel troubles 5.4.59-v7l+](https://www.raspberrypi.org/forums/viewtopic.php?t=284036#p1720835) 
 
+### You should now have a functional RTC on the `i2c0` bus
