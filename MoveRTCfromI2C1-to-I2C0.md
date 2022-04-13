@@ -31,12 +31,12 @@ All of that said, we'll proceed as follows:
 > 2. Disabling `i2c1` is ***optional***, but *iaw* recommendation not to enable unused features. 
 > 3. On more than one occasion, after setting everything up as detailed above, I have gottn an **ERROR** when I run `i2cdetect`:
 
-      ```bash
+   ```bash
       $ sudo i2cdetect -y 0
       Error: Could not open file `/dev/i2c-0' or `/dev/i2c/0': No such file or directory
-      ``` 
-      The solution that has worked each time is to run **`sudo raspi-config`** to enable the `i2c` interface. 
-      I do not know why, or what causes this, nor have I seen it mentioned anywhere else.
+   ```
+The solution that has worked each time is to run **`sudo raspi-config`** to enable the `i2c` interface. 
+I do not know why, or what causes this, nor have I seen it mentioned anywhere else. But of course you can now run `raspi-config` from the command line; an [enlightening tutorial](https://pi3g.com/2021/05/20/enabling-and-checking-i2c-on-the-raspberry-pi-using-the-command-line-for-your-own-scripts/) explains how in detail.
 
 * **Verification:** 
 
@@ -68,9 +68,8 @@ All of that said, we'll proceed as follows:
   ls /dev/*i2c*
   /dev/i2c-0  /dev/i2c-10  /dev/i2c-11 
   
-  # NOTE: This is likely an errant result of the RPi4's I2C Multiplexer*
-  # Follow-up required.
+  # NOTE: List device nodes created by the kernel & device tree
   ```
-
-  > \* REF:  [Re: dtoverlay i2c0 - kernel troubles 5.4.59-v7l+](https://www.raspberrypi.org/forums/viewtopic.php?t=284036#p1720835) 
+  
+> \* REF:  [Re: dtoverlay i2c0 - kernel troubles 5.4.59-v7l+](https://www.raspberrypi.org/forums/viewtopic.php?t=284036#p1720835) 
 

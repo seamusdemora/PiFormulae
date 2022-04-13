@@ -94,14 +94,14 @@ After a brief market survey, I selected a [DS3231 real time clock (RTC)](https:/
       50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
       60: -- -- -- -- -- -- -- -- UU -- -- -- -- -- -- --
       70: -- -- -- -- -- -- -- --
-      ``` 
-      
+      ```
+    
 11.  ***NOTE - This has happened to me on more than one occasion:*** After setting everything up as detailed above, you may get an **ERROR**:
 
       ```bash
       $ sudo i2cdetect -y 1
       Error: Could not open file `/dev/i2c-1' or `/dev/i2c/1': No such file or directory
-      ``` 
+      ```
       The solution that has worked each time is to run **`sudo raspi-config`**, as outlined in ***Step 3*** above. 
       I do not know why, or what causes this, nor have I seen it mentioned anywhere else. 
 
@@ -159,11 +159,12 @@ Electing to use the RTC driver in favor of direct control isn't an *irrevocable*
 2. [The Rust community’s crate registry](https://crates.io/) brings us their [rpi_embedded i2c module](https://docs.rs/rpi_embedded/0.1.0/rpi_embedded/i2c/index.html). 
 3. [I2C Serial Communication Bus in Raspberry pi](https://www.electroniclinic.com/i2c-serial-communication-bus-in-raspberry-pi/) - includes some examples using `i2ctools`. 
 4. [Creating Multiple I2C Ports on a Raspberry PI](https://medium.com/cemac/creating-multiple-i2c-ports-on-a-raspberry-pi-e31ce72a3eb2) - an article from [Medium](https://medium.com) - beware the *paywall*. 
-5.  [How to Work with I2C Communication in Raspberry Pi](https://radiostud.io/howto-i2c-communication-rpi/) - example using i2c as Rpi-to-Arduino interface. 
+5. [How to Work with I2C Communication in Raspberry Pi](https://radiostud.io/howto-i2c-communication-rpi/) - example using i2c as Rpi-to-Arduino interface. 
 6. [Is there a package or library for controlling the DS3231 on the Raspberry Pi?](https://raspberrypi.stackexchange.com/questions/123872/is-there-a-package-or-library-for-controlling-the-ds3231-on-the-raspberry-pi) 
 7. [RPi Python Programming 25 – Synchronous serial communication in Raspberry Pi using I2C protocol](https://www.engineersgarage.com/articles-raspberry-pi-i2c-bus-pins-smbus-smbus2-python/) 
 8. [Using the second (I2C 0) port on a Raspberry Pi 3B](https://www.youtube.com/watch?v=FUAiELC76aw) - a YouTube "how-to" for the RPi 3B.
 9. [The `raspi-gpio` tool GitHub repo](https://github.com/RPi-Distro/raspi-gpio) - not necessarily useful for I2C, but for GPIO; incl [Pi4 support?](https://github.com/RPi-Distro/raspi-gpio/commit/80fa7d04eafb3ea34fc6f2d32de5f1873b5fb369) 
+10. [Enabling and checking I2C on the Raspberry Pi using the command line for your own scripts](https://pi3g.com/2021/05/20/enabling-and-checking-i2c-on-the-raspberry-pi-using-the-command-line-for-your-own-scripts/); Useful!
 
 
 
