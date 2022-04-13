@@ -26,7 +26,7 @@ After a brief market survey, I selected a [DS3231 real time clock (RTC)](https:/
    * Connect Vcc and GND on the Breakout to [+5v power and Ground on the RPi](https://pinout.xyz/#), respectively. 
    * Connect SDA and SCL on the RTC Breakout to GPIO2 & GPIO3 (a.k.a. physical pins 3 & 5; a.k.a. `i2c1`), respectively. 
    
-3. Boot the RPi, and run **`sudo raspi-config`**. In the `raspi-config`  interface, select **`3 Interface Options`**, then  select **`P5 I2C`** and turn it on. This enables the I2C support in the Linux kernel. ***Alternatively***, and more easily than using `raspi-config`, edit `/boot/config.txt`, and remove the comment from the following line: `dtparam=i2c_arm=on`.
+3. Boot the RPi, and run **`sudo raspi-config`**. In the `raspi-config`  interface, select **`3 Interface Options`**, then  select **`P5 I2C`** and turn it on. This enables the I2C support in the Linux kernel. *Alternatively*, and more easily than using `raspi-config`, edit `/boot/config.txt`, and remove the comment from the following line: `dtparam=i2c_arm=on`.  
 
 4. Reboot the RPi
 
@@ -94,14 +94,23 @@ After a brief market survey, I selected a [DS3231 real time clock (RTC)](https:/
       50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
       60: -- -- -- -- -- -- -- -- UU -- -- -- -- -- -- --
       70: -- -- -- -- -- -- -- --
-      ```
+      ``` 
+      
+11.  ***NOTE - This has happened to me on more than one occasion:*** After setting everything up as detailed above, you may get an **ERROR**:
 
-11. Disable the `fake-hwclock` service running under `systemd`:
+      ```bash
+      $ sudo i2cdetect -y 1
+      Error: Could not open file `/dev/i2c-1' or `/dev/i2c/1': No such file or directory
+      ``` 
+      The solution that has worked each time is to run **`sudo raspi-config`**, as outlined in ***Step 3*** above. 
+      I do not know why, or what causes this, nor have I seen it mentioned anywhere else. 
+
+12. Disable the `fake-hwclock` service running under `systemd`:
     ```bash
     $ sudo systemctl mask fake-hwclock.service
     ```
 
-12. Edit & comment out the following 3 lines in `/lib/udev/hwclock-set `
+13. Edit & comment out the following 3 lines in `/lib/udev/hwclock-set `
 
       ```
       #if [ -e /run/systemd/system ] ; then
@@ -109,7 +118,7 @@ After a brief market survey, I selected a [DS3231 real time clock (RTC)](https:/
       #fi
       ```
 
-13. With access to a reliable & accurate clock, check the time on your RPi: 
+14. With access to a reliable & accurate clock, check the time on your RPi: 
 
       ```bash
       $ date               # check the RPi system time
@@ -117,21 +126,21 @@ After a brief market survey, I selected a [DS3231 real time clock (RTC)](https:/
       $ sudo hwclock -r    # check the RTC time
       ```
 
-14. If your RPi has network connectivity, the `hwclock` time may have already been adjusted by the time you check it. If not, you may manually update the hwclock as follows: 
+15. If your RPi has network connectivity, the `hwclock` time may have already been adjusted by the time you check it. If not, you may manually update the hwclock as follows: 
 
       ```bash
       $ sudo hwclock -w
       ```
 
-15. Check the status of the RTC: 
+16. Check the status of the RTC: 
 
       ```bash
       $ timedatectl
       ```
 
-16. That concludes the basic configuration of the realtime clock. It will work silently for the most part. If you wish to verify this, disconnect the RPi from the network, or disable the RPi's timekeeping daemon. 
+17. That concludes the basic configuration of the realtime clock. It will work silently for the most part. If you wish to verify this, disconnect the RPi from the network, or disable the RPi's timekeeping daemon. 
 
-17. ***OPTIONAL:*** Move your RTC from **I2C channel 1** to **I2C channel 0** - [here's how](https://github.com/seamusdemora/PiFormulae/blob/master/MoveRTCfromI2C1-to-I2C0.md) 
+18. ***OPTIONAL:*** Move your RTC from **I2C channel 1** to **I2C channel 0** - [here's how](https://github.com/seamusdemora/PiFormulae/blob/master/MoveRTCfromI2C1-to-I2C0.md) 
 
 
 
