@@ -13,25 +13,28 @@ Several ways are possible, but perhaps the quickest/easiest way is to mount a ne
 ## 1. Before you begin: Focusing PiCamera
 
 [It's the focus, stupid!](https://en.wikipedia.org/wiki/It%27s_the_economy,_stupid) OK, I realize that for £24 you can't expect a pro-quality DSLR. But this PiCamera (and the people in the Raspberry Pi organization that make decisions and profit from its sales) is not quite [up to snuff](https://dictionary.cambridge.org/dictionary/english/up-to-snuff) when it comes to the simple matter of setting the lens' focus! I'll belay my rant for another day, but here's what you need to know: 
+
 #### `TURN THE FOCUS RING FULLY CCW AS YOU'RE FACING THE CAMERA` 
 
-Do this before you get started - it will save you a lot of time.
+Do this before you get started - it will save you a lot of time. 
+
+And be careful of speaking your mind about some of the low-quality crap peddled by `The Organization`, [This forum post](https://forums.raspberrypi.com/viewtopic.php?p=1300769&hilit=seamus#p1300747) got me kicked out of the RPi forums *for life*  :`) 
 
 ## 2. Using Python to Control the PiCamera
 
    Here's a simple Python script that outputs a single 640x480 picture: 
-   
-    #!/usr/bin/python
 
+    #!/usr/bin/python
+    
     import picamera
     import time
-
+    
     with picamera.PiCamera() as camera:
-	   camera.resolution = (640, 480)
-	   camera.start_preview()
-	   time.sleep(2)
-	   camera.capture('foopic.png')
-	   camera.stop_preview()
+       camera.resolution = (640, 480)
+       camera.start_preview()
+       time.sleep(2)
+       camera.capture('foopic.png')
+       camera.stop_preview()
 
 There's a lot more you can do in Python... the [API gives you a lot of control, and there are reasonably thorough docs covering the PiCamera](http://picamera.readthedocs.io/en/latest/)
 
@@ -46,7 +49,7 @@ You can get photos/snapshots or videos easily and quickly with the following com
 The command options are 'feature-rich', especially `raspivid`, and allows you to create, for example, a [time-lapse sequence](https://en.wikipedia.org/wiki/Time-lapse_photography) quite easily: 
 
     raspistill -t 600000 -tl 10000 -o image_num_%03d_today.jpg -l latest.jpg 
-    
+
 The time lapse images taken using the command above will have to be processed or combined afterward to turn them into a movie or animation. That will require an additional step, and possibly an expensive software package! Alternative: I've not tried this, but the [raspberrypi.org website has a "How-To" using `raspistill` and other open-source tools to create a time-lapse](https://www.raspberrypi.org/documentation/usage/camera/raspicam/timelapse.md). 
 
 But here's a different way to make a time lapse sequence using video. According to the docs referenced above, there's a lower limit of 2 frames per second on `raspivid`, but that may change (if it hasn't already). At any rate, this will also produce a time lapse sequence small enough to include in a text message or email attachment (if you're into that). Yeah... so type that command into your RPi terminal, then get up in front of the camera, do a little dance, then post it to your Facebook account or whatever. Fool, you never looked so good! 
