@@ -12,7 +12,7 @@ Measuring the RPi's power consumption requires the *physical quantities* of [**v
 
 In addition to general-purpose instruments such as voltmeters and ammeters, there are a huge number of *USB gadgets* that measure current, voltage and power. A [quick Internet search](https://duckduckgo.com/?q=USB+power+meter&t=ffnt&iax=images&ia=images) reveals many of these, mostly available from the usual outlets. At least [one of these devices has a Bluetooth interface](https://www.makerhawk.com/products/makerhawk-um25c-usb-tester-bluetooth-usb-meter-type-c-current-meter-usb-power-meter-dc-24-000v-5-0000a-usb-cable-tester-1-44-inch-color-lcd-multimeter-voltage-tester-usb-load-qc-2-0-qc-3-0) that may be used to fetch readings from the device for recording or analysis purposes. Otherwise, they mostly all display the data on a small screen in a similar fashion as the device below. 
 
-![usb-power-meter](/Users/jmoore/Documents/GitHub/PiFormulae/pix/usb-power-meter.jpg)
+![usb-power-meter](pix/usb-power-meter.jpg)
 
 ### DIY measurement
 
