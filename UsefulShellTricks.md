@@ -3,6 +3,7 @@
 #### Table of contents
 
 * [How do I tell my system to tell me about my system: OS, Kernel, Hardware, etc](#tell-me-about-my-system) 
+* [Resolve Permission Issues When Using Redirection](#permission-Issues-when-using-redirection) 
 * [Reload `bash` or `zsh` `.profile` without restarting shell:](#refresh-shell-configuration-without-restarting)
 * [Clear the contents of a file without deleting the file:](#clear-the-contents-of-a-file-without-deleting-the-file) 
 * [List all directories - not files, just directories:](#list-all-directories---not-files-just-directories) 
@@ -27,6 +28,7 @@
 * [What version of `awk` is available on my Raspberry Pi?](#what-version-of-awk-is-available-on-my-raspberry-pi) 
 * [Find what you need in that huge `man` page](#find-what-you-need-in-that-huge-man-page) 
 * [A useful tool for GPIO hackers: `raspi-gpio`](#a-useful-tool-for-gpio-hackers-raspi-gpio) 
+* [`raspi-config` from the command line?](#raspi-config-from-the-command-line)
 * [Background, nohup, infinite loops, daemons](#background-nohup-infinite-loops-daemons) 
 * [REFERENCES:](#references) 
 
@@ -126,6 +128,39 @@ $ hostnamectl     # p/o systemd, see man hostnamectl for options & usage info
             Kernel: Linux 5.10.92-v7+
       Architecture: arm
 ```
+
+
+
+### Permission Issues When Using Redirection
+
+The `redirection` operators (**`>`** and **`>>`**) are incredibly useful tools in the shell. But, when they are used to redirect output from a command to a file requiring `root` privileges, they can leave a user scratching his head. Consider this example: 
+
+   ```bash
+   $ sudo printf "Houston, we have a problem!" > /etc/issue.net
+   -bash: /etc/issue.net: Permission denied
+   ```
+
+Most who encounter this for the first time are baffled... "WTF?! - why does this not work? I can open the file with an editor - I can edit and save... WTF?!"
+
+The problem is obvious once it's explained, but the solutions may vary. The **problem** in the example above is that there are actually two commands being used: `printf` whis is propelled by `sudo`, and the redirect **`>`** which is **not** propelled by `sudo`.  And of course you don't actually need `sudo` to execute a `printf` command, but you do need `sudo` to write to `/etc/issue.net`. What to do? None of the answers are particularly *elegant* IMHO, but they do work: 
+
+1. If you put the example command in a shell script, and run the script with `sudo`, you won't a problem. This due to the fact that every command in the script - including redirects - will run with `root` privileges. Another way to consider the issue is this: It's only an issue when using the command sequence from the shell prompt. Feel better? 
+
+2. Similar to #1, you can spawn a new *sub-shell* using the `-c`option to process a command (ref `man sh`). This is best explained as follows: 
+
+   ```bash
+   $ sudo sh -c 'printf "Houston, we have a problem!" > /etc/issue.net'
+   ```
+
+   You will find this succeeds when executed from a shell prompt. 
+
+3. The final option (for this recipe at least) is to use the `tee` command instead of the redirect: 
+
+   ```bash
+   $ printf "Houston, we have a problem!" | sudo tee /etc/issue.net
+   # OR: If you don't want the output to print on your terminal: 
+   $ printf "Houston, we have a problem!" | sudo tee /etc/issue.net > /dev/null
+   ```
 
 
 
@@ -664,7 +699,11 @@ Not a *shell trick* exactly, but ***useful***: Most systems use the *pager* name
 
 ### A useful tool for GPIO hackers: `raspi-gpio`
 
-`raspi-gpio` is a useful tool for those interested in working with external hardware. It's included as a standard package - even in the `Lite` distro, but was developed by an individual - i.e. outside "The Foundation". The [raspi-gpio GitHub repo](https://github.com/RPi-Distro/raspi-gpio) has some useful resources; there is no `man raspi-gpio`, but `raspi-gpio help` will do just that. You can compare it against the [`gpio` directive](https://www.raspberrypi.com/documentation/computers/config_txt.html#gpio)... ponder that for a moment :) 
+`raspi-gpio` is a useful tool for those interested in working with external hardware. It's included as a standard package - even in the `Lite` distro, but was developed by an individual - i.e. outside "The Foundation". The [raspi-gpio GitHub repo](https://github.com/RPi-Distro/raspi-gpio) has some useful resources; there is no `man raspi-gpio`, but `raspi-gpio help` will do just that. You can compare it against the [`gpio` directive](https://www.raspberrypi.com/documentation/computers/config_txt.html#gpio)... ponder that for a moment :)  
+
+### `raspi-config` from the command line?
+
+You've probably used the "graphical" (*ncurses* -based) version of `raspi-config` that you start from the command line, and then navigate about to make configuration changes to your system. ***However***, you may also use `raspi-config` from the command line. This feature isn't well-documented (or well-understood), and even the [GitHub repo for `raspi-config`](https://github.com/RPi-Distro/raspi-config) doesn't have anything to say about it - actually, it says nothing about everything :P  [This blog post](https://pi3g.com/2021/05/20/enabling-and-checking-i2c-on-the-raspberry-pi-using-the-command-line-for-your-own-scripts/) seems to be the best source of information for now. 
 
 ### Background, nohup, infinite loops, daemons
 
