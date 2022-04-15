@@ -190,11 +190,13 @@ $ . ~/.bashrc             #        "
 ### Clear the contents of a file without deleting the file:
 
 ```bash
-$ > somefile.xyz					# works in bash
+$ > somefile.xyz					      # works in bash
 # -OR-
-% : > $LOGFILE						# works in zsh
+% : > $LOGFILE						      # works in zsh
 # -OR-
-$ truncate -s 0 test.txt	# any system w/ truncate
+$ truncate -s 0 test.txt	      # any system w/ truncate
+# -OR-
+$ cp /dev/null somefile.xyz     # any system
 ```
 
 ### List all directories - not files, just directories:
