@@ -162,7 +162,7 @@ The problem is obvious once it's explained, but the solutions may vary. The **pr
    $ printf "Houston, we have a problem!" | sudo tee /etc/issue.net > /dev/null
    ```
 
-
+If you're interested, this [Q&A on SO](https://stackoverflow.com/questions/82256/how-do-i-use-sudo-to-redirect-output-to-a-location-i-dont-have-permission-to-wr) has much more on this subject. 
 
 ### Refresh shell configuration without restarting:
 
@@ -879,6 +879,7 @@ It's occasionally useful to create a program/script that runs continuously, perf
 8. [All about {Curly Braces} in Bash](https://www.linux.com/topic/desktop/all-about-curly-braces-bash/) ; how do you expect to get on in life without `{}`?? 
 9. [Section 7.2. File test operators from Advanced Bash-Scripting Guide](https://tldp.org/LDP/abs/html/fto.html); e.g. `test` if `regular` file w/ `-f`      
 10. [Section 7.3. Other Comparison Ops from Advanced Bash-Scripting Guide](https://tldp.org/LDP/abs/html/comparison-ops.html); e.g. integers, strings, `&&`, `||`  
+11. [How do I use sudo to redirect output to a location I don't have permission to write to?](https://stackoverflow.com/questions/82256/how-do-i-use-sudo-to-redirect-output-to-a-location-i-dont-have-permission-to-wr)  
 
 ### How `bash` finds executables; `which`, `type`, etc.
 
