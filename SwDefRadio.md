@@ -25,7 +25,8 @@ DISCLAIMER: As typical, this page will be a placeholder for half-baked recipes a
 * [Setup Raspberry Pi for Ham-Radio](https://dl1gkk.com/setup-raspberry-pi-for-ham-radio/), last update Nov, 2019
 * [Top 10 Amateur Radio Uses  for the Raspberry Pi](http://www.hamblog.co.uk/top-10-amateur-radio-uses-for-raspberry-pi/), Oct 12, 2016 
 * [Ham Radio software packages for the Raspberry Pi](https://raspberryconnect.com/raspbian-packages/39-raspbian-hamradio), July 4, 2020 
-* [All Your SDR Software In A Handy Raspberry Pi Image](https://hackaday.com/2019/12/20/all-your-sdr-software-in-a-handy-raspberry-pi-image/), from hackaday.io, Dec 20, 2019
+* [All Your SDR Software In A Handy Raspberry Pi Image](https://hackaday.com/2019/12/20/all-your-sdr-software-in-a-handy-raspberry-pi-image/), from hackaday.io, Dec 20, 2019 
+* [RF Filter for a Raspberry Pi Transmitter](https://sites.google.com/site/rockingdlabs/exercises-experiments/bpf-analysis) 
 
 
 
