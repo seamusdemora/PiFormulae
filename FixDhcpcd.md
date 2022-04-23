@@ -85,7 +85,7 @@ If you got to this point, you have successfully built and installed the `dhcpcd5
 
 If you patched (or copied the revised) `dhcp.c` file into `~/dhcpcd5-8.1.2/src` before you built and installed the .deb file, you now have an updated dhcpcd!! (even tho' the version # reported by `dhcpcd --version` remains the same)
 
-You may also want to put a "hold" on the package to prevent it from being over-written with the un-patched version during an 'apt upgrde'. The RPi Organization does not use the git repos advertised in 'apt-cache showsrc dhcpcd5', and my "merge request" had to be submitted manually. Consequently  I really do not know when or if the RPi Organization will incorporate this patch. If not, we may need to patch this indefinitely. To put a hold on 'dhcpcd' using 'apt' ([REF](https://askubuntu.com/questions/18654/how-to-prevent-updating-of-a-specific-package)) is simple:
+You may also want to put a "hold" on the package to prevent it from being over-written with the un-patched version during an 'apt upgrde'. The RPi Organization does not use the git repos advertised in 'apt-cache showsrc dhcpcd5', and my "merge request" had to be submitted manually. Consequently  I really do not know when or if the RPi Organization will incorporate this patch. If not, we may need to patch this indefinitely. To put a hold on 'dhcpcd' using 'apt' ([REF](https://askubuntu.com/questions/18654/how-to-prevent-updating-of-a-specific-package)) is simple: 
 
 ```bash
 $ sudo apt-mark hold dhcpcd5
@@ -106,3 +106,20 @@ ii  dhcpcd5        1:8.1.2-1+rpt5 armhf        DHCPv4, IPv6RA and DHCPv6 client 
 ```
 
 
+
+### REFERENCES: 
+
+1. [Build Packages From Source In Debian: Easy Step-By-Step Guide](https://www.linuxfordevices.com/tutorials/debian/build-packages-from-source) 
+2. [Q&A: How to prevent updating of a specific package?](https://askubuntu.com/questions/18654/how-to-prevent-updating-of-a-specific-package) 
+3. [Debian Packaging Tutorial; Lucas Nussbaum](https://www.debian.org/doc/manuals/packaging-tutorial/packaging-tutorial.en.pdf) 
+4. [Debian Policy Manual](https://www.debian.org/doc/debian-policy/index.html) 
+
+<!---
+
+FWIW, it seems a rather unusual *realtionship* between `dhcpcd`, Debian and Raspberry Pi. By that, I mean that [`dhcpcd`](https://github.com/NetworkConfiguration/dhcpcd) is now at ver 9.3+, [Debian's "salsa" repo](https://salsa.debian.org/smlx-guest/dhcpcd5/-/tree/upstream) is now at ver 7.1, and Raspberry Pi uses ver 8.1.2. The `changelog` file in the source distribution for the RPi version indicates that 8.1.2 is November 2019 vintage, but apparently there have been *patches* made since then.  
+
+
+
+It's a strange feeling that comes over you: I've "followed" Roy Marples for a few years now - since I began using his `dhcpcd` software on Raspberry Pi. While browsing his [GitHub site](https://github.com/NetworkConfiguration/dhcpcd) earlier today for the latest news, I clicked an [obscure link](https://roy.marples.name/archives/dhcpcd-discuss/) at the bottom of the page, and learned he's diagnosed with terminal cancer.  
+
+-->
