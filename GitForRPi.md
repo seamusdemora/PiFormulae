@@ -196,7 +196,62 @@ $ git -C /path/to/PiPyMailer reset --hard
 
 
 
- 
+### Addendum:  `gh`, the GitHub Command Line Interface
+
+The [GitHub CLI](https://github.com/cli/cli#readme) -  `gh` looks useful, and it can be installed on your RPi - even on a *headless* RPi. It's a bit different than many Linux tools - more like `git` - which seems entirely appropriate :)  I'll only cover the basics here - installation, and initial authentication. The rest you'll find in the online docs & `man gh` after installation: 
+
+   ```bash
+   $ # find the latest version:
+   $ GITHUB_CLI_VERSION=$(curl -s "https://api.github.com/repos/cli/cli/releases/latest" | grep -Po '"tag_name": "v\K[0-9.]+')
+   $ echo $GITHUB_CLI_VERSION
+   2.8.0
+   $ # use curl to fetch the .deb file for RPi (armv6):
+   $ curl -Lo gh.deb "https://github.com/cli/cli/releases/latest/download/gh_${GITHUB_CLI_VERSION}_linux_armv6.deb"
+   $ # ... curl output & download stats
+   $ sudo dpkg -i gh.deb
+   Selecting previously unselected package gh.
+   (Reading database ... 50648 files and directories currently installed.)
+   Preparing to unpack gh.deb ...
+   Unpacking gh (2.8.0) ...
+   Setting up gh (2.8.0) ...
+   Processing triggers for man-db (2.9.4-2) ...
+   $ $ gh --version
+   gh version 2.8.0 (2022-04-13)
+   https://github.com/cli/cli/releases/tag/v2.8.0 
+   $ gh auth login 
+   $ # at this point, you'll go through an interactive dialog from the CLI
+   ```
+
+If you're running *headless*, and prefer to use your SSH public key, the remainder of your initial login will go something like this. Note that I chose to `Login with a web browser` - which obviously doesn't exist on a headless RPi. Not to worry - just open a browser window on your lap/desk top host for the URL given, then copy and paste your one-time code (**not mine!**) into the browser window. It's all very *smooth*. 
+
+Here's the balance of the dialog: 
+
+   ```bash
+   ? What account do you want to log into? GitHub.com
+   ? What is your preferred protocol for Git operations? SSH
+   ? Upload your SSH public key to your GitHub account? /home/pi/.ssh/id_ed25519.pub
+   ? How would you like to authenticate GitHub CLI? Login with a web browser
+   
+   ! First copy your one-time code: ABCD-0123
+   Press Enter to open github.com in your browser...
+   ! Failed opening a web browser at https://github.com/login/device
+     exec: "xdg-open,x-www-browser,www-browser,wslview": executable file not found in $PATH
+     Please try entering the URL in your browser manually
+   ✓ Authentication complete.
+   - gh config set -h github.com git_protocol ssh
+   ✓ Configured git protocol
+   ✓ Uploaded the SSH key to your GitHub account: /home/pi/.ssh/id_ed25519.pub
+   ✓ Logged in as seamusdemora 
+   $ # verify all of this worked:
+   $ gh auth status
+   github.com
+     ✓ Logged in to github.com as seamusdemora (/home/pi/.config/gh/hosts.yml)
+     ✓ Git operations for github.com configured to use ssh protocol.
+     ✓ Token: *******************
+   $ # done!
+   ```
+
+ Thanks to the [Lindevs blog](https://lindevs.com/install-github-cli-on-raspberry-pi/?unapproved=687&moderation-hash=85abbd82976e95f8ede2a65c60883906#comment-687) for figuring out all of the hard stuff in this installation. And one final point: because `gh` is not in RPi's *official* distro, it won't be routinely updated with `apt`. To stay current, you can check the latest version number by running the command substitution for `GITHUB_CLI_VERSION` as shown above - you can *automate* this by creating a small `cron` job to check this for you.
 
 ---
 
