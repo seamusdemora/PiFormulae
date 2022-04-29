@@ -27,6 +27,7 @@
 * [Finding pattern matches: `grep` or `awk`?](#finding-pattern-matches-grep-or-awk) 
 * [What version of `awk` is available on my Raspberry Pi?](#what-version-of-awk-is-available-on-my-raspberry-pi) 
 * [Find what you need in that huge `man` page](#find-what-you-need-in-that-huge-man-page) 
+* [Where did I put that file? - it's *somewhere* in my system](#that-file-is-somewhere-in-my-system)
 * [A useful tool for GPIO hackers: `raspi-gpio`](#a-useful-tool-for-gpio-hackers-raspi-gpio) 
 * [`raspi-config` from the command line?](#raspi-config-from-the-command-line)
 * [Background, nohup, infinite loops, daemons](#background-nohup-infinite-loops-daemons) 
@@ -685,7 +686,18 @@ Copyright (C) 1989, 1991-2018 Free Software Foundation.
 
 Know that version 5 of `gawk` is available in `bullseye`'s package repo, but the `buster` repo is limited to version 4. ICYI, the [LWN article](https://lwn.net/Articles/820829/) mentioned in the [References](#using-awk-for-heavy-lifting) goes into some detail on the feature differences between `gawk` ver 4 & ver 5.
 
+### That file is somewhere in my system
 
+Sometimes, *finesse* is over-rated. Sometimes things get misplaced, and you need to find it quickly. A feeling of panic may be creeping upon you due to impending schedule deadlines - or whatever the reason. This might help if you can remember anything at all about the filename - or its contents: 
+
+```bash
+# search `/etc` recursively for filenames containing lines beginning w/ string 'inform'
+# in this example binary files are excluded from the search by use of the 'I' option
+# piping to pager 'less' avoids clutter in your terminal
+$ sudo grep -rlI '/etc' -e '^inform' | less -N 
+/etc/dhcpcd.conf
+$
+```
 
 ### Find what you need in that huge `man` page:
 
@@ -854,7 +866,9 @@ It's occasionally useful to create a program/script that runs continuously, perf
 1. [Q&A Can grep return true/false or are there alternative methods?](https://unix.stackexchange.com/questions/48535/can-grep-return-true-false-or-are-there-alternative-methods).
 2. [Q&A grep on a variable](https://unix.stackexchange.com/questions/163810/grep-on-a-variable).
 3. [Grep OR – Grep AND – Grep NOT – Match Multiple Patterns](https://www.shellhacks.com/grep-or-grep-and-grep-not-match-multiple-patterns/); `grep -E "PATTERN1|PATTERN2" file`  
-3. [How To find process information in Linux  -PID and more](https://linuxconfig.net/manuals/howto/how-to-find-out-the-pid-of-process-in-linux.html) 
+4. [How To find process information in Linux  -PID and more](https://linuxconfig.net/manuals/howto/how-to-find-out-the-pid-of-process-in-linux.html) 
+5. [Q&A How do I find all files containing specific text on Linux?](https://stackoverflow.com/questions/16956810/how-do-i-find-all-files-containing-specific-text-on-linux) - a popular Q&A
+6. [The GNU grep manual](https://www.gnu.org/software/grep/manual/) - recommended by `man grep`! 
 
 ### Using `awk` for heavy lifting
 
