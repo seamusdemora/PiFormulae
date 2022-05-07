@@ -1,4 +1,4 @@
-## Updating and Upgrading Raspbian 
+## Updating and Upgrading Raspbian
 
 ### Routine "in-version" updates and upgrades
 
@@ -119,7 +119,7 @@ Some advocate using `apt`, others advocate using `apt-get`. At present, I favor 
 </body>
 </html>
 
-## Frequently Useful Commands in Aptitude
+## Frequently Useful Commands in `apt`
 
 `apt-cache search XXXX`  
 
@@ -130,6 +130,28 @@ Listing installed packages:
     sudo apt list --installed   
     dpkg --get-selections 
     dpkg -l  
+
+
+
+## Installing `.deb` packages 
+
+When available, it's usually *best* to install packages using `apt` or `apt-get`. But on occasion, you may need to install a `.deb` package. Here's a summary of how to do that: 
+
+```bash
+$ sudo dpkg -i ./some_pkg.deb    # from the folder where the .deb file is located
+# ...
+# Many times this will end well, but you may be notified that one or more dependencies
+# have not been met; e.g.
+some_pkg depends on libwhatever; however:
+  Package libwhatever is not installed.  
+# ...  
+# The solution: 
+$ sudo apt-get -f install 
+# ...
+Setting up libwhatever...
+Setting up some_pkg.deb...
+# refer to man apt-get for details
+```
 
 
 
@@ -147,6 +169,7 @@ Listing installed packages:
 10. [How to Install Development Tools on Debian 10/9/8](https://tecadmin.net/install-development-tools-on-debian/) 
 11. [10 Cool Linux Terminal Commands](https://helpdeskgeek.com/linux-tips/10-cool-linux-terminal-commands-you-have-to-try/) - a couple of these actually *do* look cool! 
 12. [Debian Package Dependencies](https://linuxhint.com/debian_package_dependencies/); another *useful* guide from [Frank Hofmann](https://linuxhint.com/author/frank_hofmann/) 
+13. [Q&A: How to let `dpkg -i` install dependencies for me?](https://askubuntu.com/questions/40011/how-to-let-dpkg-i-install-dependencies-for-me) 
 
 <!--- 
 
