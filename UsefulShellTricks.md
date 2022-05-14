@@ -698,6 +698,11 @@ $ sudo grep -rlI '/etc' -e '^inform' | less -N
 /etc/dhcpcd.conf
 $
 ```
+Other times, the file you need to find is binary, or maybe you don't recall any of its contents, but you do recall part of the filename. In this situation, `find` may be the right tool.  Keep in mind that *recursion* is "free" when using `find`, but you can limit the depth of the recursion. See `man find` for the details; this may get you started: 
+
+```bash
+$ find /some/path -name '*part-of-a-filename*'
+```
 
 ### Find what you need in that huge `man` page:
 
