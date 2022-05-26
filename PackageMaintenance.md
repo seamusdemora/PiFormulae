@@ -34,6 +34,12 @@
 <td><b><code>sudo apt-get dist-upgrade</code></b></td>
 <td>upgrade all installed packages to the latest version from the sources enumerated in  <code>/etc/apt/sources.list</code>. It will add & remove packages if necessary, and attempts to deal "intelligently" with changed dependencies. Exceptions may be declared in <code>apt_preferences(5)</code>.</td>
 </tr>
+
+<tr>
+<td><b><code>sudo apt-get full-upgrade</code></b></td>
+<td>[same as `dist-upgrade`](https://askubuntu.com/a/1316448/831935)</td>
+</tr>
+
 <tr>
    <td><b><code>sudo apt-get clean</code></b></td>
 <td>removes the cruft from <code>/var/cache/apt/archives</code> left by previous upgrades</td>
@@ -74,8 +80,13 @@ Some advocate using `apt`, others advocate using `apt-get`. At present, I favor 
 
 <tr>
 <td width="30%"> <b><code>sudo apt-get install XXXX</code></b></td>
-<td width="70%">Install a package "XXXX"</td>
+<td width="70%">Install a package named "XXXX"</td>
 </tr>   
+
+<tr>
+<td width="30%"> <b><code>apt-cache search XXXX</code></b></td>
+<td width="70%">You always  need the exact name of package "XXXX" - this is one way to get it! If you're looking for a package, and recall only that its name contains the characters `priv`, then `apt-cache search priv` should list all matching packages in the repository.</td>
+</tr> 
 
 <tr>
 <td width="30%"> <b><code>sudo apt-get remove XXXX</code></b></td>
@@ -85,6 +96,11 @@ Some advocate using `apt`, others advocate using `apt-get`. At present, I favor 
 <tr>
 <td width="30%"> <b><code>sudo apt-get purge XXXX</code></b></td>
 <td width="70%">Remove a package "XXXX", deleting its configuration files from the system</td>
+</tr>
+
+<tr>
+<td width="30%"> <b><code>apt list --installed</code></b></td>
+<td width="70%">List packages installed on the system; also see <b><code>man dpkg</code></b> & <b><code>dpkg -l <i>package-name-pattern</i></code></b></td>
 </tr>
 
 <tr>
@@ -101,18 +117,6 @@ Some advocate using `apt`, others advocate using `apt-get`. At present, I favor 
 </table>
 </body>
 </html>
-
-## Frequently Useful Commands in `apt`
-
-`apt-cache search XXXX`  
-
-> list available packages whose names contain the word or characters `XXXX`. For example if you're looking for a package, and you recall that its name contains the characters `priv`, then `apt-cache search priv` should list all matching packages in the repository for RPi.
-
-Listing installed packages: 
-
-    sudo apt list --installed   
-    dpkg --get-selections 
-    dpkg -l  
 
 
 
@@ -137,6 +141,8 @@ Setting up some_pkg.deb...
 ```
 
 ### Version Upgrade
+
+***N.B:*** This is typically not a reliable method to upgrade Raspbian (though it often works well with, e.g., Ubuntu) 
 
 To do an in-place upgrade of the OS; e.g. from jessie to stretch:
 
@@ -163,9 +169,7 @@ NOTE: This recipe augments [one at the raspberrypi.org website on the same subje
 
 ## 
 
-
-
-## REFERENCES: 
+## REFERENCES:
 
 1. [Debian CLI for APT package management tools](https://wiki.debian.org/AptCLI) 
 2. [Uninstalling Packages With Apt Package Manager](https://www.linuxfordevices.com/tutorials/ubuntu/uninstalling-packages-with-apt) 
