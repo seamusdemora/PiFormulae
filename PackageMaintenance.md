@@ -113,6 +113,16 @@ Some advocate using `apt`, others advocate using `apt-get`. At present, I favor 
 <td width="70%">Remove packages that were automatically installed as dependencies and are no longer needed</td>
 </tr>
 
+<tr>
+<td> </td>
+<td> </td>
+</tr>
+
+<tr>
+<td> </td>
+<td> </td>
+</tr>
+
 </tbody>
 </table>
 </body>
@@ -165,7 +175,7 @@ Opinions vary on the details, but in general: (note: `sudo` needed for all comma
 7. `cat /etc/os-release` to verify the upgrade was successful 
 
 
-NOTE: This recipe augments [one at the raspberrypi.org website on the same subject](https://www.raspberrypi.org/documentation/raspbian/updating.md), and from [this source for linux tutorials](https://www.howtoforge.com/tutorial/how-to-upgrade-debian-8-jessie-to-9-stretch/)
+NOTE: This recipe augments [one at the raspberrypi.org website on the same subject- *but lost in the great documentation re-shuffle*](https://www.raspberrypi.org/documentation/raspbian/updating.md), and from [this source for linux tutorials](https://www.howtoforge.com/tutorial/how-to-upgrade-debian-8-jessie-to-9-stretch/).
 
 ## 
 
