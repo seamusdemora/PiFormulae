@@ -120,7 +120,7 @@ Some advocate using `apt`, others advocate using `apt-get`. At present, I favor 
 
 
 
-## Installing `.deb` packages 
+## Installing `.deb` packages
 
 When available, it's usually *best* to install packages using `apt` or `apt-get`. But on occasion, you may need to install a `.deb` package. Here's a summary of how to do that: 
 
@@ -140,7 +140,7 @@ Setting up some_pkg.deb...
 # refer to man apt-get for details
 ```
 
-### Version Upgrade
+## Version Upgrade
 
 ***N.B:*** This is typically not a reliable method to upgrade Raspbian (though it often works well with, e.g., Ubuntu) 
 
