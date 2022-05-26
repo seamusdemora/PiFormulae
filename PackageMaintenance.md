@@ -55,32 +55,6 @@
 
 
 
-
-### Version Upgrade
-
-To do an in-place upgrade of the OS; e.g. from jessie to stretch:
-
-Opinions vary on the details, but in general: (note: `sudo` needed for all commands, but omitted for brevity): 
-
-1. `sudo apt-get update`,	`... upgrade`,		 `... dist-upgrade`
-
-2. Verify no issues exist in previous updates or upgrades:
-   `dpkg --audit`
-   `dpkg --get-selections | grep hold`
-   
-3. BACKUP!!!
-
-4. change `jessie` to `stretch in `/etc/apt/sources.list` 
-
-5. `... update`, `... upgrade`, `... dist-upgrade` again (which may take a while!)
-
-6. `reboot`
-
-7. `cat /etc/os-release` to verify the upgrade was successful 
-
-
-NOTE: This recipe augments [one at the raspberrypi.org website on the same subject](https://www.raspberrypi.org/documentation/raspbian/updating.md), and from [this source for linux tutorials](https://www.howtoforge.com/tutorial/how-to-upgrade-debian-8-jessie-to-9-stretch/)
-
 ## Installing and Removing Packages using `apt` 
 
 Some advocate using `apt`, others advocate using `apt-get`. At present, I favor `apt-get` if only because I'm used to it. The diffs aren't worth much discussion, but you will need to decide. [Here's one explanation that might help](https://itsfoss.com/apt-vs-apt-get-difference/), and there are many others available for the [cost of a search.](https://duckduckgo.com/?q=apt+vs+apt-get&t=ffnt&ia=web) 
@@ -93,6 +67,10 @@ Some advocate using `apt`, others advocate using `apt-get`. At present, I favor 
 </tr>
 </thead>
 <tbody>
+<tr>
+<td width="30%"> <b><code>sudo apt-get update</code></b></td>
+<td width="70%">Pre-installation: get latest package info for all configured sources: ‘/etc/apt/sources.list’ &  ‘/etc/apt/sources.list.d’</td>
+</tr>
 
 <tr>
 <td width="30%"> <b><code>sudo apt-get install XXXX</code></b></td>
@@ -105,13 +83,18 @@ Some advocate using `apt`, others advocate using `apt-get`. At present, I favor 
 </tr>
 
 <tr>
-<td width="30%"> <b><code>sudo apt-get autoremove</code></b></td>
-<td width="70%">remove packages that were automatically installed as dependencies and are no longer needed</td>
+<td width="30%"> <b><code>sudo apt-get purge XXXX</code></b></td>
+<td width="70%">Remove a package "XXXX", deleting its configuration files from the system</td>
 </tr>
 
 <tr>
-<td width="30%"> <b><code>sudo apt-get purge XXXX</code></b></td>
-<td width="70%">Remove a package "XXXX", deleting its configuration files from the system</td>
+<td width="30%"> <b><code>sudo apt-get clean</code></b></td>
+<td width="70%">Clear the cache of the old and outdated packages</td>
+</tr>
+
+<tr>
+<td width="30%"> <b><code>sudo apt-get autoremove</code></b></td>
+<td width="70%">Remove packages that were automatically installed as dependencies and are no longer needed</td>
 </tr>
 
 </tbody>
@@ -153,23 +136,51 @@ Setting up some_pkg.deb...
 # refer to man apt-get for details
 ```
 
+### Version Upgrade
+
+To do an in-place upgrade of the OS; e.g. from jessie to stretch:
+
+Opinions vary on the details, but in general: (note: `sudo` needed for all commands, but omitted for brevity): 
+
+1. `sudo apt-get update`,	`... upgrade`,		 `... dist-upgrade`
+
+2. Verify no issues exist in previous updates or upgrades:
+   `dpkg --audit`
+   `dpkg --get-selections | grep hold`
+
+3. BACKUP!!!
+
+4. change `jessie` to `stretch in `/etc/apt/sources.list` 
+
+5. `... update`, `... upgrade`, `... dist-upgrade` again (which may take a while!)
+
+6. `reboot`
+
+7. `cat /etc/os-release` to verify the upgrade was successful 
+
+
+NOTE: This recipe augments [one at the raspberrypi.org website on the same subject](https://www.raspberrypi.org/documentation/raspbian/updating.md), and from [this source for linux tutorials](https://www.howtoforge.com/tutorial/how-to-upgrade-debian-8-jessie-to-9-stretch/)
+
+## 
+
 
 
 ## REFERENCES: 
 
 1. [Debian CLI for APT package management tools](https://wiki.debian.org/AptCLI) 
-2. [Q&A: clean, autoclean, and autoremove — combining them is a good step?](https://askubuntu.com/a/984800/831935) 
-3. [Why you need apt-get clean options?](https://linuxhint.com/why_apt_get_clean/) 
-4. [Debian / Ubuntu Linux Delete Old Kernel Images Command](https://www.cyberciti.biz/faq/debian-ubuntu-linux-delete-old-kernel-images-command/) 
-5. [A Guide to Yum and Apt](https://www.baeldung.com/linux/yum-and-apt) 
-6. [Chapter 4. Upgrades from Debian 9 (stretch)](https://www.debian.org/releases/buster/amd64/release-notes/ch-upgrading.en.html) 
-7. [How to upgrade Debian 9 to Debian 10 Buster using the CLI](https://www.cyberciti.biz/faq/update-upgrade-debian-9-to-debian-10-buster/) 
-8. [How to Configure sources.list on Debian 10](https://linoxide.com/linux-how-to/configure-sources-list-on-debian/) 
-9. [Ubuntu ‘apt-get’ list of commands (list, update, upgrade, cheatsheet)](https://alvinalexander.com/linux-unix/ubuntu-apt-get-cache-list-search-commands-cheat-sheet/) 
-10. [How to Install Development Tools on Debian 10/9/8](https://tecadmin.net/install-development-tools-on-debian/) 
-11. [10 Cool Linux Terminal Commands](https://helpdeskgeek.com/linux-tips/10-cool-linux-terminal-commands-you-have-to-try/) - a couple of these actually *do* look cool! 
-12. [Debian Package Dependencies](https://linuxhint.com/debian_package_dependencies/); another *useful* guide from [Frank Hofmann](https://linuxhint.com/author/frank_hofmann/) 
-13. [Q&A: How to let `dpkg -i` install dependencies for me?](https://askubuntu.com/questions/40011/how-to-let-dpkg-i-install-dependencies-for-me) 
+2. [Uninstalling Packages With Apt Package Manager](https://www.linuxfordevices.com/tutorials/ubuntu/uninstalling-packages-with-apt) 
+3. [Q&A: clean, autoclean, and autoremove — combining them is a good step?](https://askubuntu.com/a/984800/831935) 
+4. [Why you need apt-get clean options?](https://linuxhint.com/why_apt_get_clean/) 
+5. [Debian / Ubuntu Linux Delete Old Kernel Images Command](https://www.cyberciti.biz/faq/debian-ubuntu-linux-delete-old-kernel-images-command/) 
+6. [A Guide to Yum and Apt](https://www.baeldung.com/linux/yum-and-apt) 
+7. [Chapter 4. Upgrades from Debian 9 (stretch)](https://www.debian.org/releases/buster/amd64/release-notes/ch-upgrading.en.html) 
+8. [How to upgrade Debian 9 to Debian 10 Buster using the CLI](https://www.cyberciti.biz/faq/update-upgrade-debian-9-to-debian-10-buster/) 
+9. [How to Configure sources.list on Debian 10](https://linoxide.com/linux-how-to/configure-sources-list-on-debian/) 
+10. [Ubuntu ‘apt-get’ list of commands (list, update, upgrade, cheatsheet)](https://alvinalexander.com/linux-unix/ubuntu-apt-get-cache-list-search-commands-cheat-sheet/) 
+11. [How to Install Development Tools on Debian 10/9/8](https://tecadmin.net/install-development-tools-on-debian/) 
+12. [10 Cool Linux Terminal Commands](https://helpdeskgeek.com/linux-tips/10-cool-linux-terminal-commands-you-have-to-try/) - a couple of these actually *do* look cool! 
+13. [Debian Package Dependencies](https://linuxhint.com/debian_package_dependencies/); another *useful* guide from [Frank Hofmann](https://linuxhint.com/author/frank_hofmann/) 
+14. [Q&A: How to let `dpkg -i` install dependencies for me?](https://askubuntu.com/questions/40011/how-to-let-dpkg-i-install-dependencies-for-me) 
 
 <!--- 
 
