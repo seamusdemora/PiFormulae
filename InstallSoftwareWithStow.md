@@ -111,3 +111,6 @@ This recipe focuses on `stow` - IMHO the simplest of the three alternatives for 
 1. [How to install more recent versions of software than what Debian provides?](https://unix.stackexchange.com/questions/112157/how-can-i-install-more-recent-versions-of-software-than-what-debian-provides) Great Question & Answer!
 2. [How to use GNU Stow to manage programs installed from source and dotfiles](https://linuxconfig.org/how-to-use-gnu-stow-to-manage-programs-installed-from-source-and-dotfiles) 
 3. [Q&A: How can I install more recent versions of software than what Debian provides?](https://unix.stackexchange.com/questions/112157/how-can-i-install-more-recent-versions-of-software-than-what-debian-provides) 
+4. [How to use the Linux mtr command](https://vitux.com/how-to-use-the-linux-mtr-command/) 
+5. [Q&A: traceroute command: replacement or alternative](https://unix.stackexchange.com/questions/500796/traceroute-command-replacement-or-alternative) 
+6. [mtr GitHub site](https://github.com/traviscross/mtr#readme) 
