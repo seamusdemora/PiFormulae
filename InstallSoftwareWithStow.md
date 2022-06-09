@@ -13,6 +13,8 @@ I discovered that `mtr` on my `buster` system was at 0.92, and the latest was 0.
 This recipe focuses on `stow` - IMHO the simplest of the three alternatives for getting up-to-date packages for a minimum investment in time and effort. Like all things Unix/Linux, it only sounds difficult until you see how it's done. Here's what worked for me with a couple of tips to help avoid the traps: 
 
 > **TIP 1:** directory positioning is all-important; executing the correct command from the wrong location leads to tears (well. OK - not tears, but frustration). 
+>
+> **TIP 2:** if your older package was installed with `apt`, remove it before you go any further; e.g. `sudo apt purge mtr-tiny`
 
 1. Everything happens in `/usr/local`: the [directory where locally compiled applications](https://www.howtogeek.com/117435/htg-explains-the-linux-directory-structure-explained/) are installed by default — *to prevent them from mucking up the rest of the  system*. 
 2. Let's have a look at `/usr/local` in `buster` before we start *mucking about* :) 
