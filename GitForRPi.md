@@ -9,11 +9,19 @@
 
 > * you have a github account - in this example: `https://github.com/seamusdemora`. 
 > * you have installed the `git` package on your Raspberry Pi
+> * you now have a file: `~/.gitconfig`; you should review it; run this command (optional): 
+>
+>   ```bash
+>   $ git config --global init.defaultBranch main
+>   ```
+>
 > * you have your files (code, instructions, documentation, etc) stored on your *local* host under a single directory - in this example `~/PiPyMailer`. This is called your *repository*, or **repo**.
 > * you have a working familiarity with the (extensive) system manuals provided with `git`; `man git` will list the various *man pages* supporting `git`.
 > * you wish to maintain a copy of your local repo on a *remote* server; i.e. you are familiar with [the pros and cons of services](https://duckduckgo.com/?t=ffnt&q=advantages+of+github&ia=web) provided by GitHub and similar providers.
 
-Before we begin, know that the [*semantics*](https://en.wikipedia.org/wiki/Semantics) of `git` and GitHub can be confusing. You should be prepared to spend time to master the vocabulary; frustration and failure are the alternatives.  
+If these initial conditions differ from your situation, you [should read this](https://www.sitereq.com/post/3-ways-to-create-git-local-and-remote-repositories) and use the *workflow* that fits your situation.
+
+Before we begin, know that the [*semantics*](https://en.wikipedia.org/wiki/Semantics) of `git` and GitHub can be confusing. You should be prepared to spend time to master the vocabulary; frustration and failure are the alternatives. I've found this [*Atlassian Bitbucket* tutorial on `git`](https://www.atlassian.com/git/tutorials/learn-git-with-bitbucket-cloud) a useful resource. 
 
 ### II. Authenticate your RPi host
 
@@ -81,7 +89,7 @@ In the event of issues with this recipe, please refer to the [latest version of 
 
 ###### You might think, after reading [GitHub's documentation](https://docs.github.com/en/authentication/connecting-to-github-with-ssh), and [testing your SSH connection](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/testing-your-ssh-connection) that you've completed all the steps needed to - for example - submit updates from the authenticated RPi to the GitHub repo. But as soon as you try this, you will learn that you cannot do *shit*!! ... one more step is needed:
 
-##### 5. Each repo must declare itself as authorized for SSH authentication 
+##### 5. Each repo must declare itself as authorized for SSH authentication
 
 This is where you realize GitHub's documentation has *left you stranded*. It fails to explain there is more to their SSH authentication than simply generating keys & storing them on your GitHub site. The omission becomes apparent when an attempt is made to - for example - `push` a commit to the remote GitHub repo:
 
@@ -115,11 +123,34 @@ Everything up-to-date    # Because there were no changes in the local repo
 
 ### III. Copy/clone your local repo to the remote
 
+<!--- 
+
+HIDDEN
+
 In other words, upload your local files to a named repository at GitHub
 
 ```bash
 $ cd ~/PiPyMailer
 $ git remote add origin https://github.com/seamusdemora/PiPyMailer
+```
+
+--->
+
+#### 1. From `man git-init`, the 4-step process to create your local repo:
+
+>Start a new Git repository for an existing code base:  
+  $ cd /path/to/my/codebase  
+  $ git init      (1)  
+  $ git add .     (2)  
+  $ git commit    (3)  
+  1. Create a /path/to/my/codebase/.git directory.  
+  2. Add all existing files to the index.  
+  3. Record the pristine state as the first commit in the history.  
+
+#### 2. At this point you have a *local* repo ready for upload to GitHub: 
+
+```bash
+$ git remote add origin https://github.com/seamusdemora/dhcpcd5
 ```
 
 
