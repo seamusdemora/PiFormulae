@@ -122,4 +122,65 @@ FWIW, it seems a rather unusual *realtionship* between `dhcpcd`, Debian and Rasp
 
 It's a strange feeling that comes over you: I've "followed" Roy Marples for a few years now - since I began using his `dhcpcd` software on Raspberry Pi. While browsing his [GitHub site](https://github.com/NetworkConfiguration/dhcpcd) earlier today for the latest news, I clicked an [obscure link](https://roy.marples.name/archives/dhcpcd-discuss/) at the bottom of the page, and learned he's diagnosed with terminal cancer.  
 
+
+
+### The GitHub Factor
+
+For reasons that are unclear to me, `dhcpcd` - as distributed by the Raspberry Pi Organization - is available as source code only through their package repository. This works well enough - as you may have seen in the recipe listed above. Debian's packaging system has a well-earned reputation for reliability and consistency. However, in this case for `dhcpcd`, the Raspberry Pi Organization does not publish the source package on their GitHub site, nor do they have a formal system in place for users to submit change requests (aka pull requests, commit requests, etc). 
+
+All of that said, the `dhcpcd` repo here aspires to improve that situation.
+
+For the record, following are all the steps used in creating this GitHub repo for the "Raspberry Pi" version of Roy Marples' `dhcpcd` (aka `dhcpcd5`). All steps were performed on a RPi 3B+/bullseye : 
+
+1. Download the source package for `dhcpcd5` (see above for details):
+
+   ```bash
+   $ apt-get source dhcpcd5
+   ```
+
+2. Prepare the source package for GitHub:
+
+   ```bash
+   $ cd dhcpcd5-8.1.2
+   $ fakeroot debian/rules clean 
+   # ...
+   $ quilt pop -a
+   # ...
+   No patches applied
+   # this *removes* all of the patches that were applied during apt-get
+   # these patches remain in the package folder at ~/dhcpcd5-8.1.2, and 
+   # will be re-applied to the code during the build process 
+   
+   ```
+
+3. Set up the local `git` repository: 
+
+   ```bash
+   $ git init
+   Initialized empty Git repository in /home/pi/dhcpcd5-8.1.2/.git/ 
+   $ git config --global user.email "seamus@myemail.com"
+   $ git config --global user.name "Seamus" 
+   $ git add . 
+   $ git commit -m "initial commit"
+   On branch rpi3b
+   nothing to commit, working tree clean
+   ```
+
+4. Set up the remote `git` repository at GitHub: 
+
+   - Log into your GitHub account via a web browser on your laptop/whatever. 
+   - Click the `+` symbol in the URHC of your GitHub Home to **create a new repository**  
+   - When prompted for a repo name, enter `dhcpcd5`
+   - GitHub will present the 'Quick setup' page 
+   - Follow instructions: **'push an existing repository from the command line'**  
+
+5. Return to the RPi command line to `push` ***local ==> remote***: 
+
+   ```bash
+   ```
+
+    
+
+   
+
 -->
