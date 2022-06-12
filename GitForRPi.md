@@ -2,7 +2,9 @@
 
 ## Use `git` on Raspberry Pi with GitHub
 
-##### Here are some ideas and procedures for using `git` on a RPi to interface with GitHub repositories. We use the [`PiPyMailer` repo](https://github.com/seamusdemora/PiPyMailer) as an example. PiPyMailer is run only on a Raspberry Pi, and so it makes sense to source it there.
+##### Here are some ideas and procedures for using `git` on a RPi to interface with GitHub repositories. We use the [`PiPyMailer` repo](https://github.com/seamusdemora/PiPyMailer) as an example. PiPyMailer is run only on a Raspberry Pi, and so it makes sense to source it there. 
+
+##### Please note that this recipe is in a very messy state as of this commit!! My apologies for that. I am working toward a comprehensive revision in the hope that GitHub's interface and authentication mechanisms have stabilized. Most of the information is in here, but it's not organized as it should be to serve as a guide for the unitiated. Oh - there is one significant correction I need to make re the accuracy of the information currently in this *recipe*; RE ***"`gh`, the GitHub Command Line Interface"***: My opinion is: Don't waste your time with this. Unlike the GitHub Desktop, the GH CLI does not support a push from your RPi to GitHub. Yeah - would not have believed anyone thought this made sense, but [GitHub claims this is "by design"](https://github.com/cli/cli/discussions/3093#discussioncomment-2655776)! 
 
 ### I. Initial Conditions:
 
