@@ -7,6 +7,7 @@
 * [Reload `bash` or `zsh` `.profile` without restarting shell:](#refresh-shell-configuration-without-restarting)
 * [Clear the contents of a file without deleting the file:](#clear-the-contents-of-a-file-without-deleting-the-file) 
 * [List all directories - not files, just directories:](#list-all-directories---not-files-just-directories) 
+* [Pitfalls of parsing `ls`](#pitfalls-of-parsing-ls) 
 * [Sequential shell command execution:](#sequential-shell-command-execution)
 * [Get a date-time stamp for a log:](#get-a-date-time-stamp-for-a-log)
 * [String manipulation with bash:](#string-manipulation-with-bash)
@@ -207,6 +208,18 @@ $ find . -type d   # list all dirs in pwd (.)
 ```
 
 > > Note In this context the *'dot'* `.` means the `pwd` - not the [dot operator](https://ss64.com/bash/source.html) as in the [above example](#reload-bashs-profile-without-restarting-shell). 
+
+### Pitfalls of parsing `ls`
+
+In some cases, you can *get away with* parsing and/or filtering the output of `ls`, and in other cases you cannot. I've spent an inordinate amount of time trying to filter the output of `ls` to get only hidden files - or only hidden directories. `ls` seems very *squishy* and unreliable in some instances when trying to get a specific, filtered list... and I am not alone in my thinking here [ref Wooledge](http://mywiki.wooledge.org/ParsingLs). 
+
+I try to keep discussion on the topics here *brief*, but I don't always succeed. In a sincere effort to avoid verbosity here, I'll close with a few *bulleted* bits of guidance: 
+
+* `find` is more reliable than `ls` for tailored lists of files & folders; learn to use it - esp. in scripting. 
+* Much has been written on using `bash` PATTERNs, and enabling various *extensions* through `shopt` to filter/parse `ls` output. I've not found that reliably effective, but I've not put much time & effort into it.
+* `ls` has a *long form* (the `-l` option); the default being the *short form*. I generally favor the long form (***me*** - a *data junkie*?). To illustrate my *squishy* claim w.r.t. listing *only* hidden files, I've found these work: 
+  * For the *short form*:  `ls -A | grep '^\.'`; Note the *caret* `^` operator; used to get the line beginning?
+  * For the *long form*:  `ls -Al | grep " \."` ;   Note the *space* in the pattern; no idea **why** this works! 
 
 ### Sequential shell command execution:
 
@@ -934,9 +947,10 @@ It's occasionally useful to create a program/script that runs continuously, perf
 8. [Use `findmnt` to check if a filesystem is mounted](https://unix.stackexchange.com/a/444553/286615); `findmnt` [explained further in this Q&A](https://stackoverflow.com/a/46025626/5395338).
 9. [Q&A: How to create a link to a directory](https://stackoverflow.com/a/9587490/5395338) - I think he got it right! 
 10. [How To Read And Work On Gzip Compressed Log Files In Linux](https://itsfoss.com/read-compressed-log-files-linux/) 
-10. [Using anchor ^ pattern when using less / search command](https://unix.stackexchange.com/questions/684165/using-anchor-pattern-when-using-less-search-command); find what you need in that huge `man` page 
-10. [Regular-Expressions.info: the premier regex website](https://www.regular-expressions.info/index.html) - really useful & detailed 
-10. [Q&A: What key does `M` refer to in `nano`?](https://stackoverflow.com/a/26285867/5395338) 
+11. [Using anchor ^ pattern when using less / search command](https://unix.stackexchange.com/questions/684165/using-anchor-pattern-when-using-less-search-command); find what you need in that huge `man` page 
+12. [Regular-Expressions.info: the premier regex website](https://www.regular-expressions.info/index.html) - really useful & detailed 
+13. [Q&A: What key does `M` refer to in `nano`?](https://stackoverflow.com/a/26285867/5395338) 
+14. [Why you shouldn't parse the output of ls(1)](http://mywiki.wooledge.org/ParsingLs) 
 
 
 
