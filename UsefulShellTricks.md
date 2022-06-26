@@ -211,15 +211,16 @@ $ find . -type d   # list all dirs in pwd (.)
 
 ### Pitfalls of parsing `ls`
 
-In some cases, you can *get away with* parsing and/or filtering the output of `ls`, and in other cases you cannot. I've spent an inordinate amount of time trying to filter the output of `ls` to get only hidden files - or only hidden directories. `ls` seems very *squishy* and unreliable in some instances when trying to get a specific, filtered list... and I am not alone in my thinking here [ref Wooledge](http://mywiki.wooledge.org/ParsingLs). 
+In some cases, you can *get away with* parsing and/or filtering the output of `ls`, and in other cases you cannot. I've spent an inordinate amount of time trying to filter the output of `ls` to get only hidden files - or only hidden directories. `ls` seems very *squishy* and unreliable in some instances when trying to get a specific, filtered list... [ref Wooledge](http://mywiki.wooledge.org/ParsingLs). 
 
-I try to keep discussion on the topics here *brief*, but I don't always succeed. In a sincere effort to avoid verbosity here, I'll close with a few *bulleted* bits of guidance: 
+I try to keep discussion on the topics here *brief*, but don't always succeed. In a sincere effort to avoid verbosity here, I'll close with a few *bulleted* bits of guidance: 
 
 * `find` is more reliable than `ls` for tailored lists of files & folders; learn to use it - esp. in scripting. 
-* Much has been written on using `bash` PATTERNs, and enabling various *extensions* through `shopt` to filter/parse `ls` output. I've not found that reliably effective, but I've not put much time & effort into it.
+* Much has been written ([e.g.](https://unix.stackexchange.com/questions/44754/listing-with-ls-and-regular-expression)) on using `bash` PATTERNs, and enabling various *extensions* through `shopt` to filter/parse `ls` output. AIUI, the "PATTERNs" are not *regular expressions*, but an [extended type of *file globbing*](https://www.linuxjournal.com/content/pattern-matching-bash). I've not found that reliably effective, but I've not put much time & effort into it. 
 * `ls` has a *long form* (the `-l` option); the default being the *short form*. I generally favor the long form (***me*** - a *data junkie*?). To illustrate my *squishy* claim w.r.t. listing *only* hidden files, I've found these work: 
   * For the *short form*:  `ls -A | grep '^\.'`; Note the *caret* `^` operator; used to get the line beginning?
-  * For the *long form*:  `ls -Al | grep " \."` ;   Note the *space* in the pattern; no idea **why** this works! 
+  * For the *short form*:  `ls -d1 -- \.*`; An example of *"glob patterns"* 
+  * For the *long form*:  `ls -Al | grep " \."` ;   Note the *space* in the pattern; alternative: `\s` 
 
 ### Sequential shell command execution:
 
@@ -950,7 +951,8 @@ It's occasionally useful to create a program/script that runs continuously, perf
 11. [Using anchor ^ pattern when using less / search command](https://unix.stackexchange.com/questions/684165/using-anchor-pattern-when-using-less-search-command); find what you need in that huge `man` page 
 12. [Regular-Expressions.info: the premier regex website](https://www.regular-expressions.info/index.html) - really useful & detailed 
 13. [Q&A: What key does `M` refer to in `nano`?](https://stackoverflow.com/a/26285867/5395338) 
-14. [Why you shouldn't parse the output of ls(1)](http://mywiki.wooledge.org/ParsingLs) 
+14. [Wooledge on "Why you shouldn't parse the output of ls(1)"](http://mywiki.wooledge.org/ParsingLs) 
+15. [Listing with `ls` and regular expression](https://unix.stackexchange.com/questions/44754/listing-with-ls-and-regular-expression) - related to the *Wooledge* reference above.
 
 
 
