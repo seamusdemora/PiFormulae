@@ -94,7 +94,9 @@ All of the **noise** in the output - the `Cannot handle...` warnings are [appare
 
 
 
+### strange things re group `sudo` 
 
+Sometimes it seems there are *other factors* at work. [This Q&A is an example](https://raspberrypi.stackexchange.com/a/138020/83790) of that; the OP seemed to have removed his user from group `sudo` properly, yet his user continued to have access to `sudo`?!  There are some unanswered questions, but as my hero said once, [*"new shit has come to light"*](https://www.youtube.com/watch?v=gbIv7W7rhx4). Specifically in the form of using commands `vigr` & `vigr -s` to edit the `/etc/group` and `/etc/gshadow` files, and`gpasswd` and other possibilities covered in [this U&L SE Q&A](https://unix.stackexchange.com/questions/29570/how-do-i-remove-a-user-from-a-group).
 
 
 
