@@ -106,4 +106,8 @@ Sometimes it seems there are *other factors* at work. [This Q&A is an example](h
 
 1. [The Debian Wiki: SystemGroups](https://wiki.debian.org/SystemGroups) 
 2. [How to Delete a User on Linux (and Remove Every Trace)](https://www.howtogeek.com/656549/how-to-delete-a-user-on-linux-and-remove-every-trace/) - a How-To-Geek article 
-3. [Q&A: Strange output when deleting user](https://askubuntu.com/questions/627646/strange-output-when-deleting-user) - indicates a harmless but annoying bug is responsible
+3. [Q&A: Strange output when deleting user](https://askubuntu.com/questions/627646/strange-output-when-deleting-user) - indicates a harmless but annoying bug is responsible 
+4. [How do I remove a user from a group?](https://unix.stackexchange.com/questions/29570/how-do-i-remove-a-user-from-a-group) - some alternatives
+5. [Remove sudo privileges from a user (without deleting the user)](https://askubuntu.com/questions/335987/remove-sudo-privileges-from-a-user-without-deleting-the-user) - seems the accepted answer is wrong??
+6. [Sudo user not in sudo group?](https://askubuntu.com/questions/828789/sudo-user-not-in-sudo-group) - is this related to the *mystery*?
+7. [Sudo still works despite removing my user from group](https://raspberrypi.stackexchange.com/questions/138013/sudo-still-works-despite-removing-my-user-from-group) - THE mystery!
