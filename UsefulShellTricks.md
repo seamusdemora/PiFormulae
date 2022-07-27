@@ -845,30 +845,31 @@ It's occasionally useful to create a program/script that runs continuously, perf
 ### Scripting with `bash`  
 
 1. [Advanced Bash-Scripting Guide](https://tldp.org/LDP/abs/html/index.html) - useful, but a bit out-of-date; 10 Mar 2014 when last checked
-1. [Q&A: In a Bash script, how can I exit the entire script if a certain condition occurs?](https://stackoverflow.com/questions/1378274/in-a-bash-script-how-can-i-exit-the-entire-script-if-a-certain-condition-occurs)   
-2. [Command Line Arguments in Bash](https://tecadmin.net/tutorial/bash-scripting/bash-command-arguments/) - a good, brief overview. 
-3. [*How to Create & Use `bash` Scripts* - a very good tutorial by Tania Rascia](https://www.taniarascia.com/how-to-create-and-use-bash-scripts/)  
-4. Passing arguments to bash:
+2. [Q&A: In a Bash script, how can I exit the entire script if a certain condition occurs?](https://stackoverflow.com/questions/1378274/in-a-bash-script-how-can-i-exit-the-entire-script-if-a-certain-condition-occurs)   
+3. [Command Line Arguments in Bash](https://tecadmin.net/tutorial/bash-scripting/bash-command-arguments/) - a good, brief overview. 
+4. [*How to Create & Use `bash` Scripts* - a very good tutorial by Tania Rascia](https://www.taniarascia.com/how-to-create-and-use-bash-scripts/)  
+5. Passing arguments to bash:
    - [*How to Pass Arguments to a Bash Script*](https://www.lifewire.com/pass-arguments-to-bash-script-2200571) - an article on Lifewire.com. 
    - [*Parsing bash script options with `getopts`*](https://sookocheff.com/post/bash/parsing-bash-script-arguments-with-shopts/) - a short article by Kevin Sookocheff. 
    - [A small `getopts` tutorial](https://wiki.bash-hackers.org/howto/getopts_tutorial) (p/o the bash hackers wiki) 
    - [Q&A on StackOverflow: ](https://stackoverflow.com/questions/7069682/how-to-get-arguments-with-flags-in-bash) (How to get arguments with flags in `bash`)
-5. [Q&A re use of the `shebang` line](https://unix.stackexchange.com/questions/517370/shebang-or-not-shebang)  
-6. [Bash Infinite Loop Examples](https://www.cyberciti.biz/faq/bash-infinite-loop/) - infinite loops
-6. [Bash Scripting – the `while` loop](https://www.geeksforgeeks.org/bash-scripting-while-loop/) - infinite loops
-6. [How to loop forever in bash](https://www.networkworld.com/article/3562576/how-to-loop-forever-in-bash-on-linux.html) - infinite loops
-6. [Create A Infinite Loop in Shell Script](https://tecadmin.net/create-a-infinite-loop-in-shell-script/) - infinite loops
-6. [Infinite while loop](https://bash.cyberciti.biz/guide/Infinite_while_loop) - infinite loops
-6. [Q&A: Terminating an infinite loop](https://unix.stackexchange.com/questions/42287/terminating-an-infinite-loop) - infinite loops
-7. [Functions in bash scripting](https://ryanstutorials.net/bash-scripting-tutorial/bash-functions.php) from Ryan's Tutorials - a good and thorough overview w/ examples. 
-8. [Q&A: Shell scripting: -z and -n options with if](https://unix.stackexchange.com/questions/109625/shell-scripting-z-and-n-options-with-if)  - recognizing *null strings* 
-9. [Q&A re executing multiple shell commands in one line](https://stackoverflow.com/questions/13077241/execute-combine-multiple-linux-commands-in-one-line); sometimes you don't need a *script* **!** 
-10. [*"Filename expansion"*; a.k.a. ***"globbing"***](https://tldp.org/LDP/abs/html/globbingref.html); what is it, and why should I care?  
-11. [A GitHub repo of globbing](https://github.com/begin/globbing); odd choice for a repo methinks, but contains some useful info. 
-12. [Globbing and Regex: So Similar, So Different](https://www.linuxjournal.com/content/globbing-and-regex-so-similar-so-different); some of the *fine points* discussed here. 
-12. [Writing to files using `bash`.](https://linuxize.com/post/bash-write-to-file/) Covers redirection and use of `tee` 
-12. Using *formatted* text in your outputs with `printf`: [REF 1](https://www.computerhope.com/unix/uprintf.htm), [REF 2](https://linuxhandbook.com/bash-printf/) - beats `echo` every time! 
-12. [sh - the POSIX Shell ](https://www.grymoire.com/Unix/Sh.html#toc_Sh_-_the_POSIX_Shell_); from Bruce Barnett, aka Grymoire
+6. [Q&A re use of the `shebang` line](https://unix.stackexchange.com/questions/517370/shebang-or-not-shebang)  
+7. [Bash Infinite Loop Examples](https://www.cyberciti.biz/faq/bash-infinite-loop/) - infinite loops
+8. [Bash Scripting – the `while` loop](https://www.geeksforgeeks.org/bash-scripting-while-loop/) - infinite loops
+9. [How to loop forever in bash](https://www.networkworld.com/article/3562576/how-to-loop-forever-in-bash-on-linux.html) - infinite loops
+10. [Create A Infinite Loop in Shell Script](https://tecadmin.net/create-a-infinite-loop-in-shell-script/) - infinite loops
+11. [Infinite while loop](https://bash.cyberciti.biz/guide/Infinite_while_loop) - infinite loops
+12. [Q&A: Terminating an infinite loop](https://unix.stackexchange.com/questions/42287/terminating-an-infinite-loop) - infinite loops
+13. [Functions in bash scripting](https://ryanstutorials.net/bash-scripting-tutorial/bash-functions.php) from Ryan's Tutorials - a good and thorough overview w/ examples. 
+14. [Q&A: Shell scripting: -z and -n options with if](https://unix.stackexchange.com/questions/109625/shell-scripting-z-and-n-options-with-if)  - recognizing *null strings* 
+15. [Q&A re executing multiple shell commands in one line](https://stackoverflow.com/questions/13077241/execute-combine-multiple-linux-commands-in-one-line); sometimes you don't need a *script* **!** 
+16. [*"Filename expansion"*; a.k.a. ***"globbing"***](https://tldp.org/LDP/abs/html/globbingref.html); what is it, and why should I care?  
+17. [A GitHub repo of globbing](https://github.com/begin/globbing); odd choice for a repo methinks, but contains some useful info. 
+18. [Globbing and Regex: So Similar, So Different](https://www.linuxjournal.com/content/globbing-and-regex-so-similar-so-different); some of the *fine points* discussed here. 
+19. [Writing to files using `bash`.](https://linuxize.com/post/bash-write-to-file/) Covers redirection and use of `tee` 
+20. Using *formatted* text in your outputs with `printf`: [REF 1](https://www.computerhope.com/unix/uprintf.htm), [REF 2](https://linuxhandbook.com/bash-printf/) - beats `echo` every time! 
+21. [sh - the POSIX Shell ](https://www.grymoire.com/Unix/Sh.html#toc_Sh_-_the_POSIX_Shell_); from Bruce Barnett, aka Grymoire 
+22. [How to Safely Exit from Bash Scripts](https://www.baeldung.com/linux/safely-exit-scripts); executing v. sourcing a script & role of exit v. return (Baeldung)
 
 ### Working with strings in `bash` 
 
