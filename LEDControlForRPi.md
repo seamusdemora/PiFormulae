@@ -60,7 +60,7 @@ There are several things worth noting here:
 
 And so we may now have enough information to determine how these `dtparam` settings influence the operation of the GREEN/`act` & RED/`pwr` LEDs on the RPi board. Using a RPi 4B as the test platform, the following values of `_trigger` and `_activelow` were evaluated. Experiment with these if you wish; a reboot is required after each change to `/boot/config.txt`. 
 
-  
+NOTE: The following parameters & values were all tested & verified prior to the Aug 08 2022 firmware release. Unfortunately, this release *turned things upside down* for some models of Raspberry Pi with respect to control of the Red Power LED ([ref the Aug 21 bug report](https://github.com/raspberrypi/firmware/issues/1742)). Unless and until the Raspberry Pi organization settles on a stable configuration, there seems to be little point in updating it - the alternative that still seems to work consistently is the [`sysfs`  interface](#led-control-with-sysfs).
 
   * ```bash
     dtparam=act_led_trigger=none
@@ -169,6 +169,7 @@ Some examples follow:
 
 1. [Raspberry Pi 4: exchange power LED with activity LED](https://raspberrypi.stackexchange.com/questions/136606/raspberry-pi-4-exchange-power-led-with-activity-led) & this [answer](https://raspberrypi.stackexchange.com/a/136611/83790) 
 1. [`/boot/overlays/README` file; GitHub upstream version](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README) 
+1. [Bug Report: dtparam settings for power led no longer function since upgrade](https://github.com/raspberrypi/firmware/issues/1742); filed 2022/08/21
 
 
 
