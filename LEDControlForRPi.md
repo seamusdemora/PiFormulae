@@ -170,6 +170,7 @@ Some examples follow:
 1. [Raspberry Pi 4: exchange power LED with activity LED](https://raspberrypi.stackexchange.com/questions/136606/raspberry-pi-4-exchange-power-led-with-activity-led) & this [answer](https://raspberrypi.stackexchange.com/a/136611/83790) 
 1. [`/boot/overlays/README` file; GitHub upstream version](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README) 
 1. [Bug Report: dtparam settings for power led no longer function since upgrade](https://github.com/raspberrypi/firmware/issues/1742); filed 2022/08/21
+1. [Pull Request: ARM: dts: Set the LED default-state to "off" #5335](https://github.com/raspberrypi/linux/pull/5335?notification_referrer_id=NT_kwDOAOOJQ7M1NDEzNTUzNjUxOjE0OTExODEx&notifications_query=is%3Aunread) 
 
 
 
