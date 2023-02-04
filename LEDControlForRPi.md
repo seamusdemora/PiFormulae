@@ -174,7 +174,7 @@ Some examples follow:
 
 
 
-##  DEVICE TREE README DOCUMENTATION DISCREPANCIES
+##  DEVICE TREE README DOCUMENTATION DISCREPANCIES (LOG STYLE, i.e. entries will not be deleted/updated)
 
 I consider the file `/boot/overlays/README` (also available [online at GitHub](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README)) the *"Official Documentation"* for changes to the RPi *device tree*. The document is well worth reading by all RPi users, as it serves as a guide to which *overlays* and *parameters* should be declared and defined in `/boot/config.txt`. During the boot process, the device tree - as modified by `dtparam`s & `dtoverlay`s - informs the kernel which hardware is available for use & how to use it. It is helpful when reading this document to keep in mind that `dtparam` changes are applied to the "base" device tree - or device tree blob (.dtb), whereas `dtoverlay` changes are additions to the tree. 
 
