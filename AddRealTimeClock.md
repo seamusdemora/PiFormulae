@@ -199,7 +199,7 @@ The example here is a simple schedule for powering the RPi: The RPi will alterna
     /sbin/halt
     
 
-After making these changes, issue a `reboot` to update the changes to `/boot/config.txt`, and begin the process of power-cycling the RPi.
+After making these changes, issue a `reboot` to update the changes to `/boot/config.txt`, and your RPi should begin power-cycling itself at 10 minute intervals.
 
 ---
 
