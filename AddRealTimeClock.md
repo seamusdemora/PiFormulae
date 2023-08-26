@@ -79,7 +79,7 @@ This is fairly detailed - I wrote this as I did it. I've included some steps tha
       $ sudo reboot
       ```
 
-    There are several other parameters that may be specified; see [the README documentation](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README) for details. One of the key parameters of this overlay when the RTC is being used as a *wake-up source* is the `wakeup-source` parameter. 
+    There are several other parameters that may be specified; see [the README documentation](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README) for details. We shall see below that a key parameter for using the RTC to control power to the RPi is `wakeup-source`; these details will show one way to use the RTC to apply power to the RPi, causing it to boot from an OFF state. For now, we'll continue the steps required to configure the RTC for general timekeeping. 
 
 10. Verify the driver is now in control of the RTC: `0x68` is replaced by `UU`: 
 
@@ -145,13 +145,23 @@ System clock synchronized: yes
           RTC in local TZ: no
       ```
 
-17. That concludes the basic configuration of the realtime clock. It will work silently for the most part. If you wish to verify this, disconnect the RPi from the network, or disable the RPi's timekeeping daemon. 
+17. That concludes the basic configuration of the realtime clock. It will work silently for the most part. If you wish to verify this, disconnect the RPi from the network, or disable the RPi's timekeeping daemon.
 
 18. ***OPTIONAL:*** Move your RTC from **I2C channel 1** to **I2C channel 0** - [here's how](https://github.com/seamusdemora/PiFormulae/blob/master/MoveRTCfromI2C1-to-I2C0.md) 
 
 
 
-### Communicate & Control the RTC From the RPi 
+### RTC for Power Control 
+
+As mentioned previously (in Step 9 above), one of the key parameters of the `i2c-rtc` overlay when the RTC is being used as a *wake-up source* is the `wakeup-source` parameter. Adding the `wakeup-source` parameter has the effect of adding a file to `sysfs`: `/sys/class/rtc/rtc0/wakealarm`. This file specifies the time at which the RTC's `ALARM` (at pin `SQW/#INT`) is triggered; this pin may be used to drive an external hardware switch which will apply power to the RPi. 
+
+This process may be best illustrated by an example. But before getting into the configuration and software steps, let's first take a look at a hardware schematic for accomplishing this: 
+
+
+
+The salient feature of this schematic is the `SQW/#INT` pin on the RTC. In this schematic, we use software to trigger an "INTERRUPT" on this pin - actually a HIGH-to-LOW state change that causes power to be connected to the RPi via the K1 relay. The one-shot and transistor Q1 are simply used for *signal conditioning*
+
+### Communicate & Control the RTC From the RPi
 
 The first choice to make here is whether to control the RTC directly, or delegate that to the [driver](https://github.com/raspberrypi/linux/blob/rpi-6.1.y/drivers/rtc/rtc-ds1307.c). There isn't much of a hardware interface to the RTC; e.g. an alarm interrupt cannot be cleared in hardware; that requires a write to the Alarm Flag in register 0x0F to clear the Alarm & return the INT/SQW pin to its "pulled-up" state. 
 
