@@ -6,19 +6,17 @@
 
 My *motivation* for adding a RTC boils down to this: I wanted to use my RPi in an off-grid application powered by a small solar cell and a battery. After working up a power budget, I realized there was ***no way*** to accomplish this without a RTC. The RPi uses too much power - [even in *low-power mode*](https://github.com/seamusdemora/PiFormulae/blob/master/RPi4bSleep.md) - to make it a practical component in a battery-powered system. 
 
-You might be wondering - *"What does a RTC have to do with the RPi's power consumption?"* That's a good question - and there's a good answer: To *minimize* the RPi's *energy consumption* (power consumption over time) requires that it be powered off whenever it's not needed. If you've owned a RPi for more than 5 minutes, you're aware that there is no power switch; you may also be aware that the RPi has no in-built RTC. The only way to remove power from the RPi is to disconnect the USB cable from the RPi's connector - fairly inconvenient for an off-grid application. And so - the "system" must maintain some cognizance of its energy burden on the solar cell & battery.
+You might be wondering: *"What does a RTC have to do with the RPi's power consumption?"* That's a good question - and there's a good answer: To *minimize* the RPi's *energy consumption* (power consumption over time) requires that it be powered off whenever it's not needed. If you've owned a RPi for more than 5 minutes, you're aware that there is no power switch; you may also be aware that the RPi has no in-built RTC. The only way to remove power from the RPi is to disconnect the USB cable from the RPi's connector - fairly inconvenient for an off-grid application. We can insert a switch (relay) in the power line to remove power from the RPI, but once the switch removes power... how do we restore power so that useful work may be resumed? This is the RTC function: to restore power to the RPi after some time has passed.  
 
-And so perhaps using a RPi in an off-grid system is like [driving square pegs into round holes](https://en.wikipedia.org/wiki/Square_peg_in_a_round_hole) - a Rube Goldberg invention? Think about that for a minute while enjoying [this clip](). 
+So the RTC alone does not by itself enable off-grid operation. The "system" must maintain cognizance of its energy burden on the sources (e.g. solar cell & battery), and power the system so as to manage the sources. By keeping *accurate* time the RTC can maintain a schedule for powering the RPi that ensures it draws zero power when it is not needed, and full power when it is. Other sensors in the system may be employed to monitor (for example) battery voltage, thereby enabling the system to override the RTC schedule when necessary. Note that this recipe deals only with the selection and integration of an appropriate RTC. 
 
-*Sorry - the html iframe doesn't work here... I'll look into this soon - in the meantime, the link above will take you off-site to see the video if you're interested.*
 
-<iframe src="https://commons.wikimedia.org/wiki/File:Something_for_nothing_(1940).ogv?embedplayer=yes" width="384" height="384" frameborder="0" ></iframe>
-
-### Step 1: Select a RTC and Integrate It With the RPi
+### Select a RTC
 
 After a brief market survey, I selected a [DS3231 real time clock (RTC)](https://www.ebay.com/itm/DS3231-Real-Time-Clock-RTC-Module-for-Raspberry-Pi-Arduino-3-3V-5V-Battery/383739121217). At this point I really knew next-to-nothing, but the [DS3231](https://www.maximintegrated.com/en/products/analog/real-time-clocks/DS3231.html) seemed to be in wide use, it seemed to have greater flexibility than many of the alternatives and I could buy one on [eBay for about $3](https://www.ebay.com/itm/383925085990).  I learned later that my eBay RTC was made with a counterfeit DS3231 - a *word to the wise*. 
 
-***On to the integration***: This is fairly detailed - I wrote this as I did it. I've included some steps that are peripheral, and some that may seem trivial. If you know what you're doing, feel free to skim through.
+### RTC Integration  
+This is fairly detailed - I wrote this as I did it. I've included some steps that are peripheral, and some that may seem trivial. If you know what you're doing, feel free to skim through.
 
 1. Power down your RPi before making the necessary wiring connections to the RTC. 
 
@@ -26,9 +24,9 @@ After a brief market survey, I selected a [DS3231 real time clock (RTC)](https:/
    * Connect Vcc and GND on the Breakout to [+5v power and Ground on the RPi](https://pinout.xyz/#), respectively. 
    * Connect SDA and SCL on the RTC Breakout to GPIO2 & GPIO3 (a.k.a. physical pins 3 & 5; a.k.a. `i2c1`), respectively. 
    
-3. Boot the RPi, and run **`sudo raspi-config`**. In the `raspi-config`  interface, select **`3 Interface Options`**, then  select **`P5 I2C`** and turn it on. This enables the I2C support in the Linux kernel. *Alternatively*, and more easily than using `raspi-config`, edit `/boot/config.txt`, and remove the comment from the following line: `dtparam=i2c_arm=on`.  
+3. Apply/connect power to boot the RPi, and then run **`sudo raspi-config`** from the terminal. In the `raspi-config`  interface, select **`3 Interface Options`**, then  select **`P5 I2C`** and turn it on. This enables the I2C support in the Linux kernel. ***Alternatively***, and more easily than using `raspi-config`, edit `/boot/config.txt`, and remove the comment from the following line: `dtparam=i2c_arm=on`.  
 
-4. Reboot the RPi
+4. Reboot the RPi from the terminal (`sudo reboot`).
 
 5.  Use `apt` to `update` and `upgrade` the RPi in preparation for installing the new software:
 
@@ -48,7 +46,7 @@ After a brief market survey, I selected a [DS3231 real time clock (RTC)](https:/
       $ 
       ```
 
-7. *The `i2c-tools` package is not clearly documented!* There is no system manual for `i2c-tools`. Its component software modules do have `man pages`, but these components are not listed or defined! This is a rare, but quite useful [document that explains some of the things that can be done with the `i2c-tools` collection](https://www.waveshare.com/wiki/Raspberry_Pi_Tutorial_Series:_I2C). 
+7. *The `i2c-tools` package is not well documented!* There is no system manual for `i2c-tools`. Its component software modules do have `man pages`, but these components are not listed or defined! This is a rare, but quite useful [document that explains some of the things that can be done with the `i2c-tools` collection](https://www.waveshare.com/wiki/Raspberry_Pi_Tutorial_Series:_I2C). 
 
    | Command     | Description                         |
    | ----------- | --------------------------------------------------- |
@@ -81,6 +79,8 @@ After a brief market survey, I selected a [DS3231 real time clock (RTC)](https:/
       $ sudo reboot
       ```
 
+    There are several other parameters that may be specified; see [the README documentation](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README) for details. One of the key parameters of this overlay when the RTC is being used as a *wake-up source* is the `wakeup-source` parameter. 
+
 10. Verify the driver is now in control of the RTC: `0x68` is replaced by `UU`: 
 
       ```bash
@@ -110,7 +110,7 @@ After a brief market survey, I selected a [DS3231 real time clock (RTC)](https:/
     $ sudo systemctl mask fake-hwclock.service
     ```
 
-13. Edit & comment out the following 3 lines in `/lib/udev/hwclock-set `
+13. Edit & comment out the following 3 lines in `/lib/udev/hwclock-set ` (***N.B. This is no longer required for more current systems***)
 
       ```
       #if [ -e /run/systemd/system ] ; then
@@ -118,13 +118,12 @@ After a brief market survey, I selected a [DS3231 real time clock (RTC)](https:/
       #fi
       ```
 
-14. With access to a reliable & accurate clock, check the time on your RPi: 
+14. With access to a reliable & accurate clock, check the time on your RPi from the terminal: 
 
       ```bash
-      $ date               # check the RPi system time
-      
-      $ sudo hwclock -r    # check the RTC time
+      $ date && sudo hwclock -r
       ```
+      The two times should be very "close".
 
 15. If your RPi has network connectivity, the `hwclock` time may have already been adjusted by the time you check it. If not, you may manually update the hwclock as follows: 
 
@@ -136,6 +135,14 @@ After a brief market survey, I selected a [DS3231 real time clock (RTC)](https:/
 
       ```bash
       $ timedatectl
+      # you may see something similar to the following:
+               Local time: Fri 2023-08-25 22:21:59 UTC
+           Universal time: Fri 2023-08-25 22:21:59 UTC
+                 RTC time: Fri 2023-08-25 22:22:00
+                Time zone: Etc/UTC (UTC, +0000)
+System clock synchronized: yes
+              NTP service: active
+          RTC in local TZ: no
       ```
 
 17. That concludes the basic configuration of the realtime clock. It will work silently for the most part. If you wish to verify this, disconnect the RPi from the network, or disable the RPi's timekeeping daemon. 
@@ -144,9 +151,9 @@ After a brief market survey, I selected a [DS3231 real time clock (RTC)](https:/
 
 
 
-### Step 2: Communicate & Control the RTC From the RPi 
+### Communicate & Control the RTC From the RPi 
 
-The first choice to make here is whether to control the RTC directly, or delegate that to the [driver](https://github.com/raspberrypi/linux/blob/rpi-5.10.y/drivers/rtc/rtc-ds1307.c). There isn't much of a hardware interface to the RTC; e.g. an alarm interrupt cannot be cleared in hardware; that requires a write to the Alarm Flag in register 0x0F to clear the Alarm & return the INT/SQW pin to its "pulled-up" state. 
+The first choice to make here is whether to control the RTC directly, or delegate that to the [driver](https://github.com/raspberrypi/linux/blob/rpi-6.1.y/drivers/rtc/rtc-ds1307.c). There isn't much of a hardware interface to the RTC; e.g. an alarm interrupt cannot be cleared in hardware; that requires a write to the Alarm Flag in register 0x0F to clear the Alarm & return the INT/SQW pin to its "pulled-up" state. 
 
 Electing to use the RTC driver in favor of direct control isn't an *irrevocable* choice. Exceptions that arise - i.e. performing a function the driver does not support - may be handed off to a direct control function or app after releasing the driver using `modprobe`. 
 
