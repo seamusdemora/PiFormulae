@@ -154,7 +154,7 @@ Setting up some_pkg.deb...
 
 ## Version Upgrade
 
-***N.B:*** This is typically not a reliable method to upgrade Raspbian (though it often works well with, e.g., Ubuntu) 
+***N.B:*** This is typically not a reliable method to upgrade Raspbian (though it often works well with some distributions) 
 
 To do an in-place upgrade of the OS; e.g. from jessie to stretch:
 
