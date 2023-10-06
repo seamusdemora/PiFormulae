@@ -37,7 +37,9 @@
 
 <tr>
 <td><b><code>sudo apt-get full-upgrade</code></b></td>
-<td>[same as `dist-upgrade`](https://askubuntu.com/a/1316448/831935)</td>
+<td><a href=https://askubuntu.com/a/1316448/831935>same as `dist-upgrade`</a>
+   
+</td>
 </tr>
 
 <tr>
@@ -46,7 +48,7 @@
 </tr>
 <tr>
    <td><b><code>sudo reboot</code></b></td>
-<td>when in doubt, or if "weird" things happen! [REFERENCE](https://www.raspberrypi.org/forums/viewtopic.php?t=184850)</td>
+<td>when in doubt, or if "weird" things happen! <a href=https://www.raspberrypi.org/forums/viewtopic.php?t=184850>REFERENCE</a></td>
 </tr> 
 <tr>
 <td> </td>
