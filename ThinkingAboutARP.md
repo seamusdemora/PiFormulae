@@ -27,4 +27,4 @@ So it's all good... good in the sense of a learning opportunity. Along the way, 
 
 #### Random Dark Thoughts
 Random notes that show where my head is: 
-1. [Is The Raspberry Pi Foundation a 'proper' charity if it spends 73% of its revenue on "Other", and 27% on "Charitable activities?"](http://beta.charitycommission.gov.uk/charity-details/?subid=0&regid=1129409).  Sounds more like a way to enrich the faculty members who now occupy board seats on the Raspberry Pi Foundation!
+1. [Is The Raspberry Pi Foundation a 'proper' charity if it spends 73% of its revenue on "Other", and 27% on "Charitable activities?"](http://beta.charitycommission.gov.uk/charity-details/?subid=0&regid=1129409).  Sounds more like a way to enrich the faculty members who now occupy board seats on the Raspberry Pi Foundation! 
