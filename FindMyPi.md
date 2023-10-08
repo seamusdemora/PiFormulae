@@ -2,7 +2,7 @@
 
 This is a frequently-asked question by newcomers - at least those newcomers who are operating in "headless mode". You've bought a Raspberry Pi, burned a Raspbian image to its microSD card, and applied power. That's great, but you would like to connect to the Raspberry Pi at some point! 
 
-You're missing one important piece of information: What's the IP address of my new RPi? 
+You may be missing one important piece of information: What's the IP address of my new RPi? 
 
 ```bash
 ssh pi@?????????  # WHAT'S THE IP ADDRESS?
