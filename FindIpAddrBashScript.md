@@ -10,13 +10,16 @@ $ ip -4 -o addr show eth0 | awk '{print $4}'
 192.168.1.166/24  
 ```
 
-As a script: 
-```  bash
-$ INTFC=eth0  
-$ MYIPV4=$(ip -4 -o addr show $INTFC | awk '{print $4}') 
-$ echo $MYIPV4
+Or, as a script: 
+```bash
+#! /usr/bin/bash
+INTFC=wlan0
+MYIPV4=$(ip -4 -o addr show $INTFC | awk '{print $4}')
+echo $MYIPV4
+```
+Which will give the following output when run:
+```
 192.168.1.166/24
-
 ```
 The output produced above is in [CIDR notation.](https://whatismyipaddress.com/cidr) If CIDR notation isn't wanted, it can be stripped: 
 ```  bash
@@ -31,27 +34,28 @@ $ ip route get 8.8.8.8 | awk '{ print $NF; exit }'
 192.168.1.166
 ```
 
-As a script: 
-```  bash
-$ RHOST=8.8.8.8  
-$ MYIP=$(ip route get $RHOST | awk '{ print $NF; exit }')
-$ echo $MYIP
-192.168.1.166
+Or, as a script: 
+``` bash
+#! /usr/bin/bash
+RHOST=8.8.8.8  
+MYIP=$(ip route get $RHOST | awk '{ print $NF; exit }')
+echo $MYIP
 ```
 This works perfectly well on a host with a single interface, but more advantageously will also work on hosts with multiple interfaces and/or route specifications.  
 
 `ip` would be my preferred approach, but it's certainly not the only way to skin this cat - nor the simplest. Here's another approach that uses `hostname` if you prefer something easier/more concise: 
 
-```  bash
+``` bash
+#! /usr/bin/bash
 # simplest for single interface system:
-$ hostname -I
-192.168.1.2
+hostname -I
 # for multiple interface systems:
-$ hostname --all-ip-addresses | awk '{print $1}'  
+hostname --all-ip-addresses | awk '{print $1}'  
 ```
 
 Or, if you want the IPv6 address: 
 ```  bash
-$ hostname --all-ip-addresses | awk '{print $2}'  
+#! /usr/bin/bash
+hostname --all-ip-addresses | awk '{print $2}'  
 ```
 

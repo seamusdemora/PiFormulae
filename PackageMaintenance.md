@@ -48,7 +48,9 @@ But I said I wouldn't belabor my opinion, and so I'll stop doing so now.
 
 <tr>
 <td><b><code>sudo apt-get full-upgrade</code></b></td>
-<td>[same as `dist-upgrade`](https://askubuntu.com/a/1316448/831935)</td>
+<td><a href=https://askubuntu.com/a/1316448/831935>same as `dist-upgrade`</a>
+   
+</td>
 </tr>
 
 <tr>
@@ -57,7 +59,7 @@ But I said I wouldn't belabor my opinion, and so I'll stop doing so now.
 </tr>
 <tr>
    <td><b><code>sudo reboot</code></b></td>
-<td>when in doubt, or if "weird" things happen! [REFERENCE](https://www.raspberrypi.org/forums/viewtopic.php?t=184850)</td>
+<td>when in doubt, or if "weird" things happen! <a href=https://www.raspberrypi.org/forums/viewtopic.php?t=184850>REFERENCE</a></td>
 </tr> 
 <tr>
 <td> </td>
@@ -163,7 +165,7 @@ Setting up some_pkg.deb...
 
 ## Version Upgrade
 
-***N.B:*** This is typically not a reliable method to upgrade Raspbian (though it often works well with, e.g., Ubuntu) 
+***N.B:*** This is typically not a reliable method to upgrade Raspbian (though it often works well with some distributions) 
 
 To do an in-place upgrade of the OS; e.g. from jessie to stretch:
 

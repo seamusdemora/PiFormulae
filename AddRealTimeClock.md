@@ -135,21 +135,21 @@ This is fairly detailed - I wrote this as I did it. I've included some steps tha
 
 16. Check the status of the RTC: 
 
-      ```bash
-      $ timedatectl
-      # you may see something similar to the following:
-               Local time: Fri 2023-08-25 22:21:59 UTC
-           Universal time: Fri 2023-08-25 22:21:59 UTC
-                 RTC time: Fri 2023-08-25 22:22:00
-                Time zone: Etc/UTC (UTC, +0000)
-System clock synchronized: yes
-              NTP service: active
-          RTC in local TZ: no
-      ```
+   ```
+   $ timedatectl
+   # you may see something similar to the following:
+             Local time: Fri 2023-08-25 22:21:59 UTC
+         Universal time: Fri 2023-08-25 22:21:59 UTC
+               RTC time: Fri 2023-08-25 22:22:00
+              Time zone: Etc/UTC (UTC, +0000) 
+System clock synchronized: yes 
+            NTP service: active 
+        RTC in local TZ: no
+   ```
+      
+18. That concludes the basic configuration of the realtime clock. It will work silently for the most part. If you wish to verify this, disconnect the RPi from the network, or disable the RPi's timekeeping daemon.
 
-17. That concludes the basic configuration of the realtime clock. It will work silently for the most part. If you wish to verify this, disconnect the RPi from the network, or disable the RPi's timekeeping daemon.
-
-18. ***OPTIONAL:*** Move your RTC from **I2C channel 1** to **I2C channel 0** - [here's how](https://github.com/seamusdemora/PiFormulae/blob/master/MoveRTCfromI2C1-to-I2C0.md). The following section on RTC usage for Power Control assumes that **I2C0** is being used, but it may be altered to use **I2C1** instead. 
+19. ***OPTIONAL:*** Move your RTC from **I2C channel 1** to **I2C channel 0** - [here's how](https://github.com/seamusdemora/PiFormulae/blob/master/MoveRTCfromI2C1-to-I2C0.md). The following section on RTC usage for Power Control assumes that **I2C0** is being used, but if you prefer/need to use **I2C1** you may alter the next step instead. 
 
 
 ## RTC for Power Control 
@@ -199,7 +199,7 @@ The example here is a simple schedule for powering the RPi: The RPi will alterna
     /sbin/halt
     
 
-After making these changes, issue a `reboot` to update the changes to `/boot/config.txt`, and begin the process of power-cycling the RPi.
+After making these changes, issue a `reboot` to update the changes to `/boot/config.txt`, and your RPi should begin power-cycling itself at 10 minute intervals.
 
 ---
 

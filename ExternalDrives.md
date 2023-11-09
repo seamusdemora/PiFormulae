@@ -34,10 +34,12 @@ Rather than simply listing the steps in rote fashion, this recipe includes some 
 ### But all of these instructions! Why is this so complicated? On my Mac, I plug the drive in, and it just works. I can read from it, and write to it immediately! 
 That's a good question. Unfortunately, the answer may not be straightforward, and will not satisfy all parties. The answer comes down to ["cultural differences"](http://www.analytictech.com/mb021/cultural.htm) between the ["Unix way"](http://wiki.c2.com/?UnixWay), and the ["Mac way"](https://developer.apple.com/macos/human-interface-guidelines/overview/themes/) of getting things done on a computer. The process for mounting a drive in [Unix/Linux/\*nix](https://en.wikipedia.org/wiki/Unix-like) systems is a [cultural artifact](https://en.wikipedia.org/wiki/Cultural_artifact), and it highlights the differences between two different philosophies for interacting with the user of the system. As a cultural practice, perhaps there is not one __right way__ to do something, and the __best way__ depends on your cultural orientation. For example, I recently learned that [as a dinner guest in France, bringing a bottle of wine may be considered offensive](https://theculturetrip.com/europe/france/articles/10-customs-only-the-french-can-understand/). Who knew?
 
-If that doesn't satisfy you, try this: It's self-evident that the drive-mounting process for many __\*nix__ systems (including Raspbian) is more complicated, and therefore time- & labor-intensive than it is for a Mac (or PC). Compared against the simpler mounting process for a Mac, we are hard-pressed to identify any real, compelling advantage that would induce a rational, unbiased person of average intelligence or better to use the more complicated process when given the choice. It comes down to this: If things are "better" in some way as a result of taking a more challenging path to our objective, the rational person may be inclined to take on that extra effort. But if there are no gains or advantages to "pay for" that extra investment of time and effort then one might question that approach. However, [cultural sensitivity](https://redshoemovement.com/what-is-cultural-sensitivity/) demands awareness and a non-judgmental attitude. Be aware that there are people from the \*nix culture who [feel quite strongly that their way is the correct way](https://unix.stackexchange.com/questions/178077/why-do-we-need-to-mount-on-linux?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa), and will argue their point vehemently. That said, a more user-centric approach seems to be gaining some traction in the \*nix culture; there are now Linux "desktop systems" that mount external drives when plugged into the system - same as with the Mac. But many, including Raspbian Lite, still require a "manual" mount process. Yet none of this changes one simple fact: If you want to experiment with and use a Raspberry Pi, you'll need to adapt to this "Unix culture". And here's a carrot: learning is good, and it will clearly improve your skills in your Mac (maybe even PC) environment.
+If that doesn't satisfy you, try this: It's self-evident that the drive-mounting process for many __\*nix__ systems (including Raspbian) is more complicated, and therefore time- & labor-intensive than it is for a Mac (or PC). Compared against the simpler mounting process for a Mac, we are hard-pressed to identify any real, compelling advantage that would induce a rational, unbiased person of average intelligence or better to use the more complicated process when given the choice. It comes down to this: If things are "better" in some way as a result of taking a more challenging path to our objective, the rational person may be inclined to take on that extra effort. But if there are no gains or advantages to "pay for" that extra investment of time and effort then one might question that approach. However, [cultural sensitivity](https://redshoemovement.com/what-is-cultural-sensitivity/) demands awareness and a non-judgmental attitude. Be aware that there are people from the \*nix culture who [feel quite strongly that their way is the correct way](https://unix.stackexchange.com/questions/178077/why-do-we-need-to-mount-on-linux?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa), and will argue their point vehemently. That said, a more user-centric approach seems to be gaining some traction in the \*nix culture; there are now Linux "desktop systems" that mount external drives when plugged into the system - same as with the Mac. But many, including Raspbian Lite, still require a "manual" mount process. 
+
+Yet none of this changes one simple fact: If you want to experiment with and use a Raspberry Pi, you'll need to adapt to this "Unix culture". And here's a carrot: learning is good, and it will clearly improve your skills in your Mac (maybe even PC) environment.
 
 ### Getting to the job at hand (finally)
-Since I deploy my RPi's in headless mode, and I'm a Mac user, the approach on this page reflects my choices. Another decision I've made is to use the [`exFAT`, or `exfat`](https://en.wikipedia.org/wiki/ExFAT) file system on external drives connected to the RPi. I've chosen `exFAT` for the simple reasons that: a) it's supported by Linux, MacOS and Windows, and b) it doesn't have the limits on file size that `FAT` & `FAT32` do ([`exFAT` details](https://events.static.linuxfound.org/images/stories/pdf/lceu11_munegowda_s.pdf)). If you want to use another file system, [@wjglenn](https://twitter.com/wjglenn) has written a [good article on the "How-To Geek" website reviewing the tradeoffs between the most widely-used file systems](https://www.howtogeek.com/73178/what-file-system-should-i-use-for-my-usb-drive/). He recommends, with sound rationale, using `FAT32`. You're free to choose whatever suits you of course, but there may be minor differences from what's documented here. In any case, if you're on board with all of this, let's get into the details: 
+Since I deploy my RPi's in headless mode, and I'm a Mac user, the approach on this page reflects my choices. Another decision I've made is to use the [`exFAT`, or `exfat`](https://en.wikipedia.org/wiki/ExFAT) file system on external drives connected to the RPi. I've chosen `exFAT` for the simple reasons that: a) it's supported by Linux, MacOS and Windows, and b) it doesn't have the limits on file size that `FAT` & `FAT32` do (see [`exFAT` details](https://events.static.linuxfound.org/images/stories/pdf/lceu11_munegowda_s.pdf)). If you want to use another file system, [@wjglenn](https://twitter.com/wjglenn) has written a [good article on the "How-To Geek" website reviewing the tradeoffs between the most widely-used file systems](https://www.howtogeek.com/73178/what-file-system-should-i-use-for-my-usb-drive/). He recommends, with sound rationale, using `FAT32`. You're free to choose whatever suits you of course, but there may be minor differences from what's documented here. In any case, if you're on board with all of this, let's get into the details: 
 
 ## 1. Determine what drives are currently connected to the RPi
 
@@ -169,7 +171,7 @@ That done, let's consider our usage question above. Many will elect the 'routine
     pi@raspberrypi3b:~ $ sudo mount /dev/sda1 /home/pi/mntThumbDrv
     mount: unknown filesystem type 'exfat'
 
-Uh-oh... wtfo? We've encountered an `unknown filesystem` error. Looks like Raspbian 'stretch' is telling us there's no support for the `exfat` file system. It seems we must take a detour on the \*nix information superhighway :)  But surely there's support for `exfat` in a modern system like this one. Let's search the `apt` repository to check: 
+Uh-oh... wtfo? We've encountered an `unknown filesystem` error. Looks like Raspbian 'stretch' is telling us there's no support for the `exfat` file system. It seems we must take a detour on the \*nix information superhighway!  But surely there's support for `exfat` in a modern system like this one? Let's search the `apt` repository to check: 
 
     pi@raspberrypi3b:~ $ apt-cache search exfat
     exfat-fuse - read and write exFAT driver for FUSE
@@ -194,7 +196,7 @@ Let's try the `mount` again:
     FUSE exfat 1.2.5
     fuse: device not found, try 'modprobe fuse' first
 
-Still no joy! [Googling the error yields this bad news](https://www.raspberrypi.org/forums/viewtopic.php?t=201452). Which sucks pretty bad, but you see how this goes - you're getting the full cultural experience of working with a \*nix system in this blog post :) At least we can be thankful if our need to mount this external drive is not urgent! What if lives depended on this? After some head scratching, sifting through the output from the `apt-get upgrade`, it seems a kernel revision was part of the `upgrade`. That issue was fixed with a `sudo reboot`, but it was not at all obvious (to someone not steeped in the culture) that this was needed! In retrospect, perhaps the smart move move here would have been use `FAT32` iaw [@wjglenn's recommendation](https://twitter.com/wjglenn). I'll research this further, and update this recipe based on the findings. For now, let's continue: 
+Still no joy! [Googling the error yields this bad news](https://www.raspberrypi.org/forums/viewtopic.php?t=201452). Which sucks pretty bad, but you see how this goes - you're getting the full cultural experience of working with a \*nix system in this blog post :) At least we can be thankful if our need to mount this external drive is not urgent! What if lives depended on this? After some head scratching, sifting through the output from the `apt-get upgrade`, it seems a kernel revision was part of the `upgrade`. That issue was fixed with a `sudo reboot`, but it was not at all obvious (to someone not steeped in the culture) that this was needed! In retrospect, perhaps the smart move move here would have been use `FAT32` iaw [@wjglenn's recommendation](https://twitter.com/wjglenn), but let us digress no further: 
 
     pi@raspberrypi3b:~ $ sudo reboot
     ... (system reboots & user pi login)
@@ -218,12 +220,12 @@ We've written to, and read from, the `mount`ed drive, so it seems we've got it! 
 
 ## 4. Create an entry in `/etc/fstab` to automount the USB drive
 
-We're nearly ready to modify the `/etc/fstab` file. In perusing `man fstab`, some of the [documentation](https://help.ubuntu.com/community/Fstab) available online and [advice](https://www.raspberrypi.org/forums/viewtopic.php?t=205016) on `fstab` that's published, we soon recognize there are some decisions to be made - options to be selected. There are six (6) fields in a `fstab` entry. Let's do them in order: 
+We're nearly ready to modify the `/etc/fstab` file. In perusing `man fstab`, some of the [documentation](https://help.ubuntu.com/community/Fstab) available online and [advice](https://www.raspberrypi.org/forums/viewtopic.php?t=205016) on `fstab` that's published, we soon recognize there are some decisions to be made - options to be selected. And speaking of documentation, perhaps the most important is the *system manuals*; `man fstab` in this case. From `man fstab` we learn there are six (6) fields in a `fstab` entry: 
 
 1. `fs_spec`  This is the most critical field. The oft-used specifications here are device node (e.g. `/dev/sda1`), `LABEL` and `UUID`. There are several other specs, but these 3 are sufficient for now. [Some advocate](https://www.raspberrypi.org/forums/viewtopic.php?t=205016) using the `UUID` spec and point out that it is more unique and therefore safer than the device node. But we're going to use the `LABEL` specification, and here's why: __We can set it; we have control over the value of `LABEL`, whereas we have no control over the so-called `UUID`.__ In fact, for all types of `FAT` partitions, they do not have a true `UUID`. The identifier shown as `UUID` by `lsblk --fs` isn't actually a `UUID` at all! This is indeed a very murky back alley. Understand though that while we've been drawn into this back alley because of the \*nix culture, this [arcanery](https://www.rd.com/culture/words-that-arent-words/) isn't unique to \*nix systems. Apple's Mac OS designers also had to deal with this complexity to make our lives easier. 
-2. `fs_file`  This is mount point we used earlier; in our case: `/home/pi/mntThumbDrv`
-3. `fs_vfstype`  This is the file system type of the drive (or partition) to be `mount`ed: `exfat` 
-4. `fs_mntops`  A comma-separated list of options. We'll use: `rw,user,nofail` (no spaces) which will tell the OS that the drive is read & write, users may mount the drive, and no error will be flagged if the device is not present at boot time (and stop the boot process!).
+2. `fs_file`  This is the mount point we selected previously on our local filesystem; i.e. `/home/pi/mntThumbDrv`
+3. `fs_vfstype`  This is the file system type of the drive (or partition) to be `mount`ed; it will typically reflect how the _to-be-mounted_ partition was formatted -  `exfat` in this case.
+4. `fs_mntops`  A comma-separated list of options. We'll use: `rw,user,nofail` (no spaces) which will tell the OS that the drive is read & write, users may mount the drive, and no error will be flagged if the device is not present at boot time (which would stop the boot process!).
 5. `fs_freq`  A flag that determines if the file system will be `dump`ed; `0` for our case
 6. `fs_passno`  A flag that determines if the file system will be checked by `fsck`, and the order it's to be checked; `0` for our case
 
@@ -231,7 +233,7 @@ After working our way through all the fields, our `fstab` entry looks like this:
 
     LABEL=SANDISK16GB /home/pi/mntThumbDrv exfat rw,user,nofail 0 0 
 
-Use the `nano` editor to add this `fstab` entry:
+Use your preferred editor (e.g. `nano`) to add this `fstab` entry:
 
     pi@raspberrypi3b:~ $ sudo nano /etc/fstab
     (STEP1: save the existing `fstab` file as `/etc/fstab.bak`)
@@ -244,7 +246,7 @@ Use the `nano` editor to add this `fstab` entry:
         LABEL=SANDISK16GB /home/pi/mntThumbDrv exfat rw,user,nofail 0 0
     (STEP3: save the modified file as `/etc/fstab`)
 
-Test the new `/etc/fstab` file using `mount -av` (mount with all & verbose options) : 
+Test the new `/etc/fstab` file using `mount -av` command (`mount` with `all` & `verbose` options) : 
 
     pi@raspberrypi3b:~ $ sudo mount -av
     /proc                    : already mounted
@@ -253,7 +255,7 @@ Test the new `/etc/fstab` file using `mount -av` (mount with all & verbose optio
     FUSE exfat 1.2.5
     /home/pi/mntThumbDrv     : successfully mounted
 
-We verify that the thumb drive was mounted as we see our chosen mount point listed for the `sda1` partition: `/home/pi/mntThumbDrv`. You may read and write to this drive now.   
+Use the `lsblk` command to verify that the thumb drive was mounted. As shown below, we see our chosen mount point listed for the `sda1` partition: `/home/pi/mntThumbDrv`. You may now read and write to this drive!   
 
     pi@raspberrypi3b:~ $ lsblk --fs
     NAME        FSTYPE LABEL       UUID                                 MOUNTPOINT
@@ -263,7 +265,7 @@ We verify that the thumb drive was mounted as we see our chosen mount point list
     ├─mmcblk0p1 vfat   boot        5DB0-971B                            /boot
     └─mmcblk0p2 ext4   rootfs      060b57a8-62bd-4d48-a471-0d28466d1fbb /
 
-Out of an abundance of caution, we'll test the new `fstab` file in an effort to ward off any unpleasant surprises. As a minimum, we should check to see that we don't get a boot-stopping error if the drive is not inserted in the RPi. We can do this easily using `mount` as before. But! Before we remove the USB drive, it must be "un-mounted" using `umount` (no 'n' after the 'u'!):
+Out of an abundance of caution, we'll test the new `fstab` file in an effort to ward off any unpleasant surprises. As a minimum, we should check to see that we don't get a boot-stopping error if the drive is not inserted in the RPi. We can do this easily using `mount` as before. But! Before we remove the USB drive, it must be "un-mounted" using `umount` (no 'n' after the first 'u'!):
 
     pi@raspberrypi3b:~ $ sudo umount ~/mntThumbDrv
     (assuming no error is returned, it is safe now to remove the thumb drive)
@@ -273,12 +275,14 @@ Out of an abundance of caution, we'll test the new `fstab` file in an effort to 
     mmcblk0                                                        
     ├─mmcblk0p1 vfat   boot   5DB0-971B                            /boot
     └─mmcblk0p2 ext4   rootfs 060b57a8-62bd-4d48-a471-0d28466d1fbb /
-    (issue the mount command)
+    pi@raspberrypi3b:~ $ sudo reboot
+    # ...
+    # after reboot, issue the mount command with the thumb drive still removed
     pi@raspberrypi3b:~ $ sudo mount -av
     /proc                    : already mounted
     /boot                    : already mounted
     /                        : ignored 
-    (SUCCESS! no mount error with USB thumb drive removed from RPi)
+    # SUCCESS! no mount error with USB thumb drive removed from RPi
 
 We have now seen that the `nofail` option in the `fstab` entry we crafted has done its job. We have one final test to wrap things up: re-insert the USB thumb drive into one of the RPi's USB ports, and then: 
 
@@ -290,9 +294,11 @@ We have now seen that the `nofail` option in the `fstab` entry we crafted has do
     ├─mmcblk0p1 vfat   boot        5DB0-971B                            /boot
     └─mmcblk0p2 ext4   rootfs      060b57a8-62bd-4d48-a471-0d28466d1fbb /
 
-We have now seen that when we re-insert this USB thumb drive into our RPi, it will be "automatically" mounted. This new behavior will persist until we remove the `fstab` entry we created from `/etc/fstab`, or we change the `LABEL` on the USB drive. That's it, we've completed the procedure and mounted a USB flash drive on a RPi. Congratulations!  
+We have now seen that when we re-insert this USB thumb drive into our RPi, it will be "automatically" mounted. This new behavior will persist until we remove the `fstab` entry we created from `/etc/fstab`, or we change the `LABEL` on the USB drive. 
+
+And that's it - we've completed the procedure, and mounted a USB flash drive on a RPi. Congratulations!  
 
 If you wish to share files on this external drive with your Mac, [follow this recipe to mount this same external drive from your Mac.](FileShare.md)
 
-FINAL NOTE: If you see an error in this "recipe", or you've got an idea to improve it, please fork this repository to your GitHub account, and once it's in your account, submit a "Pull Request" for the corrections or improvements you'd like to see. [Tom Hombergs has created a very good tutorial on how to do this](https://reflectoring.io/github-fork-and-pull/)
+FINALLY: If you see an error in this "recipe", or you've got an idea to improve it, please fork this repository to your GitHub account, and once it's in your account, submit a "Pull Request" for the corrections or improvements you'd like to see. [Tom Hombergs has created a very good tutorial on how to do this](https://reflectoring.io/github-fork-and-pull/).
 

@@ -1,28 +1,38 @@
 ## What's the IP address of my Raspberry Pi?
 
-This is a frequently-asked question by newcomers - at least those newcomers who are operating in "headless mode". You've bought a Raspberry Pi, burned a Raspbian image to its microSD card, and applied power. That's great, but you would like to connect to the Raspberry Pi at some point! 
+This used to be a frequently-asked question by newcomers - at least those who were operating in "headless mode". They had bought a Raspberry Pi, burned a Raspbian image to its microSD card, and applied power. So far so good, but they would like to connect to the Raspberry Pi at some point! 
 
-You're missing one important piece of information: What's the IP address of my new RPi? 
+However initiating an **SSH** connection also required one missing piece of information: What's the IP address of my new RPi? 
 
 ```bash
 ssh pi@?????????  # WHAT'S THE IP ADDRESS?
 ```
 
- I've [attempted to explain what's responsible for this issue](https://github.com/seamusdemora/PiFormulae/blob/master/ThinkingAboutARP.md) in this rumination piece on `arp`, aka the [Address Resolution Protocol](https://en.wikipedia.org/wiki/Address_Resolution_Protocol). And I'll offer a potentially unpopular opinion here: The [RPi organization](https://www.raspberrypi.org/about/) should fix this; at least mitigate the issue. Perhaps the solution would involve the `boot` folder, since it's a FAT partition, and easily readable and writeable by all OS? I'll quit whining now, and get to the business at hand. 
+I [attempted to explain what's responsible for this issue](https://github.com/seamusdemora/PiFormulae/blob/master/ThinkingAboutARP.md) in this rumination piece on `arp`, aka the [Address Resolution Protocol](https://en.wikipedia.org/wiki/Address_Resolution_Protocol). And I offered a potentially unpopular opinion there: The [RPi organization](https://www.raspberrypi.org/about/) should fix this; at least mitigate the issue. Perhaps the solution would involve the `boot` folder, since it's a FAT partition, and easily readable and writeable by all OS?  
 
-### Maybe you shouldn't care about the IP address! 
+### But perhaps you shouldn't care about the IP address? 
 
-For some of you, this is a "[nonproblem](https://www.collinsdictionary.com/dictionary/english/nonproblem)" because you have some flavor of [zero configuration networking](https://en.wikipedia.org/wiki/Zero-configuration_networking) operating on the host you're connecting from. This will be true for many Mac (macos) users as you'll have [Bonjour](https://en.wikipedia.org/wiki/Bonjour_(software)) "out of the box", and Linux users with [Avahi](https://en.wikipedia.org/wiki/Avahi_(software)) if it's installed. Even some Windows users may benefit from **zeroconf** if they've [installed Bonjour](https://support.apple.com/downloads/Bonjour_for_Windows), or perhaps iTunes. But then [some Windows users don't want it](https://apple.stackexchange.com/questions/45765/do-i-really-need-bonjour-on-windows). But perhaps the simplest way to learn if you're a beneficiary of **zeroconf** is simply to try this command:  
+Since the introduction of [mDNS or zeroconf networking](https://en.wikipedia.org/wiki/Zero-configuration_networking) and [`avahi`](https://en.wikipedia.org/wiki/Avahi_(software)) in RPi, this has _mostly_ become a "[_non-problem_](https://www.collinsdictionary.com/dictionary/english/nonproblem)" - at least if they're using macOS or Linux hosts to initiate the **SSH** connection to the RPi. Many macOS users will have [Bonjour](https://en.wikipedia.org/wiki/Bonjour_(software)) "out of the box", and Linux users will also have `avahi` - if it's installed. Even some Windows users may benefit from **zeroconf** if they've [installed Bonjour](https://support.apple.com/downloads/Bonjour_for_Windows), or perhaps iTunes. But then [some Windows users don't want it](https://apple.stackexchange.com/questions/45765/do-i-really-need-bonjour-on-windows). Perhaps the simplest way to learn if you're a beneficiary of **zeroconf** is simply to try this command:  
 
 ```bash
 ssh pi@raspberrypi.local
 ```
 
-This often works because `pi` is the default user, and `raspberrypi` is the default hostname. The use of the `.local` suffix chosen by Bonjour and Avahi has been a [bit chaotic, in part because of Microsoft's inconsistent and conflicting support advice to their user base](https://en.wikipedia.org/wiki/.local). However, as **zeroconf** "picks up steam", this seems to be less problematic. 
+This often works, but only if four conditions are satisfied: 
+1. `pi` is the default user on RPi, 
+2. `raspberrypi` is the default hostname, 
+3. `avahi` is installed on RPi, and started automatically at boot (by `systemd` these days), and
+4. the host intitating the **SSH** connection has a **zeroconf** daemon installed; typically for macos & Linux.  
+
+Use of the `.local` suffix for mDNS/zeroconf clients has been a [bit chaotic, in part because of Microsoft's inconsistent and conflicting support advice to their user base](https://en.wikipedia.org/wiki/.local). However, as **zeroconf** has ["picked up steam"](https://idioms.thefreedictionary.com/pick+up+steam), this seems to have become less problematic. 
+
+The [`.local`](https://en.wikipedia.org/wiki/.local) suffix is worth expending a few sentences. First, there are some who seem to fear that the `.local` suffix is a ***security risk?!*** I don't feel this is a valid concern; `.local` is a [**Special Use Domain Name**](https://en.wikipedia.org/wiki/Special-use_domain_name) used for Multicast DNS iaw Section 3 of	RFC 6762. However, [Microsoft offers conflicting advice re the use of `.local`](https://en.wikipedia.org/wiki/.local#Microsoft_recommendations), so Windows users should perhaps pay attention to Microsoft's inconsistent recommendations. 
+
+In Raspberry Pi the use of the `.local` suffix is included in the default configuration for `avahi`, under `/etc/avahi-daemon.conf`. See `man avahi-daemon.conf` for guidance and options, and note the default value: `domain-name=.local`. Also note that it's typically not necessary to edit `/etc/avahi-daemon.conf` as the daemon reads `/etc/hostname`, and ([in Debian at least](https://www.debian.org/doc/manuals/debian-reference/ch05.en.html)) the `/etc/hosts` file includes an entry for `127.0.1.1` which also typically reflects the hostname.
 
 ### IP address discovery
 
-All that said, here's an [approach I outlined in response to a question on StackExchange](https://raspberrypi.stackexchange.com/questions/82837/is-it-possible-to-set-a-static-ip-for-the-first-boot-of-headless-pi-ethernet-gad/82859#82859) recently. Here's the "recipe", and some [inline code that I copied from here](https://gist.github.com/blu3Alien/4585961). Finally, if you're interested, [here's some background on why this question gets asked so frequently.](https://github.com/seamusdemora/PiFormulae/blob/master/ThinkingAboutARP.md)
+All that said, here's an [approach I outlined in response to a question on StackExchange](https://raspberrypi.stackexchange.com/questions/82837/is-it-possible-to-set-a-static-ip-for-the-first-boot-of-headless-pi-ethernet-gad/82859#82859) some time ago. Here's the "recipe", and some [inline code that I copied from here](https://gist.github.com/blu3Alien/4585961). Finally, if you're interested, [here's some background on why this question gets asked so frequently.](https://github.com/seamusdemora/PiFormulae/blob/master/ThinkingAboutARP.md)
 
 Try this first: 
 
