@@ -1,4 +1,4 @@
-## Updating and Upgrading Raspbian
+## Package Management:<br> Updating and Upgrading Raspbian (Raspberry Pi OS)
 
 ### Routine "in-version" updates and upgrades
 
@@ -8,6 +8,18 @@
 </head>
 
 <body>
+
+First thing to know is that Debian's documentation for "package management" is a *bit of a mess*. In fact, it's <i><a href=https://www.merriam-webster.com/dictionary/god-awful>god-awful</a> </i><b>!</b>     I don't think I've ever seen a bigger mess than Debian's documentation for <code>apt</code> and <code>apt-get</code>. I won't belabor my opinion; you can see it for yourself <a href=https://wiki.debian.org/AptCLI>1</a>, <a href=https://wiki.debian.org/PackageManagement>2</a>. The only reference I could find comparing apt to apt-get was in the "Administrator's Guide" which offered this inanity: 
+
+<blockquote cite="https://www.debian.org/doc/manuals/debian-handbook/sect.apt-get.en.html"> APT is a vast project, whose original plans included a graphical interface. It is based on a library which contains the core application, and apt-get is the first front end — command-line based — which was developed within the project. apt is a second command-line based front end provided by APT which overcomes some design mistakes of apt-get.<br>
+<br>Both tools are built on top of the same library and are thus very close, but the default behavior of apt has been improved for interactive use and to actually do what most users expect. The APT developers reserve the right to change the public interface of this tool to further improve it. Conversely, the public interface of apt-get is well defined and will not change in any backwards incompatible way. It is thus the tool that you want to use when you need to script package installation requests. </blockquote> 
+
+... WTFO ???   <i><code>apt</code> will change, but <code>apt-get</code> will not; therefore you should use apt.</i>  
+
+But I said I wouldn't belabor my opinion, and so I'll stop doing so now.
+
+
+
 <table class="minimalistBlack">
 <thead>
 <tr>
@@ -16,18 +28,17 @@
 </tr>
 </thead>
 <tbody>
-
 <tr>
 <td width="30%"> <b><code>df -h</code></b></td>
 <td width="70%">check available space; <code>apt</code> doesn't do this automatically, so it's up to you</td>
 </tr>   
 <tr>
-<td><b><code>sudo apt-get update</code></b></td>
-<td>updates the system's "Package List"</td>
+<td><b><code>sudo apt update</code></b></td>
+<td>updates the system's "Package List" from all configured sources</td>
 </tr>
 
 <tr>
-<td><b><code>sudo apt-get upgrade</code></b></td>
+<td><b><code>sudo apt upgrade</code></b></td>
 <td>upgrade all installed packages to the latest version from the sources enumerated in  <code>/etc/apt/sources.list</code>, but under no circumstances are currently installed packages removed, or packages not already installed retrieved and installed. <em>This is the "foolproof" version of an upgrade.</em></td>
 </tr>
 <tr>
