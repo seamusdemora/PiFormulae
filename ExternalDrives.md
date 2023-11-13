@@ -10,18 +10,25 @@
   
   * [Getting to the job at hand (finally)](#getting-to-the-job-at-hand-finally) 
   
-   [1. Determine what drives are currently connected to the RPi](#1-determine-what-drives-are-currently-connected-to-the-rpi) 
-   [2. Plug the USB drive in the RPi, partition and format it](#2-plug-the-usb-drive-in-the-rpi-partition-and-format-it) 
-    ​          [NOTE 1: File systems and formats](#note-1-file-systems-and-formats) 
-    ​          [NOTE 2: Partitions and their uses](#note-2-partitions-and-their-uses) 
-    ​          [NOTE 3: Evolving Linux Support for exfat](#note-3-evolving-linux-support-for-exfat) 
+   [1. Determine what drives are currently connected to the RPi](#1-determine-what-drives-are-currently-connected-to-the-rpi)
   
-  ​    [Partition:](#partition) 
-  ​    [Format:](#format) 
+   [2. Plug the USB drive in the RPi, partition and format it](#2-plug-the-usb-drive-in-the-rpi-partition-and-format-it)
+  
+   * [NOTE 1: File systems and formats](#note-1-file-systems-and-formats)
+  
+   * [NOTE 2: Partitions and their uses](#note-2-partitions-and-their-uses)
+  
+   * [NOTE 3: Evolving Linux Support for exfat](#note-3-evolving-linux-support-for-exfat) 
+  
+     ​    [Partition:](#partition)
+  
+     ​    [Format:](#format)
+  
+   [3. Mount the USB drive](#3-mount-the-usb-drive) 
 
-​      [3. Mount the USB drive](#3-mount-the-usb-drive) 
-​      [4. Re-Mount each time the RPi reboots:](#4-re-mount-each-time-the-rpi-reboots) 
-​      [5. Adjusting permissions and ownership in an exfat drive](#5-adjusting-permissions-and-ownership-in-an-exfat-drive) 
+   [4. Re-Mount each time the RPi reboots:](#4-re-mount-each-time-the-rpi-reboots) 
+
+   [5. Adjusting permissions and ownership in an exfat drive](#5-adjusting-permissions-and-ownership-in-an-exfat-drive) 
 
 * [Summary and closing](#summary-and-closing) 
 * [REFERENCES:](#references) 
