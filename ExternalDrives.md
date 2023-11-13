@@ -311,7 +311,7 @@ I think that covers routine mounting of USB drives on RPi. We've focused on moun
 
 FINALLY: If you see an error in this "recipe", or you've got an idea to improve it, please fork this repository to your GitHub account, and once it's in your account, submit a "Pull Request" for the corrections or improvements you'd like to see. [Tom Hombergs has created a very good tutorial on how to do this](https://reflectoring.io/github-fork-and-pull/). 
 
-# REFERENCES: 
+## REFERENCES: 
 
 1. [How to format USB with exFAT on Linux](https://linuxconfig.org/how-to-format-usb-with-exfat-on-linux) - from LinuxConfig.org, covers `gdisk` usage 
 2. [Disk partitioning](https://en.wikipedia.org/wiki/Disk_partitioning); Wikipedia
