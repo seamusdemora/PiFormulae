@@ -287,6 +287,8 @@ sda
 
 ## 5. Adjusting permissions and ownership in an `exfat` drive
 
+**_Note that the options discussed in this section also pertain to mounting other FAT filesystems (e.g. `vfat`)._**
+
 And so we now have a working line for mounting our USB drive in `/etc/fstab`. Which brings up the question, ***"Should I have an entry in `/etc/fstab` if I only use the drive occasionally?"*** 
 
 I would answer that question, ***"Yes!"***. The reason is in the `user` option in the 4th field (`fs_mntops`); this option allows an unprivileged user to `mount` the drive: 
