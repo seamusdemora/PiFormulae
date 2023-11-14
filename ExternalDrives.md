@@ -331,12 +331,13 @@ FINALLY: If you see an error in this "recipe", or you've got an idea to improve 
 16. [How to Create and Manage Linux Partitions using Parted](https://www.ubuntumint.com/create-linux-partitions-parted-command/); from UbuntuMint 
 17. [Create a Partition in  Linux - A Step-by-Step Guide](https://www.digitalocean.com/community/tutorials/create-a-partition-in-linux); from DigitalOcean 
 18. [How to Format Disk Partitions in Linux](https://phoenixnap.com/kb/linux-format-disk) 
-19. [How to Mount and Use an exFAT Drive on Ubuntu Linux](https://itsfoss.com/mount-exfat/); from ItsFoss.com  
-20. [Search: 'linux format partition'](https://duckduckgo.com/?q=linux+format+partition&t=newext&atb=v369-1&ia=web) 
-21. [Search: 'linux disk partition tools'](https://duckduckgo.com/?q=linux+disk+partition+tools&t=newext&atb=v369-1&ia=web) 
-22. [Search: 'exfat-fuse vs. exfatprogs - which should i use'](https://duckduckgo.com/?q=exfat-fuse+vs.+exfatprogs+-+which+should+i+use&t=ftsa&atb=v297-1&df=y&ia=web) 
-23. [Search: 'partition thumb drive with parted'](https://duckduckgo.com/?q=partition+thumb+drive+with+parted&t=newext&atb=v369-1&df=y&ia=web) 
-24. [Search: 'linux exfat FUSE'](https://duckduckgo.com/?q=linux+exfat+FUSE&t=newext&atb=v369-1&ia=web) 
+19. [How to Mount and Use an exFAT Drive on Ubuntu Linux](https://itsfoss.com/mount-exfat/); from ItsFoss.com
+20. [Search: 'linux format USB drive as exfat'](https://duckduckgo.com/?q=linux+format+USB+drive+as+exfat&t=ffnt&ia=web&atb=v297-1) 
+21. [Search: 'linux format partition'](https://duckduckgo.com/?q=linux+format+partition&t=newext&atb=v369-1&ia=web) 
+22. [Search: 'linux disk partition tools'](https://duckduckgo.com/?q=linux+disk+partition+tools&t=newext&atb=v369-1&ia=web) 
+23. [Search: 'exfat-fuse vs. exfatprogs - which should i use'](https://duckduckgo.com/?q=exfat-fuse+vs.+exfatprogs+-+which+should+i+use&t=ftsa&atb=v297-1&df=y&ia=web) 
+24. [Search: 'partition thumb drive with parted'](https://duckduckgo.com/?q=partition+thumb+drive+with+parted&t=newext&atb=v369-1&df=y&ia=web) 
+25. [Search: 'linux exfat FUSE'](https://duckduckgo.com/?q=linux+exfat+FUSE&t=newext&atb=v369-1&ia=web) 
 
 
 
