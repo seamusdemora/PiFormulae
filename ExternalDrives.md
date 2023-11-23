@@ -4,7 +4,7 @@
 
 * [Background and Objectives:](#background-and-objectives)
 
-  * [Why would I want to do connect an external drive?](#why-would-i-want-to-connect-an-external-drive) 
+  * [Why would I want to connect an external drive?](#why-would-i-want-to-connect-an-external-drive) 
   
   * [But all of these instructions! Why is this so complicated? On my Mac, I plug the drive in, and it just works. I can read from it, and write to it immediately!](#but-all-of-these-instructions-why-is-this-so-complicated-on-my-mac-i-plug-the-drive-in-and-it-just-works-i-can-read-from-it-and-write-to-it-immediately) 
   
