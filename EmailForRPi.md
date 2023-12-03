@@ -55,7 +55,9 @@ Some alternatives to `exim`/`postfix` (NB I'm not sure exactly what all of these
 - [extsmail](https://tratt.net/laurie/src/extsmail/); not *exactly* an MTA alternative
 - esmtp; appears to be deprecated/not maintained since 2009
 
-I'm not going to expend much effort in trying to analyze these alternatives. I'm just going to choose one based on [dead reckoning](https://en.wikipedia.org/wiki/Dead_reckoning); I choose `msmtp`.  
+I'm not going to expend much effort analyzing these alternatives. I'll choose one based on [dead reckoning](https://en.wikipedia.org/wiki/Dead_reckoning). 
+
+**I choose `msmtp`**.  
 
 ### Install, configure & test `msmtp`:
 
