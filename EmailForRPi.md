@@ -8,9 +8,7 @@ Since I didn't need much *e-mail firepower* I decided to install GNU's `mailutil
 
 But let's not be deterred by the unknowns - what's the worst result possible from such experiments? 
 
-![](How-Emails-Are-Sent-via-SMTP.png)
-
-![How-Emails-Are-Sent-via-SMTP](/Users/jmoore/Documents/GitHub/PiFormulae/pix/How-Emails-Are-Sent-via-SMTP.png)
+<img src="pix/How-Emails-Are-Sent-via-SMTP.png" alt="The SMTP Soup">
 
 **Figure 1: The SMTP Soup**<sup>[Figure source](https://mailtrap.io/blog/imap-vs-pop3-vs-smtp-email-protocols/)</sup> 
 
