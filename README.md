@@ -46,8 +46,8 @@ Most importantly, feel free to ***contribute***… [GitHub explains](https://gui
   <td></td>
 </tr>
 <tr>
-<td><a href="EmailForRpi.md">Setting up email on the RPi</a></td>
-<td>Earlier versions of RPi OS included email as a standard feature in the Lite distribution. This recipe will allow you to easily restore that.</td>
+  <td><a href="EmailForRPi.md">Setting up email on the RPi</a></td>
+  <td>Earlier versions of RPi OS included email as a standard feature in the Lite distribution. This recipe will allow you to easily restore that.</td>
 </tr>
 <tr>  
   <td></td>
