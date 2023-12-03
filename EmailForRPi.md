@@ -1,5 +1,3 @@
-[TOC]
-
 ## Send and Receive e-mail on Raspberry Pi
 
 I don't process much email on my Raspberry Pis. Perhaps that's why I missed the fact that the Lite distribution of RPi OS **no longer** includes any mail-related apps. The need for e-mail came up the other day, and so I launched an effort to install that capability. This recipe chronicles that effort. 
