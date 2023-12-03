@@ -150,3 +150,4 @@ I suppose at some point, I will have to try setting up either the `exim` or `pos
 21. [A Search: 'configure exim4 for raspberry pi'](https://duckduckgo.com/?q=configure+exim4+for+raspberry+pi&t=newext&atb=v369-1&ia=web) 
 22. [A Search: 'raspberry pi install & configure mailutils'](https://duckduckgo.com/?q=raspberry+pi+install+%26+configure+mailutils&t=newext&atb=v369-1&ia=web) 
 23. [Package: mailutils-mda (1:3.15-4)](https://packages.debian.org/bookworm/mailutils-mda) 
+24. [How to Setup IMAP, 2FA, and App Passwords on Gmail Accounts](https://aycd.io/blog/How-Setup-IMAP-2FA-App-Passwords-Gmail-Accounts) 
