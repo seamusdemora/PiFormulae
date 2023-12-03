@@ -46,8 +46,8 @@ Most importantly, feel free to ***contribute***… [GitHub explains](https://gui
   <td></td>
 </tr>
 <tr>
-<td><a href="PiCameraAntics.md">Using the Pi Camera</a></td>
-<td>The Pi Camera is a popular accessory, but it does have some "quirks". This is a work in progress for using the Pi Camera from the command line; some of the examples may be useful to someone who's getting started.</td>
+<td><a href="EmailForRpi.md">Setting up email on the RPi</a></td>
+<td>Earlier versions of RPi OS included email as a standard feature in the Lite distribution. This recipe will allow you to easily restore that.</td>
 </tr>
 <tr>  
   <td></td>
