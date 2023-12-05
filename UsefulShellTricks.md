@@ -209,6 +209,7 @@ hci0:	Type: Primary  Bus: UART
 	LMP Version: 5.0 (0x9)  Subversion: 0x6119
 	Manufacturer: Cypress Semiconductor (305)
 ```
+
 ---
 
 ## Permission Issues When Using Redirection
