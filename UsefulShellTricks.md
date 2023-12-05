@@ -188,6 +188,28 @@ The `vcgencmd` tool can report numerous details from the VideoCore GPU. See `man
    * pmic_read_adc,
    * power_monitor
 
+### Bluetooth
+
+```bash
+$ hciconfig -a
+hci0:	Type: Primary  Bus: UART
+	BD Address: D8:3A:DD:A7:B2:00  ACL MTU: 1021:8  SCO MTU: 64:1
+	UP RUNNING
+	RX bytes:5014 acl:0 sco:0 events:438 errors:0
+	TX bytes:66795 acl:0 sco:0 commands:438 errors:0
+	Features: 0xbf 0xfe 0xcf 0xfe 0xdb 0xff 0x7b 0x87
+	Packet type: DM1 DM3 DM5 DH1 DH3 DH5 HV1 HV2 HV3
+	Link policy: RSWITCH SNIFF
+	Link mode: PERIPHERAL ACCEPT
+	Name: 'raspberrypi5'
+	Class: 0x000000
+	Service Classes: Unspecified
+	Device Class: Miscellaneous,
+	HCI Version: 5.0 (0x9)  Revision: 0x17e
+	LMP Version: 5.0 (0x9)  Subversion: 0x6119
+	Manufacturer: Cypress Semiconductor (305)
+```
+
 
 ## Permission Issues When Using Redirection
 
