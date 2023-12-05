@@ -156,6 +156,37 @@ $ hostnamectl     # p/o systemd, see man hostnamectl for options & usage info
       Architecture: arm
 ```
 
+### MAC address: 
+
+```bash
+ethtool --show-permaddr eth0    # for the Ethernet adapter 
+ethtool --show-permaddr wlan0   # for the WiFi adapter 
+```
+
+### `vcgencmd` tool
+
+The `vcgencmd` tool can report numerous details from the VideoCore GPU. See `man vcgencmd`, and the ["official documentation"](https://www.raspberrypi.com/documentation/computers/os.html#vcgencmd) for details. For a list of all available commands under `vcgencmd`, do `vcgencmd commands`:
+   * set_logging,
+   * bootloader_config,
+   * bootloader_version,
+   * cache_flush,
+   * codec_enabled,
+   * get_mem,
+   * get_rsts,
+   * measure_clock,
+   * measure_temp,
+   * measure_volts,
+   * get_hvs_asserts,
+   * get_config,
+   * get_throttled,
+   * pmicrd,
+   * pmicwr,
+   * read_ring_osc,
+   * version,
+   * readmr,
+   * otp_dump,
+   * pmic_read_adc,
+   * power_monitor
 
 
 ## Permission Issues When Using Redirection
