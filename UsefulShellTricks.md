@@ -1,6 +1,6 @@
-## Useful shell tricks:
+# Useful shell tricks:
 
-#### Table of contents
+### Table of contents
 
 * [How do I tell my system to tell me about my system: OS, Kernel, Hardware, etc](#tell-me-about-my-system) 
 * [Resolve Permission Issues When Using Redirection](#permission-Issues-when-using-redirection) 
@@ -36,13 +36,13 @@
 
 
 
-### Tell me about my system:
+## Tell me about my system:
 
-##### Hardware model: 
+### Hardware model: 
 
-Stored in `/proc/cpu`
+Stored in `/proc/cpu` for single-CPU RPi:
 
-```bash
+```
 $ cat /proc/cpuinfo 
 processor	: 0
 model name	: ARMv6-compatible processor rev 7 (v6l)
@@ -57,10 +57,12 @@ CPU revision	: 7
 Hardware	: BCM2835
 Revision	: 0010
 Serial		: 000000003e3ab978
-Model		: Raspberry Pi Model B Plus Rev 1.2 
+Model		: Raspberry Pi Model B Plus Rev 1.2
+```
 
-# OR, on a 4B: 
+#### OR, on a 4B: 
 
+```
 $ cat /proc/cpuinfo 
 processor	: 0
 model name	: ARMv7 Processor rev 3 (v7l)
@@ -72,20 +74,43 @@ CPU variant	: 0x0
 CPU part	: 0xd08
 CPU revision	: 3
 
-# repeat for processor	: 1, processor	: 2, processor	: 3
+... repeat for processor	: 1, processor	: 2, processor	: 3
 
 Hardware	: BCM2711
 Revision	: b03111
 Serial		: 100000006cce8fc1
 Model		: Raspberry Pi 4 Model B Rev 1.1
+```
 
-# OR, an abbreviated report
+#### OR, on a 5B:
 
+```
+$cat /proc/cpuinfo
+processor       : 0
+BogoMIPS        : 108.00
+Features        : fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm lrcpc dcpop asimddp
+CPU implementer : 0x41
+CPU architecture: 8
+CPU variant     : 0x4
+CPU part        : 0xd0b
+CPU revision    : 1
+
+... repeat for processors 1, 2 & 3
+
+Hardware        : BCM2835
+Revision        : c04170
+Serial          : 6b71acd964ee2481
+Model           : Raspberry Pi 5 Model B Rev 1.0
+```
+
+#### OR, an abbreviated report
+
+```
 $ cat /proc/cpuinfo | awk '/Model/' 
 Model		: Raspberry Pi 4 Model B Rev 1.1
 ```
 
-##### Kernel version: 
+### Kernel version: 
 
 ```bash
 $ man uname        # see options & other usage info
@@ -103,7 +128,7 @@ $ uname -a
 Linux raspberrypi4b 5.10.63-v7l+ #1496 SMP Wed Dec 1 15:58:56 GMT 2021 armv7l GNU/Linux
 ```
 
-##### OS version:
+### OS version:
 
 This works on RPi OS, but may not work on distros that are not Debian derivates. But if it works, it's useful: 
 
@@ -118,7 +143,7 @@ Release:	11
 Codename:	bullseye
 ```
 
-##### hostnamectl:
+### hostnamectl:
 
 ```bash
 $ hostnamectl     # p/o systemd, see man hostnamectl for options & usage info
@@ -133,7 +158,7 @@ $ hostnamectl     # p/o systemd, see man hostnamectl for options & usage info
 
 
 
-### Permission Issues When Using Redirection
+## Permission Issues When Using Redirection
 
 The `redirection` operators (**`>`** and **`>>`**) are incredibly useful tools in the shell. But, when they are used to redirect output from a command to a file requiring `root` privileges, they can leave a user scratching his head. Consider this example: 
 
@@ -166,7 +191,7 @@ The problem is obvious once it's explained, but the solutions may vary. The **pr
 
 If you're interested, this [Q&A on SO](https://stackoverflow.com/questions/82256/how-do-i-use-sudo-to-redirect-output-to-a-location-i-dont-have-permission-to-wr) has much more on this subject. 
 
-### Refresh shell configuration without restarting:
+## Refresh shell configuration without restarting:
 
 There are two user-owned files that control many aspects of the `bash` shell's behavior - uh, *interactive shells, that is*: `~/.profile` & `~/.bashrc`. Likewise for `zsh`, the `~/.zprofile` & `~/.zshrc`. There will be occasions when changes to these files will need to be made in the current session - without exiting one shell session, and starting a new one. Examples of such changes are changes to the `PATH`, or addition of an `alias`. 
 
@@ -189,7 +214,7 @@ $ . ~/.bashrc             #        "
 >
 >> For example: Add a function to `~/.bashrc`: `function externalip () { curl http://ipecho.net/plain; echo; }`. Now *source* it with `. ~/.profile`. You should see that the function now works in this session. Now remove the function, and then *source* it again using `. ~/.profile`. The function is still available - only restarting (log out & in), or starting a new shell session will remove it. 
 
-### Clear the contents of a file without deleting the file:
+## Clear the contents of a file without deleting the file:
 
 ```bash
 $ > somefile.xyz					      # works in bash
@@ -201,7 +226,7 @@ $ truncate -s 0 test.txt	      # any system w/ truncate
 $ cp /dev/null somefile.xyz     # any system
 ```
 
-### List all directories - not files, just directories:
+## List all directories - not files, just directories:
 
 ```bash
 $ find . -type d   # list all dirs in pwd (.)
@@ -209,7 +234,7 @@ $ find . -type d   # list all dirs in pwd (.)
 
 > > Note In this context the *'dot'* `.` means the `pwd` - not the [dot operator](https://ss64.com/bash/source.html) as in the [above example](#reload-bashs-profile-without-restarting-shell). 
 
-### Pitfalls of parsing `ls`
+## Pitfalls of parsing `ls`
 
 In some cases, you can *get away with* parsing and/or filtering the output of `ls`, and in other cases you cannot. I've spent an inordinate amount of time trying to filter the output of `ls` to get only hidden files - or only hidden directories. `ls` seems very *squishy* and unreliable in some instances when trying to get a specific, filtered list... [ref Wooledge](http://mywiki.wooledge.org/ParsingLs). 
 
@@ -222,7 +247,7 @@ I try to keep discussion on the topics here *brief*, but don't always succeed. I
   * For the *short form*:  `ls -d1 -- \.*`; An example of *"glob patterns"* 
   * For the *long form*:  `ls -Al | grep " \."` ;   Note the *space* in the pattern; alternative: `\s` 
 
-### Sequential shell command execution:
+## Sequential shell command execution:
 
 Sometimes we want to execute a series of commands, but only if all previous commands execute successfully. In this case, we should use **`&&`** to join the commands in the sequence: 
 
@@ -236,7 +261,7 @@ At other times we want to execute a series of commands regardless of whether or 
 cp /home/pi/README /home/auser; rsync -av /home/auser /mnt/BackupDrv/auser_backup/
 ```
 
-### Get a date-time stamp for a log:
+## Get a date-time stamp for a log:
 
 It's often useful to insert a date-time stamp in a log file, inserted in a string, etc. Easily done w/ `date` using [*command substitution*](https://bash.cyberciti.biz/guide/Command_substitution): 
 
@@ -256,7 +281,7 @@ printf '%s\n' "$(date)" >> mydatalog.txt	# newline is output
 
 There are numerous options with the `date` command. Check `man date`, or peruse this [*Lifewire* article 'How to Display the Date and Time Using Linux Command Line'](https://www.lifewire.com/display-date-time-using-linux-command-line-4032698) - it lists *all* of the format options for displaying the output of `date`. 
 
-### String manipulation with bash:
+## String manipulation with bash:
 
 It's often useful to manipulate string variables in bash. These websites have some examples: [website 1](https://www.tutorialkart.com/bash-shell-scripting/bash-string-manipulation-examples/); [website 2](https://www.thegeekstuff.com/2010/07/bash-string-manipulation/). The [Wooledge Wiki](https://mywiki.wooledge.org/BashFAQ/100#How_do_I_do_string_manipulations_in_bash.3F) is a bit more advanced, and a trove of string manipulation methods available in `bash`. [Section 10.1 of the Advanced Bash-Scripting Guide](https://tldp.org/LDP/abs/html/string-manipulation.html) is another comprehensive source of information on string manipulation. For example:
 
@@ -269,7 +294,7 @@ for everything there is a reason
 for everything there is a season
 ```
 
-### Testing things in bash:
+## Testing things in bash:
 
 Testing the equality of two strings is a common task in shell scripts. You'll need to watch your step as there are numerous ways to screw this up! Consider a few examples: 
 
@@ -339,7 +364,7 @@ Sound the alarm!!!
 
 You might also learn something of the difference between *single quotes* `''`, and *double quotes* `""`.
 
-### Assign shell command output to a variable in `bash`:
+## Assign shell command output to a variable in `bash`:
 
 Sometimes you need the output of a shell command to be *persistent*; assign it to a variable for use later. This is known as [**command substitution**](https://bash.cyberciti.biz/guide/Command_substitution). Consider the case of a *tmp file* you've created. Here's how: 
 
@@ -351,11 +376,11 @@ $ echo $WORKFILE
 
 Within this session (or script) `$WORKFILE` will contain the location of your *tmp file*. [<sup>*ref*</sup>](https://pupli.net/2022/03/assign-output-of-shell-command-to-variable-in-bash/)
 
-### The Shell Parameters of `bash`
+## The Shell Parameters of `bash`
 
 `bash` has two types of [*paramaters*](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameters): positional parameters and special parameters. They are the *odd-looking* variables you may have seen in scripts, such as: `$0`, `$1`, `$@`, `$?`, etc.  But they come in very handy, and you should learn to use them. The [Bash Reference Manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html) isn't as informative as it could be, but there are better explanations available that include examples: [positional parameters](https://www.thegeekstuff.com/2010/05/bash-shell-positional-parameters/), [special parameters](https://www.thegeekstuff.com/2010/05/bash-shell-special-parameters/). 
 
-### The Difference Between Null and Empty Strings
+## The Difference Between Null and Empty Strings
 
 At least in `bash`, a null string ***is*** an empty/zero-length string; in other words, ***there is no difference***. In `bash`, a string (e.g. `my_string`) can be tested to determine if it is a null/empty string as follows: 
 
@@ -374,7 +399,7 @@ echo "Completed if-then-else test for shell variable my_string"
 
 A couple of References: [Examples from nixCraft](https://www.cyberciti.biz/faq/bash-shell-find-out-if-a-variable-has-null-value-or-not/), and [a Q&A from Linux SE](https://unix.stackexchange.com/a/524492/286615).
 
-### How do I see my *environment*?
+## How do I see my *environment*?
 
 In most distros, both `env` and `printenv` output the environment in which the command is entered. In other words, the `env`/`printenv` output in `sh` will be different than in `zsh` and different in `cron`, etc. And as is typical, the output may be `piped` to another program, redirected to a file, etc, etc.
 
@@ -388,7 +413,7 @@ For special cases, `set` is a *bultin* that's rather complex ([see the documenta
 % set | less   # HUGE output! pipe to less to view in the pager
 ```
 
-### Shell variables: What is the Best Naming Convention?
+## Shell variables: What is the Best Naming Convention?
 
 For purposes of this recipe, *"shell variables"* refers to variables that are local in scope; i.e. not *"environment variables"* ([REF](https://unix.stackexchange.com/questions/222913/bash-shell-vs-environment-variable)). I've always used upper-case characters & underscores when I need to create a *"shell variable"*. Yes - I use the *same* *convention* for "shell variables" as is used for "environment variables".  I adopted this *convention* years ago because I read somewhere that lower-case variable names could easily be confused with commands. This was very true for me, esp during early learning days. At any rate, it made sense at the time & I've stuck with it for many years. 
 
@@ -404,7 +429,7 @@ But *"change is the only constant"* as the saying goes, and I wanted to verify t
 
 > The variable name must be in the upper case as it is considered good practice in bash scripting. 
 
-##### Summary: 
+#### Summary: 
 
 I've found no reliable reference or relevant standard that recommends against the use of the `upper-case characters & underscore` convention. As I understand it the *opinions* favoring  `lower-case characters & underscore`  are based on claims that  [`"this convention avoids accidentally overriding environmental and internal variables"`](https://stackoverflow.com/a/673940/5395338).  However, it is not possible to change an *"environment variable"* using the assignment operator `=`  <sup>[REF 1](https://unix.stackexchange.com/a/74634/286615), [REF 2](https://stackoverflow.com/a/1506185/5395338), [REF 3](https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-linux#setting-shell-and-environmental-variables)</sup>. In addition, there's a rather straightforward method of testing a "shell variable" to ensure it is not an "environment variable" using the shell *built-in* `set` command: 
 
@@ -422,7 +447,7 @@ For now, I will remain *skeptical* that ***"snake case"*** or any other case-rel
 
 **To be clear:** The term *"shell variables"* is ambiguous. I have adopted one definition here that fits my objectives for this recipe, but do not suggest that there is only one definition. In fact, the GNU Bash Reference Manual uses an entirely different definition for [Shell Variables](https://www.gnu.org/software/bash/manual/bash.html#Shell-Variables). 
 
-### What do file and directory permissions mean?
+## What do file and directory permissions mean?
 
 >**File permissions:**   
 >
@@ -436,7 +461,7 @@ For now, I will remain *skeptical* that ***"snake case"*** or any other case-rel
 > w = delete or add a file in the directory  
 > x = move into the directory  
 
-### Using `which` to find commands
+## Using `which` to find commands
 
 For `zsh` users: You've installed a package - but where is it? The `which` command can help, but there are some things you *need to know*: 
 
@@ -446,7 +471,7 @@ For `zsh` users: You've installed a package - but where is it? The `which` comma
 
 In `bash`, `which` is a *stand-alone* command instead of a *builtin*.  Consequently `hash -r` is not needed to get timely results from`which`. 
 
-### Using your shell command history
+## Using your shell command history
 
 For those of us who don't have a [photographic memory](https://en.wikipedia.org/wiki/Eidetic_memory), our shell **command history** is very useful.  Our primary objective in this brief segment is to gain some understanding of how the command history works.  Once this is understood, the configuration of command history becomes more clear, and allows us to use it with greater effect - to *tailor* it for how we work. 
 
@@ -470,7 +495,7 @@ There are [numerous variables and commands (*built-ins*)](https://www.gnu.org/so
 
 *What if you use a shell other than `bash`?* While some aspects of the command history are *shell-dependent*, they have more in common than they have differences. An [overview of the command history](https://github.com/seamusdemora/seamusdemora.github.io/blob/master/CommandHistoryIntro-zsh.md) - from a `zsh` perspective - is provided in another section of this repo. 
 
-### Access compressed log files easily
+## Access compressed log files easily
 
 If you ever find yourself rummaging around in `/var/log`... Maybe you're *'looking for something, but don't know exactly what'*.  In the `/var/log` file listing, you'll see a sequence of `syslog` files (and several others) arranged something like this: 
 
@@ -516,7 +541,7 @@ $ zgrep -o voltage /var/log/syslog* | wc -l
 
 Still more is possible if you care to pipe these results to `awk`. 
 
-### Filename expansion; a.k.a. "globbing"
+## Filename expansion; a.k.a. "globbing"
 
 The astute reader might have noticed the syntax from above:
 
@@ -526,7 +551,7 @@ What does that *asterisk* (`*`) mean; what does it do?
 
 It's one of the more powerful [idioms](https://en.wikipedia.org/wiki/Programming_idiom) available in `bash`, and extremely useful when working with files. Consider the alternatives to instructing `bash` to loop through all the files with `syslog` in their filename. Read more about its possibilities, and study the examples in the [Advanced Bash-Scripting Guide](https://tldp.org/LDP/abs/html/globbingref.html). 
 
-### Using the default editor `nano` effectively
+## Using the default editor `nano` effectively
 
 I was writing this section in conjunction with an [answer in U&L SE.](https://unix.stackexchange.com/a/634503/286615)  Why?... I felt the [project documentation](https://www.nano-editor.org/dist/v2.8/nano.html) left something to be desired. A search turned up [HTG's *"Guide to Nano"*](https://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/), and more recently this post: [*"Getting Started With Nano Text Editor"*](https://itsfoss.com/nano-editor-guide/).  `nano` doesn't change rapidly, but perhaps the *timeless* method for finding documentation on `nano` is to [find a descriptive *term*, and do your own search](https://duckduckgo.com/?q=nano+text+editor+user+guide&t=ffab&atb=v278-1&ia=web)? 
 
@@ -537,7 +562,7 @@ This is all well & good, but the sources above do not answer nano's ***burning q
 * On macOS, `M`- the *"meta key"* - is the <kbd>esc</kbd> key 
 * On Linux & Windows(?), `M`- the *"meta key"* - is the <kbd>Escape</kbd> key
 
-### Some Options with `grep`
+## Some Options with `grep`
 
 `grep` has many variations which makes it useful in many situations. We can't cover them all here (not even close), but just to whet the appetite: 
 
@@ -553,7 +578,7 @@ This is all well & good, but the sources above do not answer nano's ***burning q
 
 >*NOTE: This is not an exact match for an IP address, only an approximation, and may occasionally return something other than an IP address. An [exact match](https://www.regextester.com/22) is available here.* 
 
-### Filtering `grep` processes from `grep` output
+## Filtering `grep` processes from `grep` output
 
 `grep` provides a very useful filter in many situations. However, when filtering a list of *processes* using `ps`, `grep` introduces an annoying artifact: its output also includes the `grep` process that is filtering the output of `ps`. This is illustrated in the following example: 
 
@@ -573,7 +598,7 @@ $ #2: use a regular expression instead of a string for grep's filter
 $ ps aux | grep [n]ame_of_process 
 ```
 
-### Finding pattern matches: `grep` or `awk`?
+## Finding pattern matches: `grep` or `awk`?
 
 While researching this piece, I came across [this Q&A](https://stackoverflow.com/questions/4487328/match-two-strings-in-one-line-with-grep) on Stack Overflow. As I read through the answers, I was surprised that some experienced users answered the question incorrectly! As I write this (Feb 2022), there are at least six (6) answers that are wrong - including one of the *most highly voted* answers.  I can't guess why so many upvoted incorrect answers, but the question is clear: `Match two strings in one line with grep?`; confirmed in the body of the question. 
 
@@ -659,7 +684,7 @@ And here are the examples. All have been tested using the file `testsearch.txt`,
 
 **TO BE CONTINUED...**
 
-### What version of `awk` is available on my Raspberry Pi?
+## What version of `awk` is available on my Raspberry Pi?
 
 Know first that (*mostly*) because RPiOS is a *Debian derivative*, its *default AWK* is `mawk`. `mawk` has been characterized as having only *basic features*, and being *very fast*. This seems a reasonable compromise for the RPi; in particular the *Zero*, and the older RPis.  But here's an [*odd thing*](https://github.com/ploxiln/mawk-2): the release date for the `mawk` package in `buster` was 1996, but the release date for the `mawk` package in `bullseye` was in Jan, 2020. And so the version included in your system depends on the OS version; i.e. Debian 10/`buster`, or Debian 11/`bullseye`.  You can get awk's version # & other details as follows: 
 
@@ -700,7 +725,7 @@ Copyright (C) 1989, 1991-2018 Free Software Foundation.
 
 Know that version 5 of `gawk` is available in `bullseye`'s package repo, but the `buster` repo is limited to version 4. ICYI, the [LWN article](https://lwn.net/Articles/820829/) mentioned in the [References](#using-awk-for-heavy-lifting) goes into some detail on the feature differences between `gawk` ver 4 & ver 5.
 
-### That file is somewhere in my system
+## That file is somewhere in my system
 
 Sometimes, *finesse* is over-rated. Sometimes things get misplaced, and you need to find it quickly. A feeling of panic may be creeping upon you due to impending schedule deadlines - or whatever the reason. This might help if you can remember anything at all about the filename - or its contents: 
 
@@ -718,7 +743,7 @@ Other times, the file you need to find is binary, or maybe you don't recall any 
 $ find /some/path -name '*part-of-a-filename*'
 ```
 
-### Find what you need in that huge `man` page:
+## Find what you need in that huge `man` page:
 
 Not a *shell trick* exactly, but ***useful***: Most systems use the *pager* named `less` to display `man` pages in a terminal. Most frequently, `man` pages are consulted for a reference to a *specific* item of information - e.g. the meaning of an *argument*, or to find a particular section. `less` gives one the ability to search for words, phrases or even single letters by simply entering `/` from the keyboard, and then entering a *search term*. This search can be made much more *effective* with the addition of a [*regular expression*](https://www.regular-expressions.info/quickstart.html) or *regex* to define a *pattern* for the search. This is best explained by examples: 
 
@@ -730,15 +755,15 @@ Not a *shell trick* exactly, but ***useful***: Most systems use the *pager* name
 
 ​         Again, as we are looking to match a term at the beginning of a line, use the **`^`** anchor, followed by the *whitespace* character class repeated 1 or more times **`[ \t]+`**, followed by the search term `case`. In this search, we'll look for matches having whitespace *after* the regex also:  **`/^[ \t]+case[ \t]+`**  
 
-### A useful tool for GPIO hackers: `raspi-gpio`
+## A useful tool for GPIO hackers: `raspi-gpio`
 
 `raspi-gpio` is a useful tool for those interested in working with external hardware. It's included as a standard package - even in the `Lite` distro, but was developed by an individual - i.e. outside "The Foundation". The [raspi-gpio GitHub repo](https://github.com/RPi-Distro/raspi-gpio) has some useful resources; there is no `man raspi-gpio`, but `raspi-gpio help` will do just that. You can compare it against the [`gpio` directive](https://www.raspberrypi.com/documentation/computers/config_txt.html#gpio)... ponder that for a moment :)  
 
-### `raspi-config` from the command line?
+## `raspi-config` from the command line?
 
 You've probably used the "graphical" (*ncurses* -based) version of `raspi-config` that you start from the command line, and then navigate about to make configuration changes to your system. ***However***, you may also use `raspi-config` from the command line. This feature isn't well-documented (or well-understood), and even the [GitHub repo for `raspi-config`](https://github.com/RPi-Distro/raspi-config) doesn't have anything to say about it - actually, it says nothing about everything :P  [This blog post](https://pi3g.com/2021/05/20/enabling-and-checking-i2c-on-the-raspberry-pi-using-the-command-line-for-your-own-scripts/) seems to be the best source of information for now. 
 
-### Background, nohup, infinite loops, daemons
+## Background, nohup, infinite loops, daemons
 
 It's occasionally useful to create a program/script that runs continuously, performing some task. Background, nohup and infinite loops are all *ingredients* that allow us to create [*daemons*](https://en.wikipedia.org/wiki/Daemon_(computing)) - very useful actors for accomplishing many objectives. Here's a brief discussion of these ingredients, and a brief example showing how they work together: 
 
