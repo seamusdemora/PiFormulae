@@ -184,7 +184,7 @@ The `vcgencmd` tool can report numerous details from the VideoCore GPU. See `man
    * read_ring_osc,
    * version,
    * readmr,
-   * otp_dump, which has its own special [section in the docs](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#otp-register-and-bit-definitions)
+   * otp_dump (which has its own special [section in the docs](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#otp-register-and-bit-definitions)),
    * pmic_read_adc,
    * power_monitor
 
