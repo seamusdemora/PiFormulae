@@ -25,7 +25,7 @@ The example I'll use here is cloning my trusty old RPi 3B+ to a new-ish [RPi 3A+
 Fortunately, I keep regular backups of my RPi 3B+; they're stored on an NAS drive. And so, I copy a recent backup \*.img file (called `back.img` here) from my NAS to `/home/pi` on my RPi 3B+. You can follow the steps below:
 
 ```bash
-$ fdisk -lu ./back.img
+$ fdisk -l ./back.img
 Disk ./back.img: 2.89 GiB, 3099590656 bytes, 6053888 sectors
 Units: sectors of 1 * 512 = 512 bytes
 Sector size (logical/physical): 512 bytes / 512 bytes
