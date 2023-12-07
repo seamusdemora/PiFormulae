@@ -4,7 +4,7 @@ Let's set up a git server on a Raspberry Pi. This server will be a *private* ser
 ### Designation of and Access to the Git-Server
 Nothing special need be done to designate an RPi as a Git-Server. As long as it's got `git` installed, virtually any RPi is fit for this purpose. Simply choose one that's accessible to other hosts (RPi git-clients) on your network as the clients will need to make SSH connections to the Git-Server. Assuming you want to use public-key authentication, you'll need to copy public keys from git-clients to the git-server using `ssh-copy-id`. 
 
-### Set Up the Repositories 
+### Set Up the Repositories on the Git-Server
 We'll put all of our git repositories in a common folder; sub-folders will designate the names of the individual repositories. 
 
 ```bash
@@ -19,23 +19,25 @@ cd ./git-srv/etc-update-motd-d.git
 git init --bare 
 ```
 
-### Connect a git-client to source code to the server
+###  From a git-client connect to Git-Server to source the code we've been working
 
-Now move to one of the git-clients - the one you've been coding `etc-update-motd-d`. 
+Now move to one of the git-clients - use the one we've been coding `etc-update-motd-d` :-)  
 
 ```bash
 ssh-copy-id pi@rpigitserver   # if necessary
-cd ./scripts/motd
+cd ./scripts/motd             # where the code is kept
 git init
-git add <filenames>
-git commit -m 'some-message'
+git add <filenames>           # add the files
+git commit -m 'some-message'  # commit the files with message
 git remote add origin ssh://pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git
 git push -u ssh://pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git 
 ```
+At this point, we have placed the code stored in `~/scripts/motd` on our client machine in the repo called `etc-update-motd-d.git` on Git-Server.
+
 
 ### Connect another git-client to clone the repo 
 
-Move to another git-client (or do it from the same one - in a different location) 
+Move to another git-client (or do it from the same client - in a different location) 
 
 ```bash
 cd
