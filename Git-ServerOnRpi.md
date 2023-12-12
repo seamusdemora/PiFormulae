@@ -42,7 +42,7 @@ $ git commit -m 'some-message'  # commit the files with a suitable/meaningful me
 $ git remote add origin ssh://pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git
 # ^ declares the designated folder on `rpigitserver` as the "remote origin"
 $ git push -u ssh://pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git
-# ^ "pushes" the previously committed files to the Git-Server (`rpigitserver`)
+# ^ "pushes" the previously `add`ed & `commit`ted files to the Git-Server (`rpigitserver`)
 ```
 At this point, we have uploaded the code stored in `~/scripts/motd-d` on the client machine to the repo called `etc-update-motd-d.git` on the Git-Server.
 
