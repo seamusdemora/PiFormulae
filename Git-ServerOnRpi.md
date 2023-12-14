@@ -58,16 +58,26 @@ $ pwd
 /home/developer
 $ git clone pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d.git
 Cloning into 'etc-update-motd-d'...
-remote: Enumerating objects: 3, done.
-remote: Counting objects: 100% (3/3), done.
-remote: Compressing objects: 100% (3/3), done.
-remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+  ...
 Receiving objects: 100% (3/3), done.
 $ ls -l
 etc-update-motd-d.git
 $
 # i.e. executing `git clone` from `~/` creates/clones the repo in ~/etc-update-motd-d
 ```
+#### ALTERNATIVELY, let's create that clone under a different directory; i.e. something other than `etc-update-motd-d.git` 
+
+```bash
+$ hostname    # to get our bearings straight
+rpigitserver
+$ pwd
+/home/developer
+$ git clone pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d.git  motd.git
+Cloning into 'motd'...
+  ...
+Receiving objects: 100% (3/3), done.
+```
+Of course this can also be done on a remote host using a URL (e.g. SSH, or https).
 
 ### Update Git-Server with changes made on `rpigitclient`
 
