@@ -129,7 +129,24 @@ This *recipe* is for building the latest version of `libgpiod` on a `bullseye` s
 	$ export MANPATH="/usr/lib/arm-linux-gnueabihf/share/man:$(manpath)"
 	```
 	
-In addition to the `./bin` and `./share` folders (above), there were two other folders created under `/usr/lib/arm-linux-gnueabihf`: `./lib`, and `./include`.  These folders contain the `libgpiod.so` binary, and the `gpiod.h` header file needed to compile apps using the new ver 2.1 library. We don't need these right now, so we'll leave them alone for the time being. 
+	In addition to the `./bin` and `./share` folders (above), there were two other folders created under `/usr/lib/arm-linux-gnueabihf`: `./lib`, and `./include`.  These folders contain the `libgpiod.so` binary, and the `gpiod.h` header file needed to compile apps using the new ver 2.1 library. Let's take care of those now: 
+	
+	```bash
+	$ sudo mkdir /usr/lib/arm-linux-gnueabihf/old-libgpiod
+	$ sudo mv /usr/lib/arm-linux-gnueabihf/libgpiod* /usr/lib/arm-linux-gnueabihf/old-libgpiod 
+	$ sudo cp -a /usr/lib/arm-linux-gnueabihf/lib/libgpiod.* /usr/lib/arm-linux-gnueabihf
+	$ ls -l /usr/lib/arm-linux-gnueabihf | grep libgpiod.*
+	-rw-r--r--  1 root root   164256 Dec 20 02:46 libgpiod.a
+	-rwxr-xr-x  1 root root      957 Dec 20 02:46 libgpiod.la
+	lrwxrwxrwx  1 root root       17 Dec 20 02:46 libgpiod.so -> libgpiod.so.3.1.0
+	lrwxrwxrwx  1 root root       17 Dec 20 02:46 libgpiod.so.3 -> libgpiod.so.3.1.0
+	-rwxr-xr-x  1 root root   114436 Dec 20 02:46 libgpiod.so.3.1.0
+	drwxr-xr-x  2 root root     4096 Dec 21 04:06 old-libgpiod
+	```
+	
+	Which looks like everything is accounted for...
+	
+	
 
 ### And that concludes this recipe - for now. 
 
