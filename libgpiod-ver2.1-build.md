@@ -127,6 +127,9 @@ This *recipe* is for building the latest version of `libgpiod` on a `bullseye` s
 	$ sudo cp -a ./bin/gpio* /usr/bin   # cp new gpiod tools where needed: /usr/bin
 	# and we need the new man pages, so ... 
 	$ export MANPATH="/usr/lib/arm-linux-gnueabihf/share/man:$(manpath)"
+	#
+	# you should probably add the `export MANPATH` definition above into ~/.profile
+	# if you plan on using it for any length of time
 	```
 	
 	In addition to the `./bin` and `./share` folders (above), there were two other folders created under `/usr/lib/arm-linux-gnueabihf`: `./lib`, and `./include`.  These folders contain the `libgpiod.so` binary, and the `gpiod.h` header file needed to compile apps using the new ver 2.1 library. Let's take care of those now: 
