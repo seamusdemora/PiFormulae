@@ -151,7 +151,7 @@ This *recipe* is for building the latest version of `libgpiod` on a `bullseye` s
 	
 	
 
-### And that concludes this recipe - for now. 
+### And that concludes this recipe - for now.
 
 
 
