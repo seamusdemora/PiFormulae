@@ -137,6 +137,7 @@ This *recipe* is for building the latest version of `libgpiod` on a `bullseye` s
 	```bash
 	$ sudo mkdir /usr/lib/arm-linux-gnueabihf/old-libgpiod
 	$ sudo mv /usr/lib/arm-linux-gnueabihf/libgpiod* /usr/lib/arm-linux-gnueabihf/old-libgpiod 
+	$ sudo cp ~/libgpiod-2.1/include/gpiod.h /usr/include
 	$ sudo cp -a /usr/lib/arm-linux-gnueabihf/lib/libgpiod.* /usr/lib/arm-linux-gnueabihf
 	$ ls -l /usr/lib/arm-linux-gnueabihf | grep libgpiod.*
 	-rw-r--r--  1 root root   164256 Dec 20 02:46 libgpiod.a
