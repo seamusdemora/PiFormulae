@@ -34,7 +34,7 @@ This *recipe* is for building the latest version of `libgpiod` on a `bullseye` s
   ```bash
   ```
 
-6. Before `make && make install`, explore the filesystem where libraries are kept, and make notes:
+6. Before `make && make install`, explore the filesystem where the old/existing (ver 1.6 as I write this) libraries are kept, and make notes:
 
   ```bash
   $ whereis libgpiod
@@ -43,6 +43,8 @@ This *recipe* is for building the latest version of `libgpiod` on a `bullseye` s
   $ ls -l /usr/lib/arm-linux-gnueabihf | less
   
   # you may want to copy & paste this to a file for subsequent reference:
+  $ ls -l /usr/lib/arm-linux-gnueabihf | grep libgpiod
+  
   -rw-r--r--  1 root root    32258 Dec 20  2020 libgpiod.a
   -rw-r--r--  1 root root   139276 Dec 20  2020 libgpiodcxx.a
   lrwxrwxrwx  1 root root       20 Dec 20  2020 libgpiodcxx.so -> libgpiodcxx.so.1.1.1
@@ -91,7 +93,7 @@ This *recipe* is for building the latest version of `libgpiod` on a `bullseye` s
 
 10. **END DETOUR** 
 
-11. There are some steps that must be completed prior to successful compilation. This was learned from reading `/usr/share/doc/libgpiod-dev/README.gz`. This is the "RPi Version" of the more generic `README` file in `./libgpiod-2.1`, and it contains ***important exceptions & additions*** including this : 
+11. As I learned in the DETOUR, there are some steps that must be completed prior to successful compilation. I should have read `/usr/share/doc/libgpiod-dev/README.gz` first. This is the *"RPi Version"* of the more generic `README` file in `./libgpiod-2.1`, and it contains ***important exceptions & additions*** including this : 
 
 	>Recent kernel headers are also required for the GPIO user API definitions. For the exact version of kernel headers required, please refer to the configure.ac contents. 
 	
@@ -128,8 +130,9 @@ This *recipe* is for building the latest version of `libgpiod` on a `bullseye` s
 	# and we need the new man pages, so ... 
 	$ export MANPATH="/usr/lib/arm-linux-gnueabihf/share/man:$(manpath)"
 	#
-	# you should probably add the `export MANPATH` definition above into ~/.profile
-	# if you plan on using it for any length of time
+	# NOTE: you should probably add the `export MANPATH` definition above into 
+	# ~/.profile if you plan on using it for any length of time; i.e.
+	$ echo -e '\nexport MANPATH="/usr/lib/arm-linux-gnueabihf/share/man:$(manpath)"' >> ~/.profile
 	```
 	
 	In addition to the `./bin` and `./share` folders (above), there were two other folders created under `/usr/lib/arm-linux-gnueabihf`: `./lib`, and `./include`.  These folders contain the `libgpiod.so` binary, and the `gpiod.h` header file needed to compile apps using the new ver 2.1 library. Let's take care of those now: 
