@@ -132,7 +132,7 @@ $ gpioget -c 0 24
 "24"=inactive        # BINGO!! 
 ```
 
-Interesting... It seems the gpioget man page is incorrect (it is certainly *misleading*); the `-c` option must be used, and it must specify the gpio chip # !! 
+Interesting... It seems the `gpioget` man page is incorrect (it is certainly *misleading*); the `-c` option must be used, and it must specify the gpio chip # !! 
 
 
 
@@ -143,12 +143,12 @@ $ gpioset --version
 gpioset (libgpiod) v2.1
 # ... blah, blah, blah
 $ gpioset -c 0 24=1
-# The LED illuminates, but the bash prompt does not return...???
-# ^c restores the bash prompt, and the LED remains illuminated
-^c
+# the LED illuminates, but the bash prompt does not return...???
+# ^C restores the bash prompt, and the LED remains illuminated
+^C
 $ gpioset -c 0 24=0 
-# Again, the LED extinguishes, and the bash prompt does not return
-^c
+# the LED extinguishes, and as before the bash prompt does not return
+^C
 $ gpioset -c 0 -z 24=1 # LED illuminates (persistently), and bash prompt returns
 $ gpioset -c 0 24=0
 gpioset: unable to request lines on chip '/dev/gpiochip0': Device or resource busy 
