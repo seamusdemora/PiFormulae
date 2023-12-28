@@ -132,7 +132,7 @@ $ gpioget -c 0 24
 "24"=inactive        # BINGO!! 
 ```
 
-Interesting... It seems the `gpioget` man page is incorrect (it is certainly *misleading*); the `-c` option must be used, and it must specify the gpio chip # !! 
+Interesting... It seems the `gpioget` man page is incorrect (it is certainly *misleading*); the `-c` "option" must be used, and it must specify the gpio chip # !! 
 
 
 
