@@ -1,6 +1,6 @@
 ## Building libgpiod-ver2.1 on a *bullseye* system
 
-This *recipe* is for building the latest version of `libgpiod` on a `bullseye` system (aka `.oldstable`). 
+This *recipe* is for building the latest version of `libgpiod` on a `bullseye` system (aka `.oldstable` as of Dec 2023). 
 
 1. The tarball is obtained as follows: 
 
