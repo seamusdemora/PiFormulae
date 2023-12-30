@@ -111,14 +111,14 @@ This *recipe* is for building the latest version of `libgpiod` on a `bullseye` s
 	$ cd /home/pi/libgpiod-2.1
 	$ pwd
 	/home/pi/libgpiod-2.1
-	$ ./autogen.sh --enable-tools=yes --prefix=/usr/lib/arm-linux-gnueabihf
+	$ ./autogen.sh --enable-tools=yes --prefix=/usr/lib/arm-linux-gnueabihf  --enable-gpioset-interactive
 	# ...
 	config.status: executing libtool commands
 	$ make
 	$ sudo make install
 	```
 	
-12. There have been a few changes to `/usr/lib/arm-linux-gnueabihf`, but the ***new*** tools and `man` pages **have not** been moved into place - which means that the freshly-compiled stuff is floating around the filesystem somewhere!  Actually this freshly-compiled stuff  is in folders ***under***  `/usr/lib/arm-linux-gnueabihf`, but we need some **manual intervention** to **temporarily** **upgrade** the binaries and the `man` pages. 
+12. There have been a few changes to `/usr/lib/arm-linux-gnueabihf`, but the ***new*** tools and `man` pages **have not** been moved into place - which means that the freshly-compiled stuff is floating around the filesystem somewhere!  Actually this freshly-compiled stuff  is in folders ***under***  `/usr/lib/arm-linux-gnueabihf`, but some **manual intervention** is needed to **temporarily** **upgrade** the binaries and the `man` pages. 
 
 	```bash
 	$ sudo mkdir /usr/bin/old-gpio
