@@ -42,7 +42,7 @@ One other note: The ver 2.1 libgpiod tarball contains a lengthy script for testi
 
 ### Step 2: Simple 'libgpiod' testing using an LED:
 
-The circuit used for this part of the test is shown below, and as you can see it is *quite simple*. R1 is sized to current limit to something substantially less than 10mA when GPIO24 is HIGH/1 (3V3), but bright enough to see clearly. 
+The circuit used for this part of the test is shown below, and as you can see it is *simple*. R1 & R2 are sized to current limit to something less than 10mA when the GPIO line is HIGH/1 (3V3), but bright enough to see clearly. 
 
 
 ![](./pix/gpiod-test2.png)
@@ -50,7 +50,7 @@ The circuit used for this part of the test is shown below, and as you can see it
 
 Let's begin testing. We'll do this testing on an RPi 3A+ using the command line tools (`gpiodetect`, `gpioget`, `gpioinfo`, `gpiomon`, `gpionotify`, `gpioset`) from the terminal/`pty`. 
 
-2.1 Run `gpiodetect` and `gpioinfo` to learn how our *resources* are identified:
+#### 2.1 Run `gpiodetect` and `gpioinfo` to learn how our *resources* are identified:
 
 ```bash
 $ gpiodetect --version
@@ -134,15 +134,16 @@ gpiochip1 - 8 lines:
 	line   7:	"NC"            	input
 ```
 
-We can see that our chosen GPIO line `GPIO24` (from the schematic above) is identified as follows:
+We can see that our chosen GPIO lines `GPIO24, GPIO25` (from the schematic above) is identified as follows:
 
 ```
 line  24:	"GPIO24"        	input
+LINE  25: "GPIO25"          input
 ```
 
 
 
-2.2 Let's try a `gpioget` on `GPIO24`: 
+#### 2.2 Let's try `gpioget` on `GPIO24`: 
 
 ```bash
 $ gpioget 24
@@ -171,26 +172,27 @@ But `<line>` isn't well-defined (at least not in the `man`).  The`man` says:
 
 That only helps if you happen to know that the **name** is `GPIO24`. You might guess that from the output of `gpioinfo`, but then again you might not.  At any rate, we now know that `GPIO24` is a **line name**, and if you wish to refer to it as `24`, the `-c` option is required to specify the **chip number** - which may be `0`, or `gpiochip0` or `/dev/gpiochip0`.  
 
-Another thing that strikes me as *odd* about `gpioget` is that it is not *strictly* a *get*; i.e. it is **not** a *read-only* function; it actually changes the state of the GPIO line under some circumstances. We'll see that in a moment.  
+Another thing that strikes me as *oddly dysfunctional* about `gpioget` is that it is not *strictly* a *get*; i.e. it is **not** a *read-only* function; it actually sometimes behaves as if it were `gpioset`, and *changes the state* of the GPIO line under some circumstances. We'll see that in a moment.  
 
-2.3 Let's try `gpioset`, and some of its options/features on `GPIO24` & `GPIO25`
+#### 2.3 Let's try `gpioset`, and some of its options/features on `GPIO24` & `GPIO25`
 
 ```bash
 $ gpioset GPIO24=1 GPIO25=1
 # both LEDs illuminated, but bash prompt does not return...???
-# ^C restores the bash prompt, & LED remains illuminated (persistence - hooray!)
+# ^C restores the bash prompt, & LEDs remain illuminated (persistence - hooray!)
 ^C
 $ gpioset GPIO24=0 
-# the 24 LED extinguished, and as before - bash prompt does not return
+# the 24 LED Green is extinguished, and as before, the bash prompt does not return
 ^C
 $ gpioset GPIO24=1    # LED illuminated, ^C to return prompt
-^C
-$ gpioget GPIO24      # LED Extinguishes
-"GPIO24"=inactive     # Here, we see gpioget acting more like "gpioput" (or gpioset)
-                      # strikes me as unconventional, but ... ???
+^C 
+# now try gpioget on GPIO24:
+$ gpioget GPIO24      # LED Extinguishes; i.e. gpioget changed state of GPIO24
+"GPIO24"=inactive     # Here, we see gpioget acting more like "gpioset",
+                      # which strikes me as unconventional, but ... ???
 ```
 
-Try the `-z` / `daemonize` option of `gpioset`:
+##### 2.3.1 Try the `-z` / `daemonize` option of `gpioset`:
 
 ```bash
 $ gpioset -z GPIO24=1 # The -z (-daemonize) option illuminates LED (persistently), and bash prompt returns
@@ -216,21 +218,23 @@ $ gpioget GPIO24
 # Wonder what the '-z' option does that background doesn't?
 ```
 
-Try other options appropriate for LEDs: 
+##### 2.3.2 Try other options appropriate for LEDs:
 
 ```bash
 # The '-t' / '--toggle' option is nice for a repetitive sequence
 #
 $ gpioset -t 100ms,500ms,200ms,500ms,300ms,500ms,400ms,500ms,500ms,500ms GPIO24=1 &
-[1] 7471              # background enables return prompt
+[1] 7471              # background (&) enables return prompt
 $ gpioget GPIO24
 gpioget: unable to request lines: Device or resource busy
 $ kill 7471
 $ gpioget GPIO24
 "GPIO24"=inactive
-[1]+  Terminated              gpioset -t 100ms,500ms,200ms,500ms,300ms,500ms,400ms,500ms,500ms,500ms GPIO24=1 
+[1]+  Terminated              gpioset -t        # gpioset -t for "toggle" 100ms,500ms,200ms,500ms,300ms,500ms,400ms,500ms,500ms,500ms GPIO24=1 
 
-# the '-p'/'--hold-period' option... I cannot explain it, seems identical to gpioset 
+
+# moving on to the "--hold-period" option...
+# the '-p' option is a mystery to me... I cannot explain it 
 #
 $ gpioset -p 10s GPIO24=1
 ^C                    # waited 20 secs, LED remained illuminated
@@ -238,10 +242,12 @@ $ gpioget GPIO24
 "GPIO24"=inactive     # LED extinguished 
 # man says "the minimum time period to hold lines at the requested values"; yes,  'minimum' 
 $ gpioset -p 10s GPIO24=1
-^C                    # no wait...
-$ gpioget GPIO24      # issued commands immediately (< 2 secs)
+^C                    # I did not wait,
+$ gpioget GPIO24      # I issued commands immediately (< 2 secs)
 "GPIO24"=inactive     # LED extinguished as soon as 'gpioget' issued  ??? 
 
+# moving on to the "--interactive" option
+# note: this option only exists if the compiler flag is set (see building resipe)
 # the '-i' / '--interactive' option is interesting
 #
 $ $ gpioset -i GPIO24=1    # LED illuminated
@@ -253,7 +259,7 @@ gpioset> set GPIO24=0      # LED extinguished
 gpioset> set GPIO24=1      # LED illuminated
 gpioset> sleep 30s         # 'gpioset>' prompt disappears for 30 sec, LED illuminated
 gpioset> get GPIO24
-"GPIO24"=active
+"GPIO24"=active            # note: gpioget did not change state of GPIO24 in this case
 gpioset> set GPIO24=0      # LED extinguished
 gpioset> get GPIO24
 "GPIO24"=inactive
