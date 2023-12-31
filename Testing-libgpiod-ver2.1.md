@@ -138,7 +138,7 @@ We can see that our chosen GPIO lines `GPIO24, GPIO25` (from the schematic above
 
 ```
 line  24:	"GPIO24"        	input
-LINE  25: "GPIO25"          input
+line  25:	"GPIO25"		input
 ```
 
 
