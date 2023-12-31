@@ -22,7 +22,7 @@ In the research for this recipe, two (2) limits or qualifications on `libgpiod` 
 
 Some [reviews of `libgpiod`](https://raspberrypi.stackexchange.com/a/136484/83790) have been quite negative. I tried it myself back in 1Q 2022, and found it *confusing*.  But those were *early days*. Approximately two years of `libgpiod` development have taken place since then, and a **hard deadline** is just around the corner.  It is said that the release of Linux 6.6 marks the end of the old `sysfs` interface (i.e. it will no longer work). Surely things have improved?
 
-An early criticism of libgpiod was its lack of persistence; i.e. switch a GPIO line to HIGH (e.g. to drive an LED), and it **appears** that nothing happened. The `man gpioset` document explained it like this: 
+An early criticism of libgpiod was its lack of persistence; i.e. switch a GPIO line to HIGH (e.g. to drive an LED), and it **appeared** that nothing happened. The `man gpioset` document explained it like this: 
 
 >Note:  the  state  of a GPIO line controlled over the character device reverts to default when the last process referencing the file descriptor representing the device file exits.  This means that it's wrong to run gpioset, have it exit and expect the line to continue being driven high or low. It may happen if given pin is floating but it must be interpreted as undefined behavior. 
 
