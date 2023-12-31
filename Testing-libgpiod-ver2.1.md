@@ -42,7 +42,7 @@ One other note: The ver 2.1 libgpiod tarball contains a lengthy script for testi
 
 ### Step 2: Simple 'libgpiod' testing using an LED:
 
-The circuit used for this part of the test is shown below, and as you can see it is *simple*. R1 & R2 are sized to current limit to something less than 10mA when the GPIO line is HIGH/1 (3V3), but bright enough to see clearly. 
+The circuit used for this part of the test is shown below, and as you can see it is *simple*. R1 & R2 are sized to current limit to something in the range of 10mA when the GPIO line is HIGH/1 (3V3), but bright enough to see clearly. 
 
 
 ![](./pix/gpiod-test2.png)
