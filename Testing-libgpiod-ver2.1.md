@@ -45,7 +45,7 @@ One other note: The ver 2.1 libgpiod tarball contains a lengthy script for testi
 The circuit used for this part of the test is shown below, and as you can see it is *quite simple*. R1 is sized to current limit to something substantially less than 10mA when GPIO24 is HIGH/1 (3V3), but bright enough to see clearly. 
 
 
-![](./pix/gpiod-test.png)
+![](./pix/gpiod-test2.png)
 
 
 Let's begin testing. We'll do this testing on an RPi 3A+ using the command line tools (`gpiodetect`, `gpioget`, `gpioinfo`, `gpiomon`, `gpionotify`, `gpioset`) from the terminal/`pty`. 
