@@ -51,7 +51,7 @@ It should be said first that the testing here is not on `libgpiod` *per se*, but
 
 The circuit used for this part of the test is shown below, and as you can see it is *simple*. R1 & R2 are sized to current limit to something in the range of 10mA when the GPIO line is HIGH/1 (3V3), but bright enough to see clearly.  We'll do this testing on an RPi 3A+ using the command line tools from the terminal/`pty`. 
 
-<img src="./pix/gpiod-test2.png">
+<img src="https://github.com/seamusdemora/PiFormulae/blob/master/pix/gpiod-test2.png" width="800" />
 
 #### 2.1 Run `gpiodetect` and `gpioinfo` to learn how our *resources* are identified:
 
@@ -305,5 +305,5 @@ I felt the `-i  --interactive` and the `-t  --toggle` options were both useful. 
 ### ... more to follow
 
 
-<img src="https://github.com/seamusdemora/PiFormulae/blob/master/pix/gpiod-test2.png" width="800" />
+
 
