@@ -44,37 +44,10 @@ One other note: The ver 2.1 libgpiod tarball contains a lengthy script for testi
 
 It should be said first that the testing here is not on `libgpiod` *per se*, but on the "tools" included in the distribution. These tools were written by the `libgpiod` dev team, and In that sense **the "tools" are used here as proxies for `libgpiod ver 2.1` testing :** 
 
-<html>
-<head>
-</head>
-<body>
-<table class="minimalistBlack">
-  
-<tr>
-  <th width="30%"></th>
-  <th width="30%">tools</th>
-  <th width="30%"></th>
-</tr> 
-
-<tr>
-  <td> <b>gpioget</b> </td>
-  <td> <b>gpiomon</b> </td>
-  <td> <b>gpioinfo</b> </td>
-</tr>
-<tr>
-  <td> <b>gpioset</b> </td>
-  <td> <b>gpionotify</b> </td>
-  <td> <b>gpiodetect</b> </td>
-</tr>
-  
-</table>
-</body>
-
-| tool       |            |
-| ---------- | ---------- |
-| gpioget    | gpiomon    |
-| gpioset    | gpionotify |
-| gpioinfo   | gpiodetect |
+|         |    tool    |            |
+| :-----: | :--------: | :--------: |
+| gpioget |  gpiomon   | gpioinfo   |
+| gpioset | gpionotify | gpiodetect |
 
 The circuit used for this part of the test is shown below, and as you can see it is *simple*. R1 & R2 are sized to current limit to something in the range of 10mA when the GPIO line is HIGH/1 (3V3), but bright enough to see clearly. 
 
