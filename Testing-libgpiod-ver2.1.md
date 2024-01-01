@@ -304,8 +304,6 @@ I felt the `-i  --interactive` and the `-t  --toggle` options were both useful. 
 
 ### ... more to follow
 
-```html
+
 <img src="https://github.com/seamusdemora/PiFormulae/blob/master/pix/gpiod-test2.png" width="800" />
 
-
-```
