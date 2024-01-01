@@ -42,6 +42,14 @@ One other note: The ver 2.1 libgpiod tarball contains a lengthy script for testi
 
 ### Step 2: Simple 'libgpiod' testing using an LED:
 
+It should be said first that the testing here is not on `libgpiod` *per se*, but on the "tools" included in the distribution. These tools were written by the `libgpiod` dev team, and In that sense **the "tools" are used here as proxies for `libgpiod ver 2.1` testing :** 
+
+| tool           |                |
+| :---------- | :---------- |
+| gpioget | gpiomon |
+| gpioset | gpionotify |
+| gpioinfo | gpiodetect |
+
 The circuit used for this part of the test is shown below, and as you can see it is *simple*. R1 & R2 are sized to current limit to something in the range of 10mA when the GPIO line is HIGH/1 (3V3), but bright enough to see clearly. 
 
 
@@ -240,7 +248,7 @@ $ gpioset -p 10s GPIO24=1
 ^C                    # waited 20 secs, LED remained illuminated
 $ gpioget GPIO24
 "GPIO24"=inactive     # LED extinguished 
-# man says "the minimum time period to hold lines at the requested values"; yes,  'minimum' 
+# man says "the minimum time period to hold lines at the requested values"; yes, it says 'minimum' 
 $ gpioset -p 10s GPIO24=1
 ^C                    # I did not wait,
 $ gpioget GPIO24      # I issued commands immediately (< 2 secs)
@@ -268,5 +276,36 @@ gpioset> exit
 
 ```
 
-### ... more to follow 
+
+
+### 2.4 Summary - 'Step 2 Simple 'libgpiod' testing using an LED' :
+
+As mentioned above, the testing in this step did not actually test `libgpiod ver 2.1` - it tested four (4) of the "tools" (command line apps) written by the authors of libgpiod as *proxie*s for libgpiod.  The ''tools'' tested above are: 
+
+* gpiodetect
+* gpioinfo
+* gpioget
+* gpioset
+
+`gpiodetect` and `gpiodetect` seemed entirely serviceable (to me). The only suggestion I might make is to add a header line to `gpioinfo` to emphasize which column contains the line **name** and which contains the **offset**. 
+
+`gpioget` - as mentioned in a couple of places in the test results still strikes me as [*out of kilter*](https://www.merriam-webster.com/dictionary/out%20of%20kilter) due to its usage in changing the state of a GPIO line. That behavior just doesn't seem copacetic to me, but YMMV. 
+
+`gpioset` - I don't understand the need to ***not return*** the command line prompt following execution of (for example) `gpioset GPIO24=1`. If the `libgpiod ver 2.1` designers were "happy" to delegate *line persistence* to the GPIO driver, then why not do the same in this case? Similarly, I do not understand the `-z  --daemonize` option as it seems to have the same effect as running `gpioset` in the background. And **if** one adds a `--daemonize` option, it seems to me they should also add an option to kill the daemon without having to resort to `ps` and `kill`. 
+
+I was unable to follow the point of the `-p  --hold-period` option; did not grok this option. 
+
+I felt the `-i  --interactive` and the `-t  --toggle` options were both useful. In particular the `--interactive` option suggests interesting usages in scripting applications when `gpioset` is running in the background/`daemonized`. 
+
+#### Comments and criticisms notwithstanding, I found the `libgpiod ver 2.1` tools usable, and comparable to (e.g.) the WiringPi `gpio` tools. 
+
+---
+
+
+
+### Step 3: Simple 'libgpiod' testing using a toggle switch:  
+
+
+
+### ... more to follow
 
