@@ -177,12 +177,14 @@ That only helps if you happen to know that the **name** is `GPIO24`. You might g
 
 Another thing that strikes me as *oddly dysfunctional* about `gpioget` is that it is not *strictly* a *get*; i.e. it is **not** a *read-only* function; it actually sometimes behaves as if it were `gpioset`, and *changes the state* of the GPIO line under some circumstances. We'll see that in a moment.  
 
-#### 2.3 Let's try `gpioset`, and some of its options/features on `GPIO24` & `GPIO25`
+#### 2.3 Try `gpioset`, and some of its options/features on `GPIO24` & `GPIO25`
 
 ```bash
 $ gpioset GPIO24=1 GPIO25=1
 # both LEDs illuminated, but bash prompt does not return...???
-# ^C restores the bash prompt, & LEDs remain illuminated (persistence - hooray!)
+# ^C restores the bash prompt, & LEDs remain illuminated (persistence - good!; loss of prompt - BAD!) 
+# Loss of the bash prompt would seem to mean that it 
+#  will be very awkward to use gpioset in a script!!
 ^C
 $ gpioset GPIO24=0 
 # the 24 LED Green is extinguished, and as before, the bash prompt does not return
@@ -192,7 +194,7 @@ $ gpioset GPIO24=1    # LED illuminated, ^C to return prompt
 # now try gpioget on GPIO24:
 $ gpioget GPIO24      # LED Extinguishes; i.e. gpioget changed state of GPIO24
 "GPIO24"=inactive     # Here, we see gpioget acting more like "gpioset",
-                      # which strikes me as unconventional, but ... ???
+                      # which strikes me as unconventional, but ... ??? 
 ```
 
 ##### 2.3.1 Try the `-z` / `daemonize` option of `gpioset`:
@@ -271,9 +273,25 @@ gpioset> exit
 
 ```
 
+#### 2.4 Try `gpioset` in a bash script:
 
+Given the failure of `gpioset` to return a prompt at the command line, it seems likely there will be issues using it in a script: 
 
-### 2.4 Summary - 'Step 2 Simple 'libgpiod' testing using an LED' :
+```bash
+#!/usr/bin/env bash
+echo "Hello, starting gpioset to illuminate LED in 5 secs"
+sleep 5
+gpioset GPIO24=1
+echo "Started gpioset, sleeping for 5 sec"
+sleep 5
+echo "Slept, starting gpioset to extinguish LED"
+gpioset GPIO24=0
+exit
+```
+
+As expected, the script fails after executing the first `gpioset`.  This is an issue.
+
+### 2.5 Summary - 'Step 2 Simple 'libgpiod' testing using an LED' :
 
 As mentioned above, the testing in this step did not actually test `libgpiod ver 2.1` - it tested four (4) of the "tools" (command line apps) written by the authors of libgpiod as *proxie*s for libgpiod.  The ''tools'' tested above are: 
 
@@ -286,13 +304,15 @@ As mentioned above, the testing in this step did not actually test `libgpiod ver
 
 `gpioget` - as mentioned in a couple of places in the test results still strikes me as [*out of kilter*](https://www.merriam-webster.com/dictionary/out%20of%20kilter) due to its usage in changing the state of a GPIO line. That behavior just doesn't seem copacetic to me, but YMMV. 
 
-`gpioset` - I don't understand the need to ***not return*** the command line prompt following execution of (for example) `gpioset GPIO24=1`. If the `libgpiod ver 2.1` designers delegated *line persistence* to the GPIO driver, so why not do the same in this case? Similarly, I do not understand the `-z  --daemonize` option as it seems to have the same effect as running `gpioset ... &` (i.e. in the background). And **if** one adds a `--daemonize` option, it seems to me one should also add an option to kill the daemon without having to resort to `ps` and `kill`. 
+`gpioset` - I don't understand the need to ***not return*** the command line prompt following execution of (for example) `gpioset GPIO24=1`. If the `libgpiod ver 2.1` designers delegated *line persistence* to the GPIO driver, so why not do the same in this case? As shown above, this limits its use in scripting.
+
+Similarly, I do not understand the `-z  --daemonize` option as it seems to have the same effect as running `gpioset ... &` (i.e. in the background). And **if** one adds a `--daemonize` option, it seems to me one should also add an option to kill the daemon without having to resort to `ps` and `kill`. 
 
 I was unable to follow the point of the `-p  --hold-period` option; did not grok this option. 
 
 I felt the `-i  --interactive` and the `-t  --toggle` options were both useful. In particular the `--interactive` option suggests interesting usages in scripting applications when `gpioset` is running in the background/`daemonized`. 
 
-#### Comments and criticisms notwithstanding, I found the `libgpiod ver 2.1` tools usable, and comparable to (e.g.) the WiringPi `gpio` tools. 
+#### I found the `libgpiod ver 2.1` tools awkward to use in some cases, even un-usable in the case of using `gpioset` in a script. There is *probably* a way to overcome this limitation using the `--interactive` option, but this will be a complication. 
 
 ---
 
