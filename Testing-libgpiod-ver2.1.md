@@ -49,12 +49,13 @@ It should be said first that the testing here is not on `libgpiod` *per se*, but
 </head>
 <body>
 <table class="minimalistBlack">
+  
 <thead>
-<tr>
   <th>tools</th>
-</tr>
-</thead>
+</thead> 
+  
 <tbody>
+  
 <tr>
   <td width="30%"> <b>gpioget</b> </td>
   <td width="30%"> <b>gpiomon</b> </td>
@@ -65,8 +66,11 @@ It should be said first that the testing here is not on `libgpiod` *per se*, but
   <td> <b>gpionotify</b> </td>
   <td> <b>gpiodetect</b> </td>
 </tr>
-</tbody>
+  
+</tbody> 
+  
 </table>
+  
 </body>
 
 | tool       |            |
