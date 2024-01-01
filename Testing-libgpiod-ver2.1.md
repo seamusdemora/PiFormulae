@@ -61,11 +61,12 @@ It should be said first that the testing here is not on `libgpiod` *per se*, but
 < td width=30%> <b>gpioinfo</b> </td>
 </tr>
 <tr>
-<td width="30%"> <b>gpioset</b> </td>
-<td width="30%"> <b>gpionotify</b> </td>
-< td width=30%> <b>gpiodetect</b> </td>
+<td> <b>gpioset</b> </td>
+<td> <b>gpionotify</b> </td>
+< td> <b>gpiodetect</b> </td>
 </tr>
 </tbody>
+</table>
 </table>
 
 | tool       |            |
