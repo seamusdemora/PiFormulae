@@ -56,14 +56,14 @@ It should be said first that the testing here is not on `libgpiod` *per se*, but
 </thead>
 <tbody>
 <tr>
-<td width="30%"> <b>gpioget</b> </td>
-<td width="30%"> <b>gpiomon</b> </td>
-< td width=30%> <b>gpioinfo</b> </td>
+  <td width="30%"> <b>gpioget</b> </td>
+  <td width="30%"> <b>gpiomon</b> </td>
+  <td width="30%"> <b>gpioinfo</b> </td>
 </tr>
 <tr>
-<td> <b>gpioset</b> </td>
-<td> <b>gpionotify</b> </td>
-< td> <b>gpiodetect</b> </td>
+  <td> <b>gpioset</b> </td>
+  <td> <b>gpionotify</b> </td>
+  <td> <b>gpiodetect</b> </td>
 </tr>
 </tbody>
 </table>
