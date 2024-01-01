@@ -303,7 +303,7 @@ I felt the `-i  --interactive` and the `-t  --toggle` options were both useful. 
 
 
 
-### Step 3: Simple 'libgpiod' testing using a toggle switch:  
+### Step 3: Simple 'libgpiod' testing using a toggle switch:
 
 
 
