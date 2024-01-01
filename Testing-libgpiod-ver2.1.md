@@ -282,11 +282,11 @@ As mentioned above, the testing in this step did not actually test `libgpiod ver
 * gpioget
 * gpioset
 
-`gpiodetect` and `gpiodetect` seemed entirely serviceable (to me). The only suggestion I might make is to add a header line to `gpioinfo` to emphasize which column contains the line **name** and which contains the **offset**. 
+`gpiodetect` and `gpioinfo` seemed entirely serviceable (to me). The only suggestion I might make is to add a header line to `gpioinfo` to emphasize which column contains the line **name** and which contains the **offset**. 
 
 `gpioget` - as mentioned in a couple of places in the test results still strikes me as [*out of kilter*](https://www.merriam-webster.com/dictionary/out%20of%20kilter) due to its usage in changing the state of a GPIO line. That behavior just doesn't seem copacetic to me, but YMMV. 
 
-`gpioset` - I don't understand the need to ***not return*** the command line prompt following execution of (for example) `gpioset GPIO24=1`. If the `libgpiod ver 2.1` designers were "happy" to delegate *line persistence* to the GPIO driver, then why not do the same in this case? Similarly, I do not understand the `-z  --daemonize` option as it seems to have the same effect as running `gpioset` in the background. And **if** one adds a `--daemonize` option, it seems to me they should also add an option to kill the daemon without having to resort to `ps` and `kill`. 
+`gpioset` - I don't understand the need to ***not return*** the command line prompt following execution of (for example) `gpioset GPIO24=1`. If the `libgpiod ver 2.1` designers delegated *line persistence* to the GPIO driver, so why not do the same in this case? Similarly, I do not understand the `-z  --daemonize` option as it seems to have the same effect as running `gpioset ... &` (i.e. in the background). And **if** one adds a `--daemonize` option, it seems to me one should also add an option to kill the daemon without having to resort to `ps` and `kill`. 
 
 I was unable to follow the point of the `-p  --hold-period` option; did not grok this option. 
 
