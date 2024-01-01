@@ -49,12 +49,9 @@ It should be said first that the testing here is not on `libgpiod` *per se*, but
 | gpioget |  gpiomon   | gpioinfo   |
 | gpioset | gpionotify | gpiodetect |
 
-The circuit used for this part of the test is shown below, and as you can see it is *simple*. R1 & R2 are sized to current limit to something in the range of 10mA when the GPIO line is HIGH/1 (3V3), but bright enough to see clearly. 
+The circuit used for this part of the test is shown below, and as you can see it is *simple*. R1 & R2 are sized to current limit to something in the range of 10mA when the GPIO line is HIGH/1 (3V3), but bright enough to see clearly.  We'll do this testing on an RPi 3A+ using the command line tools from the terminal/`pty`. 
 
 <img src="./pix/gpiod-test2.png">
-
-
-Let's begin testing. We'll do this testing on an RPi 3A+ using the command line tools (`gpiodetect`, `gpioget`, `gpioinfo`, `gpiomon`, `gpionotify`, `gpioset`) from the terminal/`pty`. 
 
 #### 2.1 Run `gpiodetect` and `gpioinfo` to learn how our *resources* are identified:
 
