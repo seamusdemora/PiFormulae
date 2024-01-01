@@ -50,18 +50,18 @@ It should be said first that the testing here is not on `libgpiod` *per se*, but
 <body>
 <table class="minimalistBlack">
   
-<tr>
-  <th></th>
-  <th>tools</th>
-  <th></th>
-</tr> 
-  
 <tbody>
   
 <tr>
-  <td width="30%"> <b>gpioget</b> </td>
-  <td width="30%"> <b>gpiomon</b> </td>
-  <td width="30%"> <b>gpioinfo</b> </td>
+  <th width="30%"></th>
+  <th width="30%">tools</th>
+  <th width="30%"></th>
+</tr> 
+
+<tr>
+  <td> <b>gpioget</b> </td>
+  <td> <b>gpiomon</b> </td>
+  <td> <b>gpioinfo</b> </td>
 </tr>
 <tr>
   <td> <b>gpioset</b> </td>
