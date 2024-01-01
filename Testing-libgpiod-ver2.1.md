@@ -44,6 +44,30 @@ One other note: The ver 2.1 libgpiod tarball contains a lengthy script for testi
 
 It should be said first that the testing here is not on `libgpiod` *per se*, but on the "tools" included in the distribution. These tools were written by the `libgpiod` dev team, and In that sense **the "tools" are used here as proxies for `libgpiod ver 2.1` testing :** 
 
+<html>
+<head>
+</head>
+<body>
+<table class="minimalistBlack">
+<thead>
+<tr>
+<th>'tools'</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td width="30%"> <b>gpioget</b> </td>
+<td width="30%"> <b>gpiomon</b> </td>
+< td width=30%> <b>gpioinfo</b> </td>
+</tr>
+<tr>
+<td width="30%"> <b>gpioset</b> </td>
+<td width="30%"> <b>gpionotify</b> </td>
+< td width=30%> <b>gpiodetect</b> </td>
+</tr>
+</tbody>
+</table>
+
 | tool       |            |
 | ---------- | ---------- |
 | gpioget    | gpiomon    |
@@ -145,8 +169,8 @@ gpiochip1 - 8 lines:
 We can see that our chosen GPIO lines `GPIO24, GPIO25` (from the schematic above) is identified as follows:
 
 ```
-line  24:	"GPIO24"        	input
-line  25:	"GPIO25"		input
+line  24:	"GPIO24"     input
+line  25:	"GPIO25"     input
 ```
 
 
