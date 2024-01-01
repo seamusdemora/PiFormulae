@@ -50,9 +50,11 @@ It should be said first that the testing here is not on `libgpiod` *per se*, but
 <body>
 <table class="minimalistBlack">
   
-<thead width="90%">
+<tr>
+  <th></th>
   <th>tools</th>
-</thead> 
+  <th></th>
+</tr> 
   
 <tbody>
   
