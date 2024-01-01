@@ -53,9 +53,7 @@ The circuit used for this part of the test is shown below, and as you can see it
 
 ![](./pix/gpiod-test2.png =640x)
 
-```
-<img src="./pix/gpiod-test2.png" width="640">
-```
+<img src="https://github.com/seamusdemora/PiFormulae/pix/gpiod-test2.png" width="640">
 
 
 Let's begin testing. We'll do this testing on an RPi 3A+ using the command line tools (`gpiodetect`, `gpioget`, `gpioinfo`, `gpiomon`, `gpionotify`, `gpioset`) from the terminal/`pty`. 
