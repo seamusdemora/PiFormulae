@@ -50,8 +50,6 @@ It should be said first that the testing here is not on `libgpiod` *per se*, but
 <body>
 <table class="minimalistBlack">
   
-<tbody>
-  
 <tr>
   <th width="30%"></th>
   <th width="30%">tools</th>
@@ -69,10 +67,7 @@ It should be said first that the testing here is not on `libgpiod` *per se*, but
   <td> <b>gpiodetect</b> </td>
 </tr>
   
-</tbody> 
-  
 </table>
-  
 </body>
 
 | tool       |            |
