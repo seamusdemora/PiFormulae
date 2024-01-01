@@ -51,7 +51,7 @@ It should be said first that the testing here is not on `libgpiod` *per se*, but
 <table class="minimalistBlack">
   
 <thead>
-  <th>tools</th>
+  <th  width="90%">tools</th>
 </thead> 
   
 <tbody>
