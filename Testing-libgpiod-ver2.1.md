@@ -67,7 +67,7 @@ It should be said first that the testing here is not on `libgpiod` *per se*, but
 </tr>
 </tbody>
 </table>
-</table>
+</body>
 
 | tool       |            |
 | ---------- | ---------- |
