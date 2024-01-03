@@ -312,7 +312,7 @@ I was unable to follow the point of the `-p  --hold-period` option; did not grok
 
 I felt the `-i  --interactive` and the `-t  --toggle` options were both useful. In particular the `--interactive` option suggests interesting usages in scripting applications when `gpioset` is running in the background/`daemonized`. 
 
-#### I found the `libgpiod ver 2.1` tools awkward to use in some cases, even un-usable in the case of using `gpioset` in a script. There is *probably* a way to overcome this limitation using the `--interactive` option, but this will be a complication. 
+#### I found the `libgpiod ver 2.1` tools awkward to use in some cases, even un-usable in the case of using `gpioset` in a script. There is *probably* a way to overcome this limitation using the `--interactive` option (or the `--toggle` option), but this unnecessarily  complicates an otherwise simple task.
 
 ---
 
