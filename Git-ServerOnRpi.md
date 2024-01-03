@@ -5,10 +5,10 @@ Let's set up a git server on a Raspberry Pi. This server will be a *private* ser
 Nothing special need be done to designate an RPi as a Git-Server. As long as it's got `git` installed, virtually any RPi is fit for this purpose. Simply choose one that's accessible to other hosts (RPi git-clients) on your network as the clients will need to make SSH connections to the Git-Server. Assuming you want to use public-key authentication, you'll need to copy public keys from git-clients to the git-server using `ssh-copy-id`. 
 
 ### The Situation
-Let's assume we have an RPi w/ hostname `rpigitserver` as the **Git-Server**, and that we have another RPi w/ hostname `rpigitclient` as one of the clients. Let's also assume that the repository we wish to maintain source control over is called `etc-update-motd-d`; this is simply a descriptive name, and need not be the same name as git folders holding the same code on the client(s). 
+Let's assume we have an RPi w/ hostname `rpigitserver` as the **Git-Server**, and that we have another RPi w/ hostname `rpigitclient` as one of the clients. Let's also assume that the repository we wish to maintain source control over is called `etc-update-motd-d`; this is simply a descriptive name, and need not be the same name as git folder holding the same code on the client(s). 
 
 ### Set Up the Repositories on the host `rpigitserver`; i.e. the Git-Server
-We'll put all of our git repositories under a common folder; sub-folders will designate the names of the individual repositories. 
+Rather than scattering the repositories about, we'll put all of our git repositories under a common folder that we'll name `~/git-srv`; sub-folders will designate the names of the individual repositories. 
 
 ```bash
 $ hostname    # to get our bearings straight
@@ -23,20 +23,20 @@ $ hostname    # to get our bearings straight
 rpigitserver
 $ mkdir ~/git-srv/etc-update-motd-d.git   # NOTE that we added the file extension `.git`
 $ cd ~/git-srv/etc-update-motd-d.git
-$ git init --bare 
+$ git init --bare                         # NOTE '--bare' option
 ```
-And that's it... our Git-Server is alive! 
+**And that's it... our Git-Server is alive!** 
 
-###  From a git-client connect to the Git-Server to "source" the code we've been working on
+###  From a (Git-)Client connect to the Git-Server to "source" the code we've developed
 
-Now move to (one of) the git-clients: `rpigitclient`. Assume `rpigitclient` is the host on which we've been coding a set of scripts which comprise the project we'll call `motd-d`. Remember, the folder names on client and server need not match, although they certainly can if that is desired.
+Now move to (one of) the git-clients: `rpigitclient`. Assume `rpigitclient` is the host on which we've been coding a set of scripts which comprise the project we'll call `motd-d`. Remember, the folder names on client and server need not match, although they certainly can match - if that is desired.
 
 ```bash
 $ hostname    # to get our bearings straight
 rpigitclient
 $ ssh-copy-id pi@rpigitserver   # copy SSH pub key to `rpigitserver` ==> IF NECESSARY
 $ cd ~/scripts/motd-d           # where the code for project motd-d is kept
-$ git init
+$ git init                      # NOTE we did not use the `--bare` option!
 $ git add <filenames>           # add the files which are to be tracked
 $ git commit -m 'some-message'  # commit the files with a suitable/meaningful message
 $ git remote add origin ssh://pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git
@@ -44,18 +44,19 @@ $ git remote add origin ssh://pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.
 $ git push -u ssh://pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git
 # ^ "pushes" the previously `add`ed & `commit`ted files to the Git-Server (`rpigitserver`)
 ```
-At this point, we have uploaded the code stored in `~/scripts/motd-d` on the client machine to the repo called `etc-update-motd-d.git` on the Git-Server.
+**At this point, we have uploaded the code stored in `~/scripts/motd-d` on the client machine to the repo called `etc-update-motd-d.git` on the Git-Server.** Things are moving right along :)
 
 
-### Connect another git-client to clone the repo 
+
+### Connect another git-client to clone the repo
 
 Let's move to another git-client, and "clone" (copy) the repo from Git-Server (`rpigitserver`). Let's assume this client is also located on the host `rpigitserver`; this might be in a different user's home directory (or not). We do this to show how a "local" clone is accomplished. 
 
 ```bash
-$ hostname    # to get our bearings straight
+$ hostname    				# to get our bearings straight
 rpigitserver
 $ pwd
-/home/developer
+/home/developer				# 'developer' is a userid; i.e. not user pi
 $ git clone pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d.git
 Cloning into 'etc-update-motd-d'...
   ...
@@ -65,7 +66,7 @@ etc-update-motd-d.git
 $
 # i.e. executing `git clone` from `~/` creates/clones the repo in ~/etc-update-motd-d
 ```
-#### ALTERNATIVELY, let's create that clone under a different directory; i.e. something other than `etc-update-motd-d.git` 
+#### ALTERNATIVELY, let's create that clone under a different directory; i.e. something other than `etc-update-motd-d.git`
 
 ```bash
 $ hostname    # to get our bearings straight
@@ -77,11 +78,13 @@ Cloning into 'motd'...
   ...
 Receiving objects: 100% (3/3), done.
 ```
-Of course this can also be done on a remote host using a URL (e.g. SSH, or https).
+Of course this `clone` operation can also be done on any remote host using a URL (e.g. SSH, or https). In either case, **We have now `clone`d a copy of our repo which may be used by another developer.** 
+
+
 
 ### Update Git-Server with changes made on `rpigitclient`
 
-To illustrate how to "complete the cycle", let's now assume that the developer on host `rpigitclient` has made some changes that he wishes to **commit** to the repo. Let's further assume that the changes involved the addition of two *working* files that will need to be further distributed and tested prior to release, and that the filenames of these *working* files are variations on the un-modified files. In other words, the new, added files might be named `foo_PROTO` and `bar_PROTO`.
+Now let's assume that development has been on-going on `rpigitclient`, and we are ready to `commit` the code, and upload that code to the Git-Server.  
 
 Here's how that commit is done, and pushed to the **Git-Server**: 
 
@@ -89,12 +92,12 @@ Here's how that commit is done, and pushed to the **Git-Server**:
 $ hostname    # to get our bearings straight
 rpigitclient
 $ cd ~/scripts/motd-d
-$ git add foo_PROTO bar_PROTO
-$ git commit -m 'add PROTOTYPE scripts'
-[master 8ad2324] add PROTOTYPE scripts
+$ git add *		# git will add all *changed* files to the 'staging area' 
+$ git commit -m 'added & modified several files'	# a very generic message. :)
+[master 8ad2324] added & modified several files
  2 files changed, 0 insertions(+), 0 deletions(-)
- create mode 100644 bar_PROTO
- create mode 100644 foo_PROTO
+ create mode 100644 bar
+ create mode 100644 foo
 $ git push -u ssh://pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git
 Enumerating objects: 4, done.
 Counting objects: 100% (4/4), done.
@@ -108,7 +111,47 @@ Branch 'master' set up to track remote branch 'master' from 'ssh://pi@rpigitserv
 $ 
 ```
 
-And that concludes this recipe - for today.
+**Our revised code has now been `commit`ed and `push`ed to the Git-Server.** 
+
+
+
+### Create a working tree in our Git-Server repository
+
+Recall that when we initialized our repository in `~/git-srv/etc-update-motd-d.git` on `rpigitserver`, we used the `--bare` option. Take a look now inside that folder; `ls -l` inside the repository. Next, go to a    `clone`d repo, and take a look inside that folder using `ls -l`. You will notice that there are some differences, the most obvious being that the files in the repo are ***not visible*** inside the  `~/git-srv/etc-update-motd-d.git` folder!  You can search for them if you like - but you won't find them. This is a result of using the `--bare` option in initialization - the file contents are in the repository, but the repository contains no "working tree". 
+
+But now suppose we want to keep a working tree inside  `~/git-srv/etc-update-motd-d.git` ... how do we add that? As usual in `git`, there's a command for that: 
+
+```bash
+$ hostname    # to get our bearings straight
+rpigitserver
+$ cd ~/git-srv/etc-update-motd-d.git 
+$ pwd
+~/git-srv/etc-update-motd-d.git
+
+# add the working tree under tha name 'motd-worktree'
+
+$ git worktree add motd-worktree
+$ ls -l ./motd-worktree
+total 44
+-rw-r--r-- 1 git git  65 Jan  3 02:19 10-intro
+-rw-r--r-- 1 git git  41 Jan  3 02:19 20-uptime
+-rw-r--r-- 1 git git  72 Jan  3 02:19 30-temp
+-rw-r--r-- 1 git git 118 Jan  3 02:19 40-sdcard
+-rw-r--r-- 1 git git  56 Jan  3 02:19 50-network
+-rw-r--r-- 1 git git  56 Jan  3 02:19 55-osver
+-rw-r--r-- 1 git git  41 Jan  3 02:19 60-kernel
+-rw-r--r-- 1 git git 186 Jan  3 02:19 70-backup
+-rw-r--r-- 1 git git 264 Jan  3 02:19 75-imgutil
+-rw-r--r-- 1 git git 157 Jan  3 02:19 99-source
+```
+
+**We now have a working tree in our once-bare git repository; we can *access/add/delete/update/commit* any of the files from this tree to the repository.** 
+
+
+
+### And that concludes this recipe - for today.
+
+
 
 ## REFERENCES:
 
