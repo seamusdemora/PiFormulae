@@ -156,17 +156,28 @@ total 44
 ## REFERENCES:
 
 ### Git Worktrees:
+
     1. [A search](https://is.gd/Bt6DlQ) 
     2. [git-worktree - Manage multiple working trees](https://git-scm.com/docs/git-worktree)
     3. [Q&A: fatal: This operation must be run in a work tree](https://stackoverflow.com/questions/9262801/fatal-this-operation-must-be-run-in-a-work-tree) 
     4. [Q&A: What would I use git-worktree for?](https://stackoverflow.com/questions/31935776/what-would-i-use-git-worktree-for)
     5. [Experiment on your code freely with Git worktree](https://opensource.com/article/21/4/git-worktree) 
     6. [Using Git Worktree to Master Git Workflow](https://www.hatica.io/blog/git-worktree/) 
-    7. [Git Worktrees in Use](https://medium.com/ngconf/git-worktrees-in-use-f4e516512feb)
+    7. [Git Worktrees in Use](https://medium.com/ngconf/git-worktrees-in-use-f4e516512feb) 
+
+### Git - list files in repo:
+
+1. [Q&A: List files in local Git repo?](https://stackoverflow.com/questions/8533202/list-files-in-local-git-repo) - great answer! 
+2. [How can I make git show a list of the files that are being tracked?](https://stackoverflow.com/questions/15606955/how-can-i-make-git-show-a-list-of-the-files-that-are-being-tracked) 1 good answer & 1 incorrect answer 
+3. [Difference between a working tree and a repository in Git?](https://stackoverflow.com/a/76797811/22595851) the reason why the 'great answer' is great 
 
 ### git restore-mtime: 
-  8. [A search](https://is.gd/1GCkfQ)
-  9. [The GitHub repo for `restore-mtime`](https://github.com/MestreLion/git-tools/blob/main/git-restore-mtime)
-  10. [Restoring Timestamps in Git Repositories](https://tilburgsciencehub.com/building-blocks/collaborate-and-share-your-work/use-github/git-tools/)
-  11. Install via `sudo apt install git-restore-mtime`; run command via `git restore-mtime`  
-  12. [Debian `man git-restore-mtime`](https://manpages.debian.org/bookworm/git-restore-mtime/git-restore-mtime.1.en.html) 
+1. [A search](https://is.gd/1GCkfQ)
+
+2. [The GitHub repo for `restore-mtime`](https://github.com/MestreLion/git-tools/blob/main/git-restore-mtime)
+
+3. [Restoring Timestamps in Git Repositories](https://tilburgsciencehub.com/building-blocks/collaborate-and-share-your-work/use-github/git-tools/)
+
+4. Install via `sudo apt install git-restore-mtime`; run command via `git restore-mtime`  
+
+5. [Debian `man git-restore-mtime`](https://manpages.debian.org/bookworm/git-restore-mtime/git-restore-mtime.1.en.html) 
