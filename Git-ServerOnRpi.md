@@ -156,17 +156,17 @@ total 44
 ## REFERENCES:
 
 ### Git Worktrees:
-  1. [A search](https://is.gd/Bt6DlQ)
-  2. [Git Worktrees in Use](https://medium.com/ngconf/git-worktrees-in-use-f4e516512feb)
-  3. [Q&A: fatal: This operation must be run in a work tree](https://stackoverflow.com/questions/9262801/fatal-this-operation-must-be-run-in-a-work-tree)
-  4. [Using Git Worktree to Master Git Workflow](https://www.hatica.io/blog/git-worktree/)
-  5. [git-worktree - Manage multiple working trees](https://git-scm.com/docs/git-worktree)
-  6. [Q&A: What would I use git-worktree for?](https://stackoverflow.com/questions/31935776/what-would-i-use-git-worktree-for)
-  7. [Experiment on your code freely with Git worktree](https://opensource.com/article/21/4/git-worktree)
+    1. [A search](https://is.gd/Bt6DlQ) 
+    2. [git-worktree - Manage multiple working trees](https://git-scm.com/docs/git-worktree)
+    3. [Q&A: fatal: This operation must be run in a work tree](https://stackoverflow.com/questions/9262801/fatal-this-operation-must-be-run-in-a-work-tree) 
+    4. [Q&A: What would I use git-worktree for?](https://stackoverflow.com/questions/31935776/what-would-i-use-git-worktree-for)
+    5. [Experiment on your code freely with Git worktree](https://opensource.com/article/21/4/git-worktree) 
+    6. [Using Git Worktree to Master Git Workflow](https://www.hatica.io/blog/git-worktree/) 
+    7. [Git Worktrees in Use](https://medium.com/ngconf/git-worktrees-in-use-f4e516512feb)
 
 ### git restore-mtime: 
   8. [A search](https://is.gd/1GCkfQ)
   9. [The GitHub repo for `restore-mtime`](https://github.com/MestreLion/git-tools/blob/main/git-restore-mtime)
   10. [Restoring Timestamps in Git Repositories](https://tilburgsciencehub.com/building-blocks/collaborate-and-share-your-work/use-github/git-tools/)
-  11. On Debian, install via `sudo apt install git-restore-mtime`; run command via `git restore-mtime`.
+  11. Install via `sudo apt install git-restore-mtime`; run command via `git restore-mtime`  
   12. [Debian `man git-restore-mtime`](https://manpages.debian.org/bookworm/git-restore-mtime/git-restore-mtime.1.en.html) 
