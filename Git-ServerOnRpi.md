@@ -115,6 +115,25 @@ $
 
 
 
+### Update a Git-Client repo from the Git-Server
+
+During the course of your work, you will occasionally need to update the repo on one or more of your Git-Clients. This is done as follows: 
+
+```bash
+$ hostname    # to get our bearings straight
+rpigitclient
+$ cd ~/scripts/motd-d
+$ git branch --show-current
+master        # or whatever the current branch is
+$ git pull origin master
+From ssh://rpigitserver/home/pi/git-srv/etc-update-motd-d
+ * branch            master     -> FETCH_HEAD 
+ ...
+ $
+```
+
+
+
 ### Create a working tree in our Git-Server repository
 
 Recall that when we initialized our repository in `~/git-srv/etc-update-motd-d.git` on `rpigitserver`, we used the `--bare` option. Take a look now inside that folder; `ls -l` inside the repository. Next, go to a    `clone`d repo, and take a look inside that folder using `ls -l`. You will notice that there are some differences, the most obvious being that the files in the repo are ***not visible*** inside the  `~/git-srv/etc-update-motd-d.git` folder!  You can search for them if you like - but you won't find them. This is a result of using the `--bare` option in initialization - the file contents are in the repository, but the repository contains no "working tree". 
@@ -146,6 +165,8 @@ total 44
 ```
 
 **We now have a working tree in our once-bare git repository; we can *access/add/delete/update/commit* any of the files from this tree to the repository.** 
+
+
 
 
 
