@@ -38,11 +38,22 @@ It has been said that users of modern Linux systems should be using `systemd` wh
 3. Finally, use `systemctl` (p/o `systemd`) to start and stop the `donaught service`: 
 
 	```bash
-	$ sudo systemctl start donaught
+	sudo systemctl start donaught
 	# you can watch donaught "in action" using tail -f donaught.log
 	# and when you get tired of that, just stop it
-	$ sudo systemctl stop donaught
+	sudo systemctl stop donaught
 	```
+
+4. If you want the service to start at boot time, enter this command from the terminal: 
+
+	```bash
+	sudo systemctl enable donaught 
+	
+	# to prevent the service from starting at the next boot:
+	sudo systemctl disable donaught
+	```
+
+
 
 
 
