@@ -123,7 +123,7 @@ This is fairly detailed - I wrote this as I did it. I've included some steps tha
 14. With access to a reliable & accurate clock, check the time on your RPi from the terminal: 
 
       ```bash
-      $ date && sudo hwclock -r
+      $ date +"%Y-%m-%d %T.%6N" && sudo hwclock -r
       ```
       The two times should be very "close".
 
