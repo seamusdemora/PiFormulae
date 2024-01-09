@@ -1,4 +1,4 @@
-## Building 'pinctrl' on a *bullseye* system 
+## Building 'pinctrl' on a *bullseye* or *bookworm* system 
 
 This *recipe* is for building the latest version of `pinctrl` on a `bullseye` system (aka `.oldstable`). `pinctrl` is a potentially useful adjunct in our testing and experimentation with `libgpiod`. 
 
