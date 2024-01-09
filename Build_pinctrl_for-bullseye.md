@@ -4,11 +4,12 @@ This *recipe* is for building the latest version of `pinctrl` on a `bullseye` sy
 
 1. `pinctrl` is a member of the [`utils` repo](https://github.com/raspberrypi/utils/tree/master) at the Raspberry Pi GitHub site. For reasons that are not clear to me, cloning this repo is a *two-step* process: 
 
-​		a. Go to the [GitHub site](https://github.com/raspberrypi/utils/tree/master), and **"fork"** the 'utils' repo to your GitHub account
+   - Go to the [GitHub site](https://github.com/raspberrypi/utils/tree/master), and **"fork"** the 'utils' repo to your GitHub account
 
-​		b. From your RPi, execute a `git clone https://github.com/seamusdemora/utils` 
 
-​			(you should use **your** clone, not mine, as I'm unlikely to keep mine updated) 
+   - From your RPi, execute a `git clone https://github.com/seamusdemora/utils` 
+
+     note: you should use **your** clone, not mine, as I'm unlikely to keep mine updated) 
 
 2. Get some tools: 
 
