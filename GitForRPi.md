@@ -115,7 +115,7 @@ After some research, a solution was found: the `.git/config` file is not *"confi
 # git remote set-url origin git@github.com:gitusername/repository.git
 # for this example:
 
-$ git remote set-url origin git@github.com:seamusdemora/PiPyMailer.git 
+$ git remote set-url origin git@github.com:seamusdemora/PiPyMailer.git   # run from inside the repo
 
 # And Now: 
 
