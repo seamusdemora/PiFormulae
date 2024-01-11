@@ -162,6 +162,25 @@ total 44
 -rw-r--r-- 1 git git 186 Jan  3 02:19 70-backup
 -rw-r--r-- 1 git git 264 Jan  3 02:19 75-imgutil
 -rw-r--r-- 1 git git 157 Jan  3 02:19 99-source
+
+$ # note that in git, file modification times are lost in the 'ls' view - this is by design;
+$ # change that with 'git restore-mtime' - run from the working tree (after it's installed)
+
+$ sudo apt update && sudo apt install git-restore-mtime
+$ cd ./motd-worktree && git restore-mtime && cd ..
+$ ls -l  ./motd-worktree
+total 44
+-rw-r--r-- 1 pi pi  65 Dec 16 03:23 10-intro
+-rw-r--r-- 1 pi pi  41 Dec 16 03:23 20-uptime
+-rw-r--r-- 1 pi pi  72 Dec 16 03:23 30-temp
+-rw-r--r-- 1 pi pi 118 Dec 16 03:23 40-sdcard
+-rw-r--r-- 1 pi pi  56 Dec 16 03:23 50-network
+-rw-r--r-- 1 pi pi  56 Dec 16 03:23 55-osver
+-rw-r--r-- 1 pi pi  41 Dec 16 03:23 60-kernel
+-rw-r--r-- 1 pi pi 186 Dec 15 02:53 70-backup
+-rw-r--r-- 1 pi pi 264 Nov 30 06:58 75-imgutil
+-rw-r--r-- 1 pi pi 157 Jan  2 01:22 99-source
+$
 ```
 
 **We now have a working tree in our once-bare git repository; we can *access/add/delete/update/commit* any of the files from this tree to the repository.** 
