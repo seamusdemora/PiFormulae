@@ -51,10 +51,9 @@ In this case, RPi is the client, and GitHub is the server. SSH key generation is
 
 ##### 1. SSH Key Generation on the RPi:
 
-```
-NOTE: I opted for no passphrase, and the email address added under `-C` should be 
-**your email address - as supplied to GitHub**. 
+NOTE: I opted for no passphrase, and the email address added under `-C` should be **your email address - as supplied to GitHub**. 
 
+```
 $ ssh-keygen -t ed25519 -f ed25519-gh -C "seamusdemora@gmail.com"
 Generating public/private ed25519 key pair. 
 ...
