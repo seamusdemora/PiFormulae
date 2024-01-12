@@ -241,32 +241,31 @@ With the Authentication of Part II now sorted, let's continue:
   70-backup
   75-imgutil
   99-source
-```
-
-##### 3. 'push' your RPi-local repo to GitHub (THE PAYOFF) 
+##### 4. 'push' your RPi-local repo to GitHub (THE PAYOFF) 
 
 * At this point, the repo appears to be correct. All files were added & committed, then 3 were removed/un-committed. 
 
 * Recalling the *lessons learned* from **Step** **II**-5 wrt `git remote set-url origin ...`, we are now ready to `push` the repo to GitHub using SSH authentication: 
 
-* ```bash
-  $ cd ~/pi-motd 
-  $ git remote add origin git@github.com:seamusdemora/pi-motd.git # NOTE 'add' instead of 'set-url' 
-  # 'add' to create a new remote; 'set-url' to make a change
-  $ git branch -M master 
-  $ git push -u origin master
-  Enumerating objects: 17, done.
-  Counting objects: 100% (17/17), done.
-  Delta compression using up to 4 threads
-  Compressing objects: 100% (13/13), done.
-  Writing objects: 100% (17/17), 1.87 KiB | 1.87 MiB/s, done.
-  Total 17 (delta 1), reused 0 (delta 0), pack-reused 0
-  remote: Resolving deltas: 100% (1/1), done.
-  To github.com:seamusdemora/pi-motd
-   * [new branch]      master -> master
-  branch 'master' set up to track 'origin/master'.
-  $ 
+  ```bash
+    $ cd ~/pi-motd 
+    $ git remote add origin git@github.com:seamusdemora/pi-motd.git # NOTE 'add' instead of 'set-url' 
+    # 'add' to create a new remote; 'set-url' to make a change
+    $ git branch -M master 
+    $ git push -u origin master
+    Enumerating objects: 17, done.
+    Counting objects: 100% (17/17), done.
+    Delta compression using up to 4 threads
+    Compressing objects: 100% (13/13), done.
+    Writing objects: 100% (17/17), 1.87 KiB | 1.87 MiB/s, done.
+    Total 17 (delta 1), reused 0 (delta 0), pack-reused 0
+    remote: Resolving deltas: 100% (1/1), done.
+    To github.com:seamusdemora/pi-motd
+     * [new branch]      master -> master
+    branch 'master' set up to track 'origin/master'. 
+    $
   ```
+
 
 * And you should now be able to [load the page for the pi-motd repo at GitHub in your browser](https://github.com/seamusdemora/pi-motd). Note that some of the [*niceties*](https://www.merriam-webster.com/dictionary/nicety) have been added: a 'README.md' file, a license file and a few other files that may be useful. 
 
@@ -275,173 +274,6 @@ With the Authentication of Part II now sorted, let's continue:
 ### And that concludes this recipe - for now... 
 
 
-
-
-
-
-
-<!--- 
-
-HIDDEN
-
-### III. Copy/clone your local repo to the remote
-
-In other words, upload your local files to a named repository at GitHub
-
-```bash
-$ cd ~/PiPyMailer
-$ git remote add origin https://github.com/seamusdemora/PiPyMailer
-```
-
-
-
-#### 1. From `man git-init`, the 4-step process to create your local repo:
-
->Start a new Git repository for an existing code base:  
-  $ cd /path/to/my/codebase  
-  $ git init      (1)  
-  $ git add .     (2)  
-  $ git commit    (3)  
-  1. Create a /path/to/my/codebase/.git directory.  
-  2. Add all existing files to the index.  
-  3. Record the pristine state as the first commit in the history.  
-
-#### 2. At this point you have a *local* repo ready for upload to GitHub: 
-
-```bash
-$ git remote add origin https://github.com/seamusdemora/dhcpcd5
-```
-
-
-
-1. @github.com, copy the URL of the repo to be cloned on RPi:
-    `https://github.com/seamusdemora/PiPyMailer.git` 
-
-2. in a terminal session to RPi, enter this: 
-    `git clone https://github.com/seamusdemora/PiPyMailer.git`
-
-  this should download the repo into a folder named `PiPyMailer` on RPi
-
-3. `cd ./PiPyMailer`
-   Alternatively, you can execute most `git` commands from *outside* the folder housing the repo by using the `-C` option; for example, to get `status` for the git repo PiPyMailer from another location: 
-```bash
-  git -C /path/to/PiPyMailer status
-```
-5. make your changes, test your code. when code is verified, proceed w/ next step
-6. `git status` to review additions & changes; e.g.
-    On branch master
-    Your branch is up-to-date with 'origin/master'.
-    Changes not staged for commit:
-    	(use "git add <file>..." to update what will be committed)
-    	(use "git checkout -- <file>..." to discard changes in working directory)
-
-  	modified:   testmail2.py
-
-  Untracked files:
-  	(use "git add <file>..." to include in what will be committed)
-
-  	change.crontab.txt
-  	change.profile.txt
-
-6. move modified file(s) to staging area:
-    `git add testmail2.py`
-
-7. move added file(s) to staging area
-    `git add change.crontab.txt change.profile.txt` 
-
-8. verify all required files are in staging area:
-    `git status`
-
-9. commit changes to the branch from which the local repo was cloned:
-    `git commit`
-
-10. edit the offered "COMMIT_EDITMSG" file
-
-  1. NOTE 1: `git config --global content.editor "nano -w"` (wait for me to finish!)
-  2. NOTE 2: you *must* add a non-commented line to the commit message
-
-11. now that changes are "committed", they must be "pushed" to GitHub: 
-      `git push origin master`
-
-   If all goes well, you'll be prompted for GitHub userid & pswd, and changes will
-   appear in the correct repo! 
-
-14. If changes are made to your repo on GitHub, your local repository will need to be synced with your remote repository at GitHub. Here's how to do that: 
-
-```
-    git -C ~/path/my-local-repo pull https://github.com/my_github/my_repo master
-```
-
-16. If you *break sync* in your GitHub repo, [read this](https://github.com/seamusdemora/seamusdemora.github.io/blob/master/MacStuff.md#15-how-to-recover-a-bodged-git-repository). You can *break sync* in a local repo if you have multiple copies (e.g. on more than one local machine), and allow uncommitted changes to accumulate on two or more of these machines. Be careful - this can be **very messy**!  
-
-### If You Make a Mistake
-
-##### If you make mistakes in your local repo and you realize this *before* you commit (i.e. this will dispose of all un-committed changes, mistakes or not):
-
-```bash
-$ git reset --hard
-# -OR- from outside your repo: 
-$ git -C /path/to/PiPyMailer reset --hard
-```
-
-### Addendum:  `gh`, the GitHub Command Line Interface
-
-The [GitHub CLI](https://github.com/cli/cli#readme) -  `gh` looks useful, and it can be installed on your RPi - even on a *headless* RPi. It's a bit different than many Linux tools - more like `git` - which seems entirely appropriate :)  I'll only cover the basics here - installation, and initial authentication. The rest you'll find in the online docs & `man gh` after installation: 
-
-   ```bash
-   $ # find the latest version:
-   $ GITHUB_CLI_VERSION=$(curl -s "https://api.github.com/repos/cli/cli/releases/latest" | grep -Po '"tag_name": "v\K[0-9.]+')
-   $ echo $GITHUB_CLI_VERSION
-   2.8.0
-   $ # use curl to fetch the .deb file for RPi (armv6):
-   $ curl -Lo gh.deb "https://github.com/cli/cli/releases/latest/download/gh_${GITHUB_CLI_VERSION}_linux_armv6.deb"
-   $ # ... curl output & download stats
-   $ sudo dpkg -i gh.deb
-   Selecting previously unselected package gh.
-   (Reading database ... 50648 files and directories currently installed.)
-   Preparing to unpack gh.deb ...
-   Unpacking gh (2.8.0) ...
-   Setting up gh (2.8.0) ...
-   Processing triggers for man-db (2.9.4-2) ...
-   $ $ gh --version
-   gh version 2.8.0 (2022-04-13)
-   https://github.com/cli/cli/releases/tag/v2.8.0 
-   $ gh auth login 
-   $ # at this point, you'll go through an interactive dialog from the CLI
-   ```
-
-If you're running *headless*, and prefer to use your SSH public key, the remainder of your initial login will go something like this. Note that I chose to `Login with a web browser` - which obviously doesn't exist on a headless RPi. Not to worry - just open a browser window on your lap/desk top host for the URL given, then copy and paste your one-time code (**not mine!**) into the browser window. It's all very *smooth*. 
-
-Here's the balance of the dialog: 
-
-   ```bash
-   ? What account do you want to log into? GitHub.com
-   ? What is your preferred protocol for Git operations? SSH
-   ? Upload your SSH public key to your GitHub account? /home/pi/.ssh/id_ed25519.pub
-   ? How would you like to authenticate GitHub CLI? Login with a web browser
-   
-   ! First copy your one-time code: ABCD-0123
-   Press Enter to open github.com in your browser...
-   ! Failed opening a web browser at https://github.com/login/device
-     exec: "xdg-open,x-www-browser,www-browser,wslview": executable file not found in $PATH
-     Please try entering the URL in your browser manually
-   ✓ Authentication complete.
-   - gh config set -h github.com git_protocol ssh
-   ✓ Configured git protocol
-   ✓ Uploaded the SSH key to your GitHub account: /home/pi/.ssh/id_ed25519.pub
-   ✓ Logged in as seamusdemora 
-   $ # verify all of this worked:
-   $ gh auth status
-   github.com
-     ✓ Logged in to github.com as seamusdemora (/home/pi/.config/gh/hosts.yml)
-     ✓ Git operations for github.com configured to use ssh protocol.
-     ✓ Token: *******************
-   $ # done!
-   ```
-
- Thanks to the [Lindevs blog](https://lindevs.com/install-github-cli-on-raspberry-pi/?unapproved=687&moderation-hash=85abbd82976e95f8ede2a65c60883906#comment-687) for figuring out all of the hard stuff in this installation. And one final point: because `gh` is not in RPi's *official* distro, it won't be routinely updated with `apt`. To stay current, you can check the latest version number by running the command substitution for `GITHUB_CLI_VERSION` as shown above - you can *automate* this by creating a small `cron` job to check this for you. 
-
---->
 
 ---
 
@@ -463,6 +295,10 @@ Here's the balance of the dialog:
 12. [Installing `gh` - GitHub's CLI - on Linux and BSD](https://github.com/cli/cli/blob/trunk/docs/install_linux.md) 
 12. [How to install Github CLI on Linux](https://garywoodfine.com/how-to-install-github-cli-on-linux/) -  an alternative set of install instructions
 12. [The GitHub CLI manual](https://cli.github.com/manual/) 
+
+
+
+
 
 <!--- 
 
