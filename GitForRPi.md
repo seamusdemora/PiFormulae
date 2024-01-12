@@ -47,7 +47,7 @@ Before we begin, know that (N.B.) the [*semantics*](https://en.wikipedia.org/wik
 
 When you set up your GitHub account, you'll need (among other things) a userid and a password. That allows **you** to access your GitHub account - but **not** your RPi host. Since August, 2021, GitHub no longer accepts account passwords for *computer host* authentication. There are [several methods](https://docs.github.com/en/authentication) that may be used for authentication, but for RPi - especially for *headless* RPi - SSH authentication may be the simplest. It's the only authentication method we'll cover here. 
 
-In this case, RPi is the client, and GitHub is the server. SSH key generation is done on the *client*, and the process is similar to setting up RPi as an SSH server. The procedure is straightforward, but it is also *rigorous*!  I found GitHub's documentation for SSH auth both boring and incorrect/misleading, so here's mine - but you may certainly use GitHub's if it makes sense to you. 
+In this case, RPi is the client, and GitHub is the server. SSH key generation is done on the *client*, and the process is similar to setting up RPi as an SSH server. The procedure is straightforward, but it is also *rigorous*!  I found GitHub's documentation for SSH auth both boring and incorrect/misleading, so here's mine - but you may certainly [use GitHub's](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent?platform=linux) if it makes sense to you. 
 
 ##### 1. SSH Key Generation on the RPi:
 
