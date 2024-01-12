@@ -14,14 +14,6 @@ Before getting into some details, let's digress briefly to provide some backgrou
 
 ##### All that said, let's get to the "fun stuff"  :P
 
-<!--- HIDDEN
-
-##### Here are some ideas and procedures for using `git` on a RPi to interface with GitHub repositories. We use the [`PiPyMailer` repo](https://github.com/seamusdemora/PiPyMailer) as an example. PiPyMailer is run only on a Raspberry Pi, and so it makes sense to source it there.
-
-##### Please note that this recipe is in a very messy state as of this commit!! My apologies for that. I am working toward a comprehensive revision in the hope that GitHub's interface and authentication mechanisms have stabilized. Most of the information is in here, but it's not organized as it should be to serve as a guide for the unitiated. Oh - there is one significant correction I need to make re the accuracy of the information currently in this *recipe*; RE ***"`gh`, the GitHub Command Line Interface"***: My opinion is: Don't waste your time with this. Unlike the GitHub Desktop, the GH CLI does not support a push from your RPi to GitHub. Yeah - would not have believed anyone thought this made sense, but [GitHub claims this is "by design"](https://github.com/cli/cli/discussions/3093#discussioncomment-2655776)!!  
-
----> 
-
 ### I. Initial Conditions: 
 
 The following "initial conditions" are assumed: 
@@ -279,22 +271,35 @@ With the Authentication of Part II now sorted, let's continue:
 
 ### REFERENCES:
 
-1. [Getting Started with Git](https://www.taniarascia.com/getting-started-with-git/) 
-2. [Q&A: How to move a git repository into another directory and make that directory a git repository?](https://stackoverflow.com/questions/19097259/how-to-move-a-git-repository-into-another-directory-and-make-that-directory-a-gi) For shuffling things around! 
-3. [From GitHub, instructions for configuring `git` ](https://help.github.com/en/github/getting-started-with-github/set-up-git); set username, cache password, use HTTPS or SSH to access a GitHub repo from `bash`.
-4. [Q&A: How can I stage and commit all files, including newly added files, using a single command?](https://stackoverflow.com/questions/2419249/how-can-i-stage-and-commit-all-files-including-newly-added-files-using-a-singl) 
-5. [Q&A: Pushing local changes to a remote repository](https://stackoverflow.com/a/7690136/5395338); this answer is relevant.
-6. [Q&A: Discard all uncommitted changes, modified files, added files and non-added](https://stackoverflow.com/questions/55211312/discard-all-uncommitted-changes-modified-files-added-files-and-non-added) 
-7. [Q&A: Revert to commit by SHA hash in Git? dup.](https://stackoverflow.com/questions/1895059/revert-to-a-commit-by-a-sha-hash-in-git); don't let this Q&A confuse you! [check this answer](https://stackoverflow.com/a/1895095/5395338).
-8. [Q&A: How to reset local file to the most recent commit on GitHub?](https://stackoverflow.com/questions/42754381/how-to-reset-local-file-to-the-most-recent-commit-on-github); note [use of `git log`](https://stackoverflow.com/a/42754451/5395338).
-9. [How do I revert a Git repository to a previous commit?](https://stackoverflow.com/questions/4114095/how-do-i-revert-a-git-repository-to-a-previous-commit); too much information? 
-10. [Q&A: How to save username and password in GIT](https://stackoverflow.com/questions/35942754/how-to-save-username-and-password-in-git-gitextension) - a cacophony of answers! 
-11. [How do I provide a username and password when running “git clone git@remote.git”?](https://stackoverflow.com/questions/10054318/how-do-i-provide-a-username-and-password-when-running-git-clone-gitremote-git) - more answers! 
-12. [Git – Config Username & Password – Store Credentials](https://www.shellhacks.com/git-config-username-password-store-credentials/) - still more. 
-12. [About authentication to GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github)  - a child of [this page on Authentication](https://docs.github.com/en/authentication)
-12. [Installing `gh` - GitHub's CLI - on Linux and BSD](https://github.com/cli/cli/blob/trunk/docs/install_linux.md) 
-12. [How to install Github CLI on Linux](https://garywoodfine.com/how-to-install-github-cli-on-linux/) -  an alternative set of install instructions
-12. [The GitHub CLI manual](https://cli.github.com/manual/) 
+1. [Getting Started - First-Time Git Setup](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup) 
+2. [Git: Show Remote URL & Check Origin](https://www.shellhacks.com/git-show-remote-url-check-origin/) 
+3. [Q&A: git - remote add origin vs remote set-url origin](https://stackoverflow.com/a/42830632/22595851) 
+4. [Bare vs. Non-Bare Repositories in Git](https://www.geeksforgeeks.org/bare-repositories-in-git/) 
+5. [Multiple SSH Keys settings for different github account](https://gist.github.com/jexchan/2351996); a GitHub gist 
+6. [Managing Multiple SSH RSA Keys](https://www.serverlab.ca/tutorials/linux/administration-linux/managing-multiple-ssh-rsa-keys/); using the `~/.ssh/config` file
+7. [How to Manage Multiple SSH Keys](https://www.freecodecamp.org/news/how-to-manage-multiple-ssh-keys/); more on using the `~/.ssh/config` file 
+8. [Managing several SSH identities explained](https://yayimorphology.org/ssh-identities-made-easy.html#what-is-sshconfig); still more on using the `~/.ssh/config` file 
+9. [Q&A: Best way to use multiple SSH private keys on one client](https://stackoverflow.com/questions/2419566/best-way-to-use-multiple-ssh-private-keys-on-one-client); several approaches & nuances 
+10. [Q&A: Can I have multiple ssh keys in my .ssh folder?](https://superuser.com/questions/287651/can-i-have-multiple-ssh-keys-in-my-ssh-folder); re the `~/.ssh/config` file 
+11. [How to create (initialize) a local Git Repository](https://techstacker.com/create-initialize-local-git-repository/); short & sweet 
+12. ['git ls-files' - Show information about files in the index and working tree](https://git-scm.com/docs/git-ls-files) 
+13. [Q&A: How do I delete a file from a Git repository?](https://stackoverflow.com/a/2047477/22595851); good brief answer 
+14. [Getting Started with Git](https://www.taniarascia.com/getting-started-with-git/) 
+15. [Q&A: How to move a git repository into another directory and make that directory a git repository?](https://stackoverflow.com/questions/19097259/how-to-move-a-git-repository-into-another-directory-and-make-that-directory-a-gi) For shuffling things around! 
+16. [From GitHub, instructions for configuring `git` ](https://help.github.com/en/github/getting-started-with-github/set-up-git); set username, cache password, use HTTPS or SSH to access a GitHub repo from `bash`.
+17. [Q&A: How can I stage and commit all files, including newly added files, using a single command?](https://stackoverflow.com/questions/2419249/how-can-i-stage-and-commit-all-files-including-newly-added-files-using-a-singl) 
+18. [Q&A: Pushing local changes to a remote repository](https://stackoverflow.com/a/7690136/5395338); this answer is relevant.
+19. [Q&A: Discard all uncommitted changes, modified files, added files and non-added](https://stackoverflow.com/questions/55211312/discard-all-uncommitted-changes-modified-files-added-files-and-non-added) 
+20. [Q&A: Revert to commit by SHA hash in Git? dup.](https://stackoverflow.com/questions/1895059/revert-to-a-commit-by-a-sha-hash-in-git); don't let this Q&A confuse you! [check this answer](https://stackoverflow.com/a/1895095/5395338).
+21. [Q&A: How to reset local file to the most recent commit on GitHub?](https://stackoverflow.com/questions/42754381/how-to-reset-local-file-to-the-most-recent-commit-on-github); note [use of `git log`](https://stackoverflow.com/a/42754451/5395338).
+22. [How do I revert a Git repository to a previous commit?](https://stackoverflow.com/questions/4114095/how-do-i-revert-a-git-repository-to-a-previous-commit); too much information? 
+23. [Q&A: How to save username and password in GIT](https://stackoverflow.com/questions/35942754/how-to-save-username-and-password-in-git-gitextension) - a cacophony of answers! 
+24. [How do I provide a username and password when running “git clone git@remote.git”?](https://stackoverflow.com/questions/10054318/how-do-i-provide-a-username-and-password-when-running-git-clone-gitremote-git) - more answers! 
+25. [Git – Config Username & Password – Store Credentials](https://www.shellhacks.com/git-config-username-password-store-credentials/) - still more. 
+26. [About authentication to GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github)  - a child of [this page on Authentication](https://docs.github.com/en/authentication)
+27. [Installing `gh` - GitHub's CLI - on Linux and BSD](https://github.com/cli/cli/blob/trunk/docs/install_linux.md) 
+28. [How to install Github CLI on Linux](https://garywoodfine.com/how-to-install-github-cli-on-linux/) -  an alternative set of install instructions
+29. [The GitHub CLI manual](https://cli.github.com/manual/) 
 
 
 
@@ -339,3 +344,11 @@ Revert to a commit by a SHA hash in Git? - Stack Overflow
 https://stackoverflow.com/questions/1895059/revert-to-a-commit-by-a-sha-hash-in-git
 
 --->
+
+<!--- HIDDEN
+
+##### Here are some ideas and procedures for using `git` on a RPi to interface with GitHub repositories. We use the [`PiPyMailer` repo](https://github.com/seamusdemora/PiPyMailer) as an example. PiPyMailer is run only on a Raspberry Pi, and so it makes sense to source it there.
+
+##### Please note that this recipe is in a very messy state as of this commit!! My apologies for that. I am working toward a comprehensive revision in the hope that GitHub's interface and authentication mechanisms have stabilized. Most of the information is in here, but it's not organized as it should be to serve as a guide for the unitiated. Oh - there is one significant correction I need to make re the accuracy of the information currently in this *recipe*; RE ***"`gh`, the GitHub Command Line Interface"***: My opinion is: Don't waste your time with this. Unlike the GitHub Desktop, the GH CLI does not support a push from your RPi to GitHub. Yeah - would not have believed anyone thought this made sense, but [GitHub claims this is "by design"](https://github.com/cli/cli/discussions/3093#discussioncomment-2655776)!!  
+
+---> 
