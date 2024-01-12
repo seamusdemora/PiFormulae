@@ -127,12 +127,12 @@ Username for 'https://github.com': seamusdemora    # Huh !?!? what's with Userna
 Password for 'https://seamusdemora@github.com':    # Huh !?!? what's with Password?
 remote: Support for password authentication was removed on August 13, 2021. Please use a personal access token instead.
 remote: Please see https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/ for more information.
-fatal: Authentication failed for 'https://github.com/seamusdemora/PiPyMailer/'
+fatal: Authentication failed for 'https://github.com/seamusdemora/pi-motd/'
 ```
 
 GitHub responded with prompts for `Username` & `Password` as if it were not aware its own administrators had deprecated password authentication. GitHub also declared itself ignorant of the fact that SSH keys had already been loaded! This seemed a spectacular failure to me at the time. Worse, no clues are given in the error report, or [the GitHub documentation](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) for a resolution. 
 
-##### However...
+#### However...
 
 After some research (mixed with much teeth-gnashing and swearing), ***the solution*** was found!  
 
