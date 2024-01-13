@@ -272,34 +272,35 @@ With the Authentication of Part II now sorted, let's continue:
 ### REFERENCES:
 
 1. [Getting Started - First-Time Git Setup](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup) 
-2. [Git: Show Remote URL & Check Origin](https://www.shellhacks.com/git-show-remote-url-check-origin/) 
-3. [Q&A: git - remote add origin vs remote set-url origin](https://stackoverflow.com/a/42830632/22595851) 
-4. [Bare vs. Non-Bare Repositories in Git](https://www.geeksforgeeks.org/bare-repositories-in-git/) 
-5. [Multiple SSH Keys settings for different github account](https://gist.github.com/jexchan/2351996); a GitHub gist 
-6. [Managing Multiple SSH RSA Keys](https://www.serverlab.ca/tutorials/linux/administration-linux/managing-multiple-ssh-rsa-keys/); using the `~/.ssh/config` file
-7. [How to Manage Multiple SSH Keys](https://www.freecodecamp.org/news/how-to-manage-multiple-ssh-keys/); more on using the `~/.ssh/config` file 
-8. [Managing several SSH identities explained](https://yayimorphology.org/ssh-identities-made-easy.html#what-is-sshconfig); still more on using the `~/.ssh/config` file 
-9. [Q&A: Best way to use multiple SSH private keys on one client](https://stackoverflow.com/questions/2419566/best-way-to-use-multiple-ssh-private-keys-on-one-client); several approaches & nuances 
-10. [Q&A: Can I have multiple ssh keys in my .ssh folder?](https://superuser.com/questions/287651/can-i-have-multiple-ssh-keys-in-my-ssh-folder); re the `~/.ssh/config` file 
-11. [How to create (initialize) a local Git Repository](https://techstacker.com/create-initialize-local-git-repository/); short & sweet 
-12. ['git ls-files' - Show information about files in the index and working tree](https://git-scm.com/docs/git-ls-files) 
-13. [Q&A: How do I delete a file from a Git repository?](https://stackoverflow.com/a/2047477/22595851); good brief answer 
-14. [Getting Started with Git](https://www.taniarascia.com/getting-started-with-git/) 
-15. [Q&A: How to move a git repository into another directory and make that directory a git repository?](https://stackoverflow.com/questions/19097259/how-to-move-a-git-repository-into-another-directory-and-make-that-directory-a-gi) For shuffling things around! 
-16. [From GitHub, instructions for configuring `git` ](https://help.github.com/en/github/getting-started-with-github/set-up-git); set username, cache password, use HTTPS or SSH to access a GitHub repo from `bash`.
-17. [Q&A: How can I stage and commit all files, including newly added files, using a single command?](https://stackoverflow.com/questions/2419249/how-can-i-stage-and-commit-all-files-including-newly-added-files-using-a-singl) 
-18. [Q&A: Pushing local changes to a remote repository](https://stackoverflow.com/a/7690136/5395338); this answer is relevant.
-19. [Q&A: Discard all uncommitted changes, modified files, added files and non-added](https://stackoverflow.com/questions/55211312/discard-all-uncommitted-changes-modified-files-added-files-and-non-added) 
-20. [Q&A: Revert to commit by SHA hash in Git? dup.](https://stackoverflow.com/questions/1895059/revert-to-a-commit-by-a-sha-hash-in-git); don't let this Q&A confuse you! [check this answer](https://stackoverflow.com/a/1895095/5395338).
-21. [Q&A: How to reset local file to the most recent commit on GitHub?](https://stackoverflow.com/questions/42754381/how-to-reset-local-file-to-the-most-recent-commit-on-github); note [use of `git log`](https://stackoverflow.com/a/42754451/5395338).
-22. [How do I revert a Git repository to a previous commit?](https://stackoverflow.com/questions/4114095/how-do-i-revert-a-git-repository-to-a-previous-commit); too much information? 
-23. [Q&A: How to save username and password in GIT](https://stackoverflow.com/questions/35942754/how-to-save-username-and-password-in-git-gitextension) - a cacophony of answers! 
-24. [How do I provide a username and password when running “git clone git@remote.git”?](https://stackoverflow.com/questions/10054318/how-do-i-provide-a-username-and-password-when-running-git-clone-gitremote-git) - more answers! 
-25. [Git – Config Username & Password – Store Credentials](https://www.shellhacks.com/git-config-username-password-store-credentials/) - still more. 
-26. [About authentication to GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github)  - a child of [this page on Authentication](https://docs.github.com/en/authentication)
-27. [Installing `gh` - GitHub's CLI - on Linux and BSD](https://github.com/cli/cli/blob/trunk/docs/install_linux.md) 
-28. [How to install Github CLI on Linux](https://garywoodfine.com/how-to-install-github-cli-on-linux/) -  an alternative set of install instructions
-29. [The GitHub CLI manual](https://cli.github.com/manual/) 
+2. [Chapter 2 - Git Basics](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository); highly recommended ! 
+3. [Git: Show Remote URL & Check Origin](https://www.shellhacks.com/git-show-remote-url-check-origin/) 
+4. [Q&A: git - remote add origin vs remote set-url origin](https://stackoverflow.com/a/42830632/22595851) 
+5. [Bare vs. Non-Bare Repositories in Git](https://www.geeksforgeeks.org/bare-repositories-in-git/) 
+6. [Multiple SSH Keys settings for different github account](https://gist.github.com/jexchan/2351996); a GitHub gist 
+7. [Managing Multiple SSH RSA Keys](https://www.serverlab.ca/tutorials/linux/administration-linux/managing-multiple-ssh-rsa-keys/); using the `~/.ssh/config` file
+8. [How to Manage Multiple SSH Keys](https://www.freecodecamp.org/news/how-to-manage-multiple-ssh-keys/); more on using the `~/.ssh/config` file 
+9. [Managing several SSH identities explained](https://yayimorphology.org/ssh-identities-made-easy.html#what-is-sshconfig); still more on using the `~/.ssh/config` file 
+10. [Q&A: Best way to use multiple SSH private keys on one client](https://stackoverflow.com/questions/2419566/best-way-to-use-multiple-ssh-private-keys-on-one-client); several approaches & nuances 
+11. [Q&A: Can I have multiple ssh keys in my .ssh folder?](https://superuser.com/questions/287651/can-i-have-multiple-ssh-keys-in-my-ssh-folder); re the `~/.ssh/config` file 
+12. [How to create (initialize) a local Git Repository](https://techstacker.com/create-initialize-local-git-repository/); short & sweet 
+13. ['git ls-files' - Show information about files in the index and working tree](https://git-scm.com/docs/git-ls-files) 
+14. [Q&A: How do I delete a file from a Git repository?](https://stackoverflow.com/a/2047477/22595851); good brief answer 
+15. [Getting Started with Git](https://www.taniarascia.com/getting-started-with-git/) 
+16. [Q&A: How to move a git repository into another directory and make that directory a git repository?](https://stackoverflow.com/questions/19097259/how-to-move-a-git-repository-into-another-directory-and-make-that-directory-a-gi) For shuffling things around! 
+17. [From GitHub, instructions for configuring `git` ](https://help.github.com/en/github/getting-started-with-github/set-up-git); set username, cache password, use HTTPS or SSH to access a GitHub repo from `bash`.
+18. [Q&A: How can I stage and commit all files, including newly added files, using a single command?](https://stackoverflow.com/questions/2419249/how-can-i-stage-and-commit-all-files-including-newly-added-files-using-a-singl) 
+19. [Q&A: Pushing local changes to a remote repository](https://stackoverflow.com/a/7690136/5395338); this answer is relevant.
+20. [Q&A: Discard all uncommitted changes, modified files, added files and non-added](https://stackoverflow.com/questions/55211312/discard-all-uncommitted-changes-modified-files-added-files-and-non-added) 
+21. [Q&A: Revert to commit by SHA hash in Git? dup.](https://stackoverflow.com/questions/1895059/revert-to-a-commit-by-a-sha-hash-in-git); don't let this Q&A confuse you! [check this answer](https://stackoverflow.com/a/1895095/5395338).
+22. [Q&A: How to reset local file to the most recent commit on GitHub?](https://stackoverflow.com/questions/42754381/how-to-reset-local-file-to-the-most-recent-commit-on-github); note [use of `git log`](https://stackoverflow.com/a/42754451/5395338).
+23. [How do I revert a Git repository to a previous commit?](https://stackoverflow.com/questions/4114095/how-do-i-revert-a-git-repository-to-a-previous-commit); too much information? 
+24. [Q&A: How to save username and password in GIT](https://stackoverflow.com/questions/35942754/how-to-save-username-and-password-in-git-gitextension) - a cacophony of answers! 
+25. [How do I provide a username and password when running “git clone git@remote.git”?](https://stackoverflow.com/questions/10054318/how-do-i-provide-a-username-and-password-when-running-git-clone-gitremote-git) - more answers! 
+26. [Git – Config Username & Password – Store Credentials](https://www.shellhacks.com/git-config-username-password-store-credentials/) - still more. 
+27. [About authentication to GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-authentication-to-github)  - a child of [this page on Authentication](https://docs.github.com/en/authentication)
+28. [Installing `gh` - GitHub's CLI - on Linux and BSD](https://github.com/cli/cli/blob/trunk/docs/install_linux.md) 
+29. [How to install Github CLI on Linux](https://garywoodfine.com/how-to-install-github-cli-on-linux/) -  an alternative set of install instructions
+30. [The GitHub CLI manual](https://cli.github.com/manual/) 
 
 
 
