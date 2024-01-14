@@ -27,7 +27,7 @@ $ git init --bare                         # NOTE '--bare' option
 ```
 **And that's it... our Git-Server is alive!** 
 
-###  From a (Git-)Client connect to the Git-Server to "source" the code we've developed
+###  Connect to the Git-Server fm a Git-Client & "source" the developed code
 
 Now move to (one of) the git-clients: `rpigitclient`. Assume `rpigitclient` is the host on which we've been coding a set of scripts which comprise the project we'll call `motd-d`. Remember, the folder names on client and server need not match, although they certainly can match - if that is desired.
 
@@ -43,8 +43,48 @@ $ git remote add origin ssh://pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.
 # ^ declares the designated folder on `rpigitserver` as the "remote origin"
 $ git push -u ssh://pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git
 # ^ "pushes" the previously `add`ed & `commit`ted files to the Git-Server (`rpigitserver`)
+
+# once you have a remote origin established, you may do this to push updates:
+$ git push -u origin master
 ```
-**At this point, we have uploaded the code stored in `~/scripts/motd-d` on the client machine to the repo called `etc-update-motd-d.git` on the Git-Server.** Things are moving right along :)
+**At this point, we have uploaded the code stored on the client machine in `~/scripts/motd-d`  to the repo called `etc-update-motd-d.git` on the Git-Server.** Things are moving right along :) 
+
+
+
+### Restore 'modification time' to files in the repo
+
+You may have noticed (by running `ls -l`) that the working files in your repo have [modification 'date-times'](https://duckduckgo.com/?q=linux+file+modification+time&t=newext&atb=v369-1&ia=web) that don't reflect their **true** modification time. Weirdly (to me anyway), this is "by design"; maybe I've been looking at GitHub for too long? If you're *so inclined*, you can override this *odd* behavior. You'll need to install an "extra" app for it: `git-restore-mtime`. Here's how this works: 
+
+```bash
+$ hostname    # to get our bearings straight
+rpigitclient
+$ sudo apt update && sudo apt install git-restore-mtime  # NOTE 'git-restore-mtime'
+$ cd ~/scripts/motd-d && git restore-mtime
+12 files to be processed in work dir
+Statistics:
+         0.04 seconds
+           36 log lines processed
+            7 commits evaluated
+            1 directories updated
+           12 files updated
+total 44
+
+$ ls -l
+total 48
+-rw-r--r-- 1 pi pi  65 Dec 16 03:23 10-intro
+-rw-r--r-- 1 pi pi  41 Dec 16 03:23 20-uptime
+-rw-r--r-- 1 pi pi  72 Dec 16 03:23 30-temp
+-rw-r--r-- 1 pi pi 118 Dec 16 03:23 40-sdcard
+-rw-r--r-- 1 pi pi  56 Dec 16 03:23 50-network
+-rw-r--r-- 1 pi pi  56 Dec 16 03:23 55-osver
+-rw-r--r-- 1 pi pi  41 Dec 16 03:23 60-kernel
+-rw-r--r-- 1 pi pi 207 Dec 15 08:36 70-backup
+-rw-r--r-- 1 pi pi 264 Nov 30 06:58 75-imgutil
+-rw-r--r-- 1 pi pi 157 Jan  2 01:22 99-source
+-rw-r--r-- 1 pi pi 730 Jan 11 04:29 README.md
+-rw-r--r-- 1 pi pi 277 Dec 16 03:44 rsync-install.txt
+$ 
+```
 
 
 
@@ -84,7 +124,7 @@ Of course this `clone` operation can also be done on any remote host using a URL
 
 ### Update Git-Server with changes made on `rpigitclient`
 
-Now let's assume that development has been on-going on `rpigitclient`, and we are ready to `commit` the code, and upload that code to the Git-Server.  
+Now let's assume that development has been on-going on `rpigitclient`, and we are ready to `commit` the code, and upload that code to the Git-Server.  This developer has been x-busy, and has added two files: `foo` and `bar`. 
 
 Here's how that commit is done, and pushed to the **Git-Server**: 
 
@@ -92,26 +132,60 @@ Here's how that commit is done, and pushed to the **Git-Server**:
 $ hostname    # to get our bearings straight
 rpigitclient
 $ cd ~/scripts/motd-d
-$ git add *		# git will add all *changed* files to the 'staging area' 
-$ git commit -m 'added & modified several files'	# a very generic message. :)
-[master 8ad2324] added & modified several files
- 2 files changed, 0 insertions(+), 0 deletions(-)
+$ git add foo bar		# git will add all *changed* files to the 'staging area' 
+$ git commit -m 'added files foo & bar, x-important!'
+[master d27a3ae] added files foo & bar, x-important!
+ 2 files changed, 2 insertions(+)
  create mode 100644 bar
  create mode 100644 foo
-$ git push -u ssh://pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git
-Enumerating objects: 4, done.
-Counting objects: 100% (4/4), done.
+$ git remote -v show		# verify the correct remote server URL is being used
+origin	ssh://pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git (fetch)
+origin	ssh://pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git (push) 
+$ git push -u origin master
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
 Delta compression using up to 4 threads
 Compressing objects: 100% (2/2), done.
-Writing objects: 100% (3/3), 293 bytes | 146.00 KiB/s, done.
-Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
-To ssh://rpigitserver/home/pi/git-srv/etc-update-motd-d.git
-   274b30b..8ad2324  master -> master
-Branch 'master' set up to track remote branch 'master' from 'ssh://pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git'
-$ 
+Writing objects: 100% (4/4), 331 bytes | 331.00 KiB/s, done.
+Total 4 (delta 1), reused 0 (delta 0), pack-reused 0
+To ssh://raspberrypi5/home/git/git-srv/etc-update-motd-d.git
+   55cd03b..d27a3ae  master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'. 
+$ # done, mission accomplished
 ```
 
 **Our revised code has now been `commit`ed and `push`ed to the Git-Server.** 
+
+
+
+### Correct erroneous commit & push from `rpigitclient`
+
+Unfortunately, you learn that you hired a moron as a developer (it happens more frequently these days). You discovered your mistake when you pulled from the repo `motd.git`, and found two suspect files named `foo` and `bar`. You investigate, and [use `git rm`](https://stackoverflow.com/a/2047477/22595851) from the `rpigitclient` host to correct the problem: 
+
+```bash
+$ hostname    			# to get our bearings straight
+rpigitclient
+$ cd ~/scripts/motd-d
+$ git rm foo bar		# you decide to remove files from repo **and** filesystem
+rm 'bar'
+rm 'foo'
+$ git commit -m "remove files foo & bar added by Moronski" 
+[master 95dea5d] remove files foo & bar added by Moronski
+ 2 files changed, 2 deletions(-)
+ delete mode 100644 bar
+ delete mode 100644 foo
+$ git push -u origin master 
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 248 bytes | 248.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0), pack-reused 0
+To ssh://rpigitserver/home/pi/git-srv/etc-update-motd-d.git
+   d27a3ae..95dea5d  master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'. 
+$ 
+```
 
 
 
@@ -163,24 +237,12 @@ total 44
 -rw-r--r-- 1 git git 264 Jan  3 02:19 75-imgutil
 -rw-r--r-- 1 git git 157 Jan  3 02:19 99-source
 
-$ # note that in git, file modification times are lost in the 'ls' view - this is by design;
-$ # change that with 'git restore-mtime' - run from the working tree (after it's installed)
+# as there is no compelling reason to have a worktree in our 'bare' server repository,
+# we'll just remove the working tree as follows: 
 
-$ sudo apt update && sudo apt install git-restore-mtime
-$ cd ./motd-worktree && git restore-mtime && cd ..
-$ ls -l  ./motd-worktree
-total 44
--rw-r--r-- 1 pi pi  65 Dec 16 03:23 10-intro
--rw-r--r-- 1 pi pi  41 Dec 16 03:23 20-uptime
--rw-r--r-- 1 pi pi  72 Dec 16 03:23 30-temp
--rw-r--r-- 1 pi pi 118 Dec 16 03:23 40-sdcard
--rw-r--r-- 1 pi pi  56 Dec 16 03:23 50-network
--rw-r--r-- 1 pi pi  56 Dec 16 03:23 55-osver
--rw-r--r-- 1 pi pi  41 Dec 16 03:23 60-kernel
--rw-r--r-- 1 pi pi 186 Dec 15 02:53 70-backup
--rw-r--r-- 1 pi pi 264 Nov 30 06:58 75-imgutil
--rw-r--r-- 1 pi pi 157 Jan  2 01:22 99-source
-$
+$ git worktree remove motd-worktree
+
+# And now we're back to a 'bare' repo; a Git-Server
 ```
 
 **We now have a working tree in our once-bare git repository; we can *access/add/delete/update/commit* any of the files from this tree to the repository.** 
