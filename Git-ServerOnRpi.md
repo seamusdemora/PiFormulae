@@ -261,13 +261,14 @@ $ git worktree remove motd-worktree
 
 ### Git Worktrees:
 
-   1. [A search](https://is.gd/Bt6DlQ) 
-   2. [git-worktree - Manage multiple working trees](https://git-scm.com/docs/git-worktree)
-   3. [Q&A: fatal: This operation must be run in a work tree](https://stackoverflow.com/questions/9262801/fatal-this-operation-must-be-run-in-a-work-tree) 
-   4. [Q&A: What would I use git-worktree for?](https://stackoverflow.com/questions/31935776/what-would-i-use-git-worktree-for)
-   5. [Experiment on your code freely with Git worktree](https://opensource.com/article/21/4/git-worktree) 
-   6. [Using Git Worktree to Master Git Workflow](https://www.hatica.io/blog/git-worktree/) 
-   7. [Git Worktrees in Use](https://medium.com/ngconf/git-worktrees-in-use-f4e516512feb) 
+      1. [A search](https://is.gd/Bt6DlQ) 
+      2. [The Git working tree, index and commit history explained by example](https://www.theserverside.com/video/Understand-the-Git-working-tree-status-command-for-easy-DVCS) 
+      3. [git-worktree - Manage multiple working trees](https://git-scm.com/docs/git-worktree)
+      4. [Q&A: fatal: This operation must be run in a work tree](https://stackoverflow.com/questions/9262801/fatal-this-operation-must-be-run-in-a-work-tree) 
+      5. [Q&A: What would I use git-worktree for?](https://stackoverflow.com/questions/31935776/what-would-i-use-git-worktree-for)
+      6. [Experiment on your code freely with Git worktree](https://opensource.com/article/21/4/git-worktree) 
+      7. [Using Git Worktree to Master Git Workflow](https://www.hatica.io/blog/git-worktree/) 
+      8. [Git Worktrees in Use](https://medium.com/ngconf/git-worktrees-in-use-f4e516512feb) 
 
 ### Git - list files in repo:
 
