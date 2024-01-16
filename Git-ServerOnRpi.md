@@ -44,8 +44,10 @@ $ git remote add origin ssh://pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.
 $ git push -u ssh://pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git
 # ^ "pushes" the previously `add`ed & `commit`ted files to the Git-Server (`rpigitserver`)
 
-# once you have a remote origin established, you may do this to push updates:
+# once you have a remote origin established, you may do this to push updates to the server:
 $ git push -u origin master
+# or do this to pull/fetch updates *from* the server
+$ git pull origin master
 ```
 **At this point, we have uploaded the code stored on the client machine in `~/scripts/motd-d`  to the repo called `etc-update-motd-d.git` on the Git-Server.** Things are moving right along :) 
 
