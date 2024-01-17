@@ -212,9 +212,9 @@ From ssh://rpigitserver/home/pi/git-srv/etc-update-motd-d
 
 ### Create a working tree in our Git-Server repository
 
-Recall that when we initialized our repository in `~/git-srv/etc-update-motd-d.git` on `rpigitserver`, we used the `--bare` option. Take a look now inside that folder; `ls -l` inside the repository. Next, go to a    `clone`d repo, and take a look inside that folder using `ls -l`. You will notice that there are some differences, the most obvious being that the files in the repo are ***not visible*** inside the  `~/git-srv/etc-update-motd-d.git` folder!  You can search for them if you like - but you won't find them. This is a result of using the `--bare` option in initialization - the file contents are in the repository, but the repository contains no "working tree". 
+Recall that when we initialized our repository in `~/git-srv/etc-update-motd-d.git` on `rpigitserver`, we used the `--bare` option. Take a look now inside that folder; `ls -l` inside the repository. Next, go to a    `clone`d repo, and take a look inside that folder using `ls -l`. You will notice that there are some differences, the most obvious being that the files in the repo are ***not visible*** inside the  `~/git-srv/etc-update-motd-d.git` folder!  You can search for them if you like, but you won't find them ([unless you've read this](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects)). This is a result of using the `--bare` option in initialization - the file contents are in the repository, but the repository contains no "working tree". 
 
-But now suppose we want to keep a working tree inside  `~/git-srv/etc-update-motd-d.git` ... how do we add that? As usual in `git`, there's a command for that: 
+But now suppose we want to create a working tree inside  `~/git-srv/etc-update-motd-d.git` ... how do we add that? As usual in `git`, there's a command for that: 
 
 ```bash
 $ hostname    # to get our bearings straight
@@ -224,6 +224,7 @@ $ pwd
 ~/git-srv/etc-update-motd-d.git
 
 # add the working tree under tha name 'motd-worktree'
+# we can access/add/delete/update/commit files from this tree
 
 $ git worktree add motd-worktree
 $ ls -l ./motd-worktree
@@ -246,10 +247,6 @@ $ git worktree remove motd-worktree
 
 # And now we're back to a 'bare' repo; a Git-Server
 ```
-
-**We now have a working tree in our once-bare git repository; we can *access/add/delete/update/commit* any of the files from this tree to the repository.** 
-
-
 
 
 
