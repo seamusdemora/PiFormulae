@@ -20,6 +20,7 @@
 * [What do file and directory permissions mean?](#what-do-file-and-directory-permissions-mean) 
 * [Using `which` to find commands](#using-which-to-find-commands) - *accurately!* 
 * [Using your shell command history](#using-your-shell-command-history) 
+* [Searching command history](#searching-command-history) 
 * [Access compressed log files easily](#access-compressed-log-files-easily) 
 * [Filename expansion; a.k.a. "globbing"](#filename-expansion-aka-globbing) 
 * [Using the default editor `nano` effectively](#using-the-default-editor-nano-effectively) 
@@ -548,6 +549,25 @@ There are [numerous variables and commands (*built-ins*)](https://www.gnu.org/so
  The semantics for configuring the `bash` command history options are covered in some of the [REFERENCES](#command-history), and here in [this section of the `bash` manual](https://www.gnu.org/software/bash/manual/html_node/Using-History-Interactively.html). If you're just starting with the command history, there may be some benefit to a brief perusal to appreciate the scope of this component of `bash`. If your objective is to gain some proficiency, your time will be well-spent in conducting some experiments to see for yourself how  a basic set of variables and commands affect command history behavior.
 
 *What if you use a shell other than `bash`?* While some aspects of the command history are *shell-dependent*, they have more in common than they have differences. An [overview of the command history](https://github.com/seamusdemora/seamusdemora.github.io/blob/master/CommandHistoryIntro-zsh.md) - from a `zsh` perspective - is provided in another section of this repo. 
+
+## Searching command history
+
+Paragraph [8.2.5 Searching for Commands in the History](https://www.gnu.org/software/bash/manual/html_node/Searching.html) in the [GNU Bash manual](https://www.gnu.org/software/bash/manual/) is probably the authoritative source for documentation of the search facility. But even they don't have *all the tricks*! We'll get to that in a moment, but I'd be remiss if I didn't take a moment to point out the value of reading the documentation... in this case, perhaps start with [8.2 Readline Interaction](https://www.gnu.org/software/bash/manual/bash.html#Readline-Interaction). You'll get more out of the effort.
+
+***Anyway - back to command history searching:***
+
+Many of you will already know that you can invoke a (*reverse*) search of your command history by typing <kbd>control+r</kbd> (`^r`) at the `bash` command prompt. You may also know that typing <kbd>control</kbd>+<kbd>g</kbd> (`^g`) will gracefully **terminate** that search. GNU's Bash manual also points out that a forward search may also be conducted using <kbd>control</kbd>+<kbd>s</kbd>. But if you've tried the forward search, you may have found that it doesn't work! And so here's *the trick* alluded to above: 
+
+```bash
+# add the following line(s) to ~/.bashrc:
+
+# to support forward search (control-s)
+stty -ixon
+```
+
+The reason <kbd>control</kbd>+<kbd>s</kbd> doesn't work is that it *collides* with `XON`/`XOFF` flow control (e.g. in Konsole). So the solutions are: **1.)** bind the forward search to another key, or **2.)** simply **disable**  `XON`/`XOFF` flow control using `stty -ixon`. And don't forget to `source ~/.bashrc` to load it. 
+
+Finally, if you still have questions, I can recommend this [blog post from Baeldung](https://www.baeldung.com/linux/bash-using-history-efficiently) on the subject.  
 
 ## Access compressed log files easily
 
