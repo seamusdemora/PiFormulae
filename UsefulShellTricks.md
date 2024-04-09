@@ -190,7 +190,7 @@ The `vcgencmd` tool can report numerous details from the VideoCore GPU. See `man
    * pmic_read_adc,
    * power_monitor
 
-### Bluetooth info
+### Bluetooth info (maybe better off not knowing? see [Bluetooth](#Bluetooth)
 
 ```bash
 $ hciconfig -a
