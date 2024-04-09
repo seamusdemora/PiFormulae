@@ -32,7 +32,8 @@
 * [Where did I put that file? - it's *somewhere* in my system](#that-file-is-somewhere-in-my-system)
 * [A useful tool for GPIO hackers: `raspi-gpio`](#a-useful-tool-for-gpio-hackers-raspi-gpio) 
 * [`raspi-config` from the command line?](#raspi-config-from-the-command-line)
-* [Background, nohup, infinite loops, daemons](#background-nohup-infinite-loops-daemons) 
+* [Background, nohup, infinite loops, daemons](#background-nohup-infinite-loops-daemons)
+* [Bluetooth](#bluetooth) 
 * [REFERENCES:](#references) 
 
 
@@ -902,7 +903,12 @@ It's occasionally useful to create a program/script that runs continuously, perf
   $ > nohup.out   # empty the file
   ```
   
-  And that's it.  
+  And that's it.
+
+## Bluetooth 
+
+***Having Bluetooth Issues?***
+This isn't a helpful comment, but may be useful for setting expectations. If you spend a week or so chasing Bluetooth problems on a Linux system, you begin to wonder: "Does Bluetooth on Linux just suck?" Unfortunately, I think the answer may be, "Yes, it does suck." I've played audio thru a BT speaker (JBL Flip 5) using my iPhone6 as the music source & speaker control continuously for days without an interrupt. I can occasionally manage an hour or two using Linux with the same Flip 5 speaker. It just sucks... deal with it. [REF](https://raspberrypi.stackexchange.com/a/147626/83790) 
 
 
 <hr>
