@@ -150,7 +150,7 @@ The `mpg123` player was a separate installation of course; it's in the repo if y
 
 For those interested in such things, following is a screen shot of `htop` running on the RPi 3A+ to give you an idea of the resources required to play BT audio on that hardware. The packages installed here appear to be consuming about 17% of the CPU:
 
-![htop-rpi3a](/Users/jmoore/Documents/GitHub/PiFormulae/pix/htop-rpi3a.png)
+![htop-rpi3a](/pix/htop-rpi3a.png)
 
 ### Epilogue
 
