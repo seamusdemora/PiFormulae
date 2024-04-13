@@ -1,13 +1,15 @@
 # PiFormulae
 
-This is a collection of ***recipes*** for using and maintaining a [*Raspberry Pi* - or ***RPi***](https://en.wikipedia.org/wiki/RPi). The entries in the table below link to some of the "How-To" guides in this ***repo***(*sitory*), and other pages with potentially useful information. Admittedly, that's a low bar for inclusion, but feel free to [peruse any or all of the pages in the repo](https://github.com/seamusdemora/PiFormulae) as well. 
+This is a collection of ***recipes*** for using and maintaining a [*Raspberry Pi* - or ***RPi***](https://en.wikipedia.org/wiki/RPi). The entries in the table below link to some of the "How-To" guides in this ***repo***(*sitory*), and other pages with potentially useful information. Admittedly, that's a low bar for inclusion, but feel free to peruse anything that strikes you as potentially useful. 
 
 Most importantly, feel free to ***contribute***… [GitHub explains](https://guides.github.com/activities/forking/) how to create a fork of this repo, or there's a good (and v. brief) [YouTube video that explains the process](https://www.youtube.com/watch?v=f5grYMXbAV0), and why you'd want to fork a repo. If you find an error in this repo, or feel any of these *recipes* could be improved, there are (at least) two ways to contribute:
 
 1. [Fork this repository](https://guides.github.com/activities/forking/) to your GitHub account. Once it's in your account, make your modifications, then submit a ["Pull Request"](https://help.github.com/en/articles/about-pull-requests). 
 2. Create in Issue in this repo. GitHub explains [how to create an issue](https://help.github.com/en/articles/creating-an-issue), and [how to open an issue directly from the "code"](<https://help.github.com/en/articles/opening-an-issue-from-code>). Both approaches get to the same place eventually. 
 
-**Note to new users**: In an effort to head off potential confusion, remember that [git](<https://git-scm.com/>) and [GitHub](https://github.com/) are ***not*** the same thing! Briefly, ***git*** is a version control system (a protocol), while ***GitHub*** is a commercial entity that uses ***git***, and adds features including the web-based UI (user interface) and documentation in [Markdown](https://en.wikipedia.org/wiki/Markdown) format ( ***git<sup>+</sup>*** ). In fact, you can use ***git*** directly from the RPi command line to update a GitHub repository! [Tom Hombergs has created a tutorial on how to do this](https://reflectoring.io/github-fork-and-pull/), and GitHub offers these [training resources](https://try.github.io/). Finally (and importantly), you should know that ***GitHub*** is not the only commercial entity offering ***git<sup>+</sup>***: [***GitLab***](https://about.gitlab.com/) is another resource to consider, perhaps especially so now that [Microsoft has incorporated GitHub](https://blogs.microsoft.com/blog/2018/10/26/microsoft-completes-github-acquisition/) into its empire. [Some GitHub users worry](https://www.theverge.com/2018/6/18/17474284/microsoft-github-acquisition-developer-reaction) this $7.5 Billion deal could be detrimental. 
+**Note to new users**: In an effort to head off potential confusion, remember that [git](<https://git-scm.com/>) and [GitHub](https://github.com/) are ***not*** the same thing! Briefly, ***git*** is a version control system (a protocol), while ***GitHub*** is a commercial entity that uses ***git***, and adds features including the web-based UI (user interface) and documentation in [Markdown](https://en.wikipedia.org/wiki/Markdown) format. 
+
+You can use ***git*** directly from the RPi command line to create or update a GitHub repository! [Tom Hombergs has created a tutorial on how to do this](https://reflectoring.io/github-fork-and-pull/), and GitHub offers these [training resources](https://try.github.io/). Finally (and importantly), you should know that ***GitHub*** is not the only commercial entity offering ***git<sup>+</sup>***: [***GitLab***](https://about.gitlab.com/) is another resource to consider, perhaps especially so now that [Microsoft has incorporated GitHub](https://blogs.microsoft.com/blog/2018/10/26/microsoft-completes-github-acquisition/) into its empire... [some GitHub users worry](https://www.theverge.com/2018/6/18/17474284/microsoft-github-acquisition-developer-reaction) this $7.5 Billion deal could be detrimental. 
 
 <table class="minimalistBlack">
 <thead>
@@ -17,6 +19,12 @@ Most importantly, feel free to ***contribute***… [GitHub explains](https://gui
 </tr>
 </thead>
 <tbody>
+  <tr>
+    <td><a href="BluetoothAudio-RPi3A-BookwormLite.md">Finally! Bluetooth audio for the Lite OS</a>
+    </td>
+    <td>Thanks to a new program called `pipewire`, Bluetooth audio is now available to users of the "Lite"/"headless" distribution of the Raspberry Pi OS. Details are in the recipe. 
+    </td>
+  </tr>
 <tr>
 <td><a href="ReadMeFirst.md">First steps...</a></td>
   <td>An approach to setting up a Raspberry Pi in "headless" mode, from setting up your microSD card to your first login over SSH, and then on to <code>raspi-config</code> to complete your initial setup.</td>
