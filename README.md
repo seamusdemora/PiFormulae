@@ -30,8 +30,9 @@ You can use ***git*** directly from the RPi command line to create or update a G
   <td>This is a collection of short scripts and "one-liners" for use in the command line in the RPi `bash` (or `zsh`)  shell. A ToC is included to make finding what you need easier.   </td>
 </tr>
 <tr>
-<td><a href="FindMyPi.md">Find the IP address of a RPi</a></td>
-  <td>This is potentially useful for those running their RPi in "headless mode". You can use this to find the IP address of your RPi, and having the address, initiate the necessary SSH connection to communicate with it. Note that this may be unnecessary for Mac users, or other PCs, that employ <a href="https://en.wikipedia.org/wiki/Zero-configuration_networking">zero configuration networking.</a></td>
+<td><a href="Build_pinctrl_for-bullseye.md">Use RPi's `pinctrl` to control GPIO pins</a></td>
+  <td>Controlling GPIO pins has always been a key capability for Raspberry Pi users. But GPIO control has been jeopardized lately; this due to a convergence of two factors: 1. the Linux kernel has "outlawed" `sysfs` access to GPIO, and 2. the dreadful failure of the Linux kernel's chosen replacement for `sysfs`: `libgpiod`. The `pinctrl` package, developed within the RPi organization, offers respite from the Linux kernel's machinations. `pinctrl` offers fast, lightweight access to the GPIO. 
+  </td>
 </tr>
 <tr>  
   <td></td>
