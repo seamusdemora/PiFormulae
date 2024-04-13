@@ -27,7 +27,7 @@ You can use ***git*** directly from the RPi command line to create or update a G
   </tr>
 <tr>
 <td><a href="UsefulShellTricks.md">Handy features to know for using the shell</a></td>
-  <td>This is a collection of short scripts and "one-liners" for use from the command line in the RPi `bash` (or `zsh`)  shell. A ToC is included to make finding what you need easier.   </td>
+  <td>This is a collection of short scripts and "one-liners" for use in the command line in the RPi `bash` (or `zsh`)  shell. A ToC is included to make finding what you need easier.   </td>
 </tr>
 <tr>
 <td><a href="FindMyPi.md">Find the IP address of a RPi</a></td>
