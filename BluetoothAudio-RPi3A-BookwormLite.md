@@ -152,6 +152,43 @@ For those interested in such things, following is a screen shot of `htop` runnin
 
 ![htop-rpi3a](/pix/htop-rpi3a.png)
 
-### Epilogue
+### One Other Issue:
 
-As it turns out, there was one other issue that had to be resolved: `pipewire` operates in *userland*, and this means that when the user logs out, `pipewire` shuts down; *i.e. no more music*! I've solved this rather elegantly (if I may say so), and that solution will be posted in a day or two. 
+As it turns out, there was one other issue that had to be resolved: `pipewire` operates in *userland*, and this means that when the user logs out, `pipewire` shuts down; *i.e. no more music*! I've solved this by modifying the `systemd` service: `getty@tty1` as follows: 
+
+```bash
+$ sudo vim /etc/systemd/system/getty.target.wants/getty@tty1.service
+```
+
+#### Make the following edits:
+
+#### FROM:
+
+```
+[Service]
+...
+ExecStart=-/sbin/agetty -o '-p -- \\u' --noclear - $TERM
+```
+
+#### TO: 
+
+```
+[Service]
+...
+#  ExecStart=-/sbin/agetty -o '-p -- \\u' --noclear - $TERM
+ExecStart=
+ExecStart=-/sbin/agetty --autologin pi --noclear %I $TERM
+```
+
+#### Save changes & reboot
+
+The above changes simply add an `autologin` for user `pi` (or the user you've selected to run `pipewire`). After the `reboot` you can check that user `pi` has been logged in on `tty1`: 
+
+```bash 
+$ who
+pi       tty1         1970-01-10 21:45
+pi       pts/0        -3386239902218585523 (192.168.1.209)
+```
+
+And now, you may `logout` if you wish, and your music will continue to play!
+
