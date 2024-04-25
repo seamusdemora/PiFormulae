@@ -20,6 +20,12 @@ You can use ***git*** directly from the RPi command line to create or update a G
 </thead>
 <tbody>
   <tr>
+    <td><a href="SluggishSSH-aCure.md">Stop sluggish SSH performance over WiFi</a>
+    </td>
+    <td>Disable a poorly-implemented WiFi `power_save` feature in `brcmfmac` that has been enabled by default!
+    </td>
+  </tr>
+  <tr>
     <td><a href="BluetoothAudio-RPi3A-BookwormLite.md">Finally! Bluetooth audio for the Lite OS</a>
     </td>
     <td>Thanks to a new program called `pipewire`, Bluetooth audio is now available to users of the "Lite"/"headless" distribution of the Raspberry Pi OS. Details are in the recipe. 
@@ -116,6 +122,7 @@ You can use ***git*** directly from the RPi command line to create or update a G
 </tr>
 </tbody>
 </table>
+
 ------
 
 OTHER REFERENCES: 
