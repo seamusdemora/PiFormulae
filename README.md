@@ -81,10 +81,6 @@ You can use ***git*** directly from the RPi command line to create or update a G
   <td></td>
 </tr>
 <tr>  
-  <td><a href="UsefulShellTricks.md">Potentially useful ideas for the CLI</a></td>
-  <td>You need to learn how to use the shell (or go back to Windows). Here's a small sample of tips & tricks I've accumulated.</td>
-</tr>
-<tr>  
   <td><a href="WhatHardwareAndSoftwareVersionRaspberryPi.md">What's my RPi hardware, and what version of Raspbian am I running?</a></td>
   <td>If you've got more than one of these things, your recollection may fail occasionally. But your system always knows the correct answer!</td>
 </tr>
