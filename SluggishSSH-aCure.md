@@ -24,7 +24,9 @@ Power save: off
 
 Of my 4 RPi systems that are either 'bullseye' or 'bookworm', all 4 had `Power save: on`. (And I sure as hell didn't set it :-)  
 
-### How to "permanently" disable WiFi `power_save`:
+### How to "permanently" disable WiFi `power_save`: 
+
+There are two (2) methods: 
 
 1. use the root `crontab`:
 
