@@ -134,13 +134,12 @@ Finally - this was just the sound needed for a good night's sleep.
 * ```bash
   $ find "/mnt/music" -type f -name "*.mp3" > playlist.txt
   ```
+  
 * Start `mpg123` in background & *shuffle-play* the playlist:
 
 * ```bash
   $ nohup mpg123 -z -@ playlist.txt &
   ```
-
-* 
 
 ### Summary
 
