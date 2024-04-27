@@ -1,4 +1,4 @@
-## Bluetooth Audio on Raspberry Pi (Yes, It Can Be Done)
+## Bluetooth Audio on Ras Pi *Lite* (Yes, It Can Be Done)
 
 Any of you that have followed my misadventures on [Stack Exchange](https://raspberrypi.stackexchange.com/users/83790/seamus?tab=profile) will know that I have struggled [off-and-on for **years**](https://raspberrypi.stackexchange.com/questions/116819/bluetooth-blues-redux) trying to get my Raspberry Pi OS 'Lite' to play audio over Bluetooth. This came to a head recently during a [dialog with the RPi staff on GitHub](https://github.com/RPi-Distro/repo/issues/369) (note most of my comments have been deleted by the staff). Yeah... I got a little fed up with that nonsense; I guess they didn't want anyone else to see what I'd written. It wasn't abusive at all - but it was *pointed* :) 
 
@@ -114,18 +114,11 @@ $ systemctl status bluetooth.service
              └─550 /usr/libexec/bluetooth/bluetoothd
 
 Apr 11 07:06:36 rpi3a bluetoothd[550]: Endpoint registered: sender=:1.19 path=/MediaEndpoint/A2DPSource/aptx_ll_0
-Apr 11 07:06:36 rpi3a bluetoothd[550]: Endpoint registered: sender=:1.19 path=/MediaEndpoint/A2DPSource/aptx_ll_duplex_1
-Apr 11 07:06:36 rpi3a bluetoothd[550]: Endpoint registered: sender=:1.19 path=/MediaEndpoint/A2DPSource/aptx_ll_duplex_0
-Apr 11 07:06:36 rpi3a bluetoothd[550]: Endpoint registered: sender=:1.19 path=/MediaEndpoint/A2DPSource/faststream
-Apr 11 07:06:36 rpi3a bluetoothd[550]: Endpoint registered: sender=:1.19 path=/MediaEndpoint/A2DPSource/faststream_duplex
-Apr 11 07:06:36 rpi3a bluetoothd[550]: Endpoint registered: sender=:1.19 path=/MediaEndpoint/A2DPSink/opus_05
-Apr 11 07:06:36 rpi3a bluetoothd[550]: Endpoint registered: sender=:1.19 path=/MediaEndpoint/A2DPSource/opus_05
-Apr 11 07:06:36 rpi3a bluetoothd[550]: Endpoint registered: sender=:1.19 path=/MediaEndpoint/A2DPSink/opus_05_duplex
-Apr 11 07:06:36 rpi3a bluetoothd[550]: Endpoint registered: sender=:1.19 path=/MediaEndpoint/A2DPSource/opus_05_duplex
+...
 Apr 11 07:08:01 rpi3a bluetoothd[550]: /org/bluez/hci0/dev_B8_F6_53_9B_1A_97/sep1/fd0: fd(29) ready
 ```
 
-That smells like **SUCCESS  :)**  And in fact it was. As soon as I logged in, I heard my speaker chime indicating that it was connected and ready to go. I started `mpg123` as follows to confirm: 
+Note that final word: **`ready`** !  That smells like **SUCCESS  :)**  And in fact it was. As soon as I logged in, I heard my speaker chime indicating that it was connected and ready to go. I started `mpg123` as follows to confirm: 
 
 ```bash
 $ nohup mpg123 --loop -1 rainstorm.mp3 &
@@ -134,7 +127,22 @@ $ nohup mpg123 --loop -1 rainstorm.mp3 &
 
 Finally - this was just the sound needed for a good night's sleep. 
 
-### Summary 
+### Here's a quick way to generate a *playlist* for `mpg123`:
+
+* Assuming your music library is mounted on an external storage device at `/mnt/music` 
+
+* ```bash
+  $ find "/mnt/music" -type f -name "*.mp3" > playlist.txt
+  ```
+* Start `mpg123` in background & *shuffle-play* the playlist:
+
+* ```bash
+  $ nohup mpg123 -z -@ playlist.txt &
+  ```
+
+* 
+
+### Summary
 
 Following is a summary of the packages installed & command-line-fu used: 
 
@@ -190,5 +198,5 @@ pi       tty1         1970-01-10 21:45
 pi       pts/0        -3386239902218585523 (192.168.1.209)
 ```
 
-And now, you may `logout` if you wish, and your music will continue to play!
+And now, you may `logout` if you wish, and your music will continue to play! 
 
