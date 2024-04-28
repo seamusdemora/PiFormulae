@@ -272,7 +272,7 @@ $ git worktree remove motd-worktree
 ### Git - list files in repo:
 
 1. [Q&A: List files in local Git repo?](https://stackoverflow.com/questions/8533202/list-files-in-local-git-repo) - good answer  
-2. [How can I make git show a list of the files that are being tracked?](https://stackoverflow.com/questions/15606955/how-can-i-make-git-show-a-list-of-the-files-that-are-being-tracked) 1 good answer & 1 incorrect answer 
+2. [How can I make git show a list of the files that are being tracked?](https://stackoverflow.com/questions/15606955/how-can-i-make-git-show-a-list-of-the-files-that-are-being-tracked) 1 good answer & 1 [incorrect answer](https://stackoverflow.com/a/15606998/22595851) 
 3. [Difference between a working tree and a repository in Git?](https://stackoverflow.com/a/76797811/22595851) is interesting... 
 
 ### git restore-mtime: 
