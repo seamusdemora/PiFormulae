@@ -76,10 +76,9 @@ The availability of the [driver documentation](https://www.kernel.org/doc/html/l
 ```bash
 #!/usr/bin/bash
 # read Temp & Humidity from the 'temp1_input' & 'humidity1_input' files
-# Fahrenheit = (Celsius * 1.8) + 32
+cd /sys/class/hwmon/hwmon2
 
-# Note: This location depends on multiple factors: OS ver, i2c channel, etc.
-cd /sys/devices/platform/soc/3f205000.i2c/i2c-0/0-0044/hwmon/hwmon3
+# Fahrenheit = (Celsius * 1.8) + 32
 
 denominator=1000
 temp_c=$(< temp1_input)
@@ -92,6 +91,7 @@ h_r=$(echo "scale=1; $humid_r / $denominator" | bc)
 # echo "$h_r per cent"
 
 printf "Temperature: %4.1f deg C, %5.1f deg F\tHumidity: %4.1f %% relative humidity\n" $t_c $t_f $h_r
+
 
 ```
 
