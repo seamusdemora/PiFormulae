@@ -20,6 +20,11 @@ You can use ***git*** directly from the RPi command line to create or update a G
 </thead>
 <tbody>
   <tr>
+    <td><a href="SHT3X_T%26H_Sensor.md">Using the SHT3X Temperature/Humidity Sensor on RPi</a>
+    </td>
+    <td>No Programming Required! We use the `sysfs` interface to simplify access to these ubiquitous sensors.</td>
+  </tr>
+  <tr>
     <td><a href="SluggishSSH-aCure.md">Stop sluggish SSH performance over WiFi</a>
     </td>
     <td>Disable a poorly-implemented WiFi `power_save` feature in `brcmfmac` that has been enabled by default!
