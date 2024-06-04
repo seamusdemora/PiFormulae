@@ -6,7 +6,7 @@ This recipe outlines (what I feel is) the *simplest*, and most *straightforward*
 | --------------------------------------- | --------------------------------------------- |
 | ![SHT3x-module](./pix/SHT3x-module.jpg) | ![SHT3x-w-display](./pix/SHT3x-w-display.jpg) |
 
-For those wondering *WTFIGO* wrt use of `sysfs`, I'm afraid I have no explanation. Like everyone else, I heard that the Linux kernel maintainers had finally pushed `sysfs` usage into oblivion - some 6 years after they elected to deprecate it. Yet, here it is - and looking none the worse for wear! In fact, the *key piece* of documentation that enables this recipe was found in the [kernel documentation](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html)! Clearly, there is a lot I don't know about `sysfs`. And while the kernel documentation made perfectly clear ***how*** the SHT3X interface was implemented, it was completely silent on ***where*** to find the proper folder. For that, I had to resort to *digging around*.   
+For those wondering *WTFIGO* wrt use of `sysfs`, I'm afraid I have no explanation. Like everyone else, I heard that the Linux kernel maintainers had finally pushed `sysfs` usage into oblivion - some 6 years after they elected to deprecate it. Yet, here it is - and looking none the worse for wear! In fact, the *key piece* of documentation that enables this recipe was found in the [kernel documentation](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html)! Clearly, there is a lot I don't know about `sysfs`. And while the kernel documentation made perfectly clear ***how*** the SHT3X interface was implemented, it was completely silent on ***where*** to find the proper folder. For that, I had to resort to *digging around* (more on that below).   
 
 But enough of that, let's get into the recipe: 
 
@@ -36,38 +36,42 @@ dtoverlay=i2c-sensor,i2c0,sht3x
 
 Sensiron's website is a great source for documentation on the SHT3X. You will find [application & driver software](https://sensirion.com/products/catalog/SHT30-DIS-F) here, but we will not require that for this example. 
 
-Instead, we will use documentation for the Linux kernel; specifically: [the driver documentation for the SHT3x](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html) (prepared by Sensiron staff). This document contains the `sysfs` interface documentation, and is **the key** for using the sensor. It **does not** explain exactly where in `/sys` these interface files are found, but a bit of *digging around* on my RPi 3A+, and reading [this document](https://www.kernel.org/doc/html/latest/i2c/i2c-sysfs.html) revealed its location to be as follows: 
+Instead, we will use documentation for the Linux kernel; specifically: [the driver documentation for the SHT3x](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html) (prepared by Sensiron staff). This document contains the `sysfs` interface documentation, and is **the key** for using the sensor. It **does not** explain exactly ***where*** in `/sys` these interface files are found, but a bit of *digging around* on my RPi 3A+, with some help from `grep`, revealed its location to be as follows: 
 
 ```bash
-$ cd /sys/devices/platform/soc/3f205000.i2c/i2c-0/0-0044/hwmon/hwmon3
+$ grep -s . /sys/class/hwmon/*/* | grep sht3x
+/sys/class/hwmon/hwmon2/name:sht3x
+/sys/class/hwmon/hwmon2/uevent:OF_NAME=sht3x
+/sys/class/hwmon/hwmon2/uevent:OF_FULLNAME=/soc/i2c@7e205000/sht3x@44
+/sys/class/hwmon/hwmon2/uevent:OF_COMPATIBLE_0=sensirion,sht3x
 
+$ cd /sys/class/hwmon/hwmon2
 $ ls -l 
-lrwxrwxrwx 1 root root    0 May 31 20:01 device -> ../../../0-0044
--rw-r--r-- 1 root root 4096 May 31 20:01 heater_enable
--r--r--r-- 1 root root 4096 May 31 20:01 humidity1_alarm
--r--r--r-- 1 root root 4096 May 31 20:01 humidity1_input
--rw-r--r-- 1 root root 4096 May 31 20:01 humidity1_max
--rw-r--r-- 1 root root 4096 May 31 20:01 humidity1_max_hyst
--rw-r--r-- 1 root root 4096 May 31 20:01 humidity1_min
--rw-r--r-- 1 root root 4096 May 31 20:01 humidity1_min_hyst
--r--r--r-- 1 root root 4096 May 31 20:01 name
-lrwxrwxrwx 1 root root    0 May 31 20:01 of_node -> ../../../../../../../../firmware/devicetree/base/soc/i2c@7e205000/sht3x@44
-drwxr-xr-x 2 root root    0 May 31 20:01 power
--rw-r--r-- 1 root root 4096 May 31 20:01 repeatability
-lrwxrwxrwx 1 root root    0 May 31 20:01 subsystem -> ../../../../../../../../class/hwmon
--r--r--r-- 1 root root 4096 May 31 20:01 temp1_alarm
--r--r--r-- 1 root root 4096 May 31 20:01 temp1_input
--rw-r--r-- 1 root root 4096 May 31 20:01 temp1_max
--rw-r--r-- 1 root root 4096 May 31 20:01 temp1_max_hyst
--rw-r--r-- 1 root root 4096 May 31 20:01 temp1_min
--rw-r--r-- 1 root root 4096 May 31 20:01 temp1_min_hyst
--rw-r--r-- 1 root root 4096 May 31 19:34 uevent
--rw-r--r-- 1 root root 4096 May 31 20:01 update_interval
+total 0
+lrwxrwxrwx 1 root root    0 Jun  2 21:55 device -> ../../../0-0044
+-rw-r--r-- 1 root root 4096 Jun  2 21:55 heater_enable
+-r--r--r-- 1 root root 4096 Jun  2 21:55 humidity1_alarm
+-r--r--r-- 1 root root 4096 Jun  2 21:55 humidity1_input
+-rw-r--r-- 1 root root 4096 Jun  2 21:55 humidity1_max
+-rw-r--r-- 1 root root 4096 Jun  2 21:55 humidity1_max_hyst
+-rw-r--r-- 1 root root 4096 Jun  2 21:55 humidity1_min
+-rw-r--r-- 1 root root 4096 Jun  2 21:55 humidity1_min_hyst
+-r--r--r-- 1 root root 4096 Jun  2 21:55 name
+lrwxrwxrwx 1 root root    0 Jun  2 21:55 of_node -> ../../../../../../../../firmware/devicetree/base/soc/i2c@7e205000/sht3x@44
+drwxr-xr-x 2 root root    0 Jun  2 21:55 power
+-rw-r--r-- 1 root root 4096 Jun  2 21:55 repeatability
+lrwxrwxrwx 1 root root    0 Jun  2 21:55 subsystem -> ../../../../../../../../class/hwmon
+-r--r--r-- 1 root root 4096 Jun  2 21:55 temp1_alarm
+-r--r--r-- 1 root root 4096 Jun  2 21:55 temp1_input
+-rw-r--r-- 1 root root 4096 Jun  2 21:55 temp1_max
+-rw-r--r-- 1 root root 4096 Jun  2 21:55 temp1_max_hyst
+-rw-r--r-- 1 root root 4096 Jun  2 21:55 temp1_min
+-rw-r--r-- 1 root root 4096 Jun  2 21:55 temp1_min_hyst
+-rw-r--r-- 1 root root 4096 Jun  2 21:52 uevent
+-rw-r--r-- 1 root root 4096 Jun  2 21:55 update_interval
 ```
 
-Which we see matches the [kernel documentation for the SHT3X](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html). 
-
-Note also that the directory name reflects my use of `i2c0` - instead of the default `i2c1`. You should adjust the location if you're using another I2C channel. 
+Which we see matches the [kernel documentation for the SHT3X](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html). *This must be the place!*  
 
 ### 4. A "one-shot" script to see some T&H readings
 
@@ -75,23 +79,39 @@ The availability of the [driver documentation](https://www.kernel.org/doc/html/l
 
 ```bash
 #!/usr/bin/bash
-# read Temp & Humidity from the 'temp1_input' & 'humidity1_input' files
-cd /sys/class/hwmon/hwmon2
+
+# verify the assumed sysfs folder exists, and contains the correct 'name' file
+# read current temp & humidity from files
+# assumed sysfs folders as follows:
+#   /sys/devices/platform/soc/3f205000.i2c/i2c-0/0-0044/hwmon/hwmon2
+#   /sys/class/hwmon/hwmon2 (a symlink to /sys/devices/...)
+# use 'grep -s sht3x /sys/class/hwmon/*/*' to locate the correct folder in sysfs
+
+dev_fldr="/sys/class/hwmon/hwmon2"
+#
+# check that $dev_fldr exists, that the file 'name' exists in it, and that the file contains 'sht3X'
+if [ -d "$dev_fldr" ] && [ -f "$dev_fldr/name" ] && [ $(< "$dev_fldr/name") = "sht3x" ]; then
+    dev_nm="sht3x"
+else
+    echo "ERROR fm $0: The named sysfs folder: $dev_fldr - appears to be incorrect."
+    echo "run the command: 'grep -s sht3x /sys/class/hwmon/*/*' to relocate dev_fldr"
+    echo "and update this script with the new value/location."
+    exit 1
+fi
 
 # Fahrenheit = (Celsius * 1.8) + 32
-
+# read sht3x sensor's temperature & humidity data
 denominator=1000
-temp_c=$(< temp1_input)
+temp_c=$(< "$dev_fldr/temp1_input")
 t_c=$(echo "scale=1; $temp_c / $denominator" | bc)
 t_f=$(echo "scale=1; ($t_c * 1.8) + 32" | bc)
 # echo -e "$t_c deg C\t$t_f deg F"
 
-humid_r=$(< humidity1_input)
+humid_r=$(< "$dev_fldr/humidity1_input")
 h_r=$(echo "scale=1; $humid_r / $denominator" | bc)
 # echo "$h_r per cent"
 
 printf "Temperature: %4.1f deg C, %5.1f deg F\tHumidity: %4.1f %% relative humidity\n" $t_c $t_f $h_r
-
 
 ```
 
