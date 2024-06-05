@@ -12,7 +12,7 @@ But enough of that, let's get into the recipe:
 
 ### 1. The first step is to connect the sensor to the RPi: 
 
-The schematic is simple: 2 wires for power, and two wires for I2C. **PLEASE NOTE** that I am using `i2c0` for this SHT3X connection; this due to the fact that the default `i2c1` was not in use/not available on this particular RPi 3A+. You may use any `i2cX` channel available for your RPi; simply watch out for commands including a specific reference to `i2c0`, and adjust accordingly.  
+**Remove power from your RPi before making any wiring connections!** The schematic is simple: 2 wires for power, and two wires for I2C. **PLEASE NOTE** that I am using `i2c0` for this SHT3X connection; this due to the fact that the default `i2c1` was not in use/not available on this particular RPi 3A+. You may use any `i2cX` channel available for your RPi; simply watch out for commands including a specific reference to `i2c0`, and adjust accordingly.  
 
 <!-- Begin schematic: In order to preserve an editable schematic, please
      don't edit this section directly.
@@ -36,7 +36,7 @@ dtoverlay=i2c-sensor,i2c0,sht3x
 
 Sensiron's website is a great source for documentation on the SHT3X. You will find [application & driver software](https://sensirion.com/products/catalog/SHT30-DIS-F) here, but we will not require that for this example. 
 
-Instead, we will use documentation for the Linux kernel; specifically: [the driver documentation for the SHT3x](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html) (prepared by Sensiron staff). This document contains the `sysfs` interface documentation, and is **the key** for using the sensor. It **does not** explain exactly ***where*** in `/sys` these interface files are found, but a bit of *digging around* on my RPi 3A+, with some help from `grep`, revealed its location to be as follows: 
+Instead, we will use documentation for the Linux kernel; specifically: [the driver documentation for the SHT3x](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html) (prepared by Sensiron staff). This document contains the `sysfs` interface documentation, and is **the key** for using the sensor. It **does not** explain exactly ***where*** in `/sys` these interface files are found, but a bit of *digging around* on my RPi 3A+, with some help from `grep` & `find`, revealed its location: 
 
 ```bash
 $ grep -s . /sys/class/hwmon/*/* | grep sht3x
@@ -80,22 +80,27 @@ The availability of the [driver documentation](https://www.kernel.org/doc/html/l
 ```bash
 #!/usr/bin/bash
 
-# verify the assumed sysfs folder exists, and contains the correct 'name' file
-# read current temp & humidity from files
-# assumed sysfs folders as follows:
-#   /sys/devices/platform/soc/3f205000.i2c/i2c-0/0-0044/hwmon/hwmon2
-#   /sys/class/hwmon/hwmon2 (a symlink to /sys/devices/...)
-# use 'grep -s sht3x /sys/class/hwmon/*/*' to locate the correct folder in sysfs
-
-dev_fldr="/sys/class/hwmon/hwmon2"
+# An issue w/ this script was the sysfs location of the correct folder containing
+# the "data files" for the sht3x sensor. The "sysfs" name/location of the folder
+# could change following a reboot, or if other "hwmon" sensors were added/removed.
+# This issue was addressed with a "udev" rule; the rule created a symbolic link at
+# "/dev/hwmon_sht3x" to the correct folder in "sysfs".
+# The "udev" rule is located at "/etc/udev/rules.d/80-local.rules", and is:
 #
+# ACTION=="add", SUBSYSTEM=="hwmon", ATTR{name}=="sht3x", KERNELS=="0-0044", \
+# SUBSYSTEMS=="i2c", RUN+="/bin/sh -c 'ln -s /sys$devpath /dev/hwmon_sht3x'"
+#
+# Consequently, the data used in this script is read from "/dev/hwmon_sht3x"
+# instead of "/sys/devices/platform/soc/3f205000.i2c/i2c-0/0-0044/hwmon/hwmonX"
+
+dev_fldr="/dev/hwmon_sht3x"
+
 # check that $dev_fldr exists, that the file 'name' exists in it, and that the file contains 'sht3X'
 if [ -d "$dev_fldr" ] && [ -f "$dev_fldr/name" ] && [ $(< "$dev_fldr/name") = "sht3x" ]; then
     dev_nm="sht3x"
 else
-    echo "ERROR fm $0: The named sysfs folder: $dev_fldr - appears to be incorrect."
-    echo "run the command: 'grep -s sht3x /sys/class/hwmon/*/*' to relocate dev_fldr"
-    echo "and update this script with the new value/location."
+    echo "ERROR fm $0: The folder: $dev_fldr - appears to be incorrect or missing."
+    echo "Verify the sht3x sensor is wired correctly, and configured in config.txt"
     exit 1
 fi
 
@@ -111,7 +116,7 @@ humid_r=$(< "$dev_fldr/humidity1_input")
 h_r=$(echo "scale=1; $humid_r / $denominator" | bc)
 # echo "$h_r per cent"
 
-printf "Temperature: %4.1f deg C, %5.1f deg F\tHumidity: %4.1f %% relative humidity\n" $t_c $t_f $h_r
+printf "$(date +%Y-%m-%d\ @\ %H:%M:%S); Temperature: %4.1f deg C, %5.1f deg F\tHumidity: %4.1f %% relative humidity\n" $t_c $t_f $h_r
 
 ```
 
