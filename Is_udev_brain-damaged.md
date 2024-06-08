@@ -44,7 +44,7 @@ I changed my rule again to restore the `SYMLINK+="i2c_sht3x"`  **assignment key*
 
 #### THE WORKING RULE:
 
-See the [complete, fully-commented `80-local.rules` file here.](source/80-local.rules)  
+See the [complete, fully-commented `80-local.rules` file here in the `source` folder.](source/80-local.rules)  
 
 ```
 ACTION=="add", SUBSYSTEM=="hwmon", ATTR{name}=="sht3x", KERNELS=="0-0044", SUBSYSTEMS=="i2c", RUN+="/bin/sh -c 'ln -s /sys$devpath /dev/hwmon_sht3x'"
