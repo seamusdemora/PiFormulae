@@ -75,7 +75,7 @@ Which we see matches the [kernel documentation for the SHT3X](https://www.kernel
 
 ### 4. A "one-shot" script to see some T&H readings
 
-The availability of the [driver documentation](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html) and `sysfs` interface description provide for a very **straightforward** method to control the sensor, and take readings from it. This may perhaps be done most simply using a shell script to read/write the `sysfs` files; a script that performs a ***"one-shot"*** reading is shown below: 
+The availability of the [driver documentation](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html) and `sysfs` interface description provide for a very **straightforward** method to control the sensor, and take readings from it. This may perhaps be done most simply using a shell script to read/write the `sysfs` files; a [script](source/th.sh) that performs a ***"one-shot"*** reading is shown below: 
 
 ```bash
 #!/usr/bin/bash
