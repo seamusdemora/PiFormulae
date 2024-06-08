@@ -39,7 +39,7 @@ Sensiron's website is a great source for documentation on the SHT3X. You will fi
 Instead, we will use documentation for the Linux kernel; specifically: [the driver documentation for the SHT3x](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html) (prepared by Sensiron staff). This document contains the `sysfs` interface documentation, and is **the key** for using the sensor. It **does not** explain exactly ***where*** in `/sys` these interface files are found, but a bit of *digging around* on my RPi 3A+, with some help from `grep` & `find`, revealed its location: 
 
 ```bash
-$ grep -s . /sys/class/hwmon/*/* | grep sht3x
+$ grep -s sht3x /sys/class/hwmon/*/*
 /sys/class/hwmon/hwmon2/name:sht3x
 /sys/class/hwmon/hwmon2/uevent:OF_NAME=sht3x
 /sys/class/hwmon/hwmon2/uevent:OF_FULLNAME=/soc/i2c@7e205000/sht3x@44
@@ -75,7 +75,9 @@ Which we see matches the [kernel documentation for the SHT3X](https://www.kernel
 
 ### 4. A "one-shot" script to see some T&H readings
 
-The availability of the [driver documentation](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html) and `sysfs` interface description provide for a very **straightforward** method to control the sensor, and take readings from it. This may perhaps be done most simply using a shell script to read/write the `sysfs` files; a [script](source/th.sh) that performs a ***"one-shot"*** reading is shown below: 
+The availability of the [driver documentation](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html) and `sysfs` interface description provide for a very **straightforward** method to control the sensor, and take readings from it. This may perhaps be done most simply using a shell script to read/write the `sysfs` files. 
+
+**The [shell script `th.sh` is found here](source/th.sh); the listing below will hopefully match the source file, but please do not depend on that.** 
 
 ```bash
 #!/usr/bin/bash
