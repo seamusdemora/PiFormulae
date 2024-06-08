@@ -1,0 +1,23 @@
+# NOTES:
+# This file is named '80-local.rules'; it should be installed at '/etc/udev/rules.d/'
+# This file is intended to be used with the SHT3X Sensor recipe. When your RPi is booted 
+# with this filed saved at '/etc/udev/rules.d/80-local.rules' a symlink will be created at
+# /dev/hwmon_sht3x. This symlink will serve as a consistent link to the folder containing
+# the sensor data. REF the script 'th.sh' in the SHT3X Sensor recipe. 
+#
+# UNLESS your device also happens to be an SHT3X connected to 'i2c-0' at address '0x44',
+# you will need to make adjustments to some of the parameters in the 'ACTION=="add"' line
+# below. For example, if your device is on i2c-1 at address '0x45', you would change the
+# 'KERNELS' key as follows: FROM: 'KERNELS=="0-0044"'   TO:  'KERNELS=="1-0045"'
+#  
+# Adjust any other parameters in the "matching keys" based on your hardware configuration.
+# You can list all the parameters for your sensor by running the following command: 
+# 'udevadm info --attribute-walk --path=/sys/class/hwmon/hwmon<X>'
+# where <X> is just the sequential number assigned by the kernel at boot time. If you need
+# a list, simply run:
+# 'ls -l /sys/class/hwmon'
+# You will be able to determine the correct value of <X> from the symlinks in the ls output.
+# 
+# The following line is the only line that matters in this file:
+
+ACTION=="add", SUBSYSTEM=="hwmon", ATTR{name}=="sht3x", KERNELS=="0-0044", SUBSYSTEMS=="i2c", RUN+="/bin/sh -c 'ln -s /sys$devpath /dev/hwmon_sht3x'"
