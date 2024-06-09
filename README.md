@@ -20,7 +20,7 @@ You can use ***git*** directly from the RPi command line to create or update a G
 </thead>
 <tbody>
   <tr>
-    <td><a href="Is_udev_brain-dead.md">Is `udev` brain-damaged, or does it hate hwmon?</a>
+    <td><a href="blob/master/Is_udev_brain-dead.md">Is `udev` brain-damaged, or does it hate hwmon?</a>
     </td>
     <td>A `udev` solution to an issue with the <a href="SHT3X_T%26H_Sensor.md">SHT3X Temperature/Humidity Sensor</a>... with a <i>detour</i>!
     </td>
