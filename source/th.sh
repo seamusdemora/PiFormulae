@@ -1,6 +1,8 @@
 #!/usr/bin/bash
 
 # script name: th.sh; install at /usr/local/sbin
+# This script reads the folder in 'sysfs' containing data from the sht3x t & h sensor
+#
 # An issue w/ this script was the sysfs location of the correct folder containing
 # the "data files" for the sht3x sensor. The "sysfs" name/location of the folder
 # could change following a reboot, or if other "hwmon" sensors were added/removed.
