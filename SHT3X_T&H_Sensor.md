@@ -77,7 +77,7 @@ Which we see matches the [kernel documentation for the SHT3X](https://www.kernel
 
 The availability of the [driver documentation](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html) and `sysfs` interface description provide for a very **straightforward** method to control the sensor, and take readings from it. This may perhaps be done most simply using a shell script to read/write the `sysfs` files. 
 
-**The [shell script `th.sh` is found here](source/th.sh); the listing below will hopefully match the source file, but please do not depend on that.** 
+**The [shell script `th.sh` is found here](source/th.sh); the listing below will hopefully match the source file, but please do not depend on that.** Also note this script depends upon a  `udev` script to keep up with the location of the `sysfs` driver file - [see this recipe for details](https://github.com/seamusdemora/PiFormulae/blob/master/Is_udev_brain-damaged.md). 
 
 ```bash
 #!/usr/bin/bash
