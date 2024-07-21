@@ -34,6 +34,7 @@
 * [`raspi-config` from the command line?](#raspi-config-from-the-command-line)
 * [Background, nohup, infinite loops, daemons](#background-nohup-infinite-loops-daemons)
 * [Bluetooth](#bluetooth) 
+* [Change the modification date/time of a file](#change-the-modification-time-of-a-file) 
 * [REFERENCES:](#references) 
 
 
@@ -905,10 +906,36 @@ It's occasionally useful to create a program/script that runs continuously, perf
   
   And that's it.
 
-## Bluetooth 
+## Bluetooth
 
 ***Having Bluetooth Issues?***
-This isn't a helpful comment, but may be useful for setting expectations. If you spend a week or so chasing Bluetooth problems on a Linux system, you begin to wonder: "Does Bluetooth on Linux just suck?" Unfortunately, I think the answer may be, "Yes, it does suck." I've played audio thru a BT speaker (JBL Flip 5) using my iPhone6 as the music source & speaker control continuously for days without an interrupt. I can occasionally manage an hour or two using Linux with the same Flip 5 speaker. It just sucks... deal with it. [REF](https://raspberrypi.stackexchange.com/a/147626/83790) 
+If you spend a week or so chasing Bluetooth problems on a Linux system, you begin to wonder: "Does Bluetooth on Linux just suck?" Unfortunately, I think the answer may be, "Yes, it does suck... at least on the Raspberry Pi Lite systems."  I finally got fed up, and took the problem to the Raspberry Pi GitHub sites:
+
+* First: in the [RPi-Distro repo](https://github.com/RPi-Distro/repo/issues/369), where I was told this was a "Documentation issue", and should be filed in the Documentation repo.  
+* Second: in the [Documentation repo](https://github.com/raspberrypi/documentation/issues/3585#event-12354374925), where I was told it was **not** a Documentation issue - it was a software (RPi-Distro) issue! 
+
+IOW - I got *the run-around* by Raspberry Pi miscreants! And it gets worse: Apparently I have been *banned from posting in the RPi-Distro repo for life*! You see the Organization at its worst in these exchanges. 
+
+However: I [**have made some progress**](https://github.com/seamusdemora/PiFormulae/blob/master/BluetoothAudio-RPi3A-BookwormLite.md). The Bluetooth issues have not been completely resolved, but the `pipewire/wireplumber` packages, and the [bluez-alsa repo](https://github.com/Arkq/bluez-alsa) represent two significant steps forward. Stay tuned!
+
+## Change the modification date of a file
+
+From time-to-time, we all need to make adjustments to the modification date/time of a file(s) on our system. Here's an easy way to do that: 
+
+```bash
+$ touch -d "2 hours ago" <filename> 
+# "2 hours ago" means two hours before the present time
+# and of course you can use seconds/minutes/days, etc
+```
+
+If OTOH, you want to change the modification time relative to the file's current  modification time, you can do that as follows: 
+
+```bash
+$ touch -d "$(date -R -r filename) - 2 hours" <filename> 
+# "- 2 hours" means two hours before the current modification time of the file
+```
+
+
 
 
 <hr>
@@ -1059,6 +1086,7 @@ This isn't a helpful comment, but may be useful for setting expectations. If you
 13. [Q&A: What key does `M` refer to in `nano`?](https://stackoverflow.com/a/26285867/5395338) 
 14. [Wooledge on "Why you shouldn't parse the output of ls(1)"](http://mywiki.wooledge.org/ParsingLs) 
 15. [Listing with `ls` and regular expression](https://unix.stackexchange.com/questions/44754/listing-with-ls-and-regular-expression) - related to the *Wooledge* reference above.
+16. [Q&A: How can I change the date modified/created of a file?](https://askubuntu.com/questions/62492/how-can-i-change-the-date-modified-created-of-a-file) 
 
 
 
