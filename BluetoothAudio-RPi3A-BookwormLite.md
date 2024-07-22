@@ -1,6 +1,6 @@
 ## Bluetooth Audio on Ras Pi *Lite* (Yes, It Can Be Done)
 
-##### *Updated Jul 21, 2024; see the [Summary](#-summary) if you don't need all the verbiage!*
+##### *Updated Jul 21, 2024; see the [Summary](#summary) if you don't need all the verbiage!*
 
 Any of you that have followed my misadventures on [Stack Exchange](https://raspberrypi.stackexchange.com/users/83790/seamus?tab=profile) will know that I have struggled [off-and-on for **years**](https://raspberrypi.stackexchange.com/questions/116819/bluetooth-blues-redux) trying to get my Raspberry Pi OS 'Lite' to play audio over Bluetooth. This frustration came to a head recently during a [dialog with the RPi staff on GitHub](https://github.com/RPi-Distro/repo/issues/369). This was (and is) one of the worst cases of ***corporate irresponsibility*** I have ever seen!  Yes, I got more than a little fed up with the nonsense from *some of* the Raspberry Pi maintainers.  It wasn't an abusive exchange - but it was *pointed*. Pointed enough that I was "banned" from their GitHub site - apparently *"for life"*.  Wow!... This is one thin-skinned bunch of assholes! 
 
