@@ -20,6 +20,10 @@ You can use ***git*** directly from the RPi command line to create or update a G
 </thead>
 <tbody>
   <tr>
+    <td><a href="BluetoothAudio-BookwormLite.md">A Revised Recipe to get Bluetooth audio for 'bookworm Lite'</a></td>
+    <td>Thanks to `pipewire` and `bluez-alsa`, users now have at least two choices for *reliable* Bluetooth audio for the 'Lite'/"headless" version of the Raspberry Pi OS. See the Recipe for Details.</td>
+  </tr>
+  <tr>
     <td><a href="https://github.com/seamusdemora/PiFormulae/blob/master/TheRpiUARTmess.md">The Raspberry Pi UART mess</a></td>
     <td>A <em>rant</em>, followed by a recipe for setting up a UART console client and server pair</td>
   </tr>
@@ -38,12 +42,6 @@ You can use ***git*** directly from the RPi command line to create or update a G
     <td><a href="SluggishSSH-aCure.md">Stop sluggish SSH performance over WiFi</a>
     </td>
     <td>Disable a poorly-implemented WiFi `power_save` feature in `brcmfmac` that has been enabled by default!
-    </td>
-  </tr>
-  <tr>
-    <td><a href="BluetoothAudio-RPi3A-BookwormLite.md">Finally! Bluetooth audio for the Lite OS</a>
-    </td>
-    <td>Thanks to a new program called `pipewire`, Bluetooth audio is now available to users of the "Lite"/"headless" distribution of the Raspberry Pi OS. Details are in the recipe. 
     </td>
   </tr>
 <tr>
