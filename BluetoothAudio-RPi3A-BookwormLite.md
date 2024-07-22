@@ -329,7 +329,7 @@ As I said, I had some *limited* success using `pipewire` on 'bullseye Lite'. I w
 
 #### 3. Modify the `getty@tty1.service`
 
-`pipewire` and `wireplumber` are under a `systemd` service file that runs in **userland**. The [*long and the short of that*](https://dictionary.cambridge.org/dictionary/english/long-and-the-short-of-it) is that when the user that started these services logs off - they stop working - the audio "goes away". That may be *inconvenient* at times. Fortunately, there is a way around this problem: keep your user (presumably user `pi`) logged in under `getty`. Fortunately, this is fairly straightforward - or even unnecessary if you're happy stopping BT audio when you log off. 
+`pipewire` and `wireplumber` are under a `systemd` service file that runs in **userland**. The [*long and the short of that*](https://dictionary.cambridge.org/dictionary/english/long-and-the-short-of-it) is that when the user who started these services logs off - they stop working - the audio "goes away". That may be *inconvenient* at times. Fortunately, there is a way around this problem: keep your user (presumably user `pi`) logged in under `getty`. Fortunately, this is fairly straightforward - or even unnecessary if you're happy stopping BT audio when you log off. 
 
 If you want to make this change, here's one way to do it:
 
