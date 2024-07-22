@@ -28,9 +28,9 @@ You can use ***git*** directly from the RPi command line to create or update a G
     <td>A <em>rant</em>, followed by a recipe for setting up a UART console client and server pair</td>
   </tr>
   <tr>
-    <td><a href="https://github.com/seamusdemora/PiFormulae/blob/master/Is_udev_brain-damaged.md">Is `udev` brain-damaged, or does it hate hwmon?</a>
+    <td><a href="https://github.com/seamusdemora/PiFormulae/blob/master/Is_udev_brain-damaged.md">Is <code>udev</code> brain-damaged, or does it hate hwmon?</a>
     </td>
-    <td>A `udev` solution to an issue with the <a href="SHT3X_T%26H_Sensor.md">SHT3X Temperature/Humidity Sensor</a>... with a <i>detour</i>!
+    <td>A <code>udev</code> solution to an issue with the <a href="SHT3X_T%26H_Sensor.md">SHT3X Temperature/Humidity Sensor</a>... with a <i>detour</i>!
     </td>
   </tr>
   <tr>
