@@ -41,7 +41,7 @@ You can use ***git*** directly from the RPi command line to create or update a G
   <tr>
     <td><a href="SluggishSSH-aCure.md">Stop sluggish SSH performance over WiFi</a>
     </td>
-    <td>Disable a poorly-implemented WiFi `power_save` feature in `brcmfmac` that has been enabled by default!
+    <td>Disable a poorly-implemented WiFi <code>power_save</code> feature in <code>brcmfmac</code> that has been enabled by default!
     </td>
   </tr>
 <tr>
