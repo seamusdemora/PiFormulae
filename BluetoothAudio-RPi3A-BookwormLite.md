@@ -4,9 +4,9 @@
 
 Any of you that have followed my misadventures on [Stack Exchange](https://raspberrypi.stackexchange.com/users/83790/seamus?tab=profile) will know that I have struggled [off-and-on for **years**](https://raspberrypi.stackexchange.com/questions/116819/bluetooth-blues-redux) trying to get my Raspberry Pi OS 'Lite' to play audio over Bluetooth. This frustration came to a head recently during a [dialog with the RPi staff on GitHub](https://github.com/RPi-Distro/repo/issues/369). This was (and is) one of the worst cases of ***corporate irresponsibility*** I have ever seen!  Yes, I got more than a little fed up with the nonsense from *some of* the Raspberry Pi maintainers.  It wasn't an abusive exchange - but it was *pointed*. Pointed enough that I was "banned" from their GitHub site - apparently *"for life"*.  Wow!... This is one thin-skinned bunch of assholes! 
 
-Imagine you have a profitable business selling Raspberry Pi hardware. You know that part and parcel of that business is producing and maintaining a certain amount of **software**. But then you allow some of your employees to dictate terms to users/customers - not a good recipe for business success I am told. I am sick and tired of these self-serving, over-educated, liberal elite, entitled asses who refuse to support their own software product because they deem it to be *niche*. 
+Imagine you have a profitable business selling Raspberry Pi hardware. You know that part and parcel of that business is producing and maintaining a certain amount of **software**. But then you allow some of your employees to dictate terms to users/customers - not a good recipe for business success I am told. To close this [*brouhaha*](https://dictionary.cambridge.org/dictionary/english/brouhaha) I'm sick and tired of the asses who refuse to support their own software product because they deem it to be *niche*. 
 
-So a bit of time has passed since that episode. As I reported a few days afterwards, I managed to get `pipewire`,  `wireplumber` (and assorted other dependencies) working! ***Yes!*** I was actually able to play music through an old JBL Flip5 BT speaker ***through my Raspberry Pi "Lite" system***. (No thanks to the RPi organization!). 
+... So a bit of time has passed since that episode. As I reported a few days afterwards (in an earlier revision of this recipe), I managed to get `pipewire`,  `wireplumber` (and assorted other dependencies) working! ***Yes!*** I was actually able to play music on an old 'JBL Flip5' BT speaker ***through my Raspberry Pi "Lite" system***.  
 
 Most recently, I have now managed to extend this success with Bluetooth: 
 
@@ -62,7 +62,7 @@ For those of you who want to get right down to business, following is a SUMMARY 
 
 ### Install and Configure `pipewire` under 'bookworm Lite'
 
-Start with a fresh install of 'bookworm Lite'. I decided to [*start from scratch*](https://idioms.thefreedictionary.com/start+from+scratch) mainly to convince myself that I had not *inadvertently* installed or configured something that might have influenced the outcome; i.e. my thinking is that *accidental success* is worse than *failure*!  
+Start with a fresh install of 'bookworm Lite'. I decided to [*start from scratch*](https://idioms.thefreedictionary.com/start+from+scratch) mainly to convince myself that I had not *inadvertently* installed or configured something that might have influenced the outcome; i.e. my thinking is that *accidental success* is worse than *failure*! Here are the detailed steps I followed: 
 
 #### 1. Do the `bluetoothctl` rain dance
 
