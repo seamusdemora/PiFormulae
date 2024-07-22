@@ -914,9 +914,9 @@ If you spend a week or so chasing Bluetooth problems on a Linux system, you begi
 * First: in the [RPi-Distro repo](https://github.com/RPi-Distro/repo/issues/369), where I was told this was a "Documentation issue", and should be filed in the Documentation repo.  
 * Second: in the [Documentation repo](https://github.com/raspberrypi/documentation/issues/3585#event-12354374925), where I was told it was **not** a Documentation issue - it was a software (RPi-Distro) issue! 
 
-IOW - I got *the run-around* by Raspberry Pi miscreants! And it gets worse: Apparently I have been *banned from posting in the RPi-Distro repo for life*! You see the Organization at its worst in these exchanges. 
+IOW - I got *the run-around*! And it gets worse: Apparently I have been *banned from posting in the RPi-Distro repo for life*! You see the Organization at its worst in these exchanges. 
 
-However: I [**have made some progress**](https://github.com/seamusdemora/PiFormulae/blob/master/BluetoothAudio-RPi3A-BookwormLite.md). The Bluetooth issues have not been completely resolved, but the `pipewire/wireplumber` packages, and the [bluez-alsa repo](https://github.com/Arkq/bluez-alsa) represent two significant steps forward. Stay tuned!
+However: I [**have made some progress**](https://github.com/seamusdemora/PiFormulae/blob/master/BluetoothAudio-BookwormLite.md). The Bluetooth issues have been *mostly* resolved. The `pipewire/wireplumber` packages, and the [bluez-alsa repo](https://github.com/Arkq/bluez-alsa) represent two significant steps forward. See the [new recipe](https://github.com/seamusdemora/PiFormulae/blob/master/BluetoothAudio-BookwormLite.md).
 
 ## Change the modification date of a file
 
