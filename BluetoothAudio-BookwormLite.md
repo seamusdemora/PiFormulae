@@ -15,7 +15,7 @@ Most recently, I have now managed to extend this success with Bluetooth:
 
 I'll cover both of these ([`pipewire`](#install-and-configure-pipewire-under-bookworm-lite) and [`bluez-alsa`](#build-and-configure-bluez-alsa-under-bookworm-lite)) in the sequel. 
 
-## SUMMARY: *(see [DETAILS](#-details) for more information)*
+## SUMMARY: *(see [DETAILS](#details) for more information)*
 
 For those of you who want to get right down to business, following is a SUMMARY of the DETAILED procedures that follow: 
 
