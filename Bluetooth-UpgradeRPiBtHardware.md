@@ -15,7 +15,7 @@ I have found that disabling WiFi (via `nmcli radio wifi off` or [similar](https:
 
 For me, the solution was to buy a Bluetooth USB "dongle" - specifically I bought a [BT-8500 device from Edimax](https://www.edimax.com/edimax/merchandise/merchandise_detail/data/edimax/global/bluetooth/bt-8500/) - about $12 from Amazon. I did some investigation, and found that Edimax uses chips made by [Realtek](https://en.wikipedia.org/wiki/Realtek). Realtek is a Chinese company, but offsetting that is the fact that their chips are well-supported in Linux. 
 
-![edimax-bt-8500](/Users/jmoore/Documents/GitHub/PiFormulae/pix/edimax-bt-8500.jpeg)
+![edimax-bt-8500](./pix/edimax-bt-8500.jpeg)
 
 
 
