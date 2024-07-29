@@ -333,9 +333,9 @@ As I said, I had some *limited* success using `pipewire` on 'bullseye Lite'. I w
 
 If you want to make this change, here's one way to do it:
 
-``` fuckyousystemd
-N.B. There are several ways to modify service files in systemd. I am aware some consider it "bad form" to edit the main file directly, but that is how I'm going to do it here.
-```
+
+>**N.B. :** There are several ways to modify service files in systemd. I am aware some consider it "bad form" to edit the main file directly, but that is how I'm going to do it here.
+
 
 ```bash
 $ sudo vim /etc/systemd/system/getty.target.wants/getty@tty1.service
@@ -371,13 +371,13 @@ pi       tty1         1970-01-10 21:45
 pi       pts/0        -3386239902218585523 (192.168.1.209)
 ```
 
-And now, you may `logout` if you wish, and your music will continue to play! 
+Once you see your user listed on `tty1`, you may `logout` if you wish, and your music will continue to play! 
 
 
 
 ## Build and configure `bluez-alsa` under 'bookworm Lite'
 
-If you're *considering your options* for a Bluetooth audio setup, the most important thing to consider wrt `bluez-alsa` is that ***it is not available as an `apt` package***. IOW, you must download the source files, and build (compile) `bluez-alsa`.  
+If you're *considering your options* for a Bluetooth audio setup, the most important thing to consider wrt `bluez-alsa` (as described in this recipe) is that *it's not available *as-is* in `apt` package format*. IOW, what we cover here requires you download the source files, and build (compile & install) `bluez-alsa`.  
 
 This is not as difficult as it may sound! But it's *probably* a bit more challenging than installing `pipewire`. Here's a rough outline on how to approach this: 
 
