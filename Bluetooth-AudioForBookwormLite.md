@@ -1,4 +1,4 @@
-## Bluetooth Audio on Ras Pi *Lite* (Yes, It Can Be Done)
+## Bluetooth Audio on Raspberry Pi *Lite* (Yes, It Can Be Done)
 
 ##### NOTE: *Skip all of the BS, and go to the [Summary](#summary) if you don't need all the verbiage!*
 
