@@ -10,7 +10,7 @@ And Raspberry Pi is not like other *open-source* projects - this organization ma
 
 Recently, I have managed to extend this success with Bluetooth: 
 
-* Completed a *fresh installation* of the latest RPi OS Lite (July 4, 2024) 'bookworm' on my **RPi 3A+**
+* Completed a *fresh installation* of the latest RPi OS Lite (July 4, 2024) 'bookworm' on an **RPi 3A+**
 * Have Bluetooth audio working on a **RPi Zero 2W** 'bookworm' using [`bluez-alsa`](https://github.com/Arkq/bluez-alsa)
 * **Most recently, have upgraded `pipewire` to ver. 1.2.1 on **RPi Zero 2W** 'bookworm' using Debian's `bookworm-backports`**
 
