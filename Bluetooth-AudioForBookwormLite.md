@@ -8,10 +8,11 @@ And Raspberry Pi is not like other *open-source* projects - this organization ma
 
 ... So a bit of time has passed since that episode. As I reported a few days afterwards (in an earlier revision of this recipe), I managed to get `pipewire`,  `wireplumber` (and assorted other dependencies) working! ***Yes!*** I was actually able to play music on an old 'JBL Flip5' BT speaker ***through my Raspberry Pi "Lite" system***.  
 
-More recently, I have managed to extend this success with Bluetooth: 
+Recently, I have managed to extend this success with Bluetooth: 
 
-* I've done a *fresh installation* of the latest RPi OS Lite (July 4, 2024) 'bookworm' on my **RPi 3A+**
-* I've gotten Bluetooth audio working on a **RPi Zero 2W** 'bookworm' using [`bluez-alsa`](https://github.com/Arkq/bluez-alsa) 
+* Completed a *fresh installation* of the latest RPi OS Lite (July 4, 2024) 'bookworm' on my **RPi 3A+**
+* Have Bluetooth audio working on a **RPi Zero 2W** 'bookworm' using [`bluez-alsa`](https://github.com/Arkq/bluez-alsa)
+#### * Most recently, have upgraded `pipewire` to ver. 1.2.1 on **RPi Zero 2W** 'bookworm' using Debian's `bookworm-backports`
 
 I'll cover both of these ([`pipewire`](#install-and-configure-pipewire-under-bookworm-lite) and [`bluez-alsa`](#build-and-configure-bluez-alsa-under-bookworm-lite)) in the sequel below. 
 
