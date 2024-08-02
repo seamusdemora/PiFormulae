@@ -1,21 +1,22 @@
 ## Bluetooth Audio on Ras Pi *Lite* (Yes, It Can Be Done)
 
-##### *See the [Summary](#summary) if you don't need all the verbiage!*
+##### NOTE: *Skip all of the BS, and go to the [Summary](#summary) if you don't need all the verbiage!*
 
-Any of you that have followed my misadventures on [Stack Exchange](https://raspberrypi.stackexchange.com/users/83790/seamus?tab=profile) will know that I have struggled [off-and-on for **years**](https://raspberrypi.stackexchange.com/questions/116819/bluetooth-blues-redux) trying to get my Raspberry Pi OS 'Lite' to play audio over Bluetooth. This frustration came to a head recently during a [dialog with the RPi staff on GitHub](https://github.com/RPi-Distro/repo/issues/369). This was (and is) one of the worst cases of ***corporate irresponsibility*** I have ever seen!  Yes, I got more than a little fed up with the nonsense from *some of* the Raspberry Pi maintainers.  It wasn't an abusive exchange - but it was *pointed*. Pointed enough that I was "banned" from their GitHub site - apparently *"for life"*.  Wow!... This is one thin-skinned bunch of assholes! 
+Any of you that have followed my misadventures on [Stack Exchange](https://raspberrypi.stackexchange.com/users/83790/seamus?tab=profile) will know that I have struggled [off-and-on for **years**](https://raspberrypi.stackexchange.com/questions/116819/bluetooth-blues-redux) trying to get my Raspberry Pi OS 'Lite' to play audio over Bluetooth. This frustration came to a head recently during a [dialog with the RPi staff on GitHub](https://github.com/RPi-Distro/repo/issues/369). This was (and is) a simple case of ***corporate irresponsibility***!  I got more than a little fed up with the nonsense from *some of* the Raspberry Pi maintainers.  It wasn't an abusive exchange - but it was *pointed*. Pointed enough that I was "banned" from their GitHub site - apparently *"for life"*.  Wow!... This is one thin-skinned bunch of assholes! 
 
-Imagine you have a profitable business selling Raspberry Pi hardware. You know that part and parcel of that business is producing and maintaining a certain amount of **software**. But then you allow some of your employees to dictate terms to users/customers - not a good recipe for business success I am told. To close this [*brouhaha*](https://dictionary.cambridge.org/dictionary/english/brouhaha) I'm sick and tired of the asses who refuse to support their own software product because they deem it to be *niche*. 
+And Raspberry Pi is not like other *open-source* projects - this organization makes a tidy profit from the sale of devices, and support to their industrial customer base. I feel they have an obligation to support the items they sell!  Imagine that you have a profitable business selling Raspberry Pi hardware. You *should realize* that part and parcel of that business is producing and maintaining a certain amount of **software**. But then you allow some of your employees to *lord it over* users/customers. Their attitude is _**all wrong!**_ Unlike many other *open source* projects, **_Raspberry Pi provides nothing for free_**!!!  To close this [*brouhaha*](https://dictionary.cambridge.org/dictionary/english/brouhaha) I'm sick and tired of _arses_ who refuse to support their own software product because they deem it to be *niche*. \<END OF RANT\>
 
 ... So a bit of time has passed since that episode. As I reported a few days afterwards (in an earlier revision of this recipe), I managed to get `pipewire`,  `wireplumber` (and assorted other dependencies) working! ***Yes!*** I was actually able to play music on an old 'JBL Flip5' BT speaker ***through my Raspberry Pi "Lite" system***.  
 
-Most recently, I have now managed to extend this success with Bluetooth: 
+More recently, I have managed to extend this success with Bluetooth: 
 
-* I've done a *fresh installation* of the latest RPi OS Lite (July 4, 2024) 'bookworm' on my RPi 3A
-* I've gotten Bluetooth audio working on a Pi Zero 2W 'bookworm' using [`bluez-alsa`](https://github.com/Arkq/bluez-alsa) 
+* I've done a *fresh installation* of the latest RPi OS Lite (July 4, 2024) 'bookworm' on my **RPi 3A+**
+* I've gotten Bluetooth audio working on a **RPi Zero 2W** 'bookworm' using [`bluez-alsa`](https://github.com/Arkq/bluez-alsa) 
 
-I'll cover both of these ([`pipewire`](#install-and-configure-pipewire-under-bookworm-lite) and [`bluez-alsa`](#build-and-configure-bluez-alsa-under-bookworm-lite)) in the sequel. 
+I'll cover both of these ([`pipewire`](#install-and-configure-pipewire-under-bookworm-lite) and [`bluez-alsa`](#build-and-configure-bluez-alsa-under-bookworm-lite)) in the sequel below. 
 
-## SUMMARY: *(see [DETAILS](#details) for more information)*
+## SUMMARY: 
+##### NOTE: *(see [DETAILS](#all-the-details) for more information)*
 
 For those of you who want to get right down to business, following is a SUMMARY of the DETAILED procedures that follow: 
 
@@ -27,20 +28,20 @@ For those of you who want to get right down to business, following is a SUMMARY 
   [bluetooth]# power on
   [bluetooth]# pairable on
   [bluetooth]# scan on
-  << scanning begins, wait until your device shows up, and then: >>
+  << scanning begins, wait until your device (speaker, headphones) shows up, and then: >>
   [bluetooth]# scan off
   [bluetooth]# trust <device id; e.g. B8:F6:53:9B:1A:97>
   [bluetooth]# pair <device id; e.g. B8:F6:53:9B:1A:97>
   [bluetooth]# quit
   ```
 
-#### 2. Install `pipewire` packages
+#### 2. Install `pipewire` packages (incl. `libspa-0.2-bluetooth`)
 
   ```bash
   $ sudo apt install pipewire libspa-0.2-bluetooth
   ```
 
-#### 3. [OPTIONAL] Modify `getty@tty1.service`
+#### 3. Modify `getty@tty1.service` [OPTIONAL, but recommended]
 
   ```bash
   $ sudo vim /etc/systemd/system/getty.target.wants/getty@tty1.service
@@ -56,9 +57,9 @@ For those of you who want to get right down to business, following is a SUMMARY 
 
 #### 4. `sudo reboot`
 
+---
 
-
-## DETAILS:
+## All the DETAILS:
 
 ### Install and Configure `pipewire` under 'bookworm Lite'
 
