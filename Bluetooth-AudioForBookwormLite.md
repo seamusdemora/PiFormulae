@@ -12,7 +12,7 @@ Recently, I have managed to extend this success with Bluetooth:
 
 * Completed a *fresh installation* of the latest RPi OS Lite (July 4, 2024) 'bookworm' on my **RPi 3A+**
 * Have Bluetooth audio working on a **RPi Zero 2W** 'bookworm' using [`bluez-alsa`](https://github.com/Arkq/bluez-alsa)
-#### * Most recently, have upgraded `pipewire` to ver. 1.2.1 on **RPi Zero 2W** 'bookworm' using Debian's `bookworm-backports`
+* **Most recently, have upgraded `pipewire` to ver. 1.2.1 on **RPi Zero 2W** 'bookworm' using Debian's `bookworm-backports`**
 
 I'll cover both of these ([`pipewire`](#install-and-configure-pipewire-under-bookworm-lite) and [`bluez-alsa`](#build-and-configure-bluez-alsa-under-bookworm-lite)) in the sequel below. 
 
