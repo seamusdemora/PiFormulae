@@ -6,11 +6,11 @@ Any of you that have followed my misadventures on [Stack Exchange](https://raspb
 
 And Raspberry Pi is not like other *open-source* projects - this organization makes a tidy profit from the sale of devices, and supporting their industrial customer base. Consequently, they have an obligation to support the items they sell!  Imagine that you have a profitable business selling Raspberry Pi hardware. You *should realize* that part and parcel of that business is producing and maintaining a certain amount of **software**. But then you allow some of your employees to *lord it over* users/customers. IMO, their attitude is _**all wrong!**_ Unlike many other *open source* projects, **_Raspberry Pi provides nothing for free_**!  To close this [*brouhaha*](https://dictionary.cambridge.org/dictionary/english/brouhaha): I'm sick and tired of _arses_ who refuse to support their own software product because they deem it to be *niche*. \<END OF RANT\>
 
-... So a bit of time has passed since that episode. As I reported a few days afterwards (in an earlier revision of this recipe), I managed to get `pipewire`,  `wireplumber` (and assorted other dependencies) working! ***Yes!*** I was actually able to play music on an old 'JBL Flip5' BT speaker ***through my Raspberry Pi "Lite" system***.  
+... So a bit of time has passed since that episode. As I reported a few days afterwards (in an earlier revision of this recipe), I managed to get `pipewire`,  `wireplumber` (and assorted other dependencies) working! ***Yes...*** I was actually able to play music on an old 'JBL Flip5' BT speaker ***through my Raspberry Pi 3A+ "Lite" system!***  
 
 Recently, I have managed to extend this success with Bluetooth: 
 
-* Completed a *fresh installation* of the latest RPi OS Lite (July 4, 2024) 'bookworm' on an [**RPi 3A+**](https://datasheets.raspberrypi.com/rpi3/raspberry-pi-3-a-plus-product-brief.pdf) 
+* Completed a *fresh installation* (documented herein) of `pipewire` (ver '0.3.65') on the latest [RPi OS Lite (July 4, 2024) 'bookworm'](https://downloads.raspberrypi.com/raspios_lite_armhf/images/raspios_lite_armhf-2024-07-04/) on an [**RPi 3A+**](https://datasheets.raspberrypi.com/rpi3/raspberry-pi-3-a-plus-product-brief.pdf) 
 * Have Bluetooth audio working on a **[RPi Zero 2W](https://datasheets.raspberrypi.com/rpizero2/raspberry-pi-zero-2-w-product-brief.pdf)** 'bookworm' using [`bluez-alsa`](https://github.com/Arkq/bluez-alsa) 
 * Most recently, have **upgraded `pipewire` to ver. 1.2.1** on RPi Zero 2W 'bookworm' using Debian's `bookworm-backports`     
 
@@ -241,14 +241,14 @@ As I've written previously, using `bluetoothctl` is a grubby effort that seems (
     ```
 
 
-* No complaints from `systemd`... will wonders never cease? Let's try to play some sounds:
+* No complaints from `systemd`... [*will wonders never cease?*](https://idioms.thefreedictionary.com/Will+wonders+never+Cease!) Let's try to play some sounds:
 
     ```bash
     $ $ nohup mpg123 --loop -1 rainstorm.mp3 &
     [1] 835
     $ nohup: ignoring input and appending output to 'nohup.out' 
     
-    # YES! We have the sound of 'rainstorm.mp3' coming from the speakers! 
+    # YES! We have the sound of 'rainstorm.mp3' coming from the speaker! 
     ```
 
 
@@ -300,7 +300,7 @@ As I've written previously, using `bluetoothctl` is a grubby effort that seems (
     Jul 22 04:28:57 rpi3a wireplumber[717]: <WpSiAudioAdapter:0x5580d0e060> failed to activate item: Object activation aborted: proxy destroyed
     ```
 
-    And so it seems that neither the `pipewire` nor `wireplumber` services are "happy". I currently have no idea what to do about that... but am *very pleased* that the BT audio seems to work quite well without it! 
+    And so it seems that neither the `pipewire` nor `wireplumber` services are "happy". I currently have no idea what to do about that... but am *very pleased* that the BT audio seems to work quite well [in spite of  it](https://dictionary.cambridge.org/dictionary/english/in-spite-of)! 
 
 #### 3. Modify the `getty@tty1.service`
 
@@ -309,7 +309,7 @@ As I've written previously, using `bluetoothctl` is a grubby effort that seems (
 If you want to make this change, here's one way to do it:
 
 
->**N.B. :** There are several ways to modify service files in systemd. I am aware some consider it "bad form" to edit the main file directly, but that is how I'm going to do it here.
+>**N.B. :** There are several ways to modify service files in systemd. I am aware some consider it "bad form" to edit the *"main file"* directly, but that is how I'm going to do it here.
 
 
 ```bash
@@ -360,8 +360,10 @@ This is not as difficult as it may sound! But it's *probably* a bit more challen
 * Review the [build and installation file](https://github.com/arkq/bluez-alsa/blob/master/INSTALL.md) 
 * Review the [wiki for build and installation details](https://github.com/arkq/bluez-alsa/wiki/Installation-from-source) 
 
-The [wiki](https://github.com/arkq/bluez-alsa/wiki/Installation-from-source) contains most of the *step-by-step* details needed to download the source, build it on your RPi and install it there. The authors of `bluez-alsa` have also created a [Discussions tab](https://github.com/arkq/bluez-alsa/discussions) on their GitHub site as a vehicle for technical support. You should peruse and search existing Q&A before you ask new questions, but the support here is truly amazing! 
+The [bluez-alsa wiki](https://github.com/arkq/bluez-alsa/wiki/Installation-from-source) contains most of the *step-by-step* details needed to download the source, build it on your RPi and install it there. The authors of `bluez-alsa` have also created a [Discussions tab](https://github.com/arkq/bluez-alsa/discussions) on their GitHub site as a vehicle for technical support. You should peruse and search existing Q&A before you ask new questions, but the support here is truly amazing! 
 
-I'll not go into more details here at this time as I'm still learning myself. I have managed to successfully install `bluez-alsa` on my RPi Zero 2W running under 'bookworm Lite'. It's been running flawlessly for about 3 months as I write this. Compared to `pipewire`, `bluez-alsa` is a much more *lightweight* software solution. I even built (compiled) `bluez-alsa` on the Zero 2W! 
+I'll defer on more details at this time. I did manage to successfully install `bluez-alsa` on my [RPi Zero 2W](https://datasheets.raspberrypi.com/rpizero2/raspberry-pi-zero-2-w-product-brief.pdf) running under 'bookworm Lite'. This installation worked well (but not flawlessly) for about 3 months. Compared to `pipewire`, `bluez-alsa` is a much more *lightweight* software solution. I even built (compiled) `bluez-alsa` on the Zero 2W! 
+
+In an effort to overcome the occasional *glitch* in BT audio on my Zero 2W running `bluez-alsa`, I decided to try the 'bookworm-backport' of `pipewire`.  I re-installed the [latest release of 'bookworm'](https://downloads.raspberrypi.com/raspios_lite_armhf/images/raspios_lite_armhf-2024-07-04/), and added `bookworm-backports` to `/etc/apt/sources.list`. I'm not going to delve into the details of that installation here as this *recipe* has already become too wordy for my tastes; I'll put this in a new *recipe*, and add a link here when it's completed.  
 
 
