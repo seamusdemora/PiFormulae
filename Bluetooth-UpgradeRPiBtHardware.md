@@ -15,7 +15,7 @@ I have found that disabling WiFi (via `nmcli radio wifi off` or [similar](https:
 
 For me, the solution was to buy a Bluetooth USB "dongle" - specifically I bought a [BT-8500 device from Edimax](https://www.edimax.com/edimax/merchandise/merchandise_detail/data/edimax/global/bluetooth/bt-8500/) - about $12 from Amazon. I did some investigation, and found that Edimax uses chips made by [Realtek](https://en.wikipedia.org/wiki/Realtek). Realtek is a Chinese company, but offsetting that is the fact that their chips seem to be well-supported in Linux. 
 
-I plugged the dongle into the lone USB port on my [RPi 3A+](https://datasheets.raspberrypi.com/rpi3/raspberry-pi-3-a-plus-product-brief.pdf). This system runs this [*"Lite"* version of the 'bookworm' RPi OS](https://downloads.raspberrypi.com/raspios_lite_armhf/images/raspios_lite_armhf-2024-07-04/); it also runs `pipewire` version '0.3.65' (*compiled with libpipewire 0.3.65*) - installed with `apt` in the "standard way". 
+I plugged the dongle into the lone USB port on my [RPi 3A+](https://datasheets.raspberrypi.com/rpi3/raspberry-pi-3-a-plus-product-brief.pdf). This system runs this [*"Lite"* version of the 'bookworm' RPi OS](https://downloads.raspberrypi.com/raspios_lite_armhf/images/raspios_lite_armhf-2024-07-04/); it also runs `pipewire` version '0.3.65' (*compiled with libpipewire 0.3.65*) - installed with `apt` in the "standard way". The [setup and installation of `pipewire` on this RPi 3A+ is covered here.](https://github.com/seamusdemora/PiFormulae/blob/master/Bluetooth-AudioForBookwormLite.md) 
 
 ![edimax-bt-8500](./pix/edimax-bt-8500.jpeg)
 
