@@ -5,12 +5,12 @@ This is *more-or-less* a continuation of a recipe segment that was [started unde
 I tried to *think through the considerations*: 
 
 * the Zero 2W is a *lightweight* system, but `pipewire` is a rather *heavyweight* application  
-* the Zero 2W has **only** 2.4 GHz WiFi (the 3A+ also has 5 GHz) - meaning that there's greater risk of interference with BT in the Zero 2W
+* the Zero 2W has **only** 2.4 GHz WiFi, whereas the 3A+ also has 5 GHz - meaning that there's greater risk of interference with BT in the Zero 2W
 * the hardware upgrade angle wasn't compelling for the Zero 2W due to no USB-A ports (and my personal distaste for USB adapters)
 
 My assessment was that the *improvement options* are limited for the Zero 2W **!** 
 
-And I made another observation: For reasons that are unclear to me, the RPi 3A+ *seems to default* to use of the 5GHz WiFi band. I've checked this repeatedly, and never found it to use the 2.4 GHz band: 
+And I made another observation: For reasons that are unclear to me, the **RPi 3A+ *seems to default* to use of the 5GHz WiFi band**. I've checked this repeatedly, and never found it to use the 2.4 GHz band: 
 
    ```bash
    $ iw dev wlan0 link
@@ -27,15 +27,17 @@ And I made another observation: For reasons that are unclear to me, the RPi 3A+ 
 
 That can't be *accidental*, but I've found no explanation in the documentation. What's also a mystery (to me) is how to change the WiFi frequency band! And of course the Zero 2W has no option to use 5 GHz - a hardware limitation. 
 
-So - this explains ***why*** I decided to try the backport-upgrade method for `pipewire`. All that said, the following explains ***how*** I did the upgrade: 
+So - this explains ***why*** I decided to try the backport-upgrade method for `pipewire`. All that said, the following explains ***how*** I did the upgrade. 
 
+#### **NOTE:** I conducted a *"reliability test"* on the backported `pipewire`. The test ran for just over a week, and [the results are listed below](#results-of-a-reliability-test-of-pipewire). 
 
-
-### Installation: 
+### Installation:
 
 #### 1. Add `debian-backports` to `/etc/apt/sources.list`:
 
 ```bash
+$ sudo apt edit-sources
+# OR, more conventionally:
 $ sudo nano /etc/apt/sources.list
 # you *should see* this in your editor:
 
@@ -120,7 +122,7 @@ $ sudo reboot
 
 
 
-### Post-Installation: 
+### Post-Installation:
 
 Hopefully, the `pipewire` installation went without any [hitches](https://www.merriam-webster.com/dictionary/hitch#dictionary-entry-2). If this install was *from scratch* (on a new system), you still have a few more steps before you can begin listening to audio via BT: 
 
@@ -136,7 +138,7 @@ If all went well, you should be able to start playing music; e.g.:
 $ /usr/bin/mpg123 /home/pi/rainstorm.mp3
 ```
 
-I'm currently conducting a *"reliability test"* of sorts on my 'backports' `pipewire` installation. I'll report on this shortly. 
+I conducted a *"reliability test"* over a period of approximately of 1 week, and [reported the results below](#results-of-a-reliability-test-of-pipewire). 
 
 ---
 
@@ -271,9 +273,48 @@ Hmmm... still *not happy* even though the sound is perfect (AFAICT)
    [  133.421480] input: OontZ Angle solo DS E8B (AVRCP) as /devices/virtual/input/input0
    ```
 
+---
+
+---
+
+### Results of a "Reliability Test" of `pipewire`:
+
+The setup was simple: 
+
+```bash
+$ nohup /usr/bin/mpg123 --loop -1 /home/pi/rainstorm.mp3 &
+```
+
+I tracked the playtime using this script:
+
+```bash
+#!/usr/bin/bash
+#
+# What do I do?
+# I count the number of reps & calculate playing time from nohup.out for mpg123
+#
+ntime=$(grep -o "\[73:05\]" nohup.out | wc -l)
+etime=$(( $ntime*73/60 ))
+echo -e "Elapsed play time in hours: $etime;\tReps: $ntime"
+```
+
+I stopped the test on Wed, 7 Aug; the output of the script above was: 
+
+> `Elapsed play time in hours: 169;	Reps: 139`
+
+### RESULT: Over 169 hours of continuous, un-interrupted playtime.
+
+---
+
+---
 
 
 
+## REFERENCES & Recommended Reading:
+
+1. [Debian Backports Instructions](https://backports.debian.org/Instructions/); instructions for *using* backports 
+2. [Debian backports wiki](https://wiki.debian.org/Backports) 
+3. [Installing Debian Backports on Raspberry Pi](https://www.complete.org/installing-debian-backports-on-raspberry-pi/); J. Goerzen: running Debian backports on Raspberry Pi
 
  
 
