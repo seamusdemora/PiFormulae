@@ -1,6 +1,6 @@
 ## Getting the Operating Temperature of a Raspberry Pi
 
-The "official" Raspberry Pi documentation defines available methods for [monitoring core temperatures](https://www.raspberrypi.org/documentation/configuration/config-txt/overclocking.md); see the heading labeled "**Monitoring core temperature**".
+The "official" Raspberry Pi documentation defines available methods for [monitoring core temperatures](https://www.raspberrypi.com/documentation/computers/config_txt.html#monitoring-core-temperature).
 
 #### Get the temperature of the GPU and CPU:
 
@@ -34,9 +34,9 @@ $ calc $(</sys/class/thermal/thermal_zone0/temp)/1000
 53.556
 ```
 
-#### There is a *new* temperature available in the RPi4:
+#### There is a *new* temperature available:
 
-According to [this source](https://www.raspberrypi.org/forums/viewtopic.php?p=1500138), there's a new feature that reads the internal temperature of the [PMIC](https://www.maxlinear.com/Company/press-releases/2019/MaxLinear%E2%80%99s-MxL7704-PMIC-Powers-the-Raspberry-Pi-4), but ***only on RPI4*** (and future hardware versions?):
+According to [this source](https://pip.raspberrypi.com/categories/685-whitepapers-app-notes/documents/RP-004340-WP/Extra-PMIC-features-on-Raspberry-Pi-4-and-Compute-Module-4.pdf), there's an option in `vcgencmd` that reads the internal temperature of the PMIC (Power Mgt IC) [e.g. the RPi 4 PMIC](https://www.maxlinear.com/Company/press-releases/2019/MaxLinear%E2%80%99s-MxL7704-PMIC-Powers-the-Raspberry-Pi-4), for the RPi 4 & RPi 5 models. However, the following command reports ***something*** on all RPi models:
 
 ```bash
 $ vcgencmd measure_temp pmic
@@ -87,6 +87,7 @@ This ensures that each time `~/.bashrc` is *sourced*, `~/.bash_aliases` is also 
 And speaking of **Raspberry Pi 4B** and temperature, know this: [*"The Organization"*](https://www.raspberrypi.org/) announced a [*new firmware build for the USB3 host adapter that should save about 300mW*](https://www.raspberrypi.org/forums/viewtopic.php?f=28&t=243500&p=1490467&hilit=vl805#p1490467). This was eventually applied through the routine `apt-get upgrade` process, and you may not have noticed it. If you're wondering whether the fix has been applied, it's easy to check: 
 
 ```
+# in May, 2020, you would've seen this on an RPi 4:
 $ sudo rpi-eeprom-update
 BCM2711 detected
 BOOTLOADER: up-to-date
@@ -96,6 +97,27 @@ CURRENT: Thu 16 Apr 17:11:26 UTC 2020 (1587057086)
 VL805: up-to-date
 CURRENT: 000137ad
  LATEST: 000137ad
+
+# in Jul, 2024, you would have seen this on an RPi 4 ('bullseye'):
+$ sudo rpi-eeprom-update
+BOOTLOADER: up to date
+   CURRENT: Wed 11 Jan 17:40:52 UTC 2023 (1673458852)
+    LATEST: Wed 11 Jan 17:40:52 UTC 2023 (1673458852)
+   RELEASE: default (/lib/firmware/raspberrypi/bootloader/default)
+            Use raspi-config to change the release.
+
+  VL805_FW: Dedicated VL805 EEPROM
+     VL805: up to date
+   CURRENT: 000138c0
+    LATEST: 000138c0
+
+# in Jul, 2024, you would have seen this on an RPi 5 ('bookworm'):
+$ sudo rpi-eeprom-update
+BOOTLOADER: up to date
+   CURRENT: Wed  5 Jun 15:41:49 UTC 2024 (1717602109)
+    LATEST: Wed  5 Jun 15:41:49 UTC 2024 (1717602109)
+   RELEASE: default (/lib/firmware/raspberrypi/bootloader-2712/default)
+            Use raspi-config to change the release.
 ```
 
 If the command fails, or if you get a different output, you may need to run the upgrade process. 
@@ -106,6 +128,8 @@ If the command fails, or if you get a different output, you may need to run the 
 
 ### REFERENCES:
 
+ [How to Benchmark a Raspberry Pi Using Vcgencmd, Oct, 2023](https://www.tomshardware.com/how-to/raspberry-pi-benchmark-vcgencmd); outlines numerous uses for the `vcgencmd` utility.
+ 
  [Q&A: Alias quotation and escapes](https://raspberrypi.stackexchange.com/questions/111889/alias-quotation-and-escapes); setting up aliases and functions for getting the temperature. 
 
 [Q&A: Why is Raspberry Pi 3B / 3B+'s CPU temperature precision 0.538°C?](https://raspberrypi.stackexchange.com/questions/95389/why-is-raspberry-pi-3b-3bs-cpu-temperature-precision-0-538c) 
