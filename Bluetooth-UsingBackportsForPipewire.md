@@ -56,7 +56,7 @@ deb http://deb.debian.org/debian bookworm-backports main contrib non-free
 # save the modified file & exit the editor
 ```
 
-***NOTE :*** All of the sources listed here were from **debian.org** - instead of **raspberrypi.org** as it is on 'bullseye'   systems. (???) 
+***NOTE :*** All of the sources listed here were from **debian.org** - instead of **raspberrypi.org** - as it is on 'bullseye' system. (???) 
 
 
 
