@@ -302,7 +302,7 @@ I stopped the test on Wed, 7 Aug; the output of the script above was:
 
 > `Elapsed play time in hours: 169;	Reps: 139`
 
-### RESULT: Over 169 hours of continuous, un-interrupted playtime. 
+### RESULT: Over 169 hours of continuous, un-interrupted playtime. 👍
 
 ---
 
