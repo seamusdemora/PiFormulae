@@ -53,7 +53,7 @@ deb http://deb.debian.org/debian bookworm-updates main contrib non-free non-free
 
 deb http://deb.debian.org/debian bookworm-backports main contrib non-free
 
-# save & exit the editor
+# save the modified file & exit the editor
 ```
 
 ***NOTE :*** All of the sources listed here were from **debian.org** - instead of **raspberrypi.org** as it is on 'bullseye'   systems. (???) 
