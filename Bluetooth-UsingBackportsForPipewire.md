@@ -142,7 +142,7 @@ I conducted a *"reliability test"* over a period of approximately of 1 week, and
 
 ---
 
-*Some diagnostics to consider:*
+### *Some diagnostics to consider:*
 
 ---
 
