@@ -24,17 +24,17 @@ $ echo "$((cpu/1000))°C"
 Which will give a [*truncated*](https://techterms.com/definition/truncate) integer value. Calculating a [real number](https://en.wikipedia.org/wiki/Real_number) can be done using the `calc` command. If `calc` isn't available, it can be installed as follows:  
 
 ```
-$ sudo apt-get install apcalc
+$ sudo apt install calc
 ```
 
 And the calculation is then performed as follows: 
 
 ```bash
-$ calc $(</sys/class/thermal/thermal_zone0/temp)/1000
-53.556
+$ calc "$(</sys/class/thermal/thermal_zone0/temp)/1000"
+     53.556
 ```
 
-#### There is a *new* temperature available:
+#### The PMIC temperature is now available:
 
 According to [this source](https://pip.raspberrypi.com/categories/685-whitepapers-app-notes/documents/RP-004340-WP/Extra-PMIC-features-on-Raspberry-Pi-4-and-Compute-Module-4.pdf), there's an option in `vcgencmd` that reads the internal temperature of the PMIC (Power Mgt IC) [e.g. the RPi 4 PMIC](https://www.maxlinear.com/Company/press-releases/2019/MaxLinear%E2%80%99s-MxL7704-PMIC-Powers-the-Raspberry-Pi-4), for the RPi 4 & RPi 5 models. However, the following command reports ***something*** on all RPi models:
 
