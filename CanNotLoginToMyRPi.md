@@ -3,15 +3,16 @@
 ***You can attempt to repair problems on the Pi by rebooting to a root shell. Here's how to do that:*** 
 
 0. Remove the SD card; the `/boot`  partition is [FAT-formatted](https://en.wikipedia.org/wiki/File_Allocation_Table), and it can be mounted, read and written by virtually any computer on earth. The file you need to edit is: `/boot/cmdline.txt`). 
-1. Append `init=/bin/sh` at the end of `cmdline.txt`. Re-insert the modified SD card, and reboot.
+1. Append `init=/bin/sh` at the end of `cmdline.txt`. Re-insert the modified SD card, and boot the system (plug in USB power cord). 
 1. After booting you will be at the prompt in a root shell.
-3. Your root file system is mounted as readonly now, so remount it as read/write
-    `mount -n -o remount,rw /`
+3. Your root file system is mounted as **read-only** at this point, and so will need to re-`mount` it as read-write:
+   ```sh
+   mount -n -o remount,rw /
+   ```
 
-You can then edit files anywhere in the SD card/root file system, incl. the `ext4` partition.
+4. You can now edit files anywhere on the SD card/root file system, incl. `/` - the root `ext4` partition.
 
-Running `raspi-config` may be a good place to start; it will allow you to change your password, network settings, enable/disable SSH, change keyboard layout,  etc.
-
+5. Running `raspi-config` may be a good place to start; it will allow you to change your password, network settings, enable/disable SSH, change keyboard layout,  etc.
 
 
 ---
