@@ -2,7 +2,7 @@
 
 ***You can attempt to repair problems on the Pi by rebooting to a root shell. Here's how to do that:*** 
 
-0. Remove the SD card; the `/boot`  partition is [FAT-formatted](https://en.wikipedia.org/wiki/File_Allocation_Table), and it can be mounted, read and written by virtually any computer on earth. The file you need to edit is: `/boot/cmdline.txt`). 
+0. Remove the SD card from the misbehaving RPi, and mount it on another computer (_N.B. the `/boot`  partition is [FAT-formatted](https://en.wikipedia.org/wiki/File_Allocation_Table), and it can be mounted, read and written by virtually any computer on earth._). The file you must edit is: `/boot/cmdline.txt`). 
 1. Append `init=/bin/sh` at the end of `cmdline.txt`. Re-insert the modified SD card, and boot the system (plug in USB power cord). 
 1. After booting you will be at the prompt in a root shell.
 3. Your root file system is mounted as **read-only** at this point, and so will need to re-`mount` it as read-write:
