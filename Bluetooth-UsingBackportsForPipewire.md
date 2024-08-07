@@ -10,7 +10,7 @@ I tried to *think through the considerations*:
 
 My assessment was that the *improvement options* are limited for the Zero 2W **!** 
 
-And I made another observation: For reasons that are unclear to me, the **RPi 3A+ *seems to default* to use of the 5GHz WiFi band**. I've checked this repeatedly, and never found it to use the 2.4 GHz band: 
+While it's off-topic for this recipe, I made another observation: For reasons that are unclear to me, the **RPi 3A+ *seems to default* to use of the 5GHz WiFi band**. I've checked this repeatedly, and never found it to use the 2.4 GHz band: 
 
    ```bash
    $ iw dev wlan0 link
@@ -29,7 +29,7 @@ That can't be *accidental*, but I've found no explanation in the documentation. 
 
 So - this explains ***why*** I decided to try the backport-upgrade method for `pipewire`. All that said, the following explains ***how*** I did the upgrade. 
 
-#### **NOTE:** I conducted a *"reliability test"* on the backported `pipewire`. The test ran for just over a week, and [the results are listed below](#results-of-a-reliability-test-of-pipewire). 
+#### **NOTE:** Following installation, I conducted a *"reliability test"* on the backported `pipewire`. The test ran for just over a week, and [the results are listed below](#results-of-a-reliability-test-of-pipewire). 
 
 ### Installation:
 
