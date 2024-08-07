@@ -4,7 +4,7 @@ The "official" Raspberry Pi documentation defines available methods for [monitor
 
 #### Get the temperature of the GPU and CPU:
 
-The [`vcgencmd` utility](https://www.raspberrypi.org/documentation/raspbian/applications/vcgencmd.md) will provide the temperature of the GPU module on the RPi. Note that it will provide other data also.
+The [`vcgencmd` utility](https://www.raspberrypi.org/documentation/raspbian/applications/vcgencmd.md) will provide the temperature of the GPU module on the RPi. Note that [`vcgencmd` will provide other data also](https://www.raspberrypi.com/documentation/computers/os.html#vcgencmd); [see also](https://www.tomshardware.com/how-to/raspberry-pi-benchmark-vcgencmd). 
 
 ```bash
 $ vcgencmd measure_temp
