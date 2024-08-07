@@ -229,7 +229,7 @@ Jul 31 05:51:33 rpi2w systemd[624]: Started pipewire.service - PipeWire Multimed
    Jul 31 05:53:42 rpi2w wireplumber[642]: BlueZ Battery Provider is not available, won't retry to register it. Make sure you are running BlueZ 5.56+ with experimental features to use Battery Provider.
    ```
 
-Hmmm... still *not happy* even though the sound is perfect (AFAICT)
+Hmmm... `wireplumber` is still *not happy*, even though the sound is perfect. (AFAICT)
 
 * journalctl
 
