@@ -917,7 +917,7 @@ If you spend a week or so chasing Bluetooth problems on a Linux system, you begi
 
 IOW - I got *the run-around*! And it gets worse: Apparently I have been *banned from posting in the RPi-Distro repo for life*! You see the Organization at its worst in these exchanges. 
 
-However: I [**have made some progress**](https://github.com/seamusdemora/PiFormulae/blob/master/BluetoothAudio-BookwormLite.md). The Bluetooth issues have been *mostly* resolved. The `pipewire/wireplumber` packages, and the [bluez-alsa repo](https://github.com/Arkq/bluez-alsa) represent two significant steps forward. See the [new recipe](https://github.com/seamusdemora/PiFormulae/blob/master/BluetoothAudio-BookwormLite.md).
+However: I [**have made some progress**](https://github.com/seamusdemora/PiFormulae/tree/master); see recipes that begin with the word '**Bluetooth**'. The Bluetooth issues have been *mostly* resolved. In one case (the Raspberry Pi Zero 2W) the solution was updated software from Debian backports (`pipewire/wireplumber` packages). In another case (the Raspberry Pi 3A+) a ***hardware upgrade*** took care of all the issues; i.e. I disabled the in-built BT hardware, and plugged in a BT USB dongle. See the [latest recipes](https://github.com/seamusdemora/PiFormulae/tree/master) beginning with 'Bluetooth'.
 
 ## Change the modification date of a file
 
