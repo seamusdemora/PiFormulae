@@ -34,7 +34,8 @@
 * [`raspi-config` from the command line?](#raspi-config-from-the-command-line)
 * [Background, nohup, infinite loops, daemons](#background-nohup-infinite-loops-daemons)
 * [Bluetooth](#bluetooth) 
-* [Change the modification date/time of a file](#change-the-modification-date-of-a-file) 
+* [Change the modification date/time of a file](#change-the-modification-date-of-a-file)
+* [How to deal with *"Unix time"* when using `date`](#using-date-to-deal-with-unix-time)
 * [REFERENCES:](#references) 
 
 
@@ -935,6 +936,29 @@ $ touch -d "$(date -R -r filename) - 2 hours" <filename>
 # "- 2 hours" means two hours before the current modification time of the file
 ```
 
+## Using 'date' to deal with 'Unix time'
+
+Those of you who have administration chores involving use of ["Unix time"](https://en.wikipedia.org/wiki/Unix_time) may appreciate this. This trick has been *"hiding in plain sight"* for quite a while now, but it can come in very handy when needed. In my case, I was dealing with the `wakealarm` setting for a Real-Time Clock; I use it to turn one of my Raspberry Pi machines ON and OFF. The `wakealarm` settings must be entered/written to `sysfs` in *Unix time* format; i.e. seconds from the epoch. The problem was trying to figure out how many seconds will elapse from the time I `halt` until I want to wake up 22 hours and 45 minutes later? Yes - I can multiply, but I'm also ***lazy*** :)   **How do I do this?** 
+
+`man date` tells us that the format key for Unix time is `%s`:
+>%s     seconds since 1970-01-01 00:00:00 UTC
+
+So if I need to calculate the `wakealarm` time for 10 hours from now, I can do that as follows (this one is fairly simple): 
+```bash
+alarm=$(/usr/bin/date '+%s' -d "+ 10 hours")
+...
+$ echo $alarm
+1723629537
+```
+Now, suppose I want to make a log entry indicating what time `wakealarm` is set for? Mmmm - ***not*** simple!
+
+... But it can be done like so...
+
+```bash
+echo "$(date -d "@$alarm" +'%c')"
+Wed 14 Aug 2024 09:58:57 UTC
+```
+So *"the trick"* is to precede the variable (`$alarm` in this case) with the `@` symbol! [The documentation is hidden here!](https://www.gnu.org/software/coreutils/manual/html_node/Seconds-since-the-Epoch.html)
 
 
 
