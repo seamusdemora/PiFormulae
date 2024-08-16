@@ -9,15 +9,12 @@
 
 <body>
 
-First thing to know is that Debian's documentation for "package management" is a *bit of a mess*. In fact, it's <i><a href=https://www.merriam-webster.com/dictionary/god-awful>god-awful</a> </i><b>!</b>     I don't think I've ever seen a bigger mess than Debian's documentation for <code>apt</code> and <code>apt-get</code>. I won't belabor my opinion; you can see it for yourself <a href=https://wiki.debian.org/AptCLI>1</a>, <a href=https://wiki.debian.org/PackageManagement>2</a>. The only reference I could find comparing apt to apt-get was in the "Administrator's Guide" which offered this inanity: 
+In an earlier version of this recipe, I criticized Debian's documentation of their "package management" system. In fact, I said flatly that it was <i><a href=https://www.merriam-webster.com/dictionary/god-awful>god-awful</a></i>. I felt that was true - at the time. I've recently reviewed their documentation again, and found it to be <i>improved</i>... still somewhat disjointed and confusing - but improved. But <a href=https://www.debian.org/doc/manuals/debian-handbook/sect.apt-get.en.html>this inanity still exists</a> in the Administrator's Handbook: 
 
 <blockquote cite="https://www.debian.org/doc/manuals/debian-handbook/sect.apt-get.en.html"> APT is a vast project, whose original plans included a graphical interface. It is based on a library which contains the core application, and apt-get is the first front end — command-line based — which was developed within the project. apt is a second command-line based front end provided by APT which overcomes some design mistakes of apt-get.<br>
 <br>Both tools are built on top of the same library and are thus very close, but the default behavior of apt has been improved for interactive use and to actually do what most users expect. The APT developers reserve the right to change the public interface of this tool to further improve it. Conversely, the public interface of apt-get is well defined and will not change in any backwards incompatible way. It is thus the tool that you want to use when you need to script package installation requests. </blockquote> 
 
-... WTFO ???   <i><code>apt</code> will change, but <code>apt-get</code> will not; therefore you should use apt.</i>  
-
-But I said I wouldn't belabor my opinion, and so I'll stop doing so now.
-
+Real progress is still slow, I suppose.  Anyway... my advice now is to skip the Administrator's Handbook - it seems no one in the Debian organization is putting any effort into it. 
 
 
 <table class="minimalistBlack">
@@ -76,7 +73,7 @@ But I said I wouldn't belabor my opinion, and so I'll stop doing so now.
 
 ## Installing and Removing Packages using `apt` 
 
-Some advocate using `apt`, others advocate using `apt-get`. At present, I favor `apt-get` if only because I'm used to it. The diffs aren't worth much discussion, but you will need to decide. [Here's one explanation that might help](https://itsfoss.com/apt-vs-apt-get-difference/), and there are many others available for the [cost of a search.](https://duckduckgo.com/?q=apt+vs+apt-get&t=ffnt&ia=web) 
+Some advocate using `apt`, others advocate using `apt-get`. I've come to favor plain old `apt` for all my routine tasks. The differences between `apt` and `apt-get` are varied, and **you** will need to decide. [Here's a good, brief explanation that might help](https://itsfoss.com/apt-vs-apt-get-difference/); there are many other comparisons available for the [cost of a search.](https://duckduckgo.com/?q=apt+vs+apt-get&t=ffnt&ia=web) 
 
 <table class="minimalistBlack">
 <thead>
@@ -87,14 +84,9 @@ Some advocate using `apt`, others advocate using `apt-get`. At present, I favor 
 </thead>
 <tbody>
 <tr>
-<td width="30%"> <b><code>sudo apt-get update</code></b></td>
-<td width="70%">Pre-installation: get latest package info for all configured sources: ‘/etc/apt/sources.list’ &  ‘/etc/apt/sources.list.d’</td>
+<td width="30%"> <b><code>sudo apt update</code></b></td>
+<td width="70%">Always run prior to installing a new package: get latest package info for all configured sources: ‘/etc/apt/sources.list’ &  ‘/etc/apt/sources.list.d’</td>
 </tr>
-
-<tr>
-<td width="30%"> <b><code>sudo apt-get install XXXX</code></b></td>
-<td width="70%">Install a package named "XXXX"</td>
-</tr>   
 
 <tr>
 <td width="30%"> <b><code>apt-cache search XXXX</code></b></td>
@@ -102,12 +94,22 @@ Some advocate using `apt`, others advocate using `apt-get`. At present, I favor 
 </tr> 
 
 <tr>
-<td width="30%"> <b><code>sudo apt-get remove XXXX</code></b></td>
+   <td width="30%"><b><code>apt search XXXX</code></b></td>
+   <td width="70%">Compared to <code>apt-cache search XXXX</code>, a less-compact, but more detailed listing. Take your pick! </td>
+</tr>
+
+<tr>
+<td width="30%"> <b><code>sudo apt install XXXX</code></b></td>
+<td width="70%">Install a package named "XXXX"</td>
+</tr>   
+
+<tr>
+<td width="30%"> <b><code>sudo apt remove XXXX</code></b></td>
 <td width="70%">Remove a package "XXXX", leaving its configuration files on the system</td>
 </tr>
 
 <tr>
-<td width="30%"> <b><code>sudo apt-get purge XXXX</code></b></td>
+<td width="30%"> <b><code>sudo apt purge XXXX</code></b></td>
 <td width="70%">Remove a package "XXXX", deleting its configuration files from the system</td>
 </tr>
 
