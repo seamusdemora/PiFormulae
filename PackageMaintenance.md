@@ -71,7 +71,7 @@ Real progress is still slow, I suppose.  Anyway... my advice now is to skip the 
 
 
 
-## Installing and Removing Packages using `apt` 
+## Finding, Installing and Removing Packages using `apt` 
 
 Some advocate using `apt`, others advocate using `apt-get`. I've come to favor plain old `apt` for all my routine tasks. The differences between `apt` and `apt-get` are varied, and **you** will need to decide. [Here's a good, brief explanation that might help](https://itsfoss.com/apt-vs-apt-get-difference/); there are many other comparisons available for the [cost of a search.](https://duckduckgo.com/?q=apt+vs+apt-get&t=ffnt&ia=web) 
 
