@@ -11,6 +11,9 @@ Real progress is still slow, I suppose.  Anyway... my advice now is to skip the 
 ## apt _vs._ apt-get
 Some advocate using `apt`, others advocate using `apt-get`. I've come to favor plain old `apt` for all my routine tasks. The differences between `apt` and `apt-get` are varied, and **you** will need to decide. [Here's a good, brief explanation that might help](https://itsfoss.com/apt-vs-apt-get-difference/); there are many other comparisons available for the [cost of a search.](https://duckduckgo.com/?q=apt+vs+apt-get&t=ffnt&ia=web) 
 
+## N.B.
+The following lists of `apt` and `apt-get` commands is not intended to be a comprehensive list, and the "Explanation" column omits many details that may be significant to your usage! Always refer to the appropriate `man` pages if there are any questions. 
+
 ## Routine "in-version" updates and upgrades
 
 <html>
@@ -129,11 +132,6 @@ Some advocate using `apt`, others advocate using `apt-get`. I've come to favor p
 <tr>
 <td width="30%"> <b><code>sudo apt edit-sources</code></b></td>
 <td width="70%">Opens <code>/etc/apt/sources.list</code> file for editing, and performs some basic sanity checks on the edited file.</td>
-</tr>
-
-<tr>
-<td width="30%"> <b><code>sudo apt-get clean</code></b></td>
-<td width="70%">Clear the cache of the old and outdated packages</td>
 </tr>
 
 <tr>
