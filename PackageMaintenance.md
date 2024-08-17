@@ -75,7 +75,7 @@ Some advocate using `apt`, others advocate using `apt-get`. I've come to favor p
 
 
 
-## Finding, Installing and Removing Packages using `apt` 
+## Finding, Inspecting, Installing and Removing Packages using `apt` 
 
 <table class="minimalistBlack">
 <thead>
@@ -95,6 +95,11 @@ Some advocate using `apt`, others advocate using `apt-get`. I've come to favor p
 <td width="30%"> <b><code>apt-cache search XXXX</code></b></td>
 <td width="70%">You always  need the exact name of package "XXXX" - this is one way to get it. If you're looking for a package, and recall only that its name contains the characters `priv`, then `apt-cache search priv` should list all matching packages in the repository.</td>
 </tr> 
+
+<tr>
+<td><code><b>apt list --installed</code></b></td>
+<td>Displays list of packages satisfying certain criteria (e.g. <code>--installed</code>), or matching a <code>glob</code> pattern.</td>
+</tr>
 
 <tr>
 <td width="30%"> <b><code>sudo apt install XXXX</code></b></td>
