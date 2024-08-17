@@ -117,18 +117,23 @@ Some advocate using `apt`, others advocate using `apt-get`. I've come to favor p
 </tr>
 
 <tr>
+<td width="30%"><b><code>sudo apt autoremove</code></b></td>
+<td width="70%">Remove packages that were automatically installed to satisfy dependencies for other packages, and are no longer needed due to dependency changes.</td>
+</tr>
+
+<tr>
 <td width="30%"> <b><code>sudo apt purge XXXX</code></b></td>
 <td width="70%">Remove a package "XXXX", deleting its configuration files from the system</td>
 </tr>
 
 <tr>
-<td width="30%"> <b><code>sudo apt-get clean</code></b></td>
-<td width="70%">Clear the cache of the old and outdated packages</td>
+<td width="30%"> <b><code>sudo apt edit-sources</code></b></td>
+<td width="70%">Opens <code>/etc/apt/sources.list</code> file for editing, and performs some basic sanity checks on the edited file.</td>
 </tr>
 
 <tr>
-<td width="30%"> <b><code>sudo apt-get autoremove</code></b></td>
-<td width="70%">Remove packages that were automatically installed as dependencies and are no longer needed</td>
+<td width="30%"> <b><code>sudo apt-get clean</code></b></td>
+<td width="70%">Clear the cache of the old and outdated packages</td>
 </tr>
 
 <tr>
