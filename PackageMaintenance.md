@@ -102,6 +102,11 @@ Some advocate using `apt`, others advocate using `apt-get`. I've come to favor p
 </tr>
 
 <tr>
+<td><b><code>apt show XXXX</code></b></td>
+<td>Show information about package(s) XXXX including dependencies, installation size, sources, etc.</td>
+</tr>
+
+<tr>
 <td width="30%"> <b><code>sudo apt install XXXX</code></b></td>
 <td width="70%">Install a package named "XXXX"</td>
 </tr>   
