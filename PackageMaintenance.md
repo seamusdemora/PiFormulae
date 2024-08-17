@@ -1,21 +1,24 @@
-## Package Management:<br> Updating and Upgrading Raspbian (Raspberry Pi OS)
+# Package Management:<br> Updating and Upgrading Raspbian (Raspberry Pi OS)
 
-### Routine "in-version" updates and upgrades
+In an earlier version of this recipe, I criticized Debian's documentation of their "package management" system. In fact, I said flatly that it was [god-awful](https://www.merriam-webster.com/dictionary/god-awful). I felt that was true - at the time. I've recently reviewed their documentation again, and found it to be _improved_... still somewhat disjointed and confusing - but improved. But [this inanity still exists](https://www.debian.org/doc/manuals/debian-handbook/sect.apt-get.en.html) in the Administrator's Handbook: 
+
+>APT is a vast project, whose original plans included a graphical interface. It is based on a library which contains the core application, and apt-get is the first front end — command-line based — which was developed within the project. apt is a second command-line based front end provided by APT which overcomes some design mistakes of apt-get.
+>
+>Both tools are built on top of the same library and are thus very close, but the default behavior of apt has been improved for interactive use and to actually do what most users expect. The APT developers reserve the right to change the public interface of this tool to further improve it. Conversely, the public interface of apt-get is well defined and will not change in any backwards incompatible way. It is thus the tool that you want to use when you need to script package installation requests. 
+
+Real progress is still slow, I suppose.  Anyway... my advice now is to skip the Administrator's Handbook - it seems no one in the Debian organization is putting any effort into it. 
+
+## apt _vs._ apt-get
+Some advocate using `apt`, others advocate using `apt-get`. I've come to favor plain old `apt` for all my routine tasks. The differences between `apt` and `apt-get` are varied, and **you** will need to decide. [Here's a good, brief explanation that might help](https://itsfoss.com/apt-vs-apt-get-difference/); there are many other comparisons available for the [cost of a search.](https://duckduckgo.com/?q=apt+vs+apt-get&t=ffnt&ia=web) 
+
+## Routine "in-version" updates and upgrades
 
 <html>
 <head>
 
 </head>
 
-<body>
-
-In an earlier version of this recipe, I criticized Debian's documentation of their "package management" system. In fact, I said flatly that it was <i><a href=https://www.merriam-webster.com/dictionary/god-awful>god-awful</a></i>. I felt that was true - at the time. I've recently reviewed their documentation again, and found it to be <i>improved</i>... still somewhat disjointed and confusing - but improved. But <a href=https://www.debian.org/doc/manuals/debian-handbook/sect.apt-get.en.html>this inanity still exists</a> in the Administrator's Handbook: 
-
-<blockquote cite="https://www.debian.org/doc/manuals/debian-handbook/sect.apt-get.en.html"> APT is a vast project, whose original plans included a graphical interface. It is based on a library which contains the core application, and apt-get is the first front end — command-line based — which was developed within the project. apt is a second command-line based front end provided by APT which overcomes some design mistakes of apt-get.<br>
-<br>Both tools are built on top of the same library and are thus very close, but the default behavior of apt has been improved for interactive use and to actually do what most users expect. The APT developers reserve the right to change the public interface of this tool to further improve it. Conversely, the public interface of apt-get is well defined and will not change in any backwards incompatible way. It is thus the tool that you want to use when you need to script package installation requests. </blockquote> 
-
-Real progress is still slow, I suppose.  Anyway... my advice now is to skip the Administrator's Handbook - it seems no one in the Debian organization is putting any effort into it. 
-
+<body> 
 
 <table class="minimalistBlack">
 <thead>
@@ -38,24 +41,25 @@ Real progress is still slow, I suppose.  Anyway... my advice now is to skip the 
 <td><b><code>sudo apt upgrade</code></b></td>
 <td>upgrade all installed packages to the latest version from the sources enumerated in  <code>/etc/apt/sources.list</code>, but under no circumstances are currently installed packages removed, or packages not already installed retrieved and installed. <em>This is the "foolproof" version of an upgrade.</em></td>
 </tr>
-<tr>
-<td><b><code>sudo apt-get dist-upgrade</code></b></td>
-<td>upgrade all installed packages to the latest version from the sources enumerated in  <code>/etc/apt/sources.list</code>. It will add & remove packages if necessary, and attempts to deal "intelligently" with changed dependencies. Exceptions may be declared in <code>apt_preferences(5)</code>.</td>
-</tr>
 
 <tr>
-<td><b><code>sudo apt-get full-upgrade</code></b></td>
-<td><a href=https://askubuntu.com/a/1316448/831935>same as `dist-upgrade`</a>
-   
+<td><b><code>sudo apt full-upgrade</code></b></td>
+<td>upgrade all installed packages to the latest version from the sources enumerated in  <code>/etc/apt/sources.list</code>. It will add & remove packages if needed to upgrade the system.</td>
 </td>
 </tr>
 
 <tr>
-   <td><b><code>sudo apt-get clean</code></b></td>
-<td>removes the cruft from <code>/var/cache/apt/archives</code> left by previous upgrades</td>
+<td><b><code>sudo apt-get dist-upgrade</code></b></td>
+<td>Roughly equivalent to <code>apt full-upgrade</code>. Upgrade all installed packages to the latest version from the sources enumerated in  <code>/etc/apt/sources.list</code>. It will add & remove packages if necessary, and attempts to deal "intelligently" with changed dependencies. Exceptions may be declared in <code>apt_preferences(5)</code>.</td>
 </tr>
+
 <tr>
-   <td><b><code>sudo reboot</code></b></td>
+<td><b><code>unattended-upgrades</code></b></td>
+<td>A script to download and install upgrades automatically and unattended. It is run periodically by APT's  systemd  service (apt-daily-upgrade.service), or from cron (e.g. via /etc/cron.daily/apt). Operation is configured via file at <code>/etc/apt/apt.conf.d/50unattended-upgrades</code></td>
+</tr>
+
+<tr>
+<td><b><code>sudo reboot</code></b></td>
 <td>when in doubt, or if "weird" things happen! <a href=https://www.raspberrypi.org/forums/viewtopic.php?t=184850>REFERENCE</a></td>
 </tr> 
 <tr>
@@ -73,8 +77,6 @@ Real progress is still slow, I suppose.  Anyway... my advice now is to skip the 
 
 ## Finding, Installing and Removing Packages using `apt` 
 
-Some advocate using `apt`, others advocate using `apt-get`. I've come to favor plain old `apt` for all my routine tasks. The differences between `apt` and `apt-get` are varied, and **you** will need to decide. [Here's a good, brief explanation that might help](https://itsfoss.com/apt-vs-apt-get-difference/); there are many other comparisons available for the [cost of a search.](https://duckduckgo.com/?q=apt+vs+apt-get&t=ffnt&ia=web) 
-
 <table class="minimalistBlack">
 <thead>
 <tr>
@@ -83,20 +85,16 @@ Some advocate using `apt`, others advocate using `apt-get`. I've come to favor p
 </tr>
 </thead>
 <tbody>
+
 <tr>
-<td width="30%"> <b><code>sudo apt update</code></b></td>
-<td width="70%">Always run prior to installing a new package: get latest package info for all configured sources: ‘/etc/apt/sources.list’ &  ‘/etc/apt/sources.list.d’</td>
+<td width="30%"><b><code>apt search XXXX</code></b></td>
+<td width="70%">Compared to <code>apt-cache search XXXX</code>, a less-compact, but more detailed listing. Take your pick! Can be verbose, so consider piping into a pager (<code>apt search XXXX | less</code>)</td>
 </tr>
 
 <tr>
 <td width="30%"> <b><code>apt-cache search XXXX</code></b></td>
-<td width="70%">You always  need the exact name of package "XXXX" - this is one way to get it! If you're looking for a package, and recall only that its name contains the characters `priv`, then `apt-cache search priv` should list all matching packages in the repository.</td>
+<td width="70%">You always  need the exact name of package "XXXX" - this is one way to get it. If you're looking for a package, and recall only that its name contains the characters `priv`, then `apt-cache search priv` should list all matching packages in the repository.</td>
 </tr> 
-
-<tr>
-   <td width="30%"><b><code>apt search XXXX</code></b></td>
-   <td width="70%">Compared to <code>apt-cache search XXXX</code>, a less-compact, but more detailed listing. Take your pick! </td>
-</tr>
 
 <tr>
 <td width="30%"> <b><code>sudo apt install XXXX</code></b></td>
