@@ -102,13 +102,13 @@ Some advocate using `apt`, others advocate using `apt-get`. I've come to favor p
 </tr>
 
 <tr>
-<td><b><code>apt show XXXX</code></b></td>
-<td>Show information about package(s) XXXX including dependencies, installation size, sources, etc.</td>
+<td width="30%"><b><code>apt show XXXX</code></b></td>
+<td width="70%">Show information about package(s) XXXX including dependencies, installation size, sources, etc.</td>
 </tr>
 
 <tr>
 <td width="30%"> <b><code>sudo apt install XXXX</code></b></td>
-<td width="70%">Install a package named "XXXX"</td>
+<td width="70%">Install package(s) named "XXXX"</td>
 </tr>   
 
 <tr>
@@ -119,11 +119,6 @@ Some advocate using `apt`, others advocate using `apt-get`. I've come to favor p
 <tr>
 <td width="30%"> <b><code>sudo apt purge XXXX</code></b></td>
 <td width="70%">Remove a package "XXXX", deleting its configuration files from the system</td>
-</tr>
-
-<tr>
-<td width="30%"> <b><code>apt list --installed</code></b></td>
-<td width="70%">List packages installed on the system; also see <b><code>man dpkg</code></b> & <b><code>dpkg -l <i>package-name-pattern</i></code></b></td>
 </tr>
 
 <tr>
