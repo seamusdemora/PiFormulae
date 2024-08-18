@@ -41,29 +41,29 @@ The following lists of `apt` and `apt-get` commands is not intended to be a comp
 <td>updates the system's "Package List" from all configured sources</td>
 </tr>
 <tr>
-<td><b><code>sudo apt upgrade</code></b></td>
-<td>upgrade all installed packages to the latest version from the sources enumerated in  <code>/etc/apt/sources.list</code>, but under no circumstances are currently installed packages removed, or packages not already installed retrieved and installed. <em>This is the "foolproof" version of an upgrade.</em></td>
+<td width="30%"><b><code>sudo apt upgrade</code></b></td>
+<td width="70%">upgrade all installed packages to the latest version from the sources enumerated in  <code>/etc/apt/sources.list</code>, but under no circumstances are currently installed packages removed, or packages not already installed retrieved and installed. <em>This is the "foolproof" version of an upgrade.</em></td>
 </tr>
 
 <tr>
-<td><b><code>sudo apt full-upgrade</code></b></td>
-<td>upgrade all installed packages to the latest version from the sources enumerated in  <code>/etc/apt/sources.list</code>. It will add & remove packages if needed to upgrade the system.</td>
+<td width="30%"><b><code>sudo apt full-upgrade</code></b></td>
+<td width="70%">upgrade all installed packages to the latest version from the sources enumerated in  <code>/etc/apt/sources.list</code>. It will add & remove packages if needed to upgrade the system.</td>
 </td>
 </tr>
 
 <tr>
-<td><b><code>sudo apt-get dist-upgrade</code></b></td>
-<td>Roughly equivalent to <code>apt full-upgrade</code>. Upgrade all installed packages to the latest version from the sources enumerated in  <code>/etc/apt/sources.list</code>. It will add & remove packages if necessary, and attempts to deal "intelligently" with changed dependencies. Exceptions may be declared in <code>apt_preferences(5)</code>.</td>
+<td width="30%"><b><code>sudo apt-get dist-upgrade</code></b></td>
+<td width="70%">Roughly equivalent to <code>apt full-upgrade</code>. Upgrade all installed packages to the latest version from the sources enumerated in  <code>/etc/apt/sources.list</code>. It will add & remove packages if necessary, and attempts to deal "intelligently" with changed dependencies. Exceptions may be declared in <code>apt_preferences(5)</code>.</td>
 </tr>
 
 <tr>
-<td><b><code>unattended-upgrades</code></b></td>
-<td>A script to download and install upgrades automatically and unattended. It is run periodically by APT's  systemd  service (apt-daily-upgrade.service), or from cron (e.g. via /etc/cron.daily/apt). Operation is configured via file at <code>/etc/apt/apt.conf.d/50unattended-upgrades</code></td>
+<td width="30%"><b><code>unattended-upgrades</code></b></td>
+<td width="70%">A script to download and install upgrades automatically and unattended. It is run periodically by APT's  systemd  service (apt-daily-upgrade.service), or from cron (e.g. via /etc/cron.daily/apt). Operation is configured via file at <code>/etc/apt/apt.conf.d/50unattended-upgrades</code></td>
 </tr>
 
 <tr>
-<td><b><code>sudo reboot</code></b></td>
-<td>when in doubt, or if "weird" things happen! <a href=https://www.raspberrypi.org/forums/viewtopic.php?t=184850>REFERENCE</a></td>
+<td width="30%"><b><code>sudo reboot</code></b></td>
+<td width="70%">when in doubt, or if "weird" things happen! <a href=https://www.raspberrypi.org/forums/viewtopic.php?t=184850>REFERENCE</a></td>
 </tr> 
 <tr>
 <td> </td>
