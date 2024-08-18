@@ -1,6 +1,6 @@
 # Package Management:<br> Updating and Upgrading Raspbian (Raspberry Pi OS)
 
-In an earlier version of this recipe, I criticized Debian's documentation of their "package management" system. In fact, I said flatly that it was [god-awful](https://www.merriam-webster.com/dictionary/god-awful). I felt that was true - at the time. I've recently reviewed their documentation again, and found it to be _improved_... still somewhat disjointed and confusing - but improved. But [this inanity still exists](https://www.debian.org/doc/manuals/debian-handbook/sect.apt-get.en.html) in the Administrator's Handbook: 
+In an earlier version of this recipe, I criticized Debian's documentation of their "package management" system. In fact, I said flatly that it was [god-awful](https://www.merriam-webster.com/dictionary/god-awful). I felt that was true - at the time. I've recently reviewed their documentation again, and found it to be _improved_... still somewhat disjointed - but improved. But [this inanity still exists](https://www.debian.org/doc/manuals/debian-handbook/sect.apt-get.en.html) in the Administrator's Handbook: 
 
 >APT is a vast project, whose original plans included a graphical interface. It is based on a library which contains the core application, and apt-get is the first front end — command-line based — which was developed within the project. apt is a second command-line based front end provided by APT which overcomes some design mistakes of apt-get.
 >
@@ -9,10 +9,11 @@ In an earlier version of this recipe, I criticized Debian's documentation of the
 Real progress is still slow, I suppose.  Anyway... my advice now is to skip the Administrator's Handbook - it seems no one in the Debian organization is putting any effort into it. 
 
 ## apt _vs._ apt-get
-Some advocate using `apt`, others advocate using `apt-get`. I've come to favor plain old `apt` for all my routine tasks. The differences between `apt` and `apt-get` are varied, and **you** will need to decide. [Here's a good, brief explanation that might help](https://itsfoss.com/apt-vs-apt-get-difference/); there are many other comparisons available for the [cost of a search.](https://duckduckgo.com/?q=apt+vs+apt-get&t=ffnt&ia=web) 
+Some advocate using `apt`, others advocate using `apt-get`. I've come to favor the *newer* `apt` for my routine tasks. The differences between `apt` and `apt-get` are varied, and **you** will need to decide which you prefer. [Here's a good, brief explanation that might help](https://itsfoss.com/apt-vs-apt-get-difference/); there are many other comparisons available for the [cost of a search.](https://duckduckgo.com/?q=apt+vs+apt-get&t=ffnt&ia=web) 
 
 ## N.B.
-The following lists of `apt` and `apt-get` commands is not intended to be a comprehensive list, and the "Explanation" column omits many details that may be significant to your usage! Always refer to the appropriate `man` pages if there are any questions. 
+
+The following lists of `apt` and `apt-get` commands is not intended to be a comprehensive list, and the "Explanation" column omits many details that may be significant to your usage! Always refer to the appropriate `man` pages if you have questions. 
 
 ## Routine "in-version" updates and upgrades
 
@@ -39,7 +40,6 @@ The following lists of `apt` and `apt-get` commands is not intended to be a comp
 <td><b><code>sudo apt update</code></b></td>
 <td>updates the system's "Package List" from all configured sources</td>
 </tr>
-
 <tr>
 <td><b><code>sudo apt upgrade</code></b></td>
 <td>upgrade all installed packages to the latest version from the sources enumerated in  <code>/etc/apt/sources.list</code>, but under no circumstances are currently installed packages removed, or packages not already installed retrieved and installed. <em>This is the "foolproof" version of an upgrade.</em></td>
