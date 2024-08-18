@@ -19,11 +19,8 @@ The following lists of `apt` and `apt-get` commands is not intended to be a comp
 
 <html>
 <head>
-
 </head>
-
 <body> 
-
 <table class="minimalistBlack">
 <thead>
 <tr>
