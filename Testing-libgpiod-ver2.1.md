@@ -16,7 +16,7 @@ In the research for this recipe, two (2) limits or qualifications on `libgpiod` 
 
 	>Do not under any circumstances abuse the GPIO userspace ABI to cut corners in any product development projects. If you use it for prototyping, then do not productify the prototype: rewrite it using proper kernel drivers. Do not under any circumstances deploy any uniform products using GPIO from userspace.
 
-	I would characterize this limitation as a ***recommendations**, but as it comes from the Linux Kernel development *organization/team (?)*, deserves our consideration. 
+	I would characterize this limitation as a ***recommendation***, but as it comes from the Linux Kernel development *organization/team (?)*, deserves our consideration. 
 
 ### Popular opinion of 'libgpiod':
 
