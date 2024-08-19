@@ -318,11 +318,14 @@ I felt the `-i  --interactive` and the `-t  --toggle` options were both useful. 
 
 
 
-### Step 3: Simple 'libgpiod' testing using a toggle switch:
+### ... more to follow ... Step 3: Simple 'libgpiod' testing using a toggle switch:
+
+On second thought, there seems to be no point in taking this any further because: 
+   1. Despite [my efforts](https://www.spinics.net/lists/linux-gpio/msg95005.html), the author has made it abundantly clear that he has no intention of changing anything.
+   2. The author (Kent Gibson) is an overbearing, arrogant asshole who deals in [false claims](https://raspberrypi.stackexchange.com/a/148794/83790) for self-promotion. (I wonder if he's been [influenced by Linus Torvalds?](https://itsfoss.com/torvalds-takes-a-break-from-linux/)). ICYI, the false claims have to do with "Production Environments". 
+   3. I've lost interest in `libgpiod` & "Kent's tools" due to the illogical interface and poor documentation. Until something better comes along, I'll stick with [`pinctrl`](https://github.com/raspberrypi/utils/tree/master/pinctrl) for all of my GPIO programming. 
 
 
-
-### ... more to follow
 
 
 
