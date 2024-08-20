@@ -960,7 +960,7 @@ Wed 14 Aug 2024 09:58:57 UTC
 ```
 So *"the trick"* is to precede the variable (`$alarm` in this case) with the `@` symbol! [The documentation is hidden here!](https://www.gnu.org/software/coreutils/manual/html_node/Seconds-since-the-Epoch.html)
 
-
+[**⋀**](#table-of-contents)
 
 <hr>
 
