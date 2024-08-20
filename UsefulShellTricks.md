@@ -35,7 +35,8 @@
 * [Background, nohup, infinite loops, daemons](#background-nohup-infinite-loops-daemons)
 * [Bluetooth](#bluetooth) 
 * [Change the modification date/time of a file](#change-the-modification-date-of-a-file)
-* [How to deal with *"Unix time"* when using `date`](#using-date-to-deal-with-unix-time)
+* [How to deal with *"Unix time"* when using `date`](#using-date-to-deal-with-unix-time) 
+* [Process management using <kbd>ctrl</kbd>+<kbd>z</kbd>, `fg`, `bg` & `jobs`](#process-management-jobs-fg-bg-and-ctrl-z)
 * [REFERENCES:](#references) 
 
 
@@ -304,7 +305,7 @@ I try to keep discussion on the topics here *brief*, but don't always succeed. I
   * For the *short form*:  `ls -A | grep '^\.'`; Note the *caret* `^` operator; used to get the line beginning?
   * For the *short form*:  `ls -d1 -- \.*`; An example of *"glob patterns"* 
   * For the *long form*:  `ls -Al | grep " \."` ;   Note the *space* in the pattern; alternative: `\s` 
-[**⋀**](#table-of-contents)
+  [**⋀**](#table-of-contents)
 ## Sequential shell command execution:
 
 Sometimes we want to execute a series of commands, but only if all previous commands execute successfully. In this case, we should use **`&&`** to join the commands in the sequence: 
@@ -961,7 +962,7 @@ Wed 14 Aug 2024 09:58:57 UTC
 So *"the trick"* is to precede the variable (`$alarm` in this case) with the `@` symbol! [The documentation is hidden here!](https://www.gnu.org/software/coreutils/manual/html_node/Seconds-since-the-Epoch.html)
 
 [**⋀**](#table-of-contents)
-## Process Management: Suspend, Restore, fg, bg, Ctrl-Z 
+## Process Management: `jobs`, `fg`, `bg` and 'Ctrl-Z'
 
 Let's assume you have started a long-running job from the shell: `fg-bg.sh` 
 
@@ -980,13 +981,95 @@ done
 Now let's start this script in our terminal:
 ```bash
 $ ./fg-bg.sh
-...
+
 # This process is running in the *foreground*, and you have lost access to your terminal window (no prompt!)
 ```
 
 Now, enter <kbd>ctrl</kbd><kbd>z</kbd> from your keyboard & watch what happens: 
 
+```bash
+$ ./fg-bg.sh
+^Z
+[1]+  Stopped                 ./fg-bg.sh
+$
+# Note the prompt has returned, and 'fg-bg.sh' has been stopped/halted/suspended - no longer running
+```
 
+Now, let's suppose we want to *re-start* `fg-bg.sh`, but we want to run it in the **background** so it doesn't block our terminal: 
+
+```bash
+$ ./fg-bg.sh
+^Z
+[1]+  Stopped                 ./fg-bg.sh
+$ bg
+[1]+ ./fg-bg.sh & 
+# Note that 'fg-bg.sh' has been re-started in the background (see the '&'),
+# And the command prompt has been restored. Confirm that 'fg-bg.sh' is running:
+$ jobs
+[1]+  Running                 ./fg-bg.sh &
+$ 
+```
+
+Now, let's suppose that we want to monitor the output of `fg-bg.sh`; i.e. monitor `/home/pi/fg-bg.log` to check some things; we know that we can use `tail -f` to do that: 
+
+```bash
+$ ./fg-bg.sh
+^Z
+[1]+  Stopped                 ./fg-bg.sh
+$ bg
+[1]+ ./fg-bg.sh & 
+$ jobs
+[1]+  Running                 ./fg-bg.sh &
+$ tail -f /home/pi/fg-bg.log
+Tue 20 Aug 19:09:37 UTC 2024: ... another 60 seconds have passed, and I am still running
+Tue 20 Aug 19:10:37 UTC 2024: ... another 60 seconds have passed, and I am still running
+Tue 20 Aug 19:11:37 UTC 2024: ... another 60 seconds have passed, and I am still running
+
+```
+
+OMG - another process has taken our command prompt away! Not to worry; simply enter <kbd>ctrl</kbd><kbd>z</kbd> from your keyboard again, and then run `jobs` again:
+
+```bash
+$ ./fg-bg.sh
+^Z
+[1]+  Stopped                 ./fg-bg.sh
+$ bg
+[1]+ ./fg-bg.sh & 
+$ jobs
+[1]+  Running                 ./fg-bg.sh &
+$ tail -f /home/pi/fg-bg.log
+Tue 20 Aug 19:09:37 UTC 2024: ... another 60 seconds have passed, and I am still running
+^Z
+[2]+  Stopped                 tail -f /home/pi/fg-bg.log
+$ jobs
+[1]-  Running                 ./fg-bg.sh &
+[2]+  Stopped                 tail -f /home/pi/fg-bg.log
+$ 
+```
+
+Note that `fg-bg.sh` ***continues to run in the background***, and that `tail -f /home/pi/fg-bg.log` has now been stopped - thus restoring our command prompt. So cool :) 
+
+So hopefully you can now see some uses for  <kbd>ctrl</kbd><kbd>z</kbd>, `fg`, `bg` and `jobs`. But you may be wondering, *"How do I stop/kill these processes when I'm through with them?"* Before answering that question, note the `jobs` output; the numbers `[1]` and `[2]` are *job ids* or *job numbers*. We can exercise control over these processes through their *job id*; e.g.:
+
+```bash
+$ jobs
+[1]-  Running                 ./fg-bg.sh &
+[2]+  Stopped                 tail -f /home/pi/fg-bg.log
+$ kill %1
+pi@rpi3a:~ $ jobs
+[1]-  Terminated              ./fg-bg.sh
+[2]+  Stopped                 tail -f /home/pi/fg-bg.log
+pi@rpi3a:~ $ kill %2
+
+[2]+  Stopped                 tail -f /home/pi/fg-bg.log
+pi@rpi3a:~ $ jobs
+[2]+  Terminated              tail -f /home/pi/fg-bg.log
+pi@rpi3a:~ $ jobs
+pi@rpi3a:~ $
+# ALL GONE  :)
+```
+
+One final note: You can also use the ***job id*** to control `fg` and `bg`; for example if you had suspended a job using  <kbd>ctrl</kbd><kbd>z</kbd>, put it in the ***background*** (using `bg`) as we did above, you could also return it to the foreground using `fg %job_id`. 
 
 
 
