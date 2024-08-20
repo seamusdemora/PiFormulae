@@ -961,6 +961,37 @@ Wed 14 Aug 2024 09:58:57 UTC
 So *"the trick"* is to precede the variable (`$alarm` in this case) with the `@` symbol! [The documentation is hidden here!](https://www.gnu.org/software/coreutils/manual/html_node/Seconds-since-the-Epoch.html)
 
 [**⋀**](#table-of-contents)
+## Process Management: Suspend, Restore, fg, bg, Ctrl-Z 
+
+Let's assume you have started a long-running job from the shell: `fg-bg.sh` 
+
+```bash
+#!/usr/bin/env bash
+
+# this script runs a continuous loop to provide a means to test Ctrl-Z, fg & bg
+# my $0 is 'fg-bg.sh'
+
+while :
+do
+    echo "$(date): ... another 60 seconds have passed, and I am still running" >> /home/pi/fg-bg.log
+    sleep 60
+done
+```
+Now let's start this script in our terminal:
+```bash
+$ ./fg-bg.sh
+...
+# This process is running in the *foreground*, and you have lost access to your terminal window (no prompt!)
+```
+
+Now, enter <kbd>ctrl</kbd><kbd>z</kbd> from your keyboard & watch what happens: 
+
+
+
+
+
+
+
 
 <hr>
 
