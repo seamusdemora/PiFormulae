@@ -1,5 +1,10 @@
 **Q:** I need some details on the GPIO (General Purpose Input Output) pins on the Raspberry Pi for a project I've undertaken. However, as I understand it, significant pieces of the Raspberry Pi hardware design are considered "proprietary", and consequently, the documentation is not available. What are the *"definitive sources"* for GPIO documentation? Is the GPIO documentation "complete"? 
 
+<!---
+**A:** Definitive sources of GPIO documentation for the Raspberry Pi computers are published by the "Raspberry Pi Organization"; this organization has now become [a complex web of charitable and for-profit organizations](https://en.wikipedia.org/wiki/Raspberry_Pi#Origins_and_company_history). The financial success of "The Organization" coupled with their desire/need to maintain proprietary interest in the hardware and firmware has, unfortunately, led to less documentation rather than more. That is not intended to be a negative or judgmental statement; it merely reflects my observations and interactions with "The Organization" over a period of years. And it is not intended to suggest that the volume and quality of the documentation is insufficient for most usage. Clever people are still making inroads and discoveries! 
+
+-->
+
 **A:** The "definitive sources" of documentation on the Raspberry Pi are published by the [Raspberry Pi Foundation](https://en.wikipedia.org/wiki/Raspberry_Pi_Foundation) on the [RPi documentation website](https://www.raspberrypi.org/documentation/), and on the [RPi GitHub documentation page](https://github.com/raspberrypi/documentation). The GPIO documentation is part of this overall web-based repository, and it is augmented by several documents that provide additional details. Raspberry Pi's documentation on the GPIO is mostly contained in, or available through, the following URLs: 
 
 - [The "Usage" documentation](https://www.raspberrypi.org/documentation/usage/gpio/README.md) 
