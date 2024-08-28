@@ -8,9 +8,48 @@ This recipe outlines (what I feel is) the *simplest*, and most *straightforward*
 
 For those wondering *WTFIGO* wrt use of `sysfs`, I'm afraid I have no explanation. Like everyone else, I heard that the Linux kernel maintainers had finally pushed `sysfs` usage into oblivion - some 6 years after they elected to deprecate it. Yet, here it is - and looking none the worse for wear! In fact, the *key piece* of documentation that enables this recipe was found in the [kernel documentation](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html)! Clearly, there is a lot I don't know about `sysfs`. And while the kernel documentation made perfectly clear ***how*** the SHT3X interface was implemented, it was completely silent on ***where*** to find the proper folder. For that, I had to resort to *digging around* (more on that below).   
 
-But enough of that, let's get into the recipe: 
+Let's get into the recipe; we'll provide a **Summary** first, followed by a **detailed step-by-step**: 
 
-### 1. The first step is to connect the sensor to the RPi: 
+## I. Summary
+
+   A. Make the wiring connections iaw Step 1 below.
+
+   B. Using `i2c0`; declare required overlays in `config.txt` and `reboot`: 
+
+   ```bash
+      # for bullseye & earlier
+      $ sudo nano /boot/config.txt 
+      # add lines, save & exit: 
+      dtparam=i2c_vc=on
+      dtoverlay=i2c-sensor,i2c0,sht3x
+      #
+      # for bookworm:
+      $ sudo nano /boot/firmware/config.txt
+      # add lines, save & exit
+      dtoverlay=i2c0
+      dtoverlay=i2c-sensor,i2c0,sht3x 
+      ...
+      $ sudo reboot
+   ```
+
+   C. Install required `bc` utility, `udev` rule & script - and verify correct operation: 
+
+   ```bash
+      $ sudo apt update
+      $ sudo apt install bc
+      $ sudo install --mode=644  ./80-local.rules /etc/udev/rules.d
+      $ sudo install ./th.sh /usr/local/bin 
+      # verify correct operation:
+      $ th.sh
+      2024-08-28 @ 20:33:09; Temperature: 23.3 deg C,  73.9 deg F	Humidity: 59.8 % relative humidity
+      $
+   ```
+
+
+
+## II. Detailed Step-by-Step Procedure: 
+
+### 1. The first step is to connect the sensor to the RPi:
 
 **Remove power from your RPi before making any wiring connections!** The schematic is simple: 2 wires for power, and two wires for I2C. **PLEASE NOTE** that I am using `i2c0` for this SHT3X connection; this due to the fact that the default `i2c1` was not in use/not available on this particular RPi 3A+. You may use any `i2cX` channel available for your RPi; simply watch out for commands including a specific reference to `i2c0`, and adjust accordingly.  
 <!-- Begin schematic: In order to preserve an editable schematic, please
