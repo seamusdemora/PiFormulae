@@ -13,12 +13,11 @@ But enough of that, let's get into the recipe:
 ### 1. The first step is to connect the sensor to the RPi: 
 
 **Remove power from your RPi before making any wiring connections!** The schematic is simple: 2 wires for power, and two wires for I2C. **PLEASE NOTE** that I am using `i2c0` for this SHT3X connection; this due to the fact that the default `i2c1` was not in use/not available on this particular RPi 3A+. You may use any `i2cX` channel available for your RPi; simply watch out for commands including a specific reference to `i2c0`, and adjust accordingly.  
-
 <!-- Begin schematic: In order to preserve an editable schematic, please
      don't edit this section directly.
      Click the "edit" link below the image in the preview instead. -->
 
-![schematic](https://i.sstatic.net/mLq5TW5D.png)
+![schematic](https://i.sstatic.net/M6TPZd8p.png)
 
 <!-- End schematic -->
 
