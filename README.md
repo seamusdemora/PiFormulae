@@ -20,8 +20,9 @@ You can use ***git*** directly from the RPi command line to create or update a G
 </thead>
 <tbody>
   <tr>
-    <td><a href="Bluetooth-AudioForBookwormLite.md">A Revised Recipe to get Bluetooth audio for <em>bookworm Lite</em></a></td>
-    <td>Thanks to <code>pipewire</code> and <code>bluez-alsa</code>, users now have at least two choices for <em>reliable</em> Bluetooth audio for the 'Lite'/"<em>headless</em>" version of the Raspberry Pi OS. See the Recipe for Details.</td>
+    <td>There are three (3) new recipes for Bluetooth audion on <em>bookworm Lite</em>: <a href="Bluetooth-AudioForBookwormLite.md">1</a>, <a href="Bluetooth-UpgradeRPiBtHardware.md">2</a>, <a href="Bluetooth-UsingBackportsForPipewire.md">3</a>
+    </td>
+    <td>Thanks to <code>pipewire</code>, <code>backports</code> and a hardware *upgrade* users now have at least three choices for <em>reliable</em> Bluetooth audio for the 'Lite'/"<em>headless</em>" version of the Raspberry Pi OS. See the Recipes (1 - 3) for Details.</td>
   </tr>
   <tr>
     <td><a href="https://github.com/seamusdemora/PiFormulae/blob/master/TheRpiUARTmess.md">The Raspberry Pi UART mess</a></td>
