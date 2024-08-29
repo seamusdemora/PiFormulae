@@ -20,7 +20,7 @@ You can use ***git*** directly from the RPi command line to create or update a G
 </thead>
 <tbody>
   <tr>
-    <td><a href="BluetoothAudio-BookwormLite.md">A Revised Recipe to get Bluetooth audio for <em>bookworm Lite</em></a></td>
+    <td><a href="Bluetooth-AudioForBookwormLite.md">A Revised Recipe to get Bluetooth audio for <em>bookworm Lite</em></a></td>
     <td>Thanks to <code>pipewire</code> and <code>bluez-alsa</code>, users now have at least two choices for <em>reliable</em> Bluetooth audio for the 'Lite'/"<em>headless</em>" version of the Raspberry Pi OS. See the Recipe for Details.</td>
   </tr>
   <tr>
