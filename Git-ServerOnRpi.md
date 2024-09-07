@@ -250,6 +250,39 @@ $ git worktree remove motd-worktree
 
 
 
+## A Summary of `git` Commands Used in This Recipe
+
+| Client Objective: | `git` client command |
+| ---- | ---- |
+| Create an empty client repo - ***two steps***: | ↓↓↓↓↓ |
+| 1. create a folder & `cd` into it | `mkdir mygitrepo && cd mygitrepo`  |
+|&nbsp;&nbsp;&nbsp;2. initialize the new git repo  | `git init` |
+| Designate 'remote' ssh (server) for client repo | `git remote add origin <ssh://user@gitserver>` |
+| **OR:** Designate GitHub as the 'remote' | [see this recipe](https://github.com/seamusdemora/PiFormulae/blob/master/GitForRPi-GitHub.md) |
+| Commit changes to a git client - ***two steps***: | ↓↓↓↓↓ |
+| &nbsp;&nbsp;&nbsp;1. add new & changed files | `git add <file1 file2 etc> OR <*>` |
+| &nbsp;&nbsp;&nbsp;2. commit changes with a commit message | `git commit -m 'a commit message'`  |
+| Get (show) the remote (server) used in a repo  | `git remote -v`  |
+| Push repo changes to ***"gitserver"*** | `git push -u origin master` |
+| Pull changes from ***"gitserver"*** | `git pull origin master` |
+| Restore true mod. time to repo files - ***two steps*** | ↓↓↓↓↓ |
+| &nbsp;&nbsp;&nbsp;1. install | `sudo apt install git-restore-mtime` |
+| &nbsp;&nbsp;&nbsp;2. run from inside repo | `git restore-mtime` |
+
+
+| Server Objective: | `git` server command |
+| ---- | ----|
+| Create an empty server repo - *two steps*: | ↓↓↓↓↓ |
+| 1. create a folder & `cd` into it | `mkdir srvgitrepo && cd srvgitrepo` |
+| 2. initialize the new git repo | `git init --bare` |
+| Create a "working tree" in git server repo | `git worktree add <srv-worktree>` |
+| Designate GitHub as the 'remote' for worktree | See [this recipe](https://github.com/seamusdemora/PiFormulae/blob/master/GitForRPi-GitHub.md); perform from inside the worktree |
+| Remove a "working tree" from git server repo | `git worktree remove <srv-worktree>` |
+
+<!---
+
+-->
+
 ### And that concludes this recipe - for today.
 
 
