@@ -249,7 +249,8 @@ The problem is obvious once it's explained, but the solutions may vary. The **pr
    ```
 
 If you're interested, this [Q&A on SO](https://stackoverflow.com/questions/82256/how-do-i-use-sudo-to-redirect-output-to-a-location-i-dont-have-permission-to-wr) has much more on this subject. 
-[**⋀**](#table-of-contents)
+[**⋀**](#table-of-contents) 
+
 ## Refresh shell configuration without restarting:
 
 There are two user-owned files that control many aspects of the `bash` shell's behavior - uh, *interactive shells, that is*: `~/.profile` & `~/.bashrc`. Likewise for `zsh`, the `~/.zprofile` & `~/.zshrc`. There will be occasions when changes to these files will need to be made in the current session - without exiting one shell session, and starting a new one. Examples of such changes are changes to the `PATH`, or addition of an `alias`. 
