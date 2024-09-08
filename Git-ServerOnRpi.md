@@ -255,7 +255,7 @@ $ git worktree remove motd-worktree
 | Client Objective: | `git` client command |
 | ---- | ---- |
 | Create an empty client repo - ***two steps***: | ↓↓↓↓↓ |
-| 1. create a folder & `cd` into it | `mkdir mygitrepo && cd mygitrepo`  |
+| &nbsp;&nbsp;&nbsp;1. create a folder & `cd` into it | `mkdir mygitrepo && cd mygitrepo`  |
 |&nbsp;&nbsp;&nbsp;2. initialize the new git repo  | `git init` |
 | Designate 'remote' ssh (server) for client repo | `git remote add origin <ssh://user@gitserver>` |
 | **OR:** Designate GitHub as the 'remote' | [see this recipe](https://github.com/seamusdemora/PiFormulae/blob/master/GitForRPi-GitHub.md) |
