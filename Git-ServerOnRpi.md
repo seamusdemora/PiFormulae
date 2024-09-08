@@ -273,8 +273,8 @@ $ git worktree remove motd-worktree
 | Server Objective: | `git` server command |
 | ---- | ----|
 | Create an empty server repo - *two steps*: | ↓↓↓↓↓ |
-| 1. create a folder & `cd` into it | `mkdir srvgitrepo && cd srvgitrepo` |
-| 2. initialize the new git repo | `git init --bare` |
+| &nbsp;&nbsp;&nbsp;1. create a folder & `cd` into it | `mkdir srvgitrepo && cd srvgitrepo` |
+| &nbsp;&nbsp;&nbsp;2. initialize the new git repo | `git init --bare` |
 | Create a "working tree" in git server repo | `git worktree add <srv-worktree>` |
 | Designate GitHub as the 'remote' for worktree | See [this recipe](https://github.com/seamusdemora/PiFormulae/blob/master/GitForRPi-GitHub.md); perform from inside the worktree |
 | Remove a "working tree" from git server repo | `git worktree remove <srv-worktree>` |
