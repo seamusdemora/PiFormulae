@@ -36,7 +36,8 @@
 * [Bluetooth](#bluetooth) 
 * [Change the modification date/time of a file](#change-the-modification-date-of-a-file)
 * [How to deal with *"Unix time"* when using `date`](#using-date-to-deal-with-unix-time) 
-* [Process management using <kbd>ctrl</kbd>+<kbd>z</kbd>, `fg`, `bg` & `jobs`](#process-management-jobs-fg-bg-and-ctrl-z)
+* [Process management using <kbd>ctrl</kbd>+<kbd>z</kbd>, `fg`, `bg` & `jobs`](#process-management-jobs-fg-bg-and-ctrl-z) 
+* [Download a file from GitHub](#download-a-file-from-github)
 * [REFERENCES:](#references) 
 
 
@@ -963,6 +964,7 @@ Wed 14 Aug 2024 09:58:57 UTC
 So *"the trick"* is to precede the variable (`$alarm` in this case) with the `@` symbol! [The documentation is hidden here!](https://www.gnu.org/software/coreutils/manual/html_node/Seconds-since-the-Epoch.html)
 
 [**⋀**](#table-of-contents)
+
 ## Process Management: `jobs`, `fg`, `bg` and 'Ctrl-Z'
 
 Let's assume you have started a long-running job from the shell: `fg-bg.sh` 
@@ -1071,6 +1073,22 @@ pi@rpi3a:~ $
 ```
 
 One final note: You can also use the ***job id*** to control `fg` and `bg`; for example if you had suspended a job using  <kbd>ctrl</kbd><kbd>z</kbd>, put it in the ***background*** (using `bg`) as we did above, you could also return it to the foreground using `fg %job_id`. 
+
+[**⋀**](#table-of-contents) 
+
+## Download a file from GitHub
+
+OK - so not as easy as you might think - at least not for all pages/files. For example, I needed to update my pico Debug Probe with the latest firmware recently. The URL was given as follows: 
+
+> https://github.com/raspberrypi/debugprobe/releases/tag/debugprobe-v2.0.1
+
+There are several files listed on the page; I needed the one named `debugprobe.uf2`, but after trying various iterations of `curl`, `wget`, `git clone`, etc I was becoming frustrated. But here's what worked: 
+
+```bash
+$ wget "https://github.com/raspberrypi/debugprobe/releases/download/debugprobe-v2.0.1/debugprobe.uf2?raw=True" -O /home/pi/debugprobe.uf2
+```
+
+[**⋀**](#table-of-contents) 
 
 
 
