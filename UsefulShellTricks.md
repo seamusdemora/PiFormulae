@@ -1120,7 +1120,7 @@ The `cron` job; run in the `root crontab`:
 
 Of course this has wide applicability in numerous situations; for example verifying that a NAS filesystem is mounted before running an `rsync` job. 
 
-Another feature of `findmnt` which I am still studying (haven't used it yet) is `-poll`. This option promises the ability to track and report on the `mount`, `umount`, `remount` and `move` actions. I'll update in the near future, but readers are encouraged to submit an issue/pull request. 
+Another feature of `findmnt` which I am still studying (haven't used it yet) is `-poll`. This option promises the ability to track and report on the `mount`, `umount`, `remount` and `move` actions. Sources of further information on the `-poll` option are [1](https://linuxhandbook.com/findmnt-command-guide/), and [2](https://www.howtogeek.com/774913/how-to-use-the-findmnt-command-on-linux/). I'll update in the near future, but readers are encouraged to submit an issue/pull request. 
 
 [**⋀**](#table-of-contents)  
 
