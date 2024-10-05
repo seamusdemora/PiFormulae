@@ -37,7 +37,8 @@
 * [Change the modification date/time of a file](#change-the-modification-date-of-a-file)
 * [How to deal with *"Unix time"* when using `date`](#using-date-to-deal-with-unix-time) 
 * [Process management using <kbd>ctrl</kbd>+<kbd>z</kbd>, `fg`, `bg` & `jobs`](#process-management-jobs-fg-bg-and-ctrl-z) 
-* [Download a file from GitHub](#download-a-file-from-github)
+* [Download a file from GitHub](#download-a-file-from-github) 
+* [Verify a file system is mounted - *before trying to use it*!](#verify-file-system-is-mounted) 
 * [REFERENCES:](#references) 
 
 
@@ -1090,7 +1091,38 @@ $ wget "https://github.com/raspberrypi/debugprobe/releases/download/debugprobe-v
 
 [**⋀**](#table-of-contents) 
 
+## Verify file system is mounted
 
+I've had the *occasional* problem with the `/boot/firmware` `vfat` filesystem somehow becoming ***un-mounted*** on my RPi 5. I've *wondered* if it has something to do with my use of an NVMe card (instead of SD), or the [NVMe Base (adapter) I'm using](https://shop.pimoroni.com/products/nvme-base?variant=41219587178579). I have no clues at this point, but I have found a very competent tool to remedy the situation whenever it occurs: [`findmnt`](https://www.man7.org/linux/man-pages/man8/findmnt.8.html).  WRT documentation and usage explanation, this [post from Baeldung](https://www.baeldung.com/linux/bash-is-directory-mounted) ranks as a *model of clarity* IMHO. 
+
+As Baeldung explains, `findmnt` is fairly subtle... it has a lot of capability that may not be apparent at first glance. All that said, my solution was a bash script that uses `findmnt`, and a `cron` job: 
+
+The script:
+
+   ```bash 
+      #!/usr/bin/env bash
+      if findmnt /boot/firmware >/dev/null; then
+         # note we depend upon $? (exit status), so can discard output
+         echo "/boot/firmware mounted"
+      else
+         echo "/boot/firmware is NOT mounted"
+         # we can correct the issue here - as follows:
+         mount /dev/nvme0n1p1 /boot/firmware
+         # can test $? for success & make log entry if desired
+      fi
+   ```
+
+The `cron` job; run in the `root crontab`: 
+
+```
+   0 */6 * * * /usr/local/sbin/bfw-verify.sh >> /home/pi/logs/bfw-verify.log 2>&1
+```
+
+Of course this has wide applicability in numerous situations; for example verifying that a NAS filesystem is mounted before running an `rsync` job. 
+
+Another feature of `findmnt` which I am still studying (haven't used it yet) is `-poll`. This option promises the ability to track and report on the `mount`, `umount`, `remount` and `move` actions. I'll update in the near future, but readers are encouraged to submit an issue/pull request. 
+
+[**⋀**](#table-of-contents)  
 
 
 
