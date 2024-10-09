@@ -23,7 +23,7 @@ You can use ***git*** directly from the RPi command line to create or update a G
     <td>There are three (3) new recipes for Bluetooth audio on <em>bookworm Lite</em>: <a href="Bluetooth-AudioForBookwormLite.md">1</a>, <a href="Bluetooth-UpgradeRPiBtHardware.md">2</a>, <a href="Bluetooth-UsingBackportsForPipewire.md">3</a>
     </td>
     <td>Thanks to <code>pipewire</code>, <code>backports</code> and a hardware <em>"upgrade"</em> users now have at least three choices for <em>reliable</em> Bluetooth audio for the 'Lite'/"<em>headless</em>" version of the Raspberry Pi OS. See the Recipes (1 - 3) for Details.
-      <p>Note: There has been an unfortunate ***hitch*** in Recipe <a href="Bluetooth-UsingBackportsForPipewire.md#Sequel">3</a>.
+      <p><b><i>Note: There has been an unfortunate ***hitch*** in Recipe <a href="Bluetooth-UsingBackportsForPipewire.md#Sequel">3</a>.</i></b>
       </p>
     </td>
   </tr>
