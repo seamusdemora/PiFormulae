@@ -277,7 +277,7 @@ Hmmm... `wireplumber` is still *not happy*, even though the sound is perfect. (A
 
 ---
 
-### Results of a "Reliability Test" of `pipewire`:
+### Results of "Reliability Testing" of the 'backported' `pipewire`:
 
 The setup was simple: 
 
@@ -302,7 +302,60 @@ I stopped the test on Wed, 7 Aug; the output of the script above was:
 
 > `Elapsed play time in hours: 169;	Reps: 139`
 
-### RESULT: Over 169 hours of continuous, un-interrupted playtime. 👍
+#### RESULT: Over 169 hours of continuous, un-interrupted playtime. 👍 
+
+### I decided to run a longer test... I wanted to run for 1500 hours (2 months) continuously with no interruptions:
+
+Using the same setup as before, I re-started `mpg123` playing the `rainstorm.mp3` file: 
+
+```bash
+   $ nohup /usr/bin/mpg123 --loop -1 /home/pi/rainstorm.mp3 &
+```
+
+### On Oct 9 at ~ 21:00 UTC, this goal was reached. 1500 hours of continuous Bluetooth playtime. 
+
+The file `rainstorm.mp3` is 73 minutes, 5 seconds in length, and so that is 1233 repetitions. AFAIK, it *never missed a beat*. 
+
+Just to confirm: 
+
+```bash
+$ pipewire --version
+pipewire
+Compiled with libpipewire 1.2.1
+Linked with libpipewire 1.2.1 
+$
+```
+
+### Sequel
+
+But it didn't take long for the wankers at Raspberry Pi to fuck this up! After an *overdue* `sudo apt update`, followed by `sudo apt -y full-upgrade`, I found that my reliable Bluetooth no longer worked at all: 
+
+```bash
+$ systemctl status bluetooth
+● bluetooth.service - Bluetooth service
+     Loaded: loaded (/lib/systemd/system/bluetooth.service; enabled; preset: enabled)
+     Active: active (running) since Wed 2024-10-09 21:58:49 UTC; 9min ago
+       Docs: man:bluetoothd(8)
+   Main PID: 506 (bluetoothd)
+     Status: "Running"
+      Tasks: 1 (limit: 404)
+        CPU: 211ms
+     CGroup: /system.slice/bluetooth.service
+             └─506 /usr/libexec/bluetooth/bluetoothd
+
+Oct 09 21:58:49 rpi2w bluetoothd[506]: profiles/audio/vcp.c:vcp_init() D-Bus experimental not enabled
+Oct 09 21:58:49 rpi2w bluetoothd[506]: src/plugin.c:plugin_init() Failed to init vcp plugin
+Oct 09 21:58:49 rpi2w bluetoothd[506]: profiles/audio/mcp.c:mcp_init() D-Bus experimental not enabled
+Oct 09 21:58:49 rpi2w bluetoothd[506]: src/plugin.c:plugin_init() Failed to init mcp plugin
+Oct 09 21:58:49 rpi2w bluetoothd[506]: profiles/audio/bap.c:bap_init() D-Bus experimental not enabled
+Oct 09 21:58:49 rpi2w bluetoothd[506]: src/plugin.c:plugin_init() Failed to init bap plugin
+Oct 09 21:58:49 rpi2w bluetoothd[506]: Bluetooth management interface 1.22 initialized
+Oct 09 21:58:50 rpi2w bluetoothd[506]: profiles/sap/server.c:sap_server_register() Sap driver initialization failed.
+Oct 09 21:58:50 rpi2w bluetoothd[506]: sap-server: Operation not permitted (1)
+Oct 09 22:02:04 rpi2w bluetoothd[506]: src/service.c:btd_service_connect() a2dp-sink profile connect failed for DF:45:E9:00:BE:8B: Protocol not available
+```
+
+The fun never ends with these assholes. 
 
 ---
 
