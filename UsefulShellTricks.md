@@ -38,7 +38,8 @@
 * [How to deal with *"Unix time"* when using `date`](#using-date-to-deal-with-unix-time) 
 * [Process management using <kbd>ctrl</kbd>+<kbd>z</kbd>, `fg`, `bg` & `jobs`](#process-management-jobs-fg-bg-and-ctrl-z) 
 * [Download a file from GitHub](#download-a-file-from-github) 
-* [Verify a file system is mounted - *before trying to use it*!](#verify-file-system-is-mounted) 
+* [Verify a file system is mounted with `findmnt` - *before trying to use it*!](#verify-file-system-is-mounted) 
+* [How to "roll back" an `apt upgrade`](#how-to-roll-back-an-apt-upgrade) 
 * [REFERENCES:](#references) 
 
 
@@ -1124,7 +1125,19 @@ Another feature of `findmnt` which I am still studying (haven't used it yet) is 
 
 [**⋀**](#table-of-contents)  
 
+## How to "roll back" an `apt upgrade`
 
+This looks fairly difficult... In fact, I've not actually done it yet - but I'm bound to try as I think it may be the best salvation for a problem that has cropped up. This is not even a "recipe" yet - it's only a few URLs that have turned up in my research. I'm listing the URLs now (with a few notes), and will return to finish this up once I've been through the process. The URLs: 
+
+* [A search: 'debian reverse an apt upgrade'](https://duckduckgo.com/?t=ffab&q=debian+reverse+an+upt+upgrade&ia=web) 
+* [Debian's wiki on Rollback](https://wiki.debian.org/RollbackUpdate) - not too helpful
+* [Downgrading a Package via apt-get](https://itsfoss.com/downgrade-apt-package/) - if a downgrade works? Potentially Useful! 
+* [Rollback an apt-get upgrade if something goes wrong on Debian](https://www.cyberciti.biz/howto/debian-linux/ubuntu-linux-rollback-an-apt-get-upgrade/) - fm nixCraft
+* [Q&A on SE: Can I rollback an apt-get upgrade if something goes wrong?](https://unix.stackexchange.com/questions/79050/can-i-rollback-an-apt-get-upgrade-if-something-goes-wrong) - old & not particularly useful 
+
+
+
+[**⋀**](#table-of-contents)  
 
 
 <hr>
