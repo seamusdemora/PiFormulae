@@ -1,4 +1,4 @@
-## Improving Bluetooth Reliability Through 'debian-backports'
+## Improving Bluetooth Reliability on a 'Zero 2W' Through 'debian-backports' 
 
 This is *more-or-less* a continuation of a recipe segment that was [started under another recipe](./Bluetooth-AudioForBookwormLite.md#build-and-configure-bluez-alsa-under-bookworm-lite). Briefly, this recipe is an effort to get the *"best"* (most reliable) performance from the Bluetooth susbsystem on my [Raspberry Pi Zero 2W](https://datasheets.raspberrypi.com/rpizero2/raspberry-pi-zero-2-w-product-brief.pdf). After using [`bluez-alsa`](https://github.com/Arkq/bluez-alsa) for a few months, I was still experiencing occasional audio *dropouts*. I learned that a `pipewire` package version 1.2.1 was available through Debian's 'backports'  (*as opposed to* **ver 0.3.65** through the default `/etc/apt/sources.list`). I decided to give it a try.  
 
@@ -326,9 +326,9 @@ Linked with libpipewire 1.2.1
 $
 ```
 
-### Sequel
+### Next: A Disaster!
 
-But it didn't take long for the wankers at Raspberry Pi to fuck this up! After an *overdue* `sudo apt update`, followed by `sudo apt -y full-upgrade`, I found that my reliable Bluetooth no longer worked at all: 
+But it didn't take long for the stability to *evaporate*! Following an *overdue* `sudo apt update`, and `sudo apt -y full-upgrade`, I found that my reliable Bluetooth setup no longer worked at all: 
 
 ```bash
 $ systemctl status bluetooth
@@ -355,7 +355,33 @@ Oct 09 21:58:50 rpi2w bluetoothd[506]: sap-server: Operation not permitted (1)
 Oct 09 22:02:04 rpi2w bluetoothd[506]: src/service.c:btd_service_connect() a2dp-sink profile connect failed for DF:45:E9:00:BE:8B: Protocol not available
 ```
 
-The fun never ends with these assholes. 
+The fun never ends... 
+
+Cleaning this up & restoring Bluetooth function was a **tedious** chore - but I learned something new, and ***re-learned*** something old. The **new** thing was how `backports` behave under `apt`; see [this Q&A](https://unix.stackexchange.com/a/784892/286615) for the explanation. The **old** thing was how valuable it is to have a [reliable backup mechanism](https://github.com/seamusdemora/RonR-RPi-image-utils)! 
+
+### Sequel: *Stability Restored*
+
+Currently, the [*"bottom line"*](https://idioms.thefreedictionary.com/bottom+line) is this: 
+
+* `debian-backports` provided an upgrade that was needed ***at the time*** 
+
+* `debian-backports` aren't as thoroughly tested as the 'release' channel packages
+
+* the 'Zero 2W' appears to be back on [*"solid ground"*](https://idioms.thefreedictionary.com/on+solid+ground); Bluetooth is once again working flawlessly
+
+* no doubt that the issues with `wireplumber` will be worked out eventually. 
+
+* ```bash
+  $ pipewire --version && wireplumber --version
+  pipewire
+  Compiled with libpipewire 1.2.4
+  Linked with libpipewire 1.2.4
+  wireplumber
+  Compiled with libwireplumber 0.4.17
+  Linked with libwireplumber 0.4.17
+  ```
+
+  
 
 ---
 
@@ -368,6 +394,7 @@ The fun never ends with these assholes.
 1. [Debian Backports Instructions](https://backports.debian.org/Instructions/); instructions for *using* backports 
 2. [Debian backports wiki](https://wiki.debian.org/Backports) 
 3. [Installing Debian Backports on Raspberry Pi](https://www.complete.org/installing-debian-backports-on-raspberry-pi/); J. Goerzen: running Debian backports on Raspberry Pi
+4. [Q&A: Issues following apt upgrade](https://unix.stackexchange.com/questions/784886/issues-following-apt-upgrade); useful intelligence on how `backports` works under `apt` 
 
  
 
