@@ -1146,7 +1146,7 @@ This looks fairly difficult... In fact, I've not actually done it yet - but I'm 
 
 ## `scp` vs. `sftp`
 
-I've used them both for a while, but to be honest, I've never given much thought to the differences. I always followed a "canned example" when I needed to transfer a file, but never considered that there might be differences. Here's a brief rundown: 
+I've used them both for a while, but to be honest, I've never given much thought to the differences. I always followed a "canned example" when I needed to transfer a file, but never considered that there might be differences worth much thought. I was *probably wrong* about that; here's a brief rundown: 
 
 #### `scp`
 
