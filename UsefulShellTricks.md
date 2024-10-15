@@ -39,7 +39,8 @@
 * [Process management using <kbd>ctrl</kbd>+<kbd>z</kbd>, `fg`, `bg` & `jobs`](#process-management-jobs-fg-bg-and-ctrl-z) 
 * [Download a file from GitHub](#download-a-file-from-github) 
 * [Verify a file system is mounted with `findmnt` - *before trying to use it*!](#verify-file-system-is-mounted) 
-* [How to "roll back" an `apt upgrade`](#how-to-roll-back-an-apt-upgrade) 
+* [How to "roll back" an `apt upgrade`](#how-to-roll-back-an-apt-upgrade) (coming soon) 
+* [Should I use `scp`, or `sftp`?](#scp-vs-sftp)
 * [REFERENCES:](#references) 
 
 
@@ -1125,19 +1126,83 @@ Another feature of `findmnt` which I am still studying (haven't used it yet) is 
 
 [**⋀**](#table-of-contents)  
 
+<!---
+
 ## How to "roll back" an `apt upgrade`
 
 This looks fairly difficult... In fact, I've not actually done it yet - but I'm bound to try as I think it may be the best salvation for a problem that has cropped up. This is not even a "recipe" yet - it's only a few URLs that have turned up in my research. I'm listing the URLs now (with a few notes), and will return to finish this up once I've been through the process. The URLs: 
 
 * [A search: 'debian reverse an apt upgrade'](https://duckduckgo.com/?t=ffab&q=debian+reverse+an+upt+upgrade&ia=web) 
 * [Debian's wiki on Rollback](https://wiki.debian.org/RollbackUpdate) - not too helpful
-* [Downgrading a Package via apt-get](https://itsfoss.com/downgrade-apt-package/) - if a downgrade works? Potentially Useful! 
+* [Downgrading a Package via apt-get](https://itsfoss.com/downgrade-apt-package/) - if a downgrade works? dtd 2023; Potentially Useful! 
+* [How To Downgrade Packages To A Specific Version With Apt](https://www.linuxuprising.com/2019/02/how-to-downgrade-packages-to-specific.html) - dtd 2019; Potentially Useful 
+* [Put a 'hold' on packages](https://www.cyberciti.biz/faq/apt-get-hold-back-packages-command/) - fm nixCraft; Potentially useful **after** the rollback! 
 * [Rollback an apt-get upgrade if something goes wrong on Debian](https://www.cyberciti.biz/howto/debian-linux/ubuntu-linux-rollback-an-apt-get-upgrade/) - fm nixCraft
 * [Q&A on SE: Can I rollback an apt-get upgrade if something goes wrong?](https://unix.stackexchange.com/questions/79050/can-i-rollback-an-apt-get-upgrade-if-something-goes-wrong) - old & not particularly useful 
 
-
-
 [**⋀**](#table-of-contents)  
+
+-->
+
+## `scp` vs. `sftp`
+
+I've used them both for a while, but to be honest, I've never given much thought to the differences. I always followed a "canned example" when I needed to transfer a file, but never considered that there might be differences. Here's a brief rundown: 
+
+#### `scp`
+
+```bash
+   # FROM: local  TO: remote
+   $ scp local-file.xyz remote-user@hostname:/remote/destination/folder
+   # EXAMPLE:
+   $ scp pitemp.sh pi@rpi5-2:/home/pi/bin
+   # RESULT: local file 'pitemp.sh' is copied to remote folder 'home/pi/bin' on host 'rpi5-2'
+   # -------------------------------------
+   # FROM: remote  TO: local
+   $ scp remote-user@hostname:/remote/folder/remote-file.xyz /local/folder 
+   # EXAMPLE:
+   $ scp pi@rpi5-2:/home/pi/bin/pitemp.sh  pitemp.sh ~/bin 
+   # RESULT: remote file 'home/pi/bin/pitemp.sh' on host rpi5-2 is copied to local folder '~/bin'
+```
+
+And so we see that `scp` transfers are specified ***completely*** from the command invocation. There are *numerous* options; see `man scp` for details - and here's a brief, but informative [blog post](https://linuxize.com/post/how-to-use-scp-command-to-securely-transfer-files/) that summarizes the more noteworthy options. 
+
+#### `sftp` 
+
+```bash
+# CONNECT TO ANOTHER HOST:
+$ sftp remote-user@hostname
+# EXAMPLE:
+$ sftp pi@rpi2w
+Connected to rpi2w.
+sftp> 
+# YOU ARE AT THE `sftp` COMMAND PROMPT; YOU MUST KNOW SOME COMMANDS TO PROCEED!
+sftp> help
+Available commands:
+# ... THE LIST CONTAINS APPROXIMATELY 33 COMMANDS THAT ARE AVAILABLE! 
+sftp> cd /home/pi/bin
+sftp> pwd
+Remote working directory: /home/pi/bin
+sftp> ls
+dum-dum.sh  pitemp.sh
+sftp> lcd ~/bin
+sftp> lpwd
+Local working directory: /home/pi/bin
+sftp> lls
+pitemp.sh
+sftp> get dum-dum.sh
+Fetching /home/pi/bin/dum-dum.sh to dum-dum.sh
+sftp> lls
+dum-dum.sh  pitemp.sh
+sftp> quit
+$ 
+# RESULT: remote file 'home/pi/bin/dum-dum.sh' on host rpi2w is copied to local folder '/home/pi/bin'
+```
+
+Here we see (what I feel is) the key tradeoff between `scp` and `sftp`: simplicity and *succinctness*. `sftp` would seem to be better-suited to a situation where perhaps many files in several folders needed to be transferred in both directions between two hosts. But then, that's what `rsync` does so well. 
+
+`scp` is said to be faster (more efficient) than `sftp` (not tested it myself). Both `scp` and `sftp` are built on SSH's authentication and encryption. 
+
+
 
 
 <hr>
