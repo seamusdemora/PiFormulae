@@ -1198,11 +1198,19 @@ $
 # RESULT: remote file 'home/pi/bin/dum-dum.sh' on host rpi2w is copied to local folder '/home/pi/bin'
 ```
 
-Here we see (what I feel is) the key tradeoff between `scp` and `sftp`: simplicity and *succinctness*. `sftp` would seem to be better-suited to a situation where perhaps many files in several folders needed to be transferred in both directions between two hosts. But then, that's what `rsync` does so well. 
+#### Comparison:
 
 `scp` is said to be faster (more efficient) than `sftp` (not tested it myself). Both `scp` and `sftp` are built on SSH's authentication and encryption. 
 
+Here's what I feel is the *key tradeoff* between `scp` and `sftp`: 
 
+> `scp` is simple and *succinct*; 
+>
+> OTOH ``sftp` *might* be considered more *versatile* . 
+
+Personally, I feel `sftp` is better-suited to a situation where perhaps many files in several folders needed to be transferred in both directions between two hosts. But then, that's what `rsync` does so well. This explains why `scp` is my "go-to" for limited file transfers. 
+
+[**⋀**](#table-of-contents)  
 
 
 <hr>
