@@ -1122,7 +1122,60 @@ The `cron` job; run in the `root crontab`:
 
 Of course this has wide applicability in numerous situations; for example verifying that a NAS filesystem is mounted before running an `rsync` job. 
 
+<!---
+
 Another feature of `findmnt` which I am still studying (haven't used it yet) is `-poll`. This option promises the ability to track and report on the `mount`, `umount`, `remount` and `move` actions. Sources of further information on the `-poll` option are [1](https://linuxhandbook.com/findmnt-command-guide/), and [2](https://www.howtogeek.com/774913/how-to-use-the-findmnt-command-on-linux/). I'll update in the near future, but readers are encouraged to submit an issue/pull request. 
+
+-->
+
+Another feature of `findmnt` which may be very useful is the `--poll` option; this option will monitor changes in the `/proc/self/mountinfo` file. Please don't ask me to explain what the `/proc/self/mountinfo` file actually is - because I cannot explain it :)  However, you may trust that when `findmnt --poll` uses it, it will contain all the system's mount points. Rather than get off into the theoretical/design aspects of this, I'll present what I hope is a ***useful recipe*** for `findmnt --poll`; i.e. *how to use it to get some results*. Without further ado, here's a `bash` script that monitors *mounts* and *un-mounts* of the `/boot/firmware` file system: 
+
+```bash
+#!/usr/bin/env bash
+# My $0: 'pollmnt.sh'
+# My purpose:
+#   Start 'findmnt' in '--poll' mode, monitor its output, log as required
+
+POLLMNT_LOG='/home/pi/pollmnt.log'
+
+/usr/bin/findmnt -n --poll=umount,mount --target /boot/firmware |
+while read firstword otherwords; do
+    case "$firstword" in
+        umount)
+            echo -e "\n\n $(date +%m/%d/%y' @ '%H:%M:%S:%3N) ==========> case: umount" >> $POLLMNT_LOG
+            sleep 1
+            sudo dmesg --ctime --human >> $POLLMNT_LOG
+            ;;
+        mount)
+            echo -e "\n\n $(date +%m/%d/%y' @ '%H:%M:%S:%3N) ==========> case: mount" >> $POLLMNT_LOG
+            sleep 1
+            sudo dmesg --ctime --human | grep nvme >> $POLLMNT_LOG
+            ;;
+        move)
+            echo -e "\n\n $(date +%m/%d/%y' @ '%H:%M:%S:%3N) ==========> case: move" >> $POLLMNT_LOG
+            ;;
+        remount)
+            echo -e "\n\n $(date +%m/%d/%y' @ '%H:%M:%S:%3N) ==========> case: remount" >> $POLLMNT_LOG
+            sudo dmesg --ctime --human | grep nvme >> $POLLMNT_LOG
+            ;;
+        *)
+            echo -e "\n\n $(date +%m/%d/%y' @ '%H:%M:%S:%N) ==========> case: * (UNEXPECTED)" >> $POLLMNTLOG
+            ;;
+    esac
+done
+```
+
+
+
+**REFERENCES:** ***(that may come in handy)***
+
+* [How to Check Mount Point in Linux: A Step-by-Step Guide](https://bytebitebit.com/operating-system/linux/how-to-check-mount-point-in-linux/) 
+
+* [listmount() and statmount()](https://lwn.net/Articles/950569/); LWN article
+
+* [A search for *'linux /proc/self/mountinfo file'*](https://duckduckgo.com/?q=linux+%2Fproc%2Fself%2Fmountinfo+file&t=ffab&df=y&ia=web) 
+
+* [Linux man page on `proc`](https://www.man7.org/linux/man-pages/man5/proc.5.html) 
 
 [**⋀**](#table-of-contents)  
 
