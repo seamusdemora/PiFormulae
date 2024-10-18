@@ -1095,7 +1095,7 @@ $ wget "https://github.com/raspberrypi/debugprobe/releases/download/debugprobe-v
 
 ## Verify file system is mounted
 
-I've had the *occasional* problem with the `/boot/firmware` `vfat` filesystem somehow becoming ***un-mounted*** on my RPi 5. I've *wondered* if it has something to do with my use of an NVMe card (instead of SD), or the [NVMe Base (adapter) I'm using](https://shop.pimoroni.com/products/nvme-base?variant=41219587178579). I have no clues at this point, but I have found a very competent tool to remedy the situation whenever it occurs: [`findmnt`](https://www.man7.org/linux/man-pages/man8/findmnt.8.html).  WRT documentation and usage explanation, this [post from Baeldung](https://www.baeldung.com/linux/bash-is-directory-mounted) ranks as a *model of clarity* IMHO. 
+I've had the *occasional* problem with the `/boot/firmware` `vfat` filesystem somehow becoming ***un-mounted*** on my RPi 5. I've *wondered* if it has something to do with my use of an NVMe card (instead of SD), or the [NVMe Base (adapter) I'm using](https://shop.pimoroni.com/products/nvme-base?variant=41219587178579). I have no clues at this point, but I have found a competent tool to help me troubleshoot the situation whenever it occurs: [`findmnt`](https://www.man7.org/linux/man-pages/man8/findmnt.8.html).  WRT documentation and usage explanation, this [post from Baeldung](https://www.baeldung.com/linux/bash-is-directory-mounted) ranks as a *model of clarity* IMHO. 
 
 As Baeldung explains, `findmnt` is fairly subtle... it has a lot of capability that may not be apparent at first glance. All that said, my solution was a bash script that uses `findmnt`, and a `cron` job: 
 
@@ -1120,7 +1120,7 @@ The `cron` job; run in the `root crontab`:
    0 */6 * * * /usr/local/sbin/bfw-verify.sh >> /home/pi/logs/bfw-verify.log 2>&1
 ```
 
-Of course this has wide applicability in numerous situations; for example verifying that a NAS filesystem is mounted before running an `rsync` job. 
+This would seem to have wide applicability in numerous situations; for example: *verifying that a NAS filesystem is mounted before running an `rsync` job*. 
 
 <!---
 
@@ -1128,7 +1128,7 @@ Another feature of `findmnt` which I am still studying (haven't used it yet) is 
 
 -->
 
-Another feature of `findmnt` which may be very useful is the `--poll` option; this option will monitor changes in the `/proc/self/mountinfo` file. Please don't ask me to explain what the `/proc/self/mountinfo` file actually is - because I cannot explain it :)  However, you may trust that when `findmnt --poll` uses it, it will contain all the system's mount points. Rather than get off into the theoretical/design aspects of this, I'll present what I hope is a ***useful recipe*** for `findmnt --poll`; i.e. *how to use it to get some results*. Without further ado, here's a `bash` script that monitors *mounts* and *un-mounts* of the `/boot/firmware` file system: 
+Using `cron` to poll the file system is probably not ideal, but there is another feature of `findmnt` that is better: **the `--poll` option**.  `--poll` causes `findmnt` to continuously monitor changes in the `/proc/self/mountinfo` file. Please don't ask me to explain what the `/proc/self/mountinfo` file actually is - because I cannot explain it :)  However, you may trust that when `findmnt --poll` uses it, it will contain all the system's mount points. Rather than get into the theoretical/design aspects of this, I'll present what I hope is a ***useful recipe*** for `findmnt --poll`; i.e. *how to use it to get some results*. Without further ado, here's a `bash` script that monitors *mounts* and *un-mounts* of the `/boot/firmware` file system: 
 
 ```bash
 #!/usr/bin/env bash
