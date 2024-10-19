@@ -20,6 +20,12 @@ You can use ***git*** directly from the RPi command line to create or update a G
 </thead>
 <tbody>
   <tr>
+    <td>See the latest addition to the <a href="UsefulShellTricks.md">"Useful Shell Tricks"</a> recipe - on the <a href="UsefulShellTricks.md#verify-file-system-is-mounted"><code>findmnt</code></a> utility
+    </td>
+    <td>The <code>findmnt</code> utility is the <em>Swiss Army knife</em> for searching, finding and listing mounted filesystems.
+    </td>
+  </tr>
+  <tr>
     <td>There are three (3) new recipes for Bluetooth audio on <em>bookworm Lite</em>: <a href="Bluetooth-AudioForBookwormLite.md">1</a>, <a href="Bluetooth-UpgradeRPiBtHardware.md">2</a>, <a href="Bluetooth-UsingBackportsForPipewire.md">3</a>
     </td>
     <td>Thanks to <code>pipewire</code>, <code>backports</code> and a hardware <em>"upgrade"</em> users now have at least three choices for <em>reliable</em> Bluetooth audio for the 'Lite'/"<em>headless</em>" version of the Raspberry Pi OS. See the Recipes (1 - 3) for Details.
@@ -135,6 +141,7 @@ You can use ***git*** directly from the RPi command line to create or update a G
 </tr>
 </tbody>
 </table>
+
 
 
 
