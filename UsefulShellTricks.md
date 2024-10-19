@@ -1095,20 +1095,25 @@ $ wget "https://github.com/raspberrypi/debugprobe/releases/download/debugprobe-v
 
 ## Verify file system is mounted
 
-I've had the *occasional* problem with the `/boot/firmware` `vfat` filesystem somehow becoming ***un-mounted*** on my RPi 5. I've *wondered* if it has something to do with my use of an NVMe card (instead of SD), or the [NVMe Base (adapter) I'm using](https://shop.pimoroni.com/products/nvme-base?variant=41219587178579). I have no clues at this point, but I have found a competent tool to help me troubleshoot the situation whenever it occurs: [`findmnt`](https://www.man7.org/linux/man-pages/man8/findmnt.8.html).  WRT documentation and usage explanation, this [post from Baeldung](https://www.baeldung.com/linux/bash-is-directory-mounted) ranks as a *model of clarity* IMHO. 
+I've had the *occasional* problem with the `/boot/firmware` `vfat` filesystem somehow becoming ***un-mounted*** on my RPi 5. I've *wondered* if it has something to do with my use of an NVMe card (instead of SD), or the [NVMe Base (adapter) I'm using](https://shop.pimoroni.com/products/nvme-base?variant=41219587178579). I have no clues at this point, but I have found a competent tool to help me troubleshoot the situation whenever it occurs: [`findmnt`](https://www.man7.org/linux/man-pages/man8/findmnt.8.html).  WRT documentation and usage explanations for `findmnt`, I found three (3) very good "How-Tos": 
 
-As Baeldung explains, `findmnt` is fairly subtle... it has a lot of capability that may not be apparent at first glance. All that said, my solution was a bash script that uses `findmnt`, and a `cron` job: 
+* This [post from Baeldung](https://www.baeldung.com/linux/bash-is-directory-mounted) ranks as a *model of clarity* IMHO; the following are also quite good:
+* [How to Use the findmnt Command on Linux](https://www.howtogeek.com/774913/how-to-use-the-findmnt-command-on-linux/) from 'How-To Geek', and
+* [findmnt Command Examples](https://linuxhandbook.com/findmnt-command-guide/) from the Linux Handbook. 
+
+As Baeldung explains, `findmnt` is fairly subtle... it has a lot of capability that may not be apparent at first glance. All that said, my ***initial*** solution was a `bash` script that uses `findmnt`, and a `cron` job: 
 
 The script:
 
    ```bash 
       #!/usr/bin/env bash
+      # My $0 is bfw-verify.sh; I am run from the root crontab
       if findmnt /boot/firmware >/dev/null; then
          # note we depend upon $? (exit status), so can discard output
          echo "/boot/firmware mounted"
       else
          echo "/boot/firmware is NOT mounted"
-         # we can correct the issue here - as follows:
+         # we correct the issue as follows:
          mount /dev/nvme0n1p1 /boot/firmware
          # can test $? for success & make log entry if desired
       fi
@@ -1120,7 +1125,7 @@ The `cron` job; run in the `root crontab`:
    0 */6 * * * /usr/local/sbin/bfw-verify.sh >> /home/pi/logs/bfw-verify.log 2>&1
 ```
 
-This would seem to have wide applicability in numerous situations; for example: *verifying that a NAS filesystem is mounted before running an `rsync` job*. 
+This approach would seem to have wide applicability in numerous situations; for example: *verifying that a NAS filesystem is mounted before running an `rsync` job*. However, it *may fall short* for trouble-shooting a mysterious un-mounting of the `/boot/firmware` file system; the next script attempts to address that *shortcoming*. 
 
 <!---
 
@@ -1128,7 +1133,7 @@ Another feature of `findmnt` which I am still studying (haven't used it yet) is 
 
 -->
 
-Using `cron` to poll the file system is probably not ideal, but there is another feature of `findmnt` that is better: **the `--poll` option**.  `--poll` causes `findmnt` to continuously monitor changes in the `/proc/self/mountinfo` file. Please don't ask me to explain what the `/proc/self/mountinfo` file actually is - because I cannot explain it :)  However, you may trust that when `findmnt --poll` uses it, it will contain all the system's mount points. Rather than get into the theoretical/design aspects of this, I'll present what I hope is a ***useful recipe*** for `findmnt --poll`; i.e. *how to use it to get some results*. Without further ado, here's a `bash` script that monitors *mounts* and *un-mounts* of the `/boot/firmware` file system: 
+Another feature of `findmnt` that is better than using the simple script above in a `cron` job is **the `--poll` option**.  `--poll` causes `findmnt` to continuously monitor changes in the `/proc/self/mountinfo` file. Please don't ask me to explain what the `/proc/self/mountinfo` file actually is - I cannot explain it :)  However, you may trust that when `findmnt --poll` uses it, it will contain all the system's mount points. Rather than get into the theoretical/design aspects of this, I'll present what I hope is a ***useful recipe*** for `findmnt --poll`; i.e. *how to use it to get some results*. Without further ado, here's a `bash` script that monitors *mounts* and *un-mounts* of the `/boot/firmware` file system: 
 
 ```bash
 #!/usr/bin/env bash
@@ -1167,7 +1172,7 @@ done
 
 
 
-**REFERENCES:** ***(that may come in handy)***
+#### REFERENCES: *(that may come in handy)*
 
 * [How to Check Mount Point in Linux: A Step-by-Step Guide](https://bytebitebit.com/operating-system/linux/how-to-check-mount-point-in-linux/) 
 
