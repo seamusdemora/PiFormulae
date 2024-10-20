@@ -921,10 +921,18 @@ If you spend a week or so chasing Bluetooth problems on a Linux system, you begi
 * First: in the [RPi-Distro repo](https://github.com/RPi-Distro/repo/issues/369), where I was told this was a "Documentation issue", and should be filed in the Documentation repo.  
 * Second: in the [Documentation repo](https://github.com/raspberrypi/documentation/issues/3585#event-12354374925), where I was told it was **not** a Documentation issue - it was a software (RPi-Distro) issue! 
 
-IOW - I got *the run-around*! And it gets worse: Apparently I have been *banned from posting in the RPi-Distro repo for life*! You see the Organization at its worst in these exchanges. 
+IOW - I got *the run-around*! And it gets worse: Apparently I have been *banned from posting in the RPi-Distro repo for life*! You see "The Organization" at its worst in these exchanges. 
 
-However: I [**have made some progress**](https://github.com/seamusdemora/PiFormulae/tree/master); see recipes that begin with the word '**Bluetooth**'. The Bluetooth issues have been *mostly* resolved. In one case (the Raspberry Pi Zero 2W) the solution was updated software from Debian backports (`pipewire/wireplumber` packages). In another case (the Raspberry Pi 3A+) a ***hardware upgrade*** took care of all the issues; i.e. I disabled the in-built BT hardware, and plugged in a BT USB dongle. See the [latest recipes](https://github.com/seamusdemora/PiFormulae/tree/master) beginning with 'Bluetooth'.
-[**⋀**](#table-of-contents)
+However: I [**have made some progress**](https://github.com/seamusdemora/PiFormulae/tree/master) - see the recipes that begin with the word '**Bluetooth**'. And I'm happy to say that *most* of the Bluetooth issues have been resolved! There are currently three (3) recipes dealing with Bluetooth audio for RPi Lite systems: 
+
+1. [Raspberry Pi Zero 2W; 'bookworm' Lite OS](https://github.com/seamusdemora/PiFormulae/blob/master/Bluetooth-UsingBackportsForPipewire.md) : This recipe focuses on a `pipewire`-based solution, where the `pipewire` installation was taken from Debian's bookworm backports tree - instructions are in the recipe. This installation has since been returned to the `stable` tree where it is running `pipewire ver 1.2.4`. It has been extremely reliable; although I did run into a hitch removing it from the `backports` tree. 
+2. [Raspberry Pi 3A+; 'bookworm' Lite OS](https://github.com/seamusdemora/PiFormulae/blob/master/Bluetooth-AudioForBookwormLite.md): This is a slightly older recipe, but remains valid. It began with an installation of the [`bluez-alsa` repo](https://github.com/Arkq/bluez-alsa), and then moved on to `pipewire`. The `pipewire` installation was from Debian's stable tree; it began with version `0.3.65`, and was later upgraded via `apt` to version `1.2.4`. And so this installation ***wound up*** at the same place as the Zero 2W installation. This recipe also contains instructions for setting up a modified `systemd getty@tty1.service`; I feel this is a worthwhile modification. 
+3. [Raspberry Pi 3A+ "Bluetooth Hardware Upgrade"](https://github.com/seamusdemora/PiFormulae/blob/master/Bluetooth-UpgradeRPiBtHardware.md): I decided to try a "Bluetooth hardware upgrade"; i.e. a Bluetooth "USB dongle" to replace the built-in Raspberry Pi Bluetooth hardware. It's relatively inexpensive, it's easily configured, and it has worked extremely well in my RPi 3A+ bookworm system with `pipewire`.  
+
+I suppose I would be remiss if I failed to point out the value of ***persistence*** in reaching this point of Bluetooth Bliss with my *Lite* systems.  
+
+[**⋀**](#table-of-contents) 
+
 ## Change the modification date of a file
 
 From time-to-time, we all need to make adjustments to the modification date/time of a file(s) on our system. Here's an easy way to do that: 
