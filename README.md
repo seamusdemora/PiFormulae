@@ -55,10 +55,6 @@ You can use ***git*** directly from the RPi command line to create or update a G
     </td>
   </tr>
 <tr>
-<td><a href="UsefulShellTricks.md">Handy features to know for using the shell</a></td>
-  <td>This is a collection of short scripts and "one-liners" for use in the command line in the RPi `bash` (or `zsh`)  shell. A ToC is included to make finding what you need easier.   </td>
-</tr>
-<tr>
 <td><a href="Build_pinctrl_for-bullseye.md">Use RPi's `pinctrl` to control GPIO pins</a></td>
   <td>Controlling GPIO pins has always been a key capability for Raspberry Pi users. But GPIO control has been jeopardized lately; this due to a convergence of two factors: 1. the Linux kernel has "outlawed" `sysfs` access to GPIO, and 2. the dreadful failure of the Linux kernel's chosen replacement for `sysfs`: `libgpiod`. The `pinctrl` package, developed within the RPi organization, offers respite from the Linux kernel's machinations. `pinctrl` offers fast, lightweight access to the GPIO. 
   </td>
