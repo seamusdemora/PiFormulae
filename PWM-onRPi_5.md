@@ -16,7 +16,9 @@ All of that said, here are some instructions for setting up and controlling the 
 
 ### Single PWM channel
 
-#### 1. Load the single channel PWM overlay; i.e. edit `config.txt` & `reboot`:
+#### 1. Load the single channel PWM overlay; i.e. edit `config.txt` & `reboot`: 
+
+   Note: [`config.txt` overlay documentation is available here.](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README) 
 
    ```bash
       $ sudo nano /boot/firmware/config.txt 
