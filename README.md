@@ -20,6 +20,12 @@ You can use ***git*** directly from the RPi command line to create or update a G
 </thead>
 <tbody>
   <tr>
+    <td>Access & control PWM on RPi 5 using `sysfs` & 3 lines of <code>bash</code> code. 
+    </td>
+    <td>Having problems getting PWM working on RPi 5? Here's a <em>simple</em> way to set that up.
+    </td>
+  </tr>
+  <tr>
     <td>See the latest addition to the <a href="UsefulShellTricks.md">"Useful Shell Tricks"</a> recipe - on the <a href="UsefulShellTricks.md#verify-file-system-is-mounted"><code>findmnt</code></a> utility
     </td>
     <td>The <code>findmnt</code> utility is the <em>Swiss Army knife</em> for searching, finding and listing mounted filesystems.
