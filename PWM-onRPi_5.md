@@ -108,7 +108,7 @@ All of that said, here are some instructions for setting up and controlling the 
 
 As you would expect, the dual-channel version of this recipe closely follows the single-channel version above. We'll try to note all the differences below: 
 
-#### 1. Load the single channel PWM overlay; i.e. edit `config.txt` & `reboot`:
+#### 1. Load the 2-channel PWM overlay; i.e. edit `config.txt` & `reboot`:
 
    ```bash
    $ sudo nano /boot/firmware/config.txt 
