@@ -22,7 +22,7 @@ You can use ***git*** directly from the RPi command line to create or update a G
   <tr>
     <td><a href="PWM-onRPi_5.md">Access & control PWM on RPi 5 easily.</a>  
     </td>
-    <td>Having problems getting PWM working on RPi 5? Here's a <em>simple</em> way to set that up using `sysfs` & 3 lines of <code>bash</code> code.
+    <td>Having problems getting PWM working on RPi 5? Here's a <em>simple</em> way to set that up using <code>sysfs</code> & 3 lines of <code>bash</code> code.
     </td>
   </tr>
   <tr>
