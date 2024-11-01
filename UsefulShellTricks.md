@@ -1273,8 +1273,8 @@ Personally, I feel `sftp` is better-suited to a situation where perhaps many fil
 
 [**⋀**](#table-of-contents)  
 
+###### Remove the `rpi-eeprom` package?
 ## Want to remove the `rpi-eeprom` package? - ***"tough shit"***, *say The Raspberries*
-###### Remove the rpi-eeprom package?
 
 If you have a Raspberry Pi model Zero, 1, 2 or 3, you have no need for the `rpi-eeprom` package.  It's useful ***only*** on the RPi 4 and RPi 5 because they are the only two models with,,, EEPROM!  But if you try to use `apt` to remove (or purge) `rpi-eeprom`, you'll find that `rpi-eeprom` has been carelessly (stupidly?) packaged in such a way that several useful utilities will be swept out with it! 
 
