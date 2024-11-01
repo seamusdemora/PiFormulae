@@ -41,7 +41,7 @@
 * [Verify a file system is mounted with `findmnt` - *before trying to use it*!](#verify-file-system-is-mounted) 
 * [How to "roll back" an `apt upgrade`](#how-to-roll-back-an-apt-upgrade) (coming soon) 
 * [Should I use `scp`, or `sftp`?](#scp-vs-sftp) 
-* [So you want to remove `rpi-eeprom` package & save 25MB?](#want-to-remove-the-rpi-eeprom-package) 
+* [So you want to remove `rpi-eeprom` package & save 25MB?](#want-to-remove-the-rpi-eeprom-package-tough-shit-say-the-raspberries) 
 * [REFERENCES:](#references) 
 
 
