@@ -20,13 +20,19 @@ You can use ***git*** directly from the RPi command line to create or update a G
 </thead>
 <tbody>
   <tr>
+    <td>The latest addition to the <a href="https://github.com/seamusdemora/PiFormulae/blob/master/UsefulShellTricks.md#want-to-remove-the-rpi-eeprom-package-to-save-25mb-tough-shit-say-the-raspberries">"Useful Shell Tricks"</a> recipe.
+    </td>
+    <td>A rant titled, "Want to remove the useless <code>rpi-eeprom</code> package and save 25MB?" <em>"Tough shit", say The Raspberries</em>
+    </td>
+  </tr>
+  <tr>
     <td><a href="PWM-onRPi_5.md">Access & control PWM on RPi 5 easily.</a>  
     </td>
     <td>Having problems getting PWM working on RPi 5? Here's a <em>simple</em> way to set that up using <code>sysfs</code> & 3 lines of <code>bash</code> code.
     </td>
   </tr>
   <tr>
-    <td>See the latest addition to the <a href="UsefulShellTricks.md">"Useful Shell Tricks"</a> recipe - on the <a href="UsefulShellTricks.md#verify-file-system-is-mounted"><code>findmnt</code></a> utility
+    <td>A recent addition to the <a href="UsefulShellTricks.md">"Useful Shell Tricks"</a> recipe - on the <a href="UsefulShellTricks.md#verify-file-system-is-mounted"><code>findmnt</code></a> utility
     </td>
     <td>The <code>findmnt</code> utility is the <em>Swiss Army knife</em> for searching, finding and listing mounted filesystems.
     </td>
@@ -35,7 +41,7 @@ You can use ***git*** directly from the RPi command line to create or update a G
     <td>There are three (3) new recipes for Bluetooth audio on <em>bookworm Lite</em>: <a href="Bluetooth-AudioForBookwormLite.md">1</a>, <a href="Bluetooth-UpgradeRPiBtHardware.md">2</a>, <a href="Bluetooth-UsingBackportsForPipewire.md">3</a>
     </td>
     <td>Thanks to <code>pipewire</code>, <code>backports</code> and a hardware <em>"upgrade"</em> users now have at least three choices for <em>reliable</em> Bluetooth audio for the 'Lite'/"<em>headless</em>" version of the Raspberry Pi OS. See the Recipes (1 - 3) for Details.
-      <p><b><i>Note: There has been an unfortunate "hitch" in Recipe <a href="Bluetooth-UsingBackportsForPipewire.md#Sequel">3</a>.</i></b>
+      <p><b><i>Note: The "hitch" in Recipe <a href="Bluetooth-UsingBackportsForPipewire.md#Sequel">3</a> has been resolved.</i></b>
       </p>
     </td>
   </tr>
