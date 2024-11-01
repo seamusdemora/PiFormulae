@@ -40,7 +40,8 @@
 * [Download a file from GitHub](#download-a-file-from-github) 
 * [Verify a file system is mounted with `findmnt` - *before trying to use it*!](#verify-file-system-is-mounted) 
 * [How to "roll back" an `apt upgrade`](#how-to-roll-back-an-apt-upgrade) (coming soon) 
-* [Should I use `scp`, or `sftp`?](#scp-vs-sftp)
+* [Should I use `scp`, or `sftp`?](#scp-vs-sftp) 
+* [So you want to remove `rpi-eeprom` package & save 25MB?](#so-you-want-to-remove-rpi-eeprom-package-save-25mb) 
 * [REFERENCES:](#references) 
 
 
@@ -1135,12 +1136,6 @@ The `cron` job; run in the `root crontab`:
 
 This approach would seem to have wide applicability in numerous situations; for example: *verifying that a NAS filesystem is mounted before running an `rsync` job*. However, it *may fall short* for trouble-shooting a mysterious un-mounting of the `/boot/firmware` file system; the next script attempts to address that *shortcoming*. 
 
-<!---
-
-Another feature of `findmnt` which I am still studying (haven't used it yet) is `-poll`. This option promises the ability to track and report on the `mount`, `umount`, `remount` and `move` actions. Sources of further information on the `-poll` option are [1](https://linuxhandbook.com/findmnt-command-guide/), and [2](https://www.howtogeek.com/774913/how-to-use-the-findmnt-command-on-linux/). I'll update in the near future, but readers are encouraged to submit an issue/pull request. 
-
--->
-
 Another feature of `findmnt` that is better than using the simple script above in a `cron` job is **the `--poll` option**.  `--poll` causes `findmnt` to continuously monitor changes in the `/proc/self/mountinfo` file. Please don't ask me to explain what the `/proc/self/mountinfo` file actually is - I cannot explain it :)  However, you may trust that when `findmnt --poll` uses it, it will contain all the system's mount points. Rather than get into the theoretical/design aspects of this, I'll present what I hope is a ***useful recipe*** for `findmnt --poll`; i.e. *how to use it to get some results*. Without further ado, here's a `bash` script that monitors *mounts* and *un-mounts* of the `/boot/firmware` file system: 
 
 ```bash
@@ -1277,6 +1272,36 @@ Here's what I feel is the *key tradeoff* between `scp` and `sftp`:
 Personally, I feel `sftp` is better-suited to a situation where perhaps many files in several folders needed to be transferred in both directions between two hosts. But then, that's what `rsync` does so well. This explains why `scp` is my "go-to" for limited file transfers. 
 
 [**⋀**](#table-of-contents)  
+
+## So you want to remove rpi-eeprom package & save 25MB? - ***"tough shit"***, *say The Raspberries*
+
+If you have a Raspberry Pi model Zero, 1, 2 or 3, you have no need for the `rpi-eeprom` package.  It's useful ***only*** on the RPi 4 and RPi 5 because they are the only two models with,,, EEPROM!  But if you try to use `apt` to remove (or purge) `rpi-eeprom`, you'll find that `rpi-eeprom` has been carelessly (stupidly?) packaged in such a way that several useful utilities will be swept out with it! 
+
+On my system ('bookworm-Lite, 64-bit'), there are 27 additional packages identified by `apt` that will also be removed - either directly, or through `sudo apt autoremove` . These packages include: 
+
+* `iw`
+* `rfkill`
+* `bluez` 
+* `device-tree-compiler` 
+* `dos2unix`
+* `pastebinit`
+* `uuid`
+* `pi-bluetooth`
+* `raspi-config`
+
+Recognize any of these  :)  ?  
+
+When I discovered this, I posted an [issue on RPi's `rpi-eeprom` repository at GitHub](https://github.com/raspberrypi/rpi-eeprom/issues/622); I initially *assumed* there *must* be a good reason for this, and my post reflected that assumption. Afterwards, there was [one comment that acknowledged the issue](https://github.com/raspberrypi/rpi-eeprom/issues/622#issuecomment-2440878446), and indicated a change should be made. And then the *shit-storm* started. Most of the rest of the comments from *The Raspberries* were either arrogant, condescending, false, a waste of time - or all of the above. 
+
+The apparent "leader" of this repo - ***Chief Know-Nothing*** - weighed in saying that the `rpi-eeprom` package needed a *"bit of polish"*, but indicated that it was a low priority. (I guess Chiefs are v. busy at RPi?)  When I called the *"bit of polish"* remark a [gross understatement](https://www.collinsdictionary.com/dictionary/english/gross-understatement) I was banned for life from the `rpi-eeprom` repo! **:)**  Giving *censorship privileges* to those whose job is maintenance seems strange & risky management policy to me, but perhaps the thinking is *"these are all bright Cambridge lads - they know how to behave"*? 
+
+Anyway - until Chief Know-Nothing is compelled to move on this, there's not much to do. One could use `apt-mark` to "pin" packages for non-removal... There are also some relevant Q&A that discuss how to handle this situation with the help of `dpkg` and `aptitude` : [1](https://unix.stackexchange.com/a/780901/286615), [2](https://askubuntu.com/a/32899/831935), [3](https://unix.stackexchange.com/a/183007/286615), [4](https://www.baeldung.com/linux/apt-uninstall-dpkg-deb-package). However, AIUI, all of these will ultimately depend upon the party that prepared the packages having some minimal level of competence.  And given the messy state of these packages now, I tend to doubt Chief Know-Nothing has that competence. 
+
+ [**⋀**](#table-of-contents)  
+
+
+
+
 
 
 <hr>
