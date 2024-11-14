@@ -259,6 +259,7 @@ $ git worktree remove motd-worktree
 |&nbsp;&nbsp;&nbsp;2. initialize the new git repo  | `git init` |
 | Designate 'remote' ssh (server) for client repo | `git remote add origin <ssh://user@gitserver>` |
 | **OR:** Designate GitHub as the 'remote' | [see this recipe](https://github.com/seamusdemora/PiFormulae/blob/master/GitForRPi-GitHub.md) |
+| Show the 'remote' in use for client repo | `git remote -v show` |
 | Commit changes to a git client - ***two steps***: | ↓↓↓↓↓ |
 | &nbsp;&nbsp;&nbsp;1. add new & changed files | `git add <file1 file2 etc> OR <*>` |
 | &nbsp;&nbsp;&nbsp;2. commit changes with a commit message | `git commit -m 'a commit message'`  |
