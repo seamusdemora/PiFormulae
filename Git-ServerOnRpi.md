@@ -254,10 +254,15 @@ $ git worktree remove motd-worktree
 
 | Client Objective: | `git` client command |
 | ---- | ---- |
+| Create (`clone`) a repo on a client: | `git clone <ssh://user@gitserver:/path/to/repo>` |
+| &nbsp;&nbsp;&nbsp;&nbsp;*A L T E R N A T I V E  to `clone`* | 1. `mkdir mygitrepo && cd mygitrepo` |
+| &nbsp; | 2. `git init` |
+| &nbsp; | 3. `git remote add origin <ssh://user@gitserver:/path/to/repo>` |
+| &nbsp; | 4. `git pull origin master` |
 | Create an empty client repo - ***two steps***: | ↓↓↓↓↓ |
 | &nbsp;&nbsp;&nbsp;1. create a folder & `cd` into it | `mkdir mygitrepo && cd mygitrepo`  |
 |&nbsp;&nbsp;&nbsp;2. initialize the new git repo  | `git init` |
-| Designate 'remote' ssh (server) for client repo | `git remote add origin <ssh://user@gitserver>` |
+| Designate 'remote' ssh srv for client repo | `git remote add origin <ssh://user@gitserver:/path/to/repo>` |
 | **OR:** Designate GitHub as the 'remote' | [see this recipe](https://github.com/seamusdemora/PiFormulae/blob/master/GitForRPi-GitHub.md) |
 | Show the 'remote' in use for client repo | `git remote -v show` |
 | Commit changes to a git client - ***two steps***: | ↓↓↓↓↓ |
