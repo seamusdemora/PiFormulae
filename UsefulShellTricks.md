@@ -241,6 +241,8 @@ The problem is obvious once it's explained, but the solutions may vary. The **pr
 
    ```bash
    $ sudo sh -c 'printf "Houston, we have a problem!" > /etc/issue.net'
+   # --OR--
+   $ sudo bash -c 'echo "Houston, we have a problem!" > /etc/issue.net'
    ```
 
    You will find this succeeds when executed from a shell prompt. 
