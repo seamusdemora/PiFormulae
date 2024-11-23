@@ -41,8 +41,8 @@ $ git add <filenames>           # add the files which are to be tracked
 $ git commit -m 'some-message'  # commit the files with a suitable/meaningful message
 $ git remote add origin ssh://pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d.git
 # ^ declares the designated folder on `rpigitserver` as the "remote origin"
-$ git push -u ssh://pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d.git
-# ^ "pushes" the previously `add`ed & `commit`ted files to the Git-Server (`rpigitserver`)
+$ git push -u origin
+# ^ "pushes" the previously `add`ed & `commit`ted files to the Git-Server (or 'origin') (`rpigitserver`)
 #
 # NOTE: If you need to make changes to the 'remote origin', it may be simpler to make those
 # changes in the `./git/config` folder in your client repo.
