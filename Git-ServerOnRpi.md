@@ -39,10 +39,13 @@ $ cd ~/scripts/motd-d           # where the code for project motd-d is kept
 $ git init                      # NOTE we did not use the `--bare` option!
 $ git add <filenames>           # add the files which are to be tracked
 $ git commit -m 'some-message'  # commit the files with a suitable/meaningful message
-$ git remote add origin ssh://pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git
+$ git remote add origin ssh://pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d.git
 # ^ declares the designated folder on `rpigitserver` as the "remote origin"
-$ git push -u ssh://pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git
+$ git push -u ssh://pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d.git
 # ^ "pushes" the previously `add`ed & `commit`ted files to the Git-Server (`rpigitserver`)
+#
+# NOTE: If you need to make changes to the 'remote origin', it may be simpler to make those
+# changes in the `./git/config` folder in your client repo.
 
 # once you have a remote origin established, you may do this to push updates to the server:
 $ git push -u origin master
