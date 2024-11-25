@@ -42,6 +42,7 @@
 * [How to "roll back" an `apt upgrade`](#how-to-roll-back-an-apt-upgrade) (coming soon) 
 * [Should I use `scp`, or `sftp`?](#scp-vs-sftp) 
 * [So you want to remove `rpi-eeprom` package & save 25MB?](#want-to-remove-the-rpi-eeprom-package-to-save-25mb-tough-shit-say-the-raspberries) 
+* [How to move or copy a file without accidentally overwriting a destination file](#move-or-copy-a-file-without-accidentally-overwriting-a-destination-file)
 * [REFERENCES:](#references) 
 
 
@@ -1301,9 +1302,50 @@ Anyway - until Chief Know-Nothing is compelled to move on this, there's not much
 
  [**⋀**](#table-of-contents)  
 
+## Move or copy a file without accidentally overwriting a destination file
 
+In the course of *doing things* on my systems, I occasionally need to 'move' (`mv`), 'copy' (`cp`), or 'install' (`install`) files and/or folders from one location to another. And occasionally, I will ***screw up*** by accidentally over-writing (effectively deleting) a file (or folder) in the destination. Fortunately, the folks responsible for GNU software have developed **'command options'** for avoiding these ***screw-ups***. 
 
+Among these 'command options' are `-n, --no-clobber`, `-u, --update`, and `-b, --backup`. In many cases, the `-b, --backup` option has some compelling advantages over the other options. Why? When using `cp`, `mv` or `install` in a script, the objective is to ***get the job done*** without any ***screw-ups***. That's what the `backup` options do. The `noclobber` and `update` options may prevent the screw-ups, but they don't get the job done. 
 
+[The `backup` option documentation on GNU's website](https://www.gnu.org/software/coreutils/manual/html_node/Backup-options) is very good. Any unanswered questions may be explored with a bit of testing. So let's try the `backup` options to get a feel for how they work: 
+
+```bash
+$ ls -l ~/
+-rw-r--r-- 1 pi   pi   14252 Mar  4  2023  paradiselost.txt
+drwxr-xr-x 4 pi   pi    4096 Nov 25 04:35  testthis
+$ ls -l ~/testthis
+-rw-r--r-- 1 pi pi 14252 Nov 25 04:48 paradiselost.txt
+
+# Note the difference in mod times of the two files; 
+# i.e. the files are different, but have the same name
+
+$ cp -a paradiselost.txt ~/testthis
+$ ls -l ~/testthis
+-rw-r--r-- 1 pi pi 14252 Mar  4  2023 paradiselost.txt
+
+# The file has been "over-written" by an older version!
+# IOW - a **screw-up**! 
+# Let's reset & try with a 'backup' option
+
+$ ls -l ~/testthis
+-rw-r--r-- 1 pi pi 14252 Nov 25 05:08 paradiselost.txt
+$ cp -ab paradiselost.txt ./testthis
+$ ls -l ~/testthis
+-rw-r--r-- 1 pi pi 14252 Mar  4  2023 paradiselost.txt
+-rw-r--r-- 1 pi pi 14252 Nov 25 05:08 paradiselost.txt.~1~
+
+# We see that the **original** file (Nov 25 mod) has been 'backed up';
+# i.e. a '.~1~' has been appended to the file name. Using the '-b' 
+# option gives the same result as: '--backup=numbered' option.
+
+```
+
+This is ideal for use in automated scripts as it *does the safe thing*; i.e. *doesn't overwrite potentially important files*. The documentation is [here (for `cp`)](https://www.gnu.org/software/coreutils/manual/html_node/cp-invocation.html#cp-invocation), and [here (for the `backup` options specifically)](https://www.gnu.org/software/coreutils/manual/html_node/Backup-options)
+
+The `-b, --backup` option is (AFAIK) available only in GNU's coreutils versions of `cp` and `mv`. As usual Apple sucks, or is [**bringing up the rear**](https://idioms.thefreedictionary.com/bring+up+the+rear), by eschewing the newer GPL licensing terms...  **HOWEVER**, there are options for Apple/macOS users: [MacPorts](https://www.macports.org/) offers the `coreutils` package, or possibly through one of the [other macOS package managers](https://www.slant.co/topics/511/~best-mac-package-managers).  
+
+ [**⋀**](#table-of-contents)  
 
 
 <hr>
