@@ -270,7 +270,7 @@ $ git worktree remove motd-worktree
 | Show the 'remote' in use for client repo | `git remote -v show` |
 | Check the 'status' of the client repo | `git status` |
 | Commit changes to a git client - ***two steps***: | ↓↓↓↓↓ |
-| &nbsp;&nbsp;&nbsp;1. add new & changed files | `git add <file1 file2 etc> OR <*>` |
+| &nbsp;&nbsp;&nbsp;1. add new & changed files | `git add <file1 file2 etc>` OR `<.>` for all files |
 | &nbsp;&nbsp;&nbsp;2. commit changes with a commit message | `git commit -m 'a commit message'`  |
 | Get (show) the remote (server) used in a repo  | `git remote -v`  |
 | Push repo changes to ***"gitserver"*** | `git push -u origin master` |
