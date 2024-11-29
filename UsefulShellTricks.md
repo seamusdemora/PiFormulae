@@ -955,11 +955,13 @@ $ touch -d "2 hours ago" <filename>
 # and of course you can use seconds/minutes/days, etc
 ```
 
-If OTOH, you want to change the modification time relative to the file's current  modification time, you can do that as follows: 
+If OTOH, you want to change the modification time **relative to the file's current  modification time**, you can do that as follows: 
 
 ```bash
-$ touch -d "$(date -R -r filename) - 2 hours" <filename> 
+$ touch -d "$(date -R -r <filename>) - 2 hours" <filename> 
 # "- 2 hours" means two hours before the current modification time of the file
+# Example: subtract 2 hours from the current mod time of file 'foo.txt':
+$ touch -d "$(date -R -r foo.txt) - 2 hours" foo.txt
 ```
 [**⋀**](#table-of-contents)
 ## Using 'date' to deal with 'Unix time'
