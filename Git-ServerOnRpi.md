@@ -90,7 +90,7 @@ $ git pull
 # NOTE: If you need to make changes to the 'remote origin', it may be simpler to make those
 # changes by manually editing the `./git/config` folder in your client repo.
 ```
-**At this point, we have uploaded the code stored on the client machine in `~/scripts/motd-d`  to the repo called `etc-update-motd-d.git` on the Git-Server.** Things are moving right along :) 
+**At this point, we have uploaded the code stored on the client machine in `~/scripts/motd-d` to the repo called `etc-update-motd-d.git` on the Git-Server.** Things are moving right along :) 
 
 ### Restore 'modification time' to files in the repo
 
@@ -128,7 +128,7 @@ Receiving objects: 100% ... , done.
 $
 # i.e. executing 'git clone' from '/home/developer' creates/clones the repo in '/home/developer/etc-update-motd-d.git'
 ```
-#### ALTERNATIVELY, let's create that clone under a different directory; i.e. something other than `etc-update-motd-d.git`
+#### ALTERNATIVELY, let's create that clone under a different folder name; i.e. something other than `etc-update-motd-d.git`
 
 ```bash
 $ hostname    # to get our bearings straight
@@ -139,14 +139,12 @@ $ git clone pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d.git  motd
 Cloning into 'motd'...
   ...
 Receiving objects: 100% (3/3), done.
+# We've cloned the repo into a folder named '/home/developer/motd'! 
 ```
-Of course this `clone` operation can also be done on any remote host using a URL (e.g. SSH, or https). The net result is this: **We have now `clone`d a copy of our repo which may be used by user "developer".** 
-
-
 
 ### Update Git-Server with changes made on `rpigitclient`
 
-Now let's assume that development has been on-going on `rpigitclient`, and we are ready to `commit` the code, and upload that code to the Git-Server.  This developer has been x-busy, and has added two files: `foo` and `bar`. 
+Now let's assume that development has been on-going on `rpigitclient`, and the developer is ready to `commit` the code, and upload that code to the Git-Server.  This developer has been x-busy, and has added two files: `foo` and `bar`. 
 
 Here's how that commit is done, and pushed to the **Git-Server**: 
 
@@ -163,7 +161,7 @@ $ git commit -m 'added files foo & bar, x-important!'
 $ git remote -v show		# verify the correct remote server URL is being used
 origin	pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git (fetch)
 origin	pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git (push) 
-$ git push -u origin master
+$ git push
 Enumerating objects: 5, done.
 Counting objects: 100% (5/5), done.
 Delta compression using up to 4 threads
@@ -173,43 +171,39 @@ Total 4 (delta 1), reused 0 (delta 0), pack-reused 0
 To ssh://raspberrypi5/home/git/git-srv/etc-update-motd-d.git
    55cd03b..d27a3ae  master -> master
 Branch 'master' set up to track remote branch 'master' from 'origin'. 
-$ # done, mission accomplished
+# ^ done, mission accomplished
 ```
 
 **Our revised code has now been `commit`ed and `push`ed to the Git-Server.** 
 
 
-
 ### Correct erroneous commit & push from `rpigitclient`
 
-Unfortunately, you learn that you hired a moron as a developer (it happens more frequently these days). You discovered your mistake when you pulled from the repo `motd.git`, and found two suspect files named `foo` and `bar`. You investigate, and [use `git rm`](https://stackoverflow.com/a/2047477/22595851) from the `rpigitclient` host to correct the problem: 
+Unfortunately, you learn that the developer making these changes was a moron (it happens more frequently these days). You discovered your mistake when you pulled from the repo `motd.git`, and found two suspect files named `foo` and `bar`. You investigate, and [use `git rm`](https://stackoverflow.com/a/2047477/22595851) from the `rpigitclient` host to correct the problem: 
 
 ```bash
 $ hostname    			# to get our bearings straight
 rpigitclient
 $ cd ~/scripts/motd-d
-$ git rm foo bar		# you decide to remove files from repo **and** filesystem
-rm 'bar'
-rm 'foo'
+$ git rm foo bar		# you remove files from the repo
+$ rm 'bar' 'foo'                # you remove files from the filesystem
 $ git commit -m "remove files foo & bar added by Moronski" 
 [master 95dea5d] remove files foo & bar added by Moronski
  2 files changed, 2 deletions(-)
  delete mode 100644 bar
  delete mode 100644 foo
-$ git push -u origin master 
+$ git push 
 Enumerating objects: 3, done.
 Counting objects: 100% (3/3), done.
 Delta compression using up to 4 threads
 Compressing objects: 100% (2/2), done.
 Writing objects: 100% (2/2), 248 bytes | 248.00 KiB/s, done.
 Total 2 (delta 1), reused 0 (delta 0), pack-reused 0
-To ssh://rpigitserver/home/pi/git-srv/etc-update-motd-d.git
+To pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d.git
    d27a3ae..95dea5d  master -> master
 Branch 'master' set up to track remote branch 'master' from 'origin'. 
 $ 
 ```
-
-
 
 ### Update a Git-Client repo from the Git-Server
 
@@ -221,20 +215,18 @@ rpigitclient
 $ cd ~/scripts/motd-d
 $ git branch --show-current
 master        # or whatever the current branch is
-$ git pull origin master
-From ssh://rpigitserver/home/pi/git-srv/etc-update-motd-d
+$ git pull
+From pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d
  * branch            master     -> FETCH_HEAD 
  ...
  $
 ```
 
-
-
 ### Create a working tree in our Git-Server repository
 
-Recall that when we initialized our repository in `~/git-srv/etc-update-motd-d.git` on `rpigitserver`, we used the `--bare` option. Take a look now inside that folder; `ls -l` inside the repository. Next, go to a    `clone`d repo, and take a look inside that folder using `ls -l`. You will notice that there are some differences, the most obvious being that the files in the repo are ***not visible*** inside the  `~/git-srv/etc-update-motd-d.git` folder!  You can search for them if you like, but you won't find them ([unless you've read this](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects)). This is a result of using the `--bare` option in initialization - the file contents are in the repository, but the repository contains no "working tree". 
+Recall that when we initialized our repository in `~/git-srv/etc-update-motd-d.git` on `rpigitserver`, we used the `--bare` option. Take a look now inside that folder; `ls -l` inside the repository. Next, go to a `clone`d repo, and take a look inside that folder using `ls -l`. You will notice that there are some differences, the most obvious being that the files in the **client repo** are **not visible** inside the **server repo** `~/git-srv/etc-update-motd-d.git` folder!  You can search for them if you like, but you won't find them ([unless you've read this](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects)). This is a result of using the `--bare` option in initialization - the files and their contents are in the repository, but the repository contains no "working tree". 
 
-But now suppose we want to create a working tree inside  `~/git-srv/etc-update-motd-d.git` ... how do we add that? As usual in `git`, there's a command for that: 
+But now suppose we want to create a working tree inside `~/git-srv/etc-update-motd-d.git` ... how do we add that? As usual in `git`, there's a command for that: 
 
 ```bash
 $ hostname    # to get our bearings straight
@@ -251,12 +243,7 @@ $ ls -l ./motd-worktree
 total 44
 -rw-r--r-- 1 git git  65 Jan  3 02:19 10-intro
 -rw-r--r-- 1 git git  41 Jan  3 02:19 20-uptime
--rw-r--r-- 1 git git  72 Jan  3 02:19 30-temp
--rw-r--r-- 1 git git 118 Jan  3 02:19 40-sdcard
--rw-r--r-- 1 git git  56 Jan  3 02:19 50-network
--rw-r--r-- 1 git git  56 Jan  3 02:19 55-osver
--rw-r--r-- 1 git git  41 Jan  3 02:19 60-kernel
--rw-r--r-- 1 git git 186 Jan  3 02:19 70-backup
+...
 -rw-r--r-- 1 git git 264 Jan  3 02:19 75-imgutil
 -rw-r--r-- 1 git git 157 Jan  3 02:19 99-source
 
@@ -267,8 +254,6 @@ $ git worktree remove motd-worktree
 
 # And now we're back to a 'bare' repo; a Git-Server
 ```
-
-
 
 ## A Summary of `git` Commands Used in This Recipe
 
