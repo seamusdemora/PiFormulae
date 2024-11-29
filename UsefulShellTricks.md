@@ -648,6 +648,14 @@ This is all well & good, but the sources above do not answer nano's ***burning q
 
 * On macOS, `M`- the *"meta key"* - is the <kbd>esc</kbd> key 
 * On Linux & Windows(?), `M`- the *"meta key"* - is the <kbd>Escape</kbd> key
+
+Another useful item is `nano`'s **configuration file** - `~/.nanorc`. Here's what I put in mine:
+```bash
+$ cat ~/.nanorc
+set tabsize 4
+set tabstospaces
+```
+
 [**⋀**](#table-of-contents)
 ## Some Options with `grep`
 
