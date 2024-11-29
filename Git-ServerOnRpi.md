@@ -260,20 +260,21 @@ $ git worktree remove motd-worktree
 | Create (`clone`) a repo on a client: | `git clone <ssh://user@gitserver:/path/to/repo>` |
 | &nbsp;&nbsp;&nbsp;&nbsp;*A L T E R N A T I V E  to `clone`* | 1. `mkdir mygitrepo && cd mygitrepo` |
 | &nbsp; | 2. `git init` |
-| &nbsp; | 3. `git remote add origin <ssh://user@gitserver:/path/to/repo>` |
+| &nbsp; | 3. `git remote add origin <user@gitserver:/path/to/repo>` |
 | &nbsp; | 4. `git pull origin master` |
 | Create an empty client repo - ***two steps***: | ↓↓↓↓↓ |
 | &nbsp;&nbsp;&nbsp;1. create a folder & `cd` into it | `mkdir mygitrepo && cd mygitrepo`  |
 |&nbsp;&nbsp;&nbsp;2. initialize the new git repo  | `git init` |
-| Designate 'remote' ssh srv for client repo | `git remote add origin <ssh://user@gitserver:/path/to/repo>` |
+| Designate 'remote' ssh srv for client repo | `git remote add origin <user@gitserver:/path/to/repo>` |
 | **OR:** Designate GitHub as the 'remote' | [see this recipe](https://github.com/seamusdemora/PiFormulae/blob/master/GitForRPi-GitHub.md) |
 | Show the 'remote' in use for client repo | `git remote -v show` |
 | Check the 'status' of the client repo | `git status` |
 | Commit changes to a git client - ***two steps***: | ↓↓↓↓↓ |
-| &nbsp;&nbsp;&nbsp;1. add new & changed files | `git add <file1 file2 etc>` OR `<.>` for all files |
+| &nbsp;&nbsp;&nbsp;1. add new & changed files | `git add <file1 file2 etc>` -OR- `<.>` for all files |
 | &nbsp;&nbsp;&nbsp;2. commit changes with a commit message | `git commit -m 'a commit message'`  |
 | Get (show) the remote (server) used in a repo  | `git remote -v`  |
-| Push repo changes to ***"gitserver"*** | `git push -u origin master` |
+| ***INITIAL*** Push repo changes to ***"gitserver"*** | `git push -u origin master` |
+| ***SUBSEQUENT*** Push repo changes to ***"gitserver"*** | `git push` |
 | Pull changes from ***"gitserver"*** | `git pull origin master` |
 | Restore true mod. time to repo files - ***two steps*** | ↓↓↓↓↓ |
 | &nbsp;&nbsp;&nbsp;1. install | `sudo apt install git-restore-mtime` |
