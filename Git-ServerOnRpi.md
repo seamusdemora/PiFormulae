@@ -37,20 +37,66 @@ rpigitclient
 $ ssh-copy-id pi@rpigitserver     # copy SSH pub key to `rpigitserver` ==> IF NECESSARY
 $ cd ~/scripts/motd-d             # where the code for project motd-d is kept
 $ git init                        # "initialize" the client repo; NOTE we did not use the `--bare` option!
+Initialized empty Git repository in ...
 $ git add <filenames> -OR- <.>    # add the files which are to be tracked; use '.' for all files
-$ git commit -m 'some-message'    # commit the files with a suitable/meaningful message
+# This is a good time to run 'git status' - to see where we stand...
+$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+	new file:   10-intro
+	new file:   12-ckmount
+	new file:   15-uname
+	new file:   17-hwmodel
+	new file:   20-uptime
+	new file:   30-temp
+	new file:   40-sdcard
+	new file:   50-network
+	new file:   55-osver
+	new file:   60-kernel
+	new file:   70-backup
+	new file:   75-imgutil
+	new file:   99-source
+# ^ 'git status' reports we have a  number of files "staged", but nothing has yet been committed
+
+$ git commit -m 'initial commit'    # commit the files with a suitable/meaningful message
+[master (root-commit) 3503154] initial commit
+ 13 files changed, 55 insertions(+)
+ create mode 100755 10-intro
+ create mode 100755 12-ckmount
+...
+ create mode 100755 75-imgutil
+ create mode 100755 99-source
+# ^ 'git commit...' verifies the list of files committed
+ 
 $ git remote add origin pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d.git
 # ^ declares the designated folder on `rpigitserver` as the "remote origin"
 $ git push -u origin master
-# ^ "pushes" previously `add`ed & `commit`ted files to the Git-Server's (or 'origin/rpigitserver`) 'master' branch
-#
-# NOTE: If you need to make changes to the 'remote origin', it may be simpler to make those
-# changes in the `./git/config` folder in your client repo.
+Enumerating objects: 15, done.
+Counting objects: 100% (15/15), done.
+...
+ * [new branch]      master -> master
+branch 'master' set up to track 'origin/master'.
+# ^ "pushes" previously `add`ed & `commit`ted files to the Git-Server (or 'origin/rpigitserver`) repo 'master' branch
 
-# once you have a remote origin established, you may do this to push updates to the server:
+# Let's run 'git status' again:
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+# ^ 'git status' confirms we've successfully updated the repo on 'rpigitserver'
+
+# once the 'remote origin' has been established, future 'git push' operations *to* rpigitserver are simplified:
 $ git push
-# or do this to pull/fetch updates *from* the server
+# or, to pull/fetch updates *from* the server
 $ git pull
+
+# NOTE: If you need to make changes to the 'remote origin', it may be simpler to make those
+# changes by manually editing the `./git/config` folder in your client repo.
 ```
 **At this point, we have uploaded the code stored on the client machine in `~/scripts/motd-d`  to the repo called `etc-update-motd-d.git` on the Git-Server.** Things are moving right along :) 
 
