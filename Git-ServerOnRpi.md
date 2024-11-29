@@ -42,7 +42,7 @@ $ git commit -m 'some-message'    # commit the files with a suitable/meaningful 
 $ git remote add origin pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d.git
 # ^ declares the designated folder on `rpigitserver` as the "remote origin"
 $ git push -u origin master
-# ^ "pushes" the previously `add`ed & `commit`ted files to the Git-Server's (or 'origin/rpigitserver`) 'master' branch
+# ^ "pushes" previously `add`ed & `commit`ted files to the Git-Server's (or 'origin/rpigitserver`) 'master' branch
 #
 # NOTE: If you need to make changes to the 'remote origin', it may be simpler to make those
 # changes in the `./git/config` folder in your client repo.
