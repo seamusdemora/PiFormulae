@@ -92,8 +92,6 @@ $ git pull
 ```
 **At this point, we have uploaded the code stored on the client machine in `~/scripts/motd-d`  to the repo called `etc-update-motd-d.git` on the Git-Server.** Things are moving right along :) 
 
-
-
 ### Restore 'modification time' to files in the repo
 
 You may have noticed (by running `ls -l`) that the working files in your repo have [modification 'date-times'](https://duckduckgo.com/?q=linux+file+modification+time&t=newext&atb=v369-1&ia=web) that don't reflect their **true** modification time. Weirdly (to me anyway), this is "by design"; maybe I've been looking at GitHub for too long? If you're *so inclined*, you can override this *odd* behavior. You'll need to install an "extra" app for it: `git-restore-mtime`. Here's how this works: 
@@ -110,44 +108,25 @@ Statistics:
             7 commits evaluated
             1 directories updated
            12 files updated
-total 44
-
-$ ls -l
-total 48
--rw-r--r-- 1 pi pi  65 Dec 16 03:23 10-intro
--rw-r--r-- 1 pi pi  41 Dec 16 03:23 20-uptime
--rw-r--r-- 1 pi pi  72 Dec 16 03:23 30-temp
--rw-r--r-- 1 pi pi 118 Dec 16 03:23 40-sdcard
--rw-r--r-- 1 pi pi  56 Dec 16 03:23 50-network
--rw-r--r-- 1 pi pi  56 Dec 16 03:23 55-osver
--rw-r--r-- 1 pi pi  41 Dec 16 03:23 60-kernel
--rw-r--r-- 1 pi pi 207 Dec 15 08:36 70-backup
--rw-r--r-- 1 pi pi 264 Nov 30 06:58 75-imgutil
--rw-r--r-- 1 pi pi 157 Jan  2 01:22 99-source
--rw-r--r-- 1 pi pi 730 Jan 11 04:29 README.md
--rw-r--r-- 1 pi pi 277 Dec 16 03:44 rsync-install.txt
-$ 
+total 44 
 ```
-
-
 
 ### Connect another git-client to clone the repo
 
-Let's move to another git-client, and "clone" (copy) the repo from Git-Server (`rpigitserver`). Let's assume this client is also located on the host `rpigitserver`; this might be in a different user's home directory (or not). We do this to show how a "local" clone is accomplished. 
+Let's move to another git-client, and "clone" (copy) the repo from Git-Server (`rpigitserver`). **Let's assume this client is also located on the host `rpigitserver`;** this might be in a different user's home directory (or not). We do this to show how a "local" clone is accomplished. 
 
 ```bash
 $ hostname    				# to get our bearings straight
-rpigitclient2
+rpigitserver
 $ pwd
 /home/developer				# 'developer' is a userid; i.e. not user pi
 $ git clone pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d.git
 Cloning into 'etc-update-motd-d'...
   ...
-Receiving objects: 100% (3/3), done.
-$ ls -l
-etc-update-motd-d.git
+Receiving objects: 100% ... , done.
+
 $
-# i.e. executing `git clone` from `~/` creates/clones the repo in ~/etc-update-motd-d.git
+# i.e. executing 'git clone' from '/home/developer' creates/clones the repo in '/home/developer/etc-update-motd-d.git'
 ```
 #### ALTERNATIVELY, let's create that clone under a different directory; i.e. something other than `etc-update-motd-d.git`
 
