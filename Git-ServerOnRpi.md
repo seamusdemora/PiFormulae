@@ -36,8 +36,8 @@ $ hostname    # to get our bearings straight
 rpigitclient
 $ ssh-copy-id pi@rpigitserver     # copy SSH pub key to `rpigitserver` ==> IF NECESSARY
 $ cd ~/scripts/motd-d             # where the code for project motd-d is kept
-$ git init                        # NOTE we did not use the `--bare` option!
-$ git add <filenames> -OR- <.>    # add the files which are to be tracked
+$ git init                        # "initialize" the client repo; NOTE we did not use the `--bare` option!
+$ git add <filenames> -OR- <.>    # add the files which are to be tracked; use '.' for all files
 $ git commit -m 'some-message'    # commit the files with a suitable/meaningful message
 $ git remote add origin ssh://pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d.git
 # ^ declares the designated folder on `rpigitserver` as the "remote origin"
