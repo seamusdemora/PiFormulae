@@ -99,7 +99,7 @@ Let's move to another git-client, and "clone" (copy) the repo from Git-Server (`
 
 ```bash
 $ hostname    				# to get our bearings straight
-rpigitclient
+rpigitclient2
 $ pwd
 /home/developer				# 'developer' is a userid; i.e. not user pi
 $ git clone pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d.git
@@ -115,7 +115,7 @@ $
 
 ```bash
 $ hostname    # to get our bearings straight
-rpigitclient
+rpigitclient2
 $ pwd
 /home/developer
 $ git clone pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d.git  motd
@@ -123,7 +123,7 @@ Cloning into 'motd'...
   ...
 Receiving objects: 100% (3/3), done.
 ```
-Of course this `clone` operation can also be done on any remote host using a URL (e.g. SSH, or https). In either case, **we have now `clone`d a copy of our repo which may be used by user "developer".** 
+Of course this `clone` operation can also be done on any remote host using a URL (e.g. SSH, or https). The net result is this: **We have now `clone`d a copy of our repo which may be used by user "developer".** 
 
 
 
@@ -144,8 +144,8 @@ $ git commit -m 'added files foo & bar, x-important!'
  create mode 100644 bar
  create mode 100644 foo
 $ git remote -v show		# verify the correct remote server URL is being used
-origin	ssh://pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git (fetch)
-origin	ssh://pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git (push) 
+origin	pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git (fetch)
+origin	pi@rpigitserver/home/pi/git-srv/etc-update-motd-d.git (push) 
 $ git push -u origin master
 Enumerating objects: 5, done.
 Counting objects: 100% (5/5), done.
