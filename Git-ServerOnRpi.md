@@ -49,15 +49,7 @@ Changes to be committed:
   (use "git rm --cached <file>..." to unstage)
 	new file:   10-intro
 	new file:   12-ckmount
-	new file:   15-uname
-	new file:   17-hwmodel
-	new file:   20-uptime
-	new file:   30-temp
-	new file:   40-sdcard
-	new file:   50-network
-	new file:   55-osver
-	new file:   60-kernel
-	new file:   70-backup
+     ...
 	new file:   75-imgutil
 	new file:   99-source
 # ^ 'git status' reports we have a  number of files "staged", but nothing has yet been committed
