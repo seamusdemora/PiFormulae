@@ -34,23 +34,23 @@ Now move to (one of) the git-clients: `rpigitclient`. Assume `rpigitclient` is t
 ```bash
 $ hostname    # to get our bearings straight
 rpigitclient
-$ ssh-copy-id pi@rpigitserver   # copy SSH pub key to `rpigitserver` ==> IF NECESSARY
-$ cd ~/scripts/motd-d           # where the code for project motd-d is kept
-$ git init                      # NOTE we did not use the `--bare` option!
-$ git add <filenames>           # add the files which are to be tracked
-$ git commit -m 'some-message'  # commit the files with a suitable/meaningful message
+$ ssh-copy-id pi@rpigitserver     # copy SSH pub key to `rpigitserver` ==> IF NECESSARY
+$ cd ~/scripts/motd-d             # where the code for project motd-d is kept
+$ git init                        # NOTE we did not use the `--bare` option!
+$ git add <filenames> -OR- <.>    # add the files which are to be tracked
+$ git commit -m 'some-message'    # commit the files with a suitable/meaningful message
 $ git remote add origin ssh://pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d.git
 # ^ declares the designated folder on `rpigitserver` as the "remote origin"
-$ git push -u origin
-# ^ "pushes" the previously `add`ed & `commit`ted files to the Git-Server (or 'origin') (`rpigitserver`)
+$ git push -u origin master
+# ^ "pushes" the previously `add`ed & `commit`ted files to the Git-Server (or 'origin') (`rpigitserver`) 'master' branch
 #
 # NOTE: If you need to make changes to the 'remote origin', it may be simpler to make those
 # changes in the `./git/config` folder in your client repo.
 
 # once you have a remote origin established, you may do this to push updates to the server:
-$ git push -u origin master
+$ git push
 # or do this to pull/fetch updates *from* the server
-$ git pull origin master
+$ git pull
 ```
 **At this point, we have uploaded the code stored on the client machine in `~/scripts/motd-d`  to the repo called `etc-update-motd-d.git` on the Git-Server.** Things are moving right along :) 
 
@@ -264,10 +264,11 @@ $ git worktree remove motd-worktree
 | &nbsp; | 4. `git pull origin master` |
 | Create an empty client repo - ***two steps***: | ↓↓↓↓↓ |
 | &nbsp;&nbsp;&nbsp;1. create a folder & `cd` into it | `mkdir mygitrepo && cd mygitrepo`  |
-|&nbsp;&nbsp;&nbsp;2. initialize the new git repo  | `git init` |
+| &nbsp;&nbsp;&nbsp;2. initialize the new git repo  | `git init` |
 | Designate 'remote' ssh srv for client repo | `git remote add origin <user@gitserver:/path/to/repo>` |
-| **OR:** Designate GitHub as the 'remote' | [see this recipe](https://github.com/seamusdemora/PiFormulae/blob/master/GitForRPi-GitHub.md) |
-| Show the 'remote' in use for client repo | `git remote -v show` |
+| &nbsp;&nbsp;&nbsp;--- **ALTERNATIVELY :** | manually edit `</path/to/repo/.git/config>`
+| Designate **GitHub** as the 'remote' | [see this recipe](https://github.com/seamusdemora/PiFormulae/blob/master/GitForRPi-GitHub.md) |
+| Show the 'remote' in use for client repo | `git remote -v [show]` |
 | Check the 'status' of the client repo | `git status` |
 | Commit changes to a git client - ***two steps***: | ↓↓↓↓↓ |
 | &nbsp;&nbsp;&nbsp;1. add new & changed files | `git add <file1 file2 etc>` -OR- `<.>` for all files |
@@ -275,7 +276,8 @@ $ git worktree remove motd-worktree
 | Get (show) the remote (server) used in a repo  | `git remote -v`  |
 | ***INITIAL*** Push repo changes to ***"gitserver"*** | `git push -u origin master` |
 | ***SUBSEQUENT*** Push repo changes to ***"gitserver"*** | `git push` |
-| Pull changes from ***"gitserver"*** | `git pull origin master` |
+| ***INITIAL*** Pull changes from ***"gitserver"*** | `git pull origin master` |
+| ***SUBSEQUENT*** Pull changes from ***"gitserver"*** | `git pull` |
 | Restore true mod. time to repo files - ***two steps*** | ↓↓↓↓↓ |
 | &nbsp;&nbsp;&nbsp;1. install | `sudo apt install git-restore-mtime` |
 | &nbsp;&nbsp;&nbsp;2. run from inside repo | `git restore-mtime` |
