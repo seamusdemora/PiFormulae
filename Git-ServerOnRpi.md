@@ -42,7 +42,7 @@ $ git commit -m 'some-message'    # commit the files with a suitable/meaningful 
 $ git remote add origin ssh://pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d.git
 # ^ declares the designated folder on `rpigitserver` as the "remote origin"
 $ git push -u origin master
-# ^ "pushes" the previously `add`ed & `commit`ted files to the Git-Server (or 'origin') (`rpigitserver`) 'master' branch
+# ^ "pushes" the previously `add`ed & `commit`ted files to the Git-Server's (or 'origin/rpigitserver`) 'master' branch
 #
 # NOTE: If you need to make changes to the 'remote origin', it may be simpler to make those
 # changes in the `./git/config` folder in your client repo.
@@ -99,7 +99,7 @@ Let's move to another git-client, and "clone" (copy) the repo from Git-Server (`
 
 ```bash
 $ hostname    				# to get our bearings straight
-rpigitserver
+rpigitclient
 $ pwd
 /home/developer				# 'developer' is a userid; i.e. not user pi
 $ git clone pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d.git
@@ -109,21 +109,21 @@ Receiving objects: 100% (3/3), done.
 $ ls -l
 etc-update-motd-d.git
 $
-# i.e. executing `git clone` from `~/` creates/clones the repo in ~/etc-update-motd-d
+# i.e. executing `git clone` from `~/` creates/clones the repo in ~/etc-update-motd-d.git
 ```
 #### ALTERNATIVELY, let's create that clone under a different directory; i.e. something other than `etc-update-motd-d.git`
 
 ```bash
 $ hostname    # to get our bearings straight
-rpigitserver
+rpigitclient
 $ pwd
 /home/developer
-$ git clone pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d.git  motd.git
+$ git clone pi@rpigitserver:/home/pi/git-srv/etc-update-motd-d.git  motd
 Cloning into 'motd'...
   ...
 Receiving objects: 100% (3/3), done.
 ```
-Of course this `clone` operation can also be done on any remote host using a URL (e.g. SSH, or https). In either case, **We have now `clone`d a copy of our repo which may be used by another developer.** 
+Of course this `clone` operation can also be done on any remote host using a URL (e.g. SSH, or https). In either case, **we have now `clone`d a copy of our repo which may be used by user "developer".** 
 
 
 
