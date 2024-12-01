@@ -294,13 +294,36 @@ $ git worktree remove motd-worktree
 | Designate GitHub as the 'remote' for worktree | See [this recipe](https://github.com/seamusdemora/PiFormulae/blob/master/GitForRPi-GitHub.md); perform from inside the worktree |
 | Remove a "working tree" from git server repo | `git worktree remove <srv-worktree>` |
 
-<!---
+## An Explanatory Note Re: `git status`
 
--->
+You will note that using `git status` (e.g. in a client repo) may give you the ***"wrong answer"*** in some situations. For example:
+
+   >One of my collaborators has informed me that he has made some `commits` to a repo that we use. I then *descend* into that repo (e.g. `cd blockead.git`), and run `git status`. That command will yield the following as *status*:
+
+   ```bash
+   ~blockhead.git $ git status
+   On branch master
+   Your branch is up to date with 'origin/master'.
+   
+   nothing to commit, working tree clean
+   ```
+   >WTFO?? I wonder what happened to those `commits` he said he made?
+
+**_Now for the "explanation":_** Well actually this may not be the ***"wrong answer"***, but it is most certainly an _ambiguous and confusing answer_. There are [various explanations](https://duckduckgo.com/?t=ffab&q=why+does+%27git+status%27+report+up+to+date+when+it%27s+not&ia=web) available online, but they [_"boil down"_](https://idioms.thefreedictionary.com/boil+down+to) to this: 
+
+>_"up-to-date"_ means "up-to-date" with the branch that my branch tracks... which in this case means "up-to-date" with the **local** `origin/master` branch
+
+Inevitably, the authors of all (most) of these _explanations_ deny that this wording is a problem. I can only guess that they are afraid of offending someone... Well, I'm sorry, but I can't excuse such [_piss-poor_](https://idioms.thefreedictionary.com/piss-poor) use of the English language - even if it is `git`. But hey - this is called **open-source** software for a reason, and so I'll offer the following as a solution:
+
+```bash
+coming soon...
+```
 
 ### And that concludes this recipe - for today.
 
-
+<!---
+you can hide shit in here :) 
+-->
 
 ## REFERENCES:
 
