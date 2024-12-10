@@ -127,7 +127,7 @@ $ sudo reboot
 Hopefully, the `pipewire` installation went without any [hitches](https://www.merriam-webster.com/dictionary/hitch#dictionary-entry-2). If this install was *from scratch* (on a new system), you still have a few more steps before you can begin listening to audio via BT: 
 
 1. Use `bluetoothctl` to connect your speaker/headphones  
-2. Modify the `getty@tty1.service` 
+2. [Modify the `getty@tty1.service`](https://github.com/seamusdemora/PiFormulae/blob/master/Bluetooth-AudioForBookwormLite.md#3-modify-the-gettytty1service) 
 3. Install a player; e.g. `mpg123` or `cmus` (if you're feeling ambitious :) 
 
 I'll skip the details for these 3 items as they've already been covered in the other BT recipes ([1](https://github.com/seamusdemora/PiFormulae/blob/master/Bluetooth-AudioForBookwormLite.md) or [2](https://github.com/seamusdemora/PiFormulae/blob/master/Bluetooth-UpgradeRPiBtHardware.md)). 
