@@ -306,20 +306,21 @@ As I've written previously, using `bluetoothctl` is a grubby effort that seems (
 
 `pipewire` and `wireplumber` are under a `systemd` service file that runs in **userland**. The [*long and the short of that*](https://dictionary.cambridge.org/dictionary/english/long-and-the-short-of-it) is that when the user who started these services logs off - they stop working - the audio "goes away". That may be *inconvenient* at times. Fortunately, there is a way around this problem: keep your user (presumably user `pi`) logged in under `getty`. Fortunately, this is fairly straightforward - or even unnecessary if you're happy stopping BT audio when you log off. 
 
-If you want to make this change, here's one way to do it:
+If you want to make this change, here's **_two ways_** to do it:
 
+The **_"preferred"_** way to do it. Note that this method *may* protect your changes from `apt upgrade`s: 
+```bash
+sudo systemctl edit getty@tty1.service
+```
 
->**N.B. :** There are several ways to modify service files in systemd. I am aware some consider it "bad form" to edit the *"main file"* directly, but that is how I'm going to do it here.
-
-
+The _**"other"**_ way to do it. Note that some consider it "bad form" to edit the *"main file"* directly.
 ```bash
 $ sudo vim /etc/systemd/system/getty.target.wants/getty@tty1.service
 ```
 
-#### Make the following edits:
+#### Make the following changes:
 
 ##### FROM:
-
 ```
 [Service]
 ...
@@ -327,7 +328,6 @@ ExecStart=-/sbin/agetty -o '-p -- \\u' --noclear - $TERM
 ```
 
 ##### TO:
-
 ```
 [Service]
 ...
@@ -347,7 +347,6 @@ pi       pts/0        -3386239902218585523 (192.168.1.209)
 ```
 
 Once you see your user listed on `tty1`, you may `logout` if you wish, and your music will continue to play! 
-
 
 
 ## Build and configure `bluez-alsa` under 'bookworm Lite'
