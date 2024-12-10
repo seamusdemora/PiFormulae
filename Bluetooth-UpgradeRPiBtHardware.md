@@ -46,7 +46,7 @@ There may be alternatives, but the simplest effective solution I found was to se
       $ sudo reboot
    ```
 
-#### 2. Do the `bluetoothctl` nutroll:
+#### 2. Do the `bluetoothctl` [nutroll](https://www.urbandictionary.com/define.php?term=nutroll): 
 
 The only thing I've found that makes this process any simpler is to do it ***as quickly as possible***. 
 
