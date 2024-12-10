@@ -138,7 +138,7 @@ If all went well, you should be able to start playing music; e.g.:
 $ /usr/bin/mpg123 /home/pi/rainstorm.mp3
 ```
 
-I conducted a *"reliability test"* over a period of approximately of 1 week, and [reported the results below](#results-of-a-reliability-test-of-pipewire). 
+I conducted a couple of *"reliability tests"*; the first [ran for a week](#results-of-a-reliability-test-of-pipewire), the [second for 2 months](). 
 
 ---
 
