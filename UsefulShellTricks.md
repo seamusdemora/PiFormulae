@@ -1357,6 +1357,42 @@ The `-b, --backup` option is (AFAIK) available only in GNU's coreutils versions 
 
  [**⋀**](#table-of-contents)  
 
+## Using `socat` to test network connections 
+
+This is a rather simple-minded application of the rather sophisticated utility called `socat`. In the context of this recipe, *testing a network connection* means that we wish to verify that a network connection is available before we actually use it. You might wonder, "How could that be useful?"... and that's a fair question. I'll answer with an example: 
+
+Example: Verify a NAS file server is online before starting a local process
+
+Let's say that we have a `cron` job named `loggit.sh` scheduled to run `@reboot` on HOST1. `loggit.sh` reads data from a number of sensors, and logs that data to the NAS_SMB_SRVR. HOST1 and  NAS_SMB_SRVR are connected over our local network. And so, before HOST1 begins writing the sensor data to NAS_SMB_SRVR, we want to ensure that the network connection between them is operational. 
+
+We will use `socat` in `loggit.sh` to verify the network connection is viable: 
+
+```bash
+...
+# 	test network connection to NAS using SMB protocol
+while :
+do
+	  socat /dev/null TCP4:192.168.1.244:445 && break
+	  sleep 2
+done
+...
+# send sensor data to log files on NAS_SMB_SRVR
+```
+
+Let's break this down: 
+
+*  the `socat` command is placed in an infinite `while` (or `until`) loop w/ a 2 sec `sleep` per iteration
+*  `socat` uses a SOURCE DESTINATION format:
+*  `/dev/null` is the SOURCE (HOST1); 
+*  `TCP4:192.168.1.244:445` is the DESTINATION (`protocol:ip-addr:port` for NAS_SMB_SRVR)
+*  if `socat` can establish the connection (i.e. `$? = 0`), we use `break` to exit the loop 
+
+`socat` is a versatile & sophisticated tool; in this case it provides a reliable test for a network connection **before** that connection is put into use.
+
+ [**⋀**](#table-of-contents)  
+
+
+
 
 <hr>
 
