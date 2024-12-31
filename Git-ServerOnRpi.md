@@ -313,11 +313,17 @@ You will note that using `git status` (e.g. in a client repo) may give you the *
 
 >_"up-to-date"_ means "up-to-date" with the branch that my branch tracks... which in this case means "up-to-date" with the **local** `origin/master` branch
 
-Inevitably, the authors of all (most) of these _explanations_ deny that this wording is a problem. I can only guess that they are afraid of offending someone... Well, I'm sorry, but I can't excuse such [_piss-poor_](https://idioms.thefreedictionary.com/piss-poor) use of the English language - even if it is `git`. But hey - this is called **open-source** software for a reason, and so I'll offer the following as a solution:
+Inevitably, the authors of all (most) of these _explanations_ deny that this wording is a problem. I can only guess that they are afraid of offending someone... Well, I'm sorry, but I can't excuse such [**_piss-poor_**](https://idioms.thefreedictionary.com/piss-poor) use of the English language - even if it is `git`. But hey - this is called **open-source** software for a reason, and so I'll offer the following as a solution:
 
 ```bash
-coming soon...
+$ cd ~/blockhead.git
+$ git fetch --dry-run
+From rpigitserver:/home/pi/git-srv/blockhead.git
+   2acea0b..b797bb0  master     -> origin/master  # <=== THIS MEANS A CHANGE HAS BEEN MADE
 ```
+
+Is this ***stupid?***...  Yeah - I think so. The fact that one needs to resort to such **arcane** measures to discover whether there is an update on a remote origin tells me that the authors of `git` are completely out-of-touch with "normal" users (i.e. "normal" means: 'not an idiotic *git-nerd*'). 
+
 
 ### And that concludes this recipe - for today.
 
