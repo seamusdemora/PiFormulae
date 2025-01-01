@@ -309,11 +309,11 @@ You will note that using `git status` (e.g. in a client repo) will give you the 
    ```
    >WTFO?? I wonder what happened to those `commits` he said he made?
 
-**_Now for the "explanation":_** [*Technically speaking*](https://english.stackexchange.com/questions/26185/usage-of-the-word-technically) this may not be the ***"wrong answer"***, but it is most certainly an _ambiguous and confusing answer_. There are [various explanations](https://duckduckgo.com/?t=ffab&q=why+does+%27git+status%27+report+up+to+date+when+it%27s+not&ia=web) available online, but they [_"boil down"_](https://idioms.thefreedictionary.com/boil+down+to) to this: 
+**_Now for the "explanation":_** [*Technically speaking*](https://english.stackexchange.com/questions/26185/usage-of-the-word-technically) the output of `git status` may not be the ***"wrong answer"***, but it is most certainly an _ambiguous and confusing answer_. There are [various explanations](https://duckduckgo.com/?t=ffab&q=why+does+%27git+status%27+report+up+to+date+when+it%27s+not&ia=web) available online, but they [_"boil down"_](https://idioms.thefreedictionary.com/boil+down+to) to this: 
 
 >_"up-to-date"_ means "up-to-date" with the branch that my branch tracks... which in this case means "up-to-date" with the **local** `origin/master` branch
 
-Inevitably, the authors of all (most) of these _explanations_ deny that this wording is a problem. I can only guess that they are afraid of offending someone... Well, I'm sorry, but I can't excuse such [**_piss-poor_**](https://idioms.thefreedictionary.com/piss-poor) use of the English language - even if it is `git`. But hey - this is called **open-source** software for a reason, and so I'll offer the following as a solution:
+Inevitably, the authors of all (most) of these _explanations_ deny that this wording is a problem. I can only guess that they are afraid of offending someone... Well, I'm sorry, but I can't excuse such stupidity and [**_piss-poor_**](https://idioms.thefreedictionary.com/piss-poor) use of the English language - even if it is `git`. But hey - this is called **open-source** software for a reason, and so I'll offer the following *"open-source"* solution to the dysfunctional output of `git status`:
 
 ```bash
 $ cd ~/blockhead.git
