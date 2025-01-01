@@ -296,9 +296,9 @@ $ git worktree remove motd-worktree
 
 ## An Explanatory Note Re: `git status`
 
-You will note that using `git status` (e.g. in a client repo) may give you the ***"wrong answer"*** in some situations. For example:
+You will note that using `git status` (e.g. in a client repo) will give you the ***"wrong answer"*** in many situations. For example:
 
-   >One of my collaborators has informed me that he has made some `commits` to a repo that we use. I then *descend* into that repo (e.g. `cd blockead.git`), and run `git status`. That command will yield the following as *status*:
+   >One of my collaborators has informed me that he has made some `commits` to a repo that we use. I then *descend* into that repo (i.e. `cd blockead.git`) on my host workstation, and run `git status`. That command will yield the following as *status*: 
 
    ```bash
    ~blockhead.git $ git status
@@ -317,7 +317,7 @@ Inevitably, the authors of all (most) of these _explanations_ deny that this wor
 
 ```bash
 $ cd ~/blockhead.git
-$ git fetch --dry-run
+$ git pull --dry-run   # alternatively: 'git fetch --dry-run'
 From rpigitserver:/home/pi/git-srv/blockhead.git
    2acea0b..b797bb0  master     -> origin/master  # <=== THIS MEANS A CHANGE HAS BEEN MADE
 ```
