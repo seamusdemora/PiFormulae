@@ -1357,7 +1357,7 @@ The `-b, --backup` option is (AFAIK) available only in GNU's coreutils versions 
 
  [**⋀**](#table-of-contents)  
 
-## Using `socat` to test network connections 
+## Using `socat` to test network connections
 
 This is a rather simple-minded application of the rather sophisticated utility called `socat`. In the context of this recipe, *testing a network connection* means that we wish to verify that a network connection is available before we actually use it. You might wonder, "How could that be useful?"... and that's a fair question. I'll answer with an example: 
 
