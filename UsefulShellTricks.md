@@ -1243,8 +1243,6 @@ while read firstword otherwords; do
 done
 ```
 
-[**⋀**](#table-of-contents)  
-
 #### REFERENCES: *(that may come in handy)*
 
 * [How to Check Mount Point in Linux: A Step-by-Step Guide](https://bytebitebit.com/operating-system/linux/how-to-check-mount-point-in-linux/) 
@@ -1447,7 +1445,6 @@ Let's break this down:
 `socat` is a versatile & sophisticated tool; in this case it provides a reliable test for a network connection **before** that connection is put into use.
 
  [**⋀**](#table-of-contents)  
-
 
 
 
