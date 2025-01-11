@@ -296,7 +296,8 @@ $ truncate -s 0 test.txt		# any system w/ truncate
 # -OR-
 $ cp /dev/null somefile.xyz     	# any system
 ```
-[**⋀**](#table-of-contents)
+[**⋀**](#table-of-contents)  
+
 ## List all directories - not files, just directories:
 
 ```bash
@@ -550,8 +551,10 @@ For now, I will remain *skeptical* that ***"snake case"*** or any other case-rel
 >
 > r = list the contents of the directory, but not 'ls' into it  
 > w = delete or add a file in the directory  
-> x = move into the directory  
+> x = move into the directory
+
 [**⋀**](#table-of-contents)
+
 ## Using `which` to find commands
 
 For `zsh` users: You've installed a package - but where is it? The `which` command can help, but there are some things you *need to know*: 
