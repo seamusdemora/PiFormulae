@@ -434,7 +434,7 @@ else
 fi  
 ```
 
-That might be unfortunate - that might get you [*Court-martialed*](), and it certainly would cause your superiors to question your competence as a `bash` programmer! But having been enlightened by this tutorial, you would be prepared for someone's failure to enter a value for `CaptainsOrders`: 
+That might be unfortunate - that might get you [*Court-martialed*](https://en.wikipedia.org/wiki/Courts-martial_of_the_United_States), and it certainly would cause your superiors to question your competence as a `bash` programmer! But having been enlightened by this tutorial, you would be prepared for someone's failure to enter a value for `CaptainsOrders`: 
 
 ```bash
 $ [ -z "$CaptainsOrders" ] && echo 'Sound the alarm!!!' || echo "Proceed as planned"
@@ -455,12 +455,16 @@ $ echo $WORKFILE
 /tmp/ssh_stats-BiA5m
 ```
 
-Within this session (or script) `$WORKFILE` will contain the location of your *tmp file*. [<sup>*ref*</sup>](https://pupli.net/2022/03/assign-output-of-shell-command-to-variable-in-bash/)
-[**⋀**](#table-of-contents)
+Within this session (or script) `$WORKFILE` will contain the location of your *tmp file*. [<sup>*ref*</sup>](https://pupli.net/2022/03/assign-output-of-shell-command-to-variable-in-bash/)  
+
+[**⋀**](#table-of-contents)  
+
 ## The Shell Parameters of `bash`
 
-`bash` has two types of [*parameters*](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameters): positional parameters and special parameters. They are the *odd-looking* variables you may have seen in scripts, such as: `$0`, `$1`, `$@`, `$?`, etc.  But they come in very handy, and you should learn to use them. The [Bash Reference Manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html) isn't as informative as it could be, but there are better explanations available that include examples: [positional parameters](https://www.thegeekstuff.com/2010/05/bash-shell-positional-parameters/), [special parameters](https://www.thegeekstuff.com/2010/05/bash-shell-special-parameters/). 
-[**⋀**](#table-of-contents)
+`bash` has two types of [*parameters*](https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameters): positional parameters and special parameters. They are the *odd-looking* variables you may have seen in scripts, such as: `$0`, `$1`, `$@`, `$?`, etc.  But they come in very handy, and you should learn to use them. The [Bash Reference Manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html) isn't as informative as it could be, but there are better explanations available that include examples: [positional parameters](https://www.thegeekstuff.com/2010/05/bash-shell-positional-parameters/), [special parameters](https://www.thegeekstuff.com/2010/05/bash-shell-special-parameters/).  
+
+[**⋀**](#table-of-contents)  
+
 ## The Difference Between Null and Empty Strings
 
 At least in `bash`, a null string ***is*** an empty/zero-length string; in other words, ***there is no difference***. In `bash`, a string (e.g. `my_string`) can be tested to determine if it is a null/empty string as follows: 
@@ -478,8 +482,10 @@ fi
 echo "Completed if-then-else test for shell variable my_string"
 ```
 
-A couple of References: [Examples from nixCraft](https://www.cyberciti.biz/faq/bash-shell-find-out-if-a-variable-has-null-value-or-not/), and [a Q&A from Linux SE](https://unix.stackexchange.com/a/524492/286615).
-[**⋀**](#table-of-contents)
+A couple of References: [Examples from nixCraft](https://www.cyberciti.biz/faq/bash-shell-find-out-if-a-variable-has-null-value-or-not/), and [a Q&A from Linux SE](https://unix.stackexchange.com/a/524492/286615).  
+
+[**⋀**](#table-of-contents)  
+
 ## How do I see my *environment*?
 
 In most distros, both `env` and `printenv` output the environment in which the command is entered. In other words, the `env`/`printenv` output in `sh` will be different than in `zsh` and different in `cron`, etc. And as is typical, the output may be `piped` to another program, redirected to a file, etc, etc.
@@ -493,7 +499,9 @@ For special cases, `set` is a *bultin* that's rather complex ([see the documenta
 % # OR #
 % set | less   # HUGE output! pipe to less to view in the pager
 ```
-[**⋀**](#table-of-contents)
+
+[**⋀**](#table-of-contents)  
+
 ## Shell variables: What is the Best Naming Convention?
 
 For purposes of this recipe, *"shell variables"* refers to variables that are local in scope; i.e. not *"environment variables"* ([REF](https://unix.stackexchange.com/questions/222913/bash-shell-vs-environment-variable)). I've always used upper-case characters & underscores when I need to create a *"shell variable"*. Yes - I use the *same* *convention* for "shell variables" as is used for "environment variables".  I adopted this *convention* years ago because I read somewhere that lower-case variable names could easily be confused with commands. This was very true for me, esp during early learning days. At any rate, it made sense at the time & I've stuck with it for many years. 
@@ -526,8 +534,10 @@ $
 
 For now, I will remain *skeptical* that ***"snake case"*** or any other case-related ***convention*** holds a compelling advantage over others. [Do let me know](https://github.com/seamusdemora/PiFormulae/issues) if you feel differently, or find a broadly used standard (e.g. POSIX).
 
-**To be clear:** The term *"shell variables"* is ambiguous. I have adopted one definition here that fits my objectives for this recipe, but do not suggest that there is only one definition. In fact, the GNU Bash Reference Manual uses an entirely different definition for [Shell Variables](https://www.gnu.org/software/bash/manual/bash.html#Shell-Variables). 
-[**⋀**](#table-of-contents)
+**To be clear:** The term *"shell variables"* is ambiguous. I have adopted one definition here that fits my objectives for this recipe, but do not suggest that there is only one definition. In fact, the GNU Bash Reference Manual uses an entirely different definition for [Shell Variables](https://www.gnu.org/software/bash/manual/bash.html#Shell-Variables).  
+
+[**⋀**](#table-of-contents)  
+
 ## What do file and directory permissions mean?
 
 >**File permissions:**   
@@ -550,8 +560,10 @@ For `zsh` users: You've installed a package - but where is it? The `which` comma
 * To *refresh* the *cache*, run `rehash` or `hash -r`.
 * There are *subtle differences* depending on your shell; `which` is a *built-in* for `zsh`, and a *discrete command* in `bash` 
 
-In `bash`, `which` is a *stand-alone* command instead of a *builtin*.  Consequently `hash -r` is not needed to get timely results from`which`. 
-[**⋀**](#table-of-contents)
+In `bash`, `which` is a *stand-alone* command instead of a *builtin*.  Consequently `hash -r` is not needed to get timely results from`which`.  
+
+[**⋀**](#table-of-contents)  
+
 ## Using your shell command history
 
 For those of us who don't have a [photographic memory](https://en.wikipedia.org/wiki/Eidetic_memory), our shell **command history** is very useful.  Our primary objective in this brief segment is to gain some understanding of how the command history works.  Once this is understood, the configuration of command history becomes more clear, and allows us to use it with greater effect - to *tailor* it for how we work. 
@@ -574,8 +586,10 @@ There are [numerous variables and commands (*built-ins*)](https://www.gnu.org/so
 
  The semantics for configuring the `bash` command history options are covered in some of the [REFERENCES](#command-history), and here in [this section of the `bash` manual](https://www.gnu.org/software/bash/manual/html_node/Using-History-Interactively.html). If you're just starting with the command history, there may be some benefit to a brief perusal to appreciate the scope of this component of `bash`. If your objective is to gain some proficiency, your time will be well-spent in conducting some experiments to see for yourself how  a basic set of variables and commands affect command history behavior.
 
-*What if you use a shell other than `bash`?* While some aspects of the command history are *shell-dependent*, they have more in common than they have differences. An [overview of the command history](https://github.com/seamusdemora/seamusdemora.github.io/blob/master/CommandHistoryIntro-zsh.md) - from a `zsh` perspective - is provided in another section of this repo. 
-[**⋀**](#table-of-contents)
+*What if you use a shell other than `bash`?* While some aspects of the command history are *shell-dependent*, they have more in common than they have differences. An [overview of the command history](https://github.com/seamusdemora/seamusdemora.github.io/blob/master/CommandHistoryIntro-zsh.md) - from a `zsh` perspective - is provided in another section of this repo.  
+
+[**⋀**](#table-of-contents)  
+
 ## Searching command history
 
 Paragraph [8.2.5 Searching for Commands in the History](https://www.gnu.org/software/bash/manual/html_node/Searching.html) in the [GNU Bash manual](https://www.gnu.org/software/bash/manual/) is probably the authoritative source for documentation of the search facility. But even they don't have *all the tricks*! We'll get to that in a moment, but I'd be remiss if I didn't take a moment to point out the value of reading the documentation... in this case, perhaps start with [8.2 Readline Interaction](https://www.gnu.org/software/bash/manual/bash.html#Readline-Interaction). You'll get more out of the effort.
@@ -594,7 +608,9 @@ stty -ixon
 The reason <kbd>control</kbd>+<kbd>s</kbd> doesn't work is that it *collides* with `XON`/`XOFF` flow control (e.g. in Konsole). So the solutions are: **1.)** bind the forward search to another key, or **2.)** simply **disable**  `XON`/`XOFF` flow control using `stty -ixon`. And don't forget to `source ~/.bashrc` to load it. 
 
 Finally, if you still have questions, I can recommend this [blog post from Baeldung](https://www.baeldung.com/linux/bash-using-history-efficiently) on the subject.  
-[**⋀**](#table-of-contents)
+
+[**⋀**](#table-of-contents)  
+
 ## Access compressed log files easily
 
 If you ever find yourself rummaging around in `/var/log`... Maybe you're *'looking for something, but don't know exactly what'*.  In the `/var/log` file listing, you'll see a sequence of `syslog` files (and several others) arranged something like this: 
@@ -639,8 +655,10 @@ $ zgrep -o voltage /var/log/syslog* | wc -l
 30
 ```
 
-Still more is possible if you care to pipe these results to `awk`. 
-[**⋀**](#table-of-contents)
+Still more is possible if you care to pipe these results to `awk`.  
+
+[**⋀**](#table-of-contents)  
+
 ## Filename expansion; a.k.a. "globbing"
 
 The astute reader might have noticed the syntax from above:
@@ -649,8 +667,10 @@ The astute reader might have noticed the syntax from above:
 
 What does that *asterisk* (`*`) mean; what does it do? 
 
-It's one of the more powerful [idioms](https://en.wikipedia.org/wiki/Programming_idiom) available in `bash`, and extremely useful when working with files. Consider the alternatives to instructing `bash` to loop through all the files with `syslog` in their filename. Read more about its possibilities, and study the examples in the [Advanced Bash-Scripting Guide](https://tldp.org/LDP/abs/html/globbingref.html). 
-[**⋀**](#table-of-contents)
+It's one of the more powerful [idioms](https://en.wikipedia.org/wiki/Programming_idiom) available in `bash`, and extremely useful when working with files. Consider the alternatives to instructing `bash` to loop through all the files with `syslog` in their filename. Read more about its possibilities, and study the examples in the [Advanced Bash-Scripting Guide](https://tldp.org/LDP/abs/html/globbingref.html).  
+
+[**⋀**](#table-of-contents)  
+
 ## Using the default editor `nano` effectively
 
 I was writing this section in conjunction with an [answer in U&L SE.](https://unix.stackexchange.com/a/634503/286615)  Why?... I felt the [project documentation](https://www.nano-editor.org/dist/v2.8/nano.html) left something to be desired. A search turned up [HTG's *"Guide to Nano"*](https://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/), and more recently this post: [*"Getting Started With Nano Text Editor"*](https://itsfoss.com/nano-editor-guide/).  `nano` doesn't change rapidly, but perhaps the *timeless* method for finding documentation on `nano` is to [find a descriptive *term*, and do your own search](https://duckduckgo.com/?q=nano+text+editor+user+guide&t=ffab&atb=v278-1&ia=web)? 
@@ -669,7 +689,8 @@ set tabsize 4
 set tabstospaces
 ```
 
-[**⋀**](#table-of-contents)
+[**⋀**](#table-of-contents)  
+
 ## Some Options with `grep`
 
 `grep` has many variations which makes it useful in many situations. We can't cover them all here (not even close), but just to whet the appetite: 
@@ -684,8 +705,10 @@ set tabstospaces
     sudo grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}" /etc/network/interfaces
 ```
 
->*NOTE: This is not an exact match for an IP address, only an approximation, and may occasionally return something other than an IP address. An [exact match](https://www.regextester.com/22) is available here.* 
-[**⋀**](#table-of-contents)
+>*NOTE: This is not an exact match for an IP address, only an approximation, and may occasionally return something other than an IP address. An [exact match](https://www.regextester.com/22) is available here.*
+>
+[**⋀**](#table-of-contents)  
+
 ## Filtering `grep` processes from `grep` output
 
 `grep` provides a very useful filter in many situations. However, when filtering a list of *processes* using `ps`, `grep` introduces an annoying artifact: its output also includes the `grep` process that is filtering the output of `ps`. This is illustrated in the following example: 
@@ -705,7 +728,9 @@ root       357  0.0  0.1   7976  2348 ?        Ss   16:47   0:00 /usr/sbin/cron 
 $ #2: use a regular expression instead of a string for grep's filter
 $ ps aux | grep [n]ame_of_process 
 ```
-[**⋀**](#table-of-contents)
+
+[**⋀**](#table-of-contents)  
+
 ## Finding pattern matches: `grep` or `awk`?
 
 While researching this piece, I came across [this Q&A](https://stackoverflow.com/questions/4487328/match-two-strings-in-one-line-with-grep) on Stack Overflow. As I read through the answers, I was surprised that some experienced users answered the question incorrectly! As I write this (Feb 2022), there are at least six (6) answers that are wrong - including one of the *most highly voted* answers.  I can't guess why so many upvoted incorrect answers, but the question is clear: `Match two strings in one line with grep?`; confirmed in the body of the question. 
@@ -790,8 +815,10 @@ And here are the examples. All have been tested using the file `testsearch.txt`,
 </tbody>
 </table>
 
-**TO BE CONTINUED...**
-[**⋀**](#table-of-contents)
+**TO BE CONTINUED...**  
+
+[**⋀**](#table-of-contents)  
+
 ## What version of `awk` is available on my Raspberry Pi?
 
 Know first that (*mostly*) because RPiOS is a *Debian derivative*, its *default AWK* is `mawk`. `mawk` has been characterized as having only *basic features*, and being *very fast*. This seems a reasonable compromise for the RPi; in particular the *Zero*, and the older RPis.  But here's an [*odd thing*](https://github.com/ploxiln/mawk-2): the release date for the `mawk` package in `buster` was 1996, but the release date for the `mawk` package in `bullseye` was in Jan, 2020. And so the version included in your system depends on the OS version; i.e. Debian 10/`buster`, or Debian 11/`bullseye`.  You can get awk's version # & other details as follows: 
@@ -831,8 +858,10 @@ Copyright (C) 1989, 1991-2018 Free Software Foundation.
 ...
 ```
 
-Know that version 5 of `gawk` is available in `bullseye`'s package repo, but the `buster` repo is limited to version 4. ICYI, the [LWN article](https://lwn.net/Articles/820829/) mentioned in the [References](#using-awk-for-heavy-lifting) goes into some detail on the feature differences between `gawk` ver 4 & ver 5.
-[**⋀**](#table-of-contents)
+Know that version 5 of `gawk` is available in `bullseye`'s package repo, but the `buster` repo is limited to version 4. ICYI, the [LWN article](https://lwn.net/Articles/820829/) mentioned in the [References](#using-awk-for-heavy-lifting) goes into some detail on the feature differences between `gawk` ver 4 & ver 5.  
+
+[**⋀**](#table-of-contents)  
+
 ## That file is somewhere in my system
 
 Sometimes, *finesse* is over-rated. Sometimes things get misplaced, and you need to find it quickly. A feeling of panic may be creeping upon you due to impending schedule deadlines - or whatever the reason. This might help if you can remember anything at all about the filename - or its contents: 
@@ -850,7 +879,9 @@ Other times, the file you need to find is binary, or maybe you don't recall any 
 ```bash
 $ find /some/path -name '*part-of-a-filename*'
 ```
-[**⋀**](#table-of-contents)
+
+[**⋀**](#table-of-contents)  
+
 ## Find what you need in that huge `man` page:
 
 Not a *shell trick* exactly, but ***useful***: Most systems use the *pager* named `less` to display `man` pages in a terminal. Most frequently, `man` pages are consulted for a reference to a *specific* item of information - e.g. the meaning of an *argument*, or to find a particular section. `less` gives one the ability to search for words, phrases or even single letters by simply entering `/` from the keyboard, and then entering a *search term*. This search can be made much more *effective* with the addition of a [*regular expression*](https://www.regular-expressions.info/quickstart.html) or *regex* to define a *pattern* for the search. This is best explained by examples: 
@@ -862,15 +893,21 @@ Not a *shell trick* exactly, but ***useful***: Most systems use the *pager* name
 * find the syntax of the `case` statement in `bash`: 
 
 ​         Again, as we are looking to match a term at the beginning of a line, use the **`^`** anchor, followed by the *whitespace* character class repeated 1 or more times **`[ \t]+`**, followed by the search term `case`. In this search, we'll look for matches having whitespace *after* the regex also:  **`/^[ \t]+case[ \t]+`**  
-[**⋀**](#table-of-contents)
+
+[**⋀**](#table-of-contents)  
+
 ## A useful tool for GPIO hackers: `raspi-gpio`
 
 `raspi-gpio` is a useful tool for those interested in working with external hardware. It's included as a standard package - even in the `Lite` distro, but was developed by an individual - i.e. outside "The Foundation". The [raspi-gpio GitHub repo](https://github.com/RPi-Distro/raspi-gpio) has some useful resources; there is no `man raspi-gpio`, but `raspi-gpio help` will do just that. You can compare it against the [`gpio` directive](https://www.raspberrypi.com/documentation/computers/config_txt.html#gpio)... ponder that for a moment :)  
-[**⋀**](#table-of-contents)
+
+[**⋀**](#table-of-contents)  
+
 ## `raspi-config` from the command line?
 
-You've probably used the "graphical" (*ncurses* -based) version of `raspi-config` that you start from the command line, and then navigate about to make configuration changes to your system. ***However***, you may also use `raspi-config` from the command line. This feature isn't well-documented (or well-understood), and even the [GitHub repo for `raspi-config`](https://github.com/RPi-Distro/raspi-config) doesn't have anything to say about it - actually, it says nothing about everything :P  [This blog post](https://pi3g.com/2021/05/20/enabling-and-checking-i2c-on-the-raspberry-pi-using-the-command-line-for-your-own-scripts/) seems to be the best source of information for now. 
-[**⋀**](#table-of-contents)
+You've probably used the "graphical" (*ncurses* -based) version of `raspi-config` that you start from the command line, and then navigate about to make configuration changes to your system. ***However***, you may also use `raspi-config` from the command line. This feature isn't well-documented (or well-understood), and even the [GitHub repo for `raspi-config`](https://github.com/RPi-Distro/raspi-config) doesn't have anything to say about it - actually, it says nothing about everything :P  [This blog post](https://pi3g.com/2021/05/20/enabling-and-checking-i2c-on-the-raspberry-pi-using-the-command-line-for-your-own-scripts/) seems to be the best source of information for now.  
+
+[**⋀**](#table-of-contents)  
+
 ## Background, nohup, infinite loops, daemons
 
 It's occasionally useful to create a program/script that runs continuously, performing some task. Background, nohup and infinite loops are all *ingredients* that allow us to create [*daemons*](https://en.wikipedia.org/wiki/Daemon_(computing)) - very useful actors for accomplishing many objectives. Here's a brief discussion of these ingredients, and a brief example showing how they work together: 
@@ -937,7 +974,9 @@ It's occasionally useful to create a program/script that runs continuously, perf
   ```
   
   And that's it.
-[**⋀**](#table-of-contents)
+  
+[**⋀**](#table-of-contents)  
+
 ## Bluetooth
 
 ***Having Bluetooth Issues?***
@@ -976,7 +1015,9 @@ $ touch -d "$(date -R -r <filename>) - 2 hours" <filename>
 # Example: subtract 2 hours from the current mod time of file 'foo.txt':
 $ touch -d "$(date -R -r foo.txt) - 2 hours" foo.txt
 ```
-[**⋀**](#table-of-contents)
+
+[**⋀**](#table-of-contents)  
+
 ## Using 'date' to deal with 'Unix time'
 
 Those of you who have administration chores involving use of ["Unix time"](https://en.wikipedia.org/wiki/Unix_time) may appreciate this. This trick has been *"hiding in plain sight"* for quite a while now, but it can come in very handy when needed. In my case, I was dealing with the `wakealarm` setting for a Real-Time Clock; I use it to turn one of my Raspberry Pi machines ON and OFF. The `wakealarm` settings must be entered/written to `sysfs` in *Unix time* format; i.e. seconds from the epoch. The problem was trying to figure out how many seconds will elapse from the time I `halt` until I want to wake up 22 hours and 45 minutes later? Yes - I can multiply, but I'm also ***lazy*** :)   **How do I do this?** 
@@ -999,7 +1040,7 @@ Now, suppose I want to make a log entry indicating what time `wakealarm` is set 
 echo "$(date -d "@$alarm" +'%c')"
 Wed 14 Aug 2024 09:58:57 UTC
 ```
-So *"the trick"* is to precede the variable (`$alarm` in this case) with the `@` symbol! [The documentation is hidden here!](https://www.gnu.org/software/coreutils/manual/html_node/Seconds-since-the-Epoch.html)
+So *"the trick"* is to precede the variable (`$alarm` in this case) with the `@` symbol! [The documentation is hidden here!](https://www.gnu.org/software/coreutils/manual/html_node/Seconds-since-the-Epoch.html)  
 
 [**⋀**](#table-of-contents)
 
@@ -1199,7 +1240,7 @@ while read firstword otherwords; do
 done
 ```
 
-
+[**⋀**](#table-of-contents)  
 
 #### REFERENCES: *(that may come in handy)*
 
