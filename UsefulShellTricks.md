@@ -223,6 +223,7 @@ hci0:	Type: Primary  Bus: UART
 
 ---
 [**⋀**](#table-of-contents)
+
 ## Permission Issues When Using Redirection
 
 The `redirection` operators (**`>`** and **`>>`**) are incredibly useful tools in the shell. But, when they are used to redirect output from a command to a file requiring `root` privileges, they can leave a user scratching his head. Consider this example: 
@@ -256,7 +257,7 @@ The problem is obvious once it's explained, but the solutions may vary. The **pr
    $ printf "Houston, we have a problem!" | sudo tee /etc/issue.net > /dev/null
    ```
 
-If you're interested, this [Q&A on SO](https://stackoverflow.com/questions/82256/how-do-i-use-sudo-to-redirect-output-to-a-location-i-dont-have-permission-to-wr) has much more on this subject. 
+If you're interested, this [Q&A on SO](https://stackoverflow.com/questions/82256/how-do-i-use-sudo-to-redirect-output-to-a-location-i-dont-have-permission-to-wr) has much more on this subject.  
 [**⋀**](#table-of-contents) 
 
 ## Refresh shell configuration without restarting:
@@ -280,8 +281,10 @@ $ . ~/.bashrc             #        "
 
 >> **Note 2:** Additions and removals from `~/.bashrc` behave differently: If something is **removed** from `~/.bashrc`, this change will **not** take effect after *sourcing* `~/.bashrc` (i.e.  `. ~/.bashrc`).  
 >
->> For example: Add a function to `~/.bashrc`: `function externalip () { curl http://ipecho.net/plain; echo; }`. Now *source* it with `. ~/.profile`. You should see that the function now works in this session. Now remove the function, and then *source* it again using `. ~/.profile`. The function is still available - only restarting (log out & in), or starting a new shell session will remove it. 
+>> For example: Add a function to `~/.bashrc`: `function externalip () { curl http://ipecho.net/plain; echo; }`. Now *source* it with `. ~/.profile`. You should see that the function now works in this session. Now remove the function, and then *source* it again using `. ~/.profile`. The function is still available - only restarting (log out & in), or starting a new shell session will remove it.
+
 [**⋀**](#table-of-contents)
+
 ## Clear the contents of a file without deleting the file:
 
 ```bash
@@ -300,8 +303,10 @@ $ cp /dev/null somefile.xyz     	# any system
 $ find . -type d   # list all dirs in pwd (.)
 ```
 
-> > Note In this context the *'dot'* `.` means the `pwd` - not the [dot operator](https://ss64.com/bash/source.html) as in the [above example](#reload-bashs-profile-without-restarting-shell). 
+> > Note In this context the *'dot'* `.` means the `pwd` - not the [dot operator](https://ss64.com/bash/source.html) as in the [above example](#reload-bashs-profile-without-restarting-shell).
+
 [**⋀**](#table-of-contents)
+
 ## Pitfalls of parsing `ls`
 
 In some cases, you can *get away with* parsing and/or filtering the output of `ls`, and in other cases you cannot. I've spent an inordinate amount of time trying to filter the output of `ls` to get only hidden files - or only hidden directories. `ls` seems very *squishy* and unreliable in some instances when trying to get a specific, filtered list... [ref Wooledge](http://mywiki.wooledge.org/ParsingLs). 
@@ -313,8 +318,10 @@ I try to keep discussion on the topics here *brief*, but don't always succeed. I
 * `ls` has a *long form* (the `-l` option); the default being the *short form*. I generally favor the long form (***me*** - a *data junkie*?). To illustrate my *squishy* claim w.r.t. listing *only* hidden files, I've found these work: 
   * For the *short form*:  `ls -A | grep '^\.'`; Note the *caret* `^` operator; used to get the line beginning?
   * For the *short form*:  `ls -d1 -- \.*`; An example of *"glob patterns"* 
-  * For the *long form*:  `ls -Al | grep " \."` ;   Note the *space* in the pattern; alternative: `\s` 
-  [**⋀**](#table-of-contents)
+  * For the *long form*:  `ls -Al | grep " \."` ;   Note the *space* in the pattern; alternative: `\s`  
+
+[**⋀**](#table-of-contents)
+
 ## Sequential shell command execution:
 
 Sometimes we want to execute a series of commands, but only if all previous commands execute successfully. In this case, we should use **`&&`** to join the commands in the sequence: 
@@ -328,7 +335,8 @@ At other times we want to execute a series of commands regardless of whether or 
 ```bash
 cp /home/pi/README /home/auser; rsync -av /home/auser /mnt/BackupDrv/auser_backup/
 ```
-[**⋀**](#table-of-contents)
+[**⋀**](#table-of-contents) 
+
 ## Get a date-time stamp for a log:
 
 It's often useful to insert a date-time stamp in a log file, inserted in a string, etc. Easily done w/ `date` using [*command substitution*](https://bash.cyberciti.biz/guide/Command_substitution): 
@@ -348,7 +356,9 @@ printf '%s\n' "$(date)" >> mydatalog.txt	# newline is output
 ```
 
 There are numerous options with the `date` command. Check `man date`, or peruse this [*Lifewire* article 'How to Display the Date and Time Using Linux Command Line'](https://www.lifewire.com/display-date-time-using-linux-command-line-4032698) - it lists *all* of the format options for displaying the output of `date`. 
+
 [**⋀**](#table-of-contents)
+
 ## String manipulation with bash:
 
 It's often useful to manipulate string variables in bash. These websites have some examples: [website 1](https://www.tutorialkart.com/bash-shell-scripting/bash-string-manipulation-examples/); [website 2](https://www.thegeekstuff.com/2010/07/bash-string-manipulation/). The [Wooledge Wiki](https://mywiki.wooledge.org/BashFAQ/100#How_do_I_do_string_manipulations_in_bash.3F) is a bit more advanced, and a trove of string manipulation methods available in `bash`. [Section 10.1 of the Advanced Bash-Scripting Guide](https://tldp.org/LDP/abs/html/string-manipulation.html) is another comprehensive source of information on string manipulation. For example:
@@ -361,7 +371,8 @@ $ echo $str1$str2; echo $str1$str3
 for everything there is a reason
 for everything there is a season
 ```
-[**⋀**](#table-of-contents)
+[**⋀**](#table-of-contents) 
+
 ## Testing things in bash:
 
 Testing the equality of two strings is a common task in shell scripts. You'll need to watch your step as there are numerous ways to screw this up! Consider a few examples: 
@@ -402,8 +413,8 @@ equal
 
 So much *arcanery* here, and limited *portability*. Here are a list of references peculiar to this one small problem: [SO Q&A 1](https://stackoverflow.com/questions/3265803/bash-string-equality), [SO Q&A 2](https://stackoverflow.com/questions/2600281/what-is-the-difference-between-operator-and-in-bash/2601583#2601583), [*Linuxize*](https://linuxize.com/post/how-to-compare-strings-in-bash/), [UL Q&A 1](https://unix.stackexchange.com/questions/306111/what-is-the-difference-between-the-bash-operators-vs-vs-vs), [SO Q&A 3](https://stackoverflow.com/questions/20449543/shell-equality-operators-eq), [SO Q&A 4](https://stackoverflow.com/questions/1728683/case-insensitive-comparison-of-strings-in-shell-script). AFAIK there's no *unabridged* reference for string manipulation in `bash`, but section [**'10.1. Manipulating Strings'** of the **'Advanced Bash-Scripting Guide'**](https://tldp.org/LDP/abs/html/string-manipulation.html) comes reasonably close. And the [Other Comparison Operators](https://tldp.org/LDP/abs/html/comparison-ops.html) section from [Chap 7 of Advanced Bash-Scripting Guide](https://tldp.org/LDP/abs/html/tests.html) is not to be missed :)  
 
-Ever wonder why some `test`s use single brackets: **`[ ]`** & other use double brackets: **`[[ ]]`** ? Here's a very [succinct answer](https://stackoverflow.com/a/13542854/5395338). 
-[**⋀**](#table-of-contents)
+Ever wonder why some `test`s use single brackets: **`[ ]`** & other use double brackets: **`[[ ]]`** ? Here's a very [succinct answer](https://stackoverflow.com/a/13542854/5395338).  
+
 **What about *null strings*?**
 
 At the risk of [going overboard](https://idioms.thefreedictionary.com/go+overboard), we'll cover testing for ***null strings*** also. Know these two characters have a special meaning within a test construct for strings: 
@@ -430,8 +441,10 @@ $ [ -z "$CaptainsOrders" ] && echo 'Sound the alarm!!!' || echo "Proceed as plan
 Sound the alarm!!!
 ```
 
-You might also learn something of the difference between *single quotes* `''`, and *double quotes* `""`.
-[**⋀**](#table-of-contents)
+You might also learn something of the difference between *single quotes* `''`, and *double quotes* `""`.  
+
+[**⋀**](#table-of-contents)  
+
 ## Assign shell command output to a variable in `bash`:
 
 Sometimes you need the output of a shell command to be *persistent*; assign it to a variable for use later. This is known as [**command substitution**](https://bash.cyberciti.biz/guide/Command_substitution). Consider the case of a *tmp file* you've created. Here's how: 
