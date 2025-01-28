@@ -44,7 +44,7 @@
 * [So you want to remove `rpi-eeprom` package & save 25MB?](#want-to-remove-the-rpi-eeprom-package-to-save-25mb-tough-shit-say-the-raspberries) 
 * [How to move or copy a file without accidentally overwriting a destination file](#move-or-copy-a-file-without-accidentally-overwriting-a-destination-file) 
 * [Using `socat` to test network connections](#using-socat-to-test-network-connections) 
-* [Using `dirname` and `basename`]() 
+* [Using `dirname`, `basename` & `realpath`](#using-dirname-basename-and-realpath`) 
 * [REFERENCES:](#references) 
 
 
