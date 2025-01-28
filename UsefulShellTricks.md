@@ -42,7 +42,9 @@
 * [How to "roll back" an `apt upgrade`](#how-to-roll-back-an-apt-upgrade) (coming soon) 
 * [Should I use `scp`, or `sftp`?](#scp-vs-sftp) 
 * [So you want to remove `rpi-eeprom` package & save 25MB?](#want-to-remove-the-rpi-eeprom-package-to-save-25mb-tough-shit-say-the-raspberries) 
-* [How to move or copy a file without accidentally overwriting a destination file](#move-or-copy-a-file-without-accidentally-overwriting-a-destination-file)
+* [How to move or copy a file without accidentally overwriting a destination file](#move-or-copy-a-file-without-accidentally-overwriting-a-destination-file) 
+* [Using `socat` to test network connections](#using-socat-to-test-network-connections) 
+* [Using `dirname` and `basename`]() 
 * [REFERENCES:](#references) 
 
 
@@ -978,6 +980,7 @@ It's occasionally useful to create a program/script that runs continuously, perf
   
   And that's it.
   
+
 [**⋀**](#table-of-contents)  
 
 ## Bluetooth
@@ -1443,6 +1446,45 @@ Let's break this down:
 *  if `socat` can establish the connection (i.e. `$? = 0`), we use `break` to exit the loop 
 
 `socat` is a versatile & sophisticated tool; in this case it provides a reliable test for a network connection **before** that connection is put into use.
+
+ [**⋀**](#table-of-contents)  
+
+## Using `dirname`, `basename` & `realpath`
+
+In one sense, `dirname` and `basename` perform **opposite functions**! 
+
+-  `dirname` is said to: `strip last component from file name`
+-  `basename` is said to `strip directory <and optionally suffix> from filenames` 
+-  `realpath` is said to `print the resolved, absolute file name`
+
+For example, if you had a variable describing a full, complete, unambiguous file specification for `myfile.txt`, and you wanted just the folder name (perhaps as a destination for other files), `dirname` would give you this without grep, regex, etc: 
+
+```bash
+$ THE_FILE="/home/pi/scripts/myfile.txt"
+$ dirname "$THE_FILE"
+/home/pi/scripts
+```
+
+OTOH, if you needed only the filename (without the folder), `basename` is your ticket: 
+
+```bash
+$ THE_FILE="/home/pi/scripts/myfile.txt"
+$ basename "$THE_FILE"
+myfile.txt
+```
+
+And `realpath` serves to *"fill in the void"* between `dirname` and `basename`; for example if you are *buried* in a distant, remote folder (e.g. in the dreaded `sysfs` :) , and you need the full path of a file in that folder :
+
+```bash
+$ pwd
+/sys/class/gpio/gpiochip512
+$ realpath label
+/sys/devices/platform/soc/3f200000.gpio/gpio/gpiochip512/label
+
+# potentailly a lifesaver if you're writing a script!
+```
+
+
 
  [**⋀**](#table-of-contents)  
 
