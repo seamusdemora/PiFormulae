@@ -1449,7 +1449,7 @@ Let's break this down:
 
  [**⋀**](#table-of-contents)  
 
-## Using `dirname`, `basename` & `realpath`
+## Using `dirname`, `basename` and `realpath`
 
 In one sense, `dirname` and `basename` perform **opposite functions**! 
 
