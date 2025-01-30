@@ -70,7 +70,30 @@ dtoverlay=i2c0
 dtoverlay=i2c-sensor,i2c0,sht3x
 ```
 
-### 3. Consult the documentation for details:
+### 3. Verify connections using `i2c-tools`: 
+
+Install `i2ctools` if you don't have it installed yet:
+```bash
+$ sudo apt update
+...
+$ sudo apt install i2c-tools
+...
+$ sudo i2cdetect -y 0
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:                         -- -- -- -- -- -- -- --
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+40: -- -- -- -- UU -- -- -- -- -- -- -- -- -- -- --
+50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+70: -- -- -- -- -- -- -- --
+$
+```
+You should see the indication that the driver is loaded (`UU`), and locked on to channel `44` at `i2c0`. This indicates your wiring is correct, and you are "ready to go". If you don't see this, check your wiring, use `sudo raspi-config` to verify the I2C interface is enabled, and `reboot` (again) - and try again. 
+
+
+### 4. Consult the documentation for details:
 
 Sensiron's website is a great source for documentation on the SHT3X. You will find [application & driver software](https://sensirion.com/products/catalog/SHT30-DIS-F) here, but we will not require that for this example. 
 
@@ -111,7 +134,7 @@ lrwxrwxrwx 1 root root    0 Jun  2 21:55 subsystem -> ../../../../../../../../cl
 
 Which we see matches the [kernel documentation for the SHT3X](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html). *This must be the place!*  
 
-### 4. A "one-shot" script to see some T&H readings
+### 5. A "one-shot" script to see some T&H readings
 
 The availability of the [driver documentation](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html) and `sysfs` interface description provide for a very **straightforward** method to control the sensor, and take readings from it. This may perhaps be done most simply using a shell script to read/write the `sysfs` files. 
 
