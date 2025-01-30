@@ -51,7 +51,7 @@ Let's get into the recipe; we'll provide a **Summary** first, followed by a **de
 
 ### 1. The first step is to connect the sensor to the RPi:
 
-**Remove power from your RPi before making any wiring connections!** The schematic is simple: 2 wires for power, and two wires for I2C. **PLEASE NOTE** that I am using `i2c0` for this SHT3X connection; this due to the fact that the default `i2c1` was not in use/not available on this particular RPi 3A+. You may use any `i2cX` channel available for your RPi; simply watch out for commands including a specific reference to `i2c0`, and adjust accordingly.  
+**Remove power from your RPi before making any wiring connections!** The schematic is simple: 2 wires for power, and two wires for I2C. **PLEASE NOTE** that I am using `i2c0` for this SHT3X connection; this due to the fact that the default `i2c1` was not available on this particular RPi 3A+. You may use any `i2cX` channel available for your RPi; simply watch out for commands including a specific reference to `i2c0`, and adjust accordingly.  
 <!-- Begin schematic: In order to preserve an editable schematic, please
      don't edit this section directly.
      Click the "edit" link below the image in the preview instead. -->
@@ -90,7 +90,7 @@ $ sudo i2cdetect -y 0
 70: -- -- -- -- -- -- -- --
 $
 ```
-You should see the indication that the driver is loaded (`UU`), and locked on to channel `44` at `i2c0`. This indicates your wiring is correct, and you are "ready to go". If you don't see this, check your wiring, use `sudo raspi-config` to verify the I2C interface is enabled, and `reboot` (again) - and try again. 
+You should see the indication that the driver is loaded (`UU`), and locked on to channel `44` at `i2c0`. This indicates your wiring is correct, and you are "ready to go". If you don't see this, check your wiring, use `sudo raspi-config` to verify the I2C interface is enabled, and `reboot` (again) - and re-try. You should also be aware of the possibility that the `i2c0` interface is in use (e.g. for cameras & displays in particular)! I have used `i2c0` in this example because `i2c1` was not available. However this is not likely to be the case with your setup. ***Also recall :*** each `i2c` channel is a **"bus"** in and of itself! That means you may connect multiple devices to the same `i2c` channel as long as the `I2C Addresses` are all unique. `i2c-tools` can help you sort this out.
 
 
 ### 4. Consult the documentation for details:
@@ -132,7 +132,7 @@ lrwxrwxrwx 1 root root    0 Jun  2 21:55 subsystem -> ../../../../../../../../cl
 -rw-r--r-- 1 root root 4096 Jun  2 21:55 update_interval
 ```
 
-Which we see matches the [kernel documentation for the SHT3X](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html). *This must be the place!*  
+Which we see matches the [kernel documentation for the SHT3X](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html). *This must be the place!*  We don't actually need to interact directly with `sysfs` in this recipe; this paragraph was simply to illustrate how to find the files and folders relevant to the SHT3X in `sysfs`.
 
 ### 5. A "one-shot" script to see some T&H readings
 
