@@ -132,7 +132,7 @@ lrwxrwxrwx 1 root root    0 Jun  2 21:55 subsystem -> ../../../../../../../../cl
 -rw-r--r-- 1 root root 4096 Jun  2 21:55 update_interval
 ```
 
-Which we see matches the [kernel documentation for the SHT3X](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html). *This must be the place!*  We don't actually need to interact directly with `sysfs` in this recipe; this paragraph was simply to illustrate how to find the files and folders relevant to the SHT3X in `sysfs`.
+Which we see matches the [kernel documentation for the SHT3X](https://www.kernel.org/doc/html/latest/hwmon/sht3x.html). *This must be the place!*  The alert reader has probably noticed that we don't actually interact directly with `sysfs` in this recipe! The reason we don't is described in [this recipe](Is_udev_brain-damaged.md). I managed to avoid the pain of dealing with *ever-changing* `sysfs` folders by hacking a [`udev`](https://en.wikipedia.org/wiki/Udev) rule. This paragraph became somewhat redundant after I got the `udev` rule working, but I decided to leave it in this recipe as it may help others understand the relationship between `sysfs` and `udev`. 
 
 ### 5. A "one-shot" script to see some T&H readings
 
