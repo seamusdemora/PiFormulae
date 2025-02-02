@@ -45,6 +45,7 @@
 * [How to move or copy a file without accidentally overwriting a destination file](#move-or-copy-a-file-without-accidentally-overwriting-a-destination-file) 
 * [Using `socat` to test network connections](#using-socat-to-test-network-connections) 
 * [Using `dirname`, `basename` & `realpath`](#using-dirname-basename-and-realpath) 
+* Some examples of 'shell parameter expansion'
 * [REFERENCES:](#references) 
 
 
@@ -1483,6 +1484,48 @@ $ realpath label
 
 # potentailly a lifesaver if you're writing a script!
 ```
+
+ [**⋀**](#table-of-contents)  
+
+## Shell parameter expansion
+
+>  What's this? ... *"shell parameter expansion"* - why should I care? 
+
+This was, more or less, my attitude until I saw how it could solve a problem I created. I won't spend a huge amount of time & effort on this section - there are other sources for that. Instead, I'll cover a few of what I feel are the more interesting uses. 
+
+*  Consider a "`cron` job" scheduled from a `crontab` that resembles this: 
+
+   *  ```
+      RUN_FROM_CRON="TRUE"
+      0 12 * * * /home/user1/scriptX.sh
+      ```
+
+   *  Next, consider the executable `scriptX.sh`:
+
+   *  ```bash
+      #!/usr/bin/bash
+      set -u         # aka set -o nounset
+      ...
+      if [[ $RUN_FROM_CRON = "TRUE" ]]; then
+          LOGFILE="/mnt/NAS-server/MyShare"
+      fi
+      ...
+      # IOW, our script needs to set parameters on the basis 
+      # of whether or not it was launched by `cron`
+      ```
+
+   *  Finally, consider what happens when you run this script from the CLI (your terminal):
+
+   *  ```bash
+      $ ./scriptX.sh
+      ./scriptX.sh: line ?: RUN_FROM_CRON: unbound variable
+      ```
+
+   *  The environment variable was not inherited from `cron` because the script was not run from `cron`! Consequently, `RUN_FROM_CRON` is an "unbound variable", and it simply will not run. 
+
+*  This is bad.
+
+
 
 
 
