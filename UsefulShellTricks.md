@@ -1495,14 +1495,14 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
 
 *  Consider a "`cron` job" scheduled from a `crontab` that resembles this: 
 
-   *  ```
+     ```
       RUN_FROM_CRON="TRUE"
       0 12 * * * /home/user1/scriptX.sh
       ```
 
-   *  Next, consider the executable `scriptX.sh`:
+     Next, consider the executable `scriptX.sh`:
 
-   *  ```bash
+     ```bash
       #!/usr/bin/bash
       set -u         # aka set -o nounset
       ...
@@ -1514,14 +1514,14 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
       # of whether or not it was launched by `cron`
       ```
 
-   *  Finally, consider what happens when you run this script from the CLI (your terminal):
+     Finally, consider what happens when you run this script from the CLI (your terminal):
 
-   *  ```bash
+     ```bash
       $ ./scriptX.sh
       ./scriptX.sh: line ?: RUN_FROM_CRON: unbound variable
       ```
 
-   *  The environment variable was not inherited from `cron` because the script was not run from `cron`! Consequently, `RUN_FROM_CRON` is an "unbound variable", and it simply will not run. 
+     The environment variable was not inherited from `cron` because the script was not run from `cron`! Consequently, `RUN_FROM_CRON` is an "unbound variable", and it simply will not run. 
 
 *  This is bad.
 
