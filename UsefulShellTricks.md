@@ -1502,7 +1502,7 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
 
    *  Next, consider the executable `scriptX.sh`:
 
-     ```bash
+   *  ```bash
       #!/usr/bin/bash
       set -u         # aka set -o nounset
       ...
