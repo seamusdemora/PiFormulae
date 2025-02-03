@@ -1496,7 +1496,7 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
 *  Consider a "`cron` job" scheduled from a `crontab` that resembles this: 
 
      ```
-      RUN_FROM_CRON="TRUE"
+      RUN_BY_CRON="TRUE"
       0 12 * * * /home/user1/scriptX.sh
      ```
 
@@ -1506,7 +1506,7 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
       #!/usr/bin/bash
       set -u         # aka set -o nounset
       ...
-      if [[ $RUN_FROM_CRON = "TRUE" ]]; then
+      if [[ $RUN_BY_CRON = "TRUE" ]]; then
           LOGFILE="/mnt/NAS-server/MyShare"
       fi
       ...
@@ -1518,10 +1518,10 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
 
      ```bash
       $ ./scriptX.sh
-      ./scriptX.sh: line ?: RUN_FROM_CRON: unbound variable
+      ./scriptX.sh: line ?: RUN_BY_CRON: unbound variable
      ```
 
-     The environment variable was not inherited from `cron` because the script was not run from `cron`! Consequently, `RUN_FROM_CRON` is an "unbound variable", and the script simply will not run. 
+     The environment variable was not inherited from `cron` because the script was not run from `cron`! Consequently, `RUN_BY_CRON` is an "unbound variable", and the script simply will not run. 
 
      Here's the solution offered by shell parameter expansion:
 
@@ -1529,7 +1529,7 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
       #!/usr/bin/bash
       set -u         # aka set -o nounset
       RUN_BY_CRON="${RUN_BY_CRON-""}"        # or, RUN_BY_CRON="${RUN_BY_CRON-"FALSE"}" if you prefer!
-      if [[ $RUN_FROM_CRON = "TRUE" ]]; then
+      if [[ $RUN_BY_CRON = "TRUE" ]]; then
           LOGFILE="/mnt/NAS-server/MyShare"
       fi
       ...
