@@ -45,7 +45,7 @@
 * [How to move or copy a file without accidentally overwriting a destination file](#move-or-copy-a-file-without-accidentally-overwriting-a-destination-file) 
 * [Using `socat` to test network connections](#using-socat-to-test-network-connections) 
 * [Using `dirname`, `basename` & `realpath`](#using-dirname-basename-and-realpath) 
-* Some examples of 'shell parameter expansion'
+* [Some examples of 'shell parameter expansion'](#shell-parameter-expansion)
 * [REFERENCES:](#references) 
 
 
