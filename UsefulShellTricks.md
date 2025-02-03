@@ -1587,7 +1587,8 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
       fi
       ```
 
-     We can do this a bit more efficiently using "Parameter Expansion"; note that the expansion `${res: -2}` is equivalent to `| rev | cut -c 1-2) | rev`:
+     We can do this a bit more efficiently using "Parameter Expansion"; note that the expansion `${res: -2}` is equivalent to:
+     `| rev | cut -c 1-2) | rev`:
 
      ```bash
       #!/usr/bin/bash
