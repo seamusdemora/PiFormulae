@@ -1500,9 +1500,9 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
       0 12 * * * /home/user1/scriptX.sh
      ```
 
-   *  Next, consider the executable `scriptX.sh`:
+     Next, consider the executable `scriptX.sh`:
 
-   *  ```bash
+     ```bash
       #!/usr/bin/bash
       set -u         # aka set -o nounset
       ...
@@ -1514,18 +1514,18 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
       # of whether or not it was launched by `cron`
       ```
 
-   * Finally, consider what happens when you run this script from the CLI (your terminal):
+    Finally, consider what happens when you run this script from the CLI (your terminal):
 
      ```bash
       $ ./scriptX.sh
       ./scriptX.sh: line ?: RUN_FROM_CRON: unbound variable
      ```
 
-   *  The environment variable was not inherited from `cron` because the script was not run from `cron`! Consequently, `RUN_FROM_CRON` is an "unbound variable", and it simply will not run. 
+     The environment variable was not inherited from `cron` because the script was not run from `cron`! Consequently, `RUN_FROM_CRON` is an "unbound variable", and it simply will not run. 
 
-   *  Here's the solution offered by shell parameter expansion:
+     Here's the solution offered by shell parameter expansion:
 
-   *  ```bash
+     ```bash
       #!/usr/bin/bash
       set -u         # aka set -o nounset
       RUN_BY_CRON="${RUN_BY_CRON-""}"        # or, RUN_BY_CRON="${RUN_BY_CRON-"FALSE"}" if you prefer!
@@ -1535,17 +1535,17 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
       ...
       ```
 
-   *  PROBLEM SOLVED! As explained by the [GNU documentation](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html):
+     PROBLEM SOLVED! As explained by the [GNU documentation](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html):
 
-   *  >  **${parameter:-word}**
+     >  **${parameter:-word}**
       >
       >  If parameter is unset or null, the expansion of word is substituted.  Otherwise, the value of parameter is substituted.
       >
       >  When not performing substring expansion, using the form described [above] <s>below</s> (e.g., ‘:-’), Bash tests for a parameter that is unset ***or*** null. Omitting the colon results in a test only for a parameter that is unset. Put another way, if the colon is included, the operator tests for both parameter’s existence and that its value is not null; if the colon is omitted, the operator tests only for existence.
       
-   *  IOW, the parameter expansion allows us to set a default value for the `RUN_BY_CRON` variable. Note that in this case, it is the ***only<sup>1</sup>*** solution because setting `RUN_BY_CRON` to "FALSE" would override the environment variable passed to our script from `cron`. 
+     IOW, the parameter expansion allows us to set a default value for the `RUN_BY_CRON` variable. Note that in this case, it is the ***only<sup>1</sup>*** solution because setting `RUN_BY_CRON` to "FALSE" would override the environment variable passed to our script from `cron`. 
 
-   *  <sub>**Note 1:** OK - not the "only" solution, but certainly the "easiest"!</sub> 
+     <sub>**Note 1:** OK - not the "only" solution, but certainly the "easiest"!</sub> 
 
 *  Next consider calculating the length of a string. The *"traditional"* method for doing that is:
 
