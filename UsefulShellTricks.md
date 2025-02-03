@@ -1523,7 +1523,7 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
 
      The environment variable was not inherited from `cron` because the script was not run from `cron`! Consequently, `RUN_BY_CRON` is an "unbound variable" (aka "unset"), and the script simply will not run. 
 
-     Here's the solution offered by shell parameter expansion:
+     ***Here's the solution offered by shell parameter expansion:***
 
      ```bash
       #!/usr/bin/bash
