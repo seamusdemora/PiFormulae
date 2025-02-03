@@ -1512,7 +1512,7 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
       ...
       # IOW, our script needs to set parameters on the basis 
       # of whether or not it was launched by `cron`
-      ```
+     ```
 
     Finally, consider what happens when you run this script from the CLI (your terminal):
 
@@ -1533,7 +1533,7 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
           LOGFILE="/mnt/NAS-server/MyShare"
       fi
       ...
-      ```
+     ```
 
      **_PROBLEM SOLVED!_** As explained by the [GNU documentation](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html):
 
@@ -1542,7 +1542,7 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
       >  If parameter is unset or null, the expansion of word is substituted.  Otherwise, the value of parameter is substituted.
       >
       >  When not performing substring expansion, using the form described [above] <s>below</s> (e.g., ‘:-’), Bash tests for a parameter that is unset ***or*** null. Omitting the colon results in a test only for a parameter that is unset. Put another way, if the colon is included, the operator tests for both parameter’s existence and that its value is not null; if the colon is omitted, the operator tests only for existence.
-      
+    
      IOW, the parameter expansion allows us to set a default value for the `RUN_BY_CRON` variable. Note that in this case, it is the ***only<sup>1</sup>*** solution because setting `RUN_BY_CRON` to "FALSE" would override the environment variable passed to our script from `cron`. 
 
      <sub>**Note 1:** OK - not the "only" solution, but certainly the "easiest"!</sub> 
@@ -1553,7 +1553,7 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
       MYSTRING="0123456789"
       echo $MYSTRING | wc -c
       10
-      ```
+     ```
 
      but "Parameter Expansion" can simplify that a bit:
 
@@ -1561,9 +1561,9 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
       MYSTRING="0123456789"
       echo ${#MYSTRING}
       10
-      ```
+     ```
 
-*  Finally, consider the frequently-performed task of getting a substring (from a longer string); something we might use `grep -o` for - or perhaps more complicated as in the following example: 
+*  Finally, consider the frequently-performed task of getting a substring (from a longer string); something we might use `grep -o`, `sed`, `awk` or `cut` to accomplish - or perhaps something more complicated as in the following example: 
 
      Let's assume an application that performs a backup of an important file; e.g. a PasswordSafe database file: `mypwsafe.psafe3`. Let's further assume that we make a decision on the need to backup on the basis of the MD5 signature of the file. Let's look at how this might work: In this first code segment we calculate the MD5 signature of the file, and save the result to another file for subsequent comparison
 
@@ -1573,7 +1573,7 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
       pwdbfile="/home/mine/safes/mypwsafe.psafe3"
       # use 'md5sum' to calculate the MD5 signature & write the result to a file
       md5sum "$pwdbfile" > "/home/mine/safes/md5check.txt"
-      ```
+     ```
 
      Some time later, we will need to verify if the `pwdbfile` has been updated/changed by its user. One way to do that might be: 
 
@@ -1585,11 +1585,15 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
       if [ "$(md5sum -c "$md5vfile" | rev | cut -c 1-2) | rev" != "OK" ]; then
           # "!= OK" means the pwdbfile has been changes; therefore make a backup
       fi
-      ```
-
-     We can do this a bit more efficiently using "Parameter Expansion"; note that the expansion `${res: -2}` is equivalent to:
+      #
+     # Note the '-c' option in 'md5sum' returns a long string ending with a [non-] confirmation:
+      # '32 char MD5 hash'  'string with filename'  'OK'
+     # Confirmation of a positive match ----------> ^^
+    ```
+    
+    We can do this a bit more efficiently using "Parameter Expansion"; note that the expansion `${res: -2}` is equivalent to:
     > `| rev | cut -c 1-2) | rev`
-
+    
      ```bash
       #!/usr/bin/bash
       set -u
@@ -1598,7 +1602,7 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
       if res="$(md5sum -c "$md5vfile")" && [[ ${res: -2} != "OK" ]]; then
           # "!= OK" means the pwdbfile has been changes; therefore make a backup
       fi
-      ```
+     ```
 
 
 
