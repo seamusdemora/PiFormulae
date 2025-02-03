@@ -1521,7 +1521,7 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
       ./scriptX.sh: line ?: RUN_FROM_CRON: unbound variable
      ```
 
-     The environment variable was not inherited from `cron` because the script was not run from `cron`! Consequently, `RUN_FROM_CRON` is an "unbound variable", and it simply will not run. 
+     The environment variable was not inherited from `cron` because the script was not run from `cron`! Consequently, `RUN_FROM_CRON` is an "unbound variable", and the script simply will not run. 
 
      Here's the solution offered by shell parameter expansion:
 
@@ -1535,7 +1535,7 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
       ...
       ```
 
-     PROBLEM SOLVED! As explained by the [GNU documentation](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html):
+     **_PROBLEM SOLVED!_** As explained by the [GNU documentation](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html):
 
      >  **${parameter:-word}**
       >
