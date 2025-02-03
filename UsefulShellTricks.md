@@ -1549,15 +1549,15 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
 
 *  Next consider calculating the length of a string. The *"traditional"* method for doing that is:
 
-   *  ```bash
+     ```bash
       MYSTRING="0123456789"
       echo $MYSTRING | wc -c
       10
       ```
 
-   *  but "Parameter Expansion" can simplify that a bit:
+     but "Parameter Expansion" can simplify that a bit:
 
-   *  ```bash
+     ```bash
       MYSTRING="0123456789"
       echo ${#MYSTRING}
       10
@@ -1565,9 +1565,9 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
 
 *  Finally, consider the frequently-performed task of getting a substring (from a longer string); something we might use `grep -o` for - or perhaps more complicated as in the following example: 
 
-   *  Let's assume an application that performs a backup of an important file; e.g. a PasswordSafe database file: `mypwsafe.psafe3`. Let's further assume that we make a decision on the need to backup on the basis of the MD5 signature of the file. Let's look at how this might work: In this first code segment we calculate the MD5 signature of the file, and save the result to another file for subsequent comparison
+     Let's assume an application that performs a backup of an important file; e.g. a PasswordSafe database file: `mypwsafe.psafe3`. Let's further assume that we make a decision on the need to backup on the basis of the MD5 signature of the file. Let's look at how this might work: In this first code segment we calculate the MD5 signature of the file, and save the result to another file for subsequent comparison
 
-   *  ```bash
+     ```bash
       #!/usr/bin/bash
       set -u
       pwdbfile="/home/mine/safes/mypwsafe.psafe3"
@@ -1575,9 +1575,9 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
       md5sum "$pwdbfile" > "/home/mine/safes/md5check.txt"
       ```
 
-   *  Some time later, we will need to verify if the `pwdbfile` has been updated/changed by its user. One way to do that might be: 
+     Some time later, we will need to verify if the `pwdbfile` has been updated/changed by its user. One way to do that might be: 
 
-   *  ```bash
+     ```bash
       #!/usr/bin/bash
       set -u
       md5vfile="/home/mine/safes/md5check.txt"
@@ -1587,9 +1587,9 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
       fi
       ```
 
-   *  We can do this a bit more efficiently using "Parameter Expansion"; note that the expansion `${res: -2}` is equivalent to `| rev | cut -c 1-2) | rev`:
+     We can do this a bit more efficiently using "Parameter Expansion"; note that the expansion `${res: -2}` is equivalent to `| rev | cut -c 1-2) | rev`:
 
-   *  ```bash
+     ```bash
       #!/usr/bin/bash
       set -u
       md5vfile="/home/mine/safes/md5check.txt"
