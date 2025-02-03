@@ -3,7 +3,7 @@
 ### Table of contents
 
 * [How do I tell my system to tell me about my system: OS, Kernel, Hardware, etc](#tell-me-about-my-system) 
-* [Resolve Permission Issues When Using Redirection](#permission-Issues-when-using-redirection) 
+* [Resolve Permission Issues When Using Redirection](#permission-issues-when-using-redirection) 
 * [Reload `bash` or `zsh` `.profile` without restarting shell:](#refresh-shell-configuration-without-restarting)
 * [Clear the contents of a file without deleting the file:](#clear-the-contents-of-a-file-without-deleting-the-file) 
 * [List all directories - not files, just directories:](#list-all-directories---not-files-just-directories) 
