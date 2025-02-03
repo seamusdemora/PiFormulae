@@ -1495,10 +1495,10 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
 
 *  Consider a "`cron` job" scheduled from a `crontab` that resembles this: 
 
-   *  ```
+     ```
       RUN_FROM_CRON="TRUE"
       0 12 * * * /home/user1/scriptX.sh
-      ```
+     ```
 
    *  Next, consider the executable `scriptX.sh`:
 
@@ -1519,13 +1519,93 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
      ```bash
       $ ./scriptX.sh
       ./scriptX.sh: line ?: RUN_FROM_CRON: unbound variable
-      ```
+     ```
 
    *  The environment variable was not inherited from `cron` because the script was not run from `cron`! Consequently, `RUN_FROM_CRON` is an "unbound variable", and it simply will not run. 
 
-*  This is bad.
+   *  Here's the solution offered by shell parameter expansion:
+
+   *  ```bash
+      #!/usr/bin/bash
+      set -u         # aka set -o nounset
+      RUN_BY_CRON="${RUN_BY_CRON-""}"        # or, RUN_BY_CRON="${RUN_BY_CRON-"FALSE"}" if you prefer!
+      if [[ $RUN_FROM_CRON = "TRUE" ]]; then
+          LOGFILE="/mnt/NAS-server/MyShare"
+      fi
+      ...
+      ```
+
+   *  PROBLEM SOLVED! As explained by the [GNU documentation](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html):
+
+   *  >  **${parameter:-word}**
+      >
+      >  If parameter is unset or null, the expansion of word is substituted.  Otherwise, the value of parameter is substituted.
+      >
+      >  When not performing substring expansion, using the form described [above] <s>below</s> (e.g., ‘:-’), Bash tests for a parameter that is unset ***or*** null. Omitting the colon results in a test only for a parameter that is unset. Put another way, if the colon is included, the operator tests for both parameter’s existence and that its value is not null; if the colon is omitted, the operator tests only for existence.
+      
+   *  IOW, the parameter expansion allows us to set a default value for the `RUN_BY_CRON` variable. Note that in this case, it is the ***only<sup>1</sup>*** solution because setting `RUN_BY_CRON` to "FALSE" would override the environment variable passed to our script from `cron`. 
+
+   *  <sub>**Note 1:** OK - not the "only" solution, but certainly the "easiest"!</sub> 
+
+*  Next consider calculating the length of a string. The *"traditional"* method for doing that is:
+
+   *  ```bash
+      MYSTRING="0123456789"
+      echo $MYSTRING | wc -c
+      10
+      ```
+
+   *  but "Parameter Expansion" can simplify that a bit:
+
+   *  ```bash
+      MYSTRING="0123456789"
+      echo ${#MYSTRING}
+      10
+      ```
+
+*  Finally, consider the frequently-performed task of getting a substring (from a longer string); something we might use `grep -o` for - or perhaps more complicated as in the following example: 
+
+   *  Let's assume an application that performs a backup of an important file; e.g. a PasswordSafe database file: `mypwsafe.psafe3`. Let's further assume that we make a decision on the need to backup on the basis of the MD5 signature of the file. Let's look at how this might work: In this first code segment we calculate the MD5 signature of the file, and save the result to another file for subsequent comparison
+
+   *  ```bash
+      #!/usr/bin/bash
+      set -u
+      pwdbfile="/home/mine/safes/mypwsafe.psafe3"
+      # use 'md5sum' to calculate the MD5 signature & write the result to a file
+      md5sum "$pwdbfile" > "/home/mine/safes/md5check.txt"
+      ```
+
+   *  Some time later, we will need to verify if the `pwdbfile` has been updated/changed by its user. One way to do that might be: 
+
+   *  ```bash
+      #!/usr/bin/bash
+      set -u
+      md5vfile="/home/mine/safes/md5check.txt"
+      pwdbfile="/home/mine/safes/mypwsafe.psafe3"
+      if [ "$(md5sum -c "$md5vfile" | rev | cut -c 1-2) | rev" != "OK" ]; then
+          # "!= OK" means the pwdbfile has been changes; therefore make a backup
+      fi
+      ```
+
+   *  We can do this a bit more efficiently using "Parameter Expansion"; note that the expansion `${res: -2}` is equivalent to `| rev | cut -c 1-2) | rev`:
+
+   *  ```bash
+      #!/usr/bin/bash
+      set -u
+      md5vfile="/home/mine/safes/md5check.txt"
+      pwdbfile="/home/mine/safes/mypwsafe.psafe3"
+      if res="$(md5sum -c "$md5vfile")" && [[ ${res: -2} != "OK" ]]; then
+          # "!= OK" means the pwdbfile has been changes; therefore make a backup
+      fi
+      ```
 
 
+
+
+I'll close with a couple of References:
+
+-  The GNU `bash` documentation on [shell parameter expansion](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html) 
+-  A blog from 'LinuxConfig' on [shell parameter expansion](https://linuxconfig.org/introduction-to-bash-shell-parameter-expansions).  
 
 
 
@@ -1682,6 +1762,8 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
 14. [Wooledge on "Why you shouldn't parse the output of ls(1)"](http://mywiki.wooledge.org/ParsingLs) 
 15. [Listing with `ls` and regular expression](https://unix.stackexchange.com/questions/44754/listing-with-ls-and-regular-expression) - related to the *Wooledge* reference above.
 16. [Q&A: How can I change the date modified/created of a file?](https://askubuntu.com/questions/62492/how-can-i-change-the-date-modified-created-of-a-file) 
+17. [GNU `bash` documentation on shell parameter expansion](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html) 
+18. [A blog post on shell parameter expansion from 'LinuxConfig.org'](https://linuxconfig.org/introduction-to-bash-shell-parameter-expansions) 
 
 
 
