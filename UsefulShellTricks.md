@@ -1587,7 +1587,7 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
       fi
       #
      # Note the '-c' option in 'md5sum' returns a long string ending with a [non-] confirmation:
-      # '32 char MD5 hash'  'string with filename'  'OK'
+     # '32 char MD5 hash'  'string with filename'  'OK'
      # Confirmation of a positive match ----------> ^^
     ```
     
