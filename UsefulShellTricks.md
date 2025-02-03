@@ -1521,7 +1521,7 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
       ./scriptX.sh: line ?: RUN_BY_CRON: unbound variable
      ```
 
-     The environment variable was not inherited from `cron` because the script was not run from `cron`! Consequently, `RUN_BY_CRON` is an "unbound variable", and the script simply will not run. 
+     The environment variable was not inherited from `cron` because the script was not run from `cron`! Consequently, `RUN_BY_CRON` is an "unbound variable" (aka "unset"), and the script simply will not run. 
 
      Here's the solution offered by shell parameter expansion:
 
