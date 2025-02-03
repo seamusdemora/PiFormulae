@@ -1586,9 +1586,9 @@ This was, more or less, my attitude until I saw how it could solve a problem I c
           # "!= OK" means the pwdbfile has been changes; therefore make a backup
       fi
       #
-     # Note the '-c' option in 'md5sum' returns a long string ending with a [non-] confirmation:
-     # '32 char MD5 hash'  'string with filename'  'OK'
-     # Confirmation of a positive match ----------> ^^
+      # Note the '-c' option in 'md5sum' returns a long string ending with a [non-] confirmation:
+      # '32 char MD5 hash'  'string with filename'  'OK'
+      # Confirmation of a positive match ----------> ^^
     ```
     
     We can do this a bit more efficiently using "Parameter Expansion"; note that the expansion `${res: -2}` is equivalent to:
