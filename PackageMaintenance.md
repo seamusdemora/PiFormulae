@@ -128,8 +128,18 @@ The following lists of `apt` and `apt-get` commands is not intended to be a comp
 </tr>
 
 <tr>
-<td> </td>
-<td> </td>
+<td width="30%"> <b><code>sudo apt-mark hold <package-name></code></b></td>
+<td width="70%"> hold is used to mark a package as ***on hold***, preventing the package from being automatically installed, upgraded or removed.</td>
+</tr>
+
+<tr>
+<td width="30%"> <b><code>sudo apt-mark unhold <package-name></code></b></td>
+<td width="70%"> ***removes*** the ***hold*** status on the package (a reversal of hold).</td>
+</tr>
+
+<tr>
+<td width="30%"> <b><code>sudo apt-mark showhold <package-name></code></b></td>
+<td width="70%"> ***lists*** the packages on hold.</td>
 </tr>
 
 <tr>
