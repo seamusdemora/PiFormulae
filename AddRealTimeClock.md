@@ -147,9 +147,9 @@ System clock synchronized: yes
         RTC in local TZ: no
    ```
       
-18. That concludes the basic configuration of the realtime clock. It will work silently for the most part. If you wish to verify this, disconnect the RPi from the network, or disable the RPi's timekeeping daemon.
+17. That concludes the basic configuration of the realtime clock. It will work silently for the most part. If you wish to verify this, disconnect the RPi from the network, or disable the RPi's timekeeping daemon.
 
-19. ***OPTIONAL:*** Move your RTC from **I2C channel 1** to **I2C channel 0** - [here's how](https://github.com/seamusdemora/PiFormulae/blob/master/MoveRTCfromI2C1-to-I2C0.md). The following section on RTC usage for Power Control assumes that **I2C0** is being used, but if you prefer/need to use **I2C1** you may alter the next step instead. 
+18. ***OPTIONAL:*** Move your RTC from **I2C channel 1** to **I2C channel 0** - [here's how](https://github.com/seamusdemora/PiFormulae/blob/master/MoveRTCfromI2C1-to-I2C0.md). The following section on RTC usage for Power Control assumes that **I2C0** is being used, but if you prefer/need to use **I2C1** you may alter the next step instead. 
 
 
 ## RTC for Power Control 
