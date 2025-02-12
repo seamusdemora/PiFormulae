@@ -45,7 +45,8 @@
 * [How to move or copy a file without accidentally overwriting a destination file](#move-or-copy-a-file-without-accidentally-overwriting-a-destination-file) 
 * [Using `socat` to test network connections](#using-socat-to-test-network-connections) 
 * [Using `dirname`, `basename` & `realpath`](#using-dirname-basename-and-realpath) 
-* [Some examples of 'shell parameter expansion'](#shell-parameter-expansion)
+* ['shell parameter expansion' examples](#shell-parameter-expansion) 
+* [Comment an entire block of code in a shell script](#comment-an-entire-block-of-code)
 * [REFERENCES:](#references) 
 
 
@@ -1612,7 +1613,34 @@ I'll close with a couple of References:
 -  The GNU `bash` documentation on [shell parameter expansion](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html) 
 -  A blog from 'LinuxConfig' on [shell parameter expansion](https://linuxconfig.org/introduction-to-bash-shell-parameter-expansions).  
 
+ [**⋀**](#table-of-contents)  
 
+## Comment an entire block of code
+
+If you are working on a script, and you need to ***"comment out"*** more than 2 or 3 lines of code, the example below provides a quick and easy way to do that: 
+
+```bash
+#!/usr/bin/bash
+echo "last line before comment block"
+: <<'COMMENT'
+	# code you don't want to execute follows:
+	if [[ $var != "someval"]]; then
+		echo "burn it down"
+		rm *
+	fi
+	... and on, and on, and on ...
+	# final line to be excluded
+COMMENT
+echo "first line after comment block"
+```
+
+Take careful note: 
+
+*  The ***commented-out block*** begins with: **`: <<'COMMENT'`** and ends with **`COMMENT`**. 
+*  The "key word" **`COMMENT`** can be any word, **but** must not appear anywhere else in the file! 
+*  This works with `bash`; does not work with `zsh`; untested in other shells. 
+
+This is one of several clever (and some not-so-clever) methods described in [this Q&A](https://stackoverflow.com/questions/947897/block-comments-in-a-shell-script). 
 
  [**⋀**](#table-of-contents)  
 
