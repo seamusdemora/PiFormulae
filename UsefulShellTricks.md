@@ -1419,9 +1419,9 @@ The `-b, --backup` option is (AFAIK) available only in GNU's coreutils versions 
 
 ## Using `socat` to test network connections
 
-This is a rather simple-minded application of the rather sophisticated utility called `socat`. In the context of this recipe, *testing a network connection* means that we wish to verify that a network connection is available before we actually use it. You might wonder, "How could that be useful?"... and that's a fair question. I'll answer with an example: 
+This is a rather simple-minded application of the rather sophisticated utility called [`socat`](http://www.dest-unreach.org/). In the context of this recipe, *testing a network connection* means that we wish to verify that a network connection is available before we actually use it. You might wonder, "How could that be useful?"... and that's a fair question. I'll answer with an example: 
 
-Example: Verify a NAS file server is online before starting a local process
+Example: Verify a NAS file server is online before starting a local process.
 
 Let's say that we have a `cron` job named `loggit.sh` scheduled to run `@reboot` on HOST1. `loggit.sh` reads data from a number of sensors, and logs that data to the NAS_SMB_SRVR. HOST1 and  NAS_SMB_SRVR are connected over our local network. And so, before HOST1 begins writing the sensor data to NAS_SMB_SRVR, we want to ensure that the network connection between them is operational. 
 
