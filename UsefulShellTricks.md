@@ -47,7 +47,7 @@
 * [Using `dirname`, `basename` & `realpath`](#using-dirname-basename-and-realpath) 
 * ['shell parameter expansion' examples](#shell-parameter-expansion) 
 * [Comment an entire block of code in a shell script](#comment-an-entire-block-of-code) 
-* [Disable CPU cores for power saving](#disable-cpi-cores-for-power-saving) 
+* [Disable CPU cores for power saving](#disable-cpu-cores-for-power-saving) 
 * [REFERENCES:](#references) 
 
 
