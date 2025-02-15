@@ -46,7 +46,8 @@
 * [Using `socat` to test network connections](#using-socat-to-test-network-connections) 
 * [Using `dirname`, `basename` & `realpath`](#using-dirname-basename-and-realpath) 
 * ['shell parameter expansion' examples](#shell-parameter-expansion) 
-* [Comment an entire block of code in a shell script](#comment-an-entire-block-of-code)
+* [Comment an entire block of code in a shell script](#comment-an-entire-block-of-code) 
+* [Disable CPU cores for power saving](#disable-cpi-cores-for-power-saving) 
 * [REFERENCES:](#references) 
 
 
@@ -1643,6 +1644,25 @@ Take careful note:
 This is one of several clever (and some not-so-clever) methods described in [this Q&A](https://stackoverflow.com/questions/947897/block-comments-in-a-shell-script). 
 
  [**⋀**](#table-of-contents)  
+
+## Disable CPU cores for power saving
+
+This will be a *quickie* :)  I'm using a Pi Zero 2W for an off-grid project. I don't need the 4-core CPU, and I can't afford the extra power consumption, so I needed a way to disable some of the cores. That's pretty easy to do as it turns out: 
+
+```bash
+$ sudo nano /boot/firmware/cmdline.txt		# open file for editing, and then make one change:
+
+FROM:
+console=serial0,115200 console=tty1 root=PARTUUID=....
+TO: 
+console=serial0,115200 console=tty1 maxcpus=1 root=PARTUUID= 
+
+$ sudo reboot
+```
+
+Of course this is completely reversible if you need more *"horsepower"* from the CPU; just remove the `maxcpus=X` item from `cmdline.txt`. 
+
+ [**⋀**](#table-of-contents) 
 
 
 
