@@ -48,6 +48,7 @@
 * ['shell parameter expansion' examples](#shell-parameter-expansion) 
 * [Comment an entire block of code in a shell script](#comment-an-entire-block-of-code) 
 * [Disable CPU cores for power saving](#disable-cpu-cores-for-power-saving) 
+* [What is my "Kernel Configuration"?](#what-is-my-kernel-configuration)
 * [REFERENCES:](#references) 
 
 
@@ -1663,6 +1664,89 @@ $ sudo reboot
 Of course this is completely reversible if you need more *"horsepower"* from the CPU; just remove the `maxcpus=X` item from `cmdline.txt`. 
 
  [**⋀**](#table-of-contents) 
+
+## What is my "*Kernel Configuration*"?
+
+Occasionally, you will need to know how your Linux kernel is "configured"; i.e. with what ***options*** was your kernel compiled? These options are defined by variables that *look like* environment variables - but they are not *environment variables* - at least not in the sense of `printenv`. I ran across [this informative post](https://www.baeldung.com/linux/kernel-config) recently, and finally learned how to answer that question. 
+
+As it turns out, for Raspberry Pi kernels at least, there may be only one way to learn *"how was my kernel configured?"*. **For example**, I wanted to know if my kernel had been compiled with the `CONFIG_RTC_SYSTOHC` variable; [this variable](https://www.thegoodpenguin.co.uk/blog/keeping-track-of-time-with-systemd/) instructs the kernel to update the RTC time from the system time at [11 minute intervals](https://github.com/torvalds/linux/blob/v5.16-rc2/kernel/time/ntp.c#L501). I *reasoned* that this variable was set on the RPi5 (which now includes a hardware RTC), but was completely uncertain as to whether it was set on systems having an *after-market* RTC added. 
+
+```bash
+$ cat /boot/config-$(uname -r) | grep -i CONFIG_RTC_SYSTOHC
+ --
+CONFIG_RTC_SYSTOHC=y
+CONFIG_RTC_SYSTOHC_DEVICE="rtc0"
+```
+
+   <sub>As it ***turns out***, this option is apparently set on all RPi kernels. One wonders about the ramifications, but I'll not bother further with that here.</sub>  
+
+Of course this command will ferret out any kernel configuration option; it's not limited to any option(s) in particular. 
+
+
+
+ [**⋀**](#table-of-contents) 
+
+<!---
+
+## What about my RTC settings and `timedatectl`?
+
+[REF: previous post](#what-is-my-kernel-configuration)... I couldn't resist digging into this a bit deeper :)  I wondered if the *'Kernel Configuration'* option (`CONFIG_RTC_SYSTOHC`) was actually acted upon by the kernel? So - I did this:
+
+```bash
+$ dmesg | grep "system clock"
+
+# and learned the result depends upon a setting in 'config.txt'; i.e. 'dtparam=rtc'
+# if you are running a box stock RPi5, you will get this response: 
+[    1.593066] rpi-rtc soc:rpi_rtc: setting system clock to 2025-02-15T23:17:45 UTC (1739661465)
+
+# if OTOH you are running on any RPi model (other than RPi5), you get a null response!
+```
+
+Before we ponder this result any further, let's take a look inside our **RPi5**'s  `/dev` folder:
+
+```bash
+$ ls -l /dev | grep rtc
+lrwxrwxrwx 1 root root           4 Feb 14 01:20 rtc -> rtc0
+crw------- 1 root root    252,   0 Feb 14 01:20 rtc0
+```
+
+The RTC that *"The Raspberries"* included in the RPi5 was not a particularly good one ("good" being a DS3231 or RV3028). My systems are sometimes shut down for weeks (even months) at a time, and initializing the system clock to a "long ago" setting in a mediocre RTC doesn't strike me as *very smart*. Consequently, I installed an [RV3028](https://www.microcrystal.com/en/products/real-time-clock-rtc-modules/rv-3028-c7) in my RPi5 (iaw [this recipe](https://github.com/seamusdemora/PiFormulae/blob/master/AddRealTimeClock.md)). After doing this, I checked the `/dev` folder again: 
+
+```bash
+$ ls -l /dev | grep rtc
+lrwxrwxrwx 1 root root           4 Feb 15 23:17 rtc -> rtc0
+crw------- 1 root root    252,   0 Feb 15 23:17 rtc0
+crw------- 1 root root    252,   1 Feb 15 23:17 rtc1
+```
+
+Not *unexpected*, but it does raise questions... like, *"which RTC is `dmesg` telling me about??"*. Trying to read the *hieroglyphics* is *dicey*, but I'll guess that `rtc0` is the *mediocre RTC supplied by "The Raspberries"*. If that's the case, it makes it quite difficult (impossible?) to have the RPi5 use the more accurate of the two RTCs connected to the system!  
+
+Let's [get off the reservation](https://idioms.thefreedictionary.com/off+the+reservation) for a bit, and try an ***experiment***. I've got a `RPi Zero 2W` (no *Raspberry-supplied RTC*) that I use for an "off-grid" project. I've connected a DS3231 RTC via I2C. The applicable line from `config.txt` is as follows: 
+
+```
+dtoverlay=i2c-rtc,ds3231,i2c0,addr=0x68,wakeup-source
+```
+
+Let's make sure nothing shows up in `dmesg` re "system clock":
+
+```bash
+$ dmesg | grep "system clock"
+[   21.309684] rtc-ds1307 0-0068: setting system clock to 2025-02-16T01:52:09 UTC (1739670729)
+```
+
+***Huh !?!?*** I have no `ds1307` clock in my system! Furthermore, the following line appears in my `/boot/firmware/overlays/README` file: 
+
+```
+[ The ds1307-rtc overlay has been deleted. See i2c-rtc. ]
+```
+
+That's all about as [clear as mud](https://idioms.thefreedictionary.com/clear+as+mud). Why is the kernel's `dmesg` output proclaiming the system clock has been updated by an RTC whose overlay has been deleted? Let's not waste any more time wondering about this incompetence. 
+
+
+
+ [**⋀**](#table-of-contents) 
+
+-->
 
 
 
