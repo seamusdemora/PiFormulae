@@ -1702,6 +1702,7 @@ $ dmesg | grep "system clock"
 # if the system does not have an RTC, the response will be 'null'
 # if the system does have an RTC, and its connected, the response will be as follows: 
 
+$ dmesg | grep "system clock"
 [   21.377058] rtc-ds1307 0-0068: setting system clock to 2025-02-16T02:09:01 UTC (1739671741)
 ```
 
@@ -1717,7 +1718,7 @@ and this line in my `/boot/firmware/config.txt` file for the RPi Zero 2W:
     dtoverlay=i2c-rtc,ds3231,i2c0,addr=0x68,wakeup-source
 ```
 
-Note however that the 2nd `dmesg` output string from above includes: `rtc-ds1307 0-0068`.  The `0` corresponds to the configured I2C bus, and the `0068` corresponds to the I2C address in use. This is definitely a misleading message, but probably reflects only a *"minor goof"*; i.e. something out-of-date, or overlooked. 
+Note however that the 2nd `dmesg` output string from above includes: `rtc-ds1307 0-0068`.  The **`0`** corresponds to the configured I2C bus, and the **`0068`** corresponds to the I2C address in use. This is definitely a misleading message, but probably reflects only a *"minor goof"*; i.e. something out-of-date, or overlooked. 
 
 But before we move on, let's take another look at the **RPi5**:
 
@@ -1730,8 +1731,29 @@ $ dmesg | grep "system clock"
 $ ls -l /dev | grep rtc
 lrwxrwxrwx 1 root root           4 Feb 15 23:17 rtc -> rtc0
 crw------- 1 root root    252,   0 Feb 15 23:17 rtc0
-crw------- 1 root root    252,   1 Feb 15 23:17 rtc1
+crw------- 1 root root    252,   1 Feb 15 23:17 rtc1 
+
+$ cat /boot/config-$(uname -r) | grep -i CONFIG_RTC_SYSTOHC
+CONFIG_RTC_SYSTOHC=y
+CONFIG_RTC_SYSTOHC_DEVICE="rtc0"
 ```
+
+But this [does not add up](https://idioms.thefreedictionary.com/add+up) - the `dmesg` output is the same as it was before the RV3028 was installed!!
+
+This is further confirmed as follows:
+
+```bash 
+$ sudo find /sys -type d -iname "*rtc*"
+...
+/sys/devices/platform/axi/1000120000.pcie/1f00074000.i2c/i2c-1/1-0052/rtc/rtc1
+...
+$ cat /sys/devices/platform/axi/1000120000.pcie/1f00074000.i2c/i2c-1/1-0052/rtc/rtc1/name
+rtc-rv3028 1-0052
+```
+
+And so, it appears that as long as the RV3028 is `/dev/rtc1`, it will not be used to update the system clock **:(**   This may be a job for `udev`?
+
+
 
 Not *unexpected*, but it does raise questions... like, *"which RTC is `dmesg` telling me about??"*. Trying to read the *hieroglyphics* is *dicey*, but I'll guess that `rtc0` is the *mediocre RTC supplied by "The Raspberries"*. If that's the case, it makes it quite difficult (impossible?) to have the RPi5 use the more accurate of the two RTCs connected to the system!  
 
