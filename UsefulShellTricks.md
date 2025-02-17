@@ -1685,22 +1685,20 @@ And of course this command will ferret out any kernel configuration option; it's
 
  [**⋀**](#table-of-contents) 
 
-<!---
-
 ## What about my RTC settings and `timedatectl`?
 
 [REF: previous post](#what-is-my-kernel-configuration)... I couldn't resist digging into this a bit deeper :)  I wondered if the *'Kernel Configuration'* option (`CONFIG_RTC_SYSTOHC`) was actually acted upon by the kernel? 
 
 ```bash
+# if your system is RPi5, you will get this response: 
+# ^^^^^^^^^^^^^^^^^^^^^^
 $ dmesg | grep "system clock"
-
-# and learned the result depends upon a setting in 'config.txt'; i.e. 'dtparam=rtc'
-# if you are running a box stock RPi5, you will get this response: 
 [    1.593066] rpi-rtc soc:rpi_rtc: setting system clock to 2025-02-15T23:17:45 UTC (1739661465)
 
-# if OTOH you are running on any RPi model - other than RPi5 - you willget a different response:
-# if the system does not have an RTC, the response will be 'null'
-# if the system does have an RTC, and its connected, the response will be as follows: 
+# if your system is NOT RPi5, you will get a different response:
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^
+# if your system does not have an RTC, the response will be 'null'
+# if the system does have an RTC, you will get this response: 
 
 $ dmesg | grep "system clock"
 [   21.377058] rtc-ds1307 0-0068: setting system clock to 2025-02-16T02:09:01 UTC (1739671741)
@@ -1712,13 +1710,27 @@ $ dmesg | grep "system clock"
     [ The ds1307-rtc overlay has been deleted. See i2c-rtc. ]
 ```
 
-and this line in my `/boot/firmware/config.txt` file for the RPi Zero 2W:
+and this line is in my `/boot/firmware/config.txt` file for the RPi Zero 2W:
 
 ```
     dtoverlay=i2c-rtc,ds3231,i2c0,addr=0x68,wakeup-source
 ```
 
-Note however that the 2nd `dmesg` output string from above includes: `rtc-ds1307 0-0068`.  The **`0`** corresponds to the configured I2C bus, and the **`0068`** corresponds to the I2C address in use. This is definitely a misleading message, but probably reflects only a *"minor goof"*; i.e. something out-of-date, or overlooked. 
+>####  Question: So - what happened? Why is a ds1307 RTC reported?
+
+>#### Answer: Linux/RPi Incompetence and/or lack of coordination.
+
+Note carefully that the 2nd (bogus) `dmesg` output string from above includes: `rtc-ds1307 0-0068`.  The **`0`** corresponds to the configured I2C bus, and the **`0068`** corresponds to the I2C address in use. This is definitely a misleading message, but likely reflects only a *"minor goof"*; i.e. something out-of-date, or overlooked. 
+
+>  #### In conclusion then:
+
+While the story is not as clean as we might like it, the `dmesg` output(s) above confirm that ***the 'Kernel Configuration' option is in fact acted upon by the kernel***!
+
+One other comment before closing this: As noted previously, the **RPi 5** has an in-built RTC, *but it's not a particularly accurate unit*. The only specification I could find appeared in this [RPi forum post](https://forums.raspberrypi.com/viewtopic.php?t=356991#p2139525), and was given as ***"50 ppm typical"***. Compare this figure to the [DS3231 RTC spec](https://www.analog.com/media/en/technical-documentation/data-sheets/DS3231.pdf) of: 2 ppm, or the [RV-3028 RTC](https://www.microcrystal.com/fileadmin/Media/Products/RTC/Datasheet/RV-3028-C7.pdf): 1 ppm. This is quite a difference in specifications! I've decided to post a "recipe" for replacing the Pi 5's in-built RTC with an RV-3028 - look for it soon! 
+
+ [**⋀**](#table-of-contents) 
+
+<!---
 
 But before we move on, let's take another look at the **RPi5**:
 
@@ -1751,9 +1763,15 @@ $ cat /sys/devices/platform/axi/1000120000.pcie/1f00074000.i2c/i2c-1/1-0052/rtc/
 rtc-rv3028 1-0052
 ```
 
-And so, it appears that as long as the RV3028 is `/dev/rtc1`, it will not be used to update the system clock **:(**   This may be a job for `udev`?
+And so, it appears that as long as the RV3028 is `/dev/rtc1`, it will not be used to update the system clock **:(**   This sounds like a job for `udev`...
 
+```bash
+$ udevadm info -a -p /sys/class/rtc/rtc1 | grep "ATTR{name}"
+    ATTR{name}=="rtc-rv3028 1-0052"
+$ 
+```
 
+------------------
 
 Not *unexpected*, but it does raise questions... like, *"which RTC is `dmesg` telling me about??"*. Trying to read the *hieroglyphics* is *dicey*, but I'll guess that `rtc0` is the *mediocre RTC supplied by "The Raspberries"*. If that's the case, it makes it quite difficult (impossible?) to have the RPi5 use the more accurate of the two RTCs connected to the system!  
 
@@ -1779,10 +1797,6 @@ $ ls -l /dev | grep rtc
 lrwxrwxrwx 1 root root           4 Feb 14 01:20 rtc -> rtc0
 crw------- 1 root root    252,   0 Feb 14 01:20 rtc0
 ```
-
-
-
- [**⋀**](#table-of-contents) 
 
 -->
 
