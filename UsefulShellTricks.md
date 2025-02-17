@@ -49,6 +49,7 @@
 * [Comment an entire block of code in a shell script](#comment-an-entire-block-of-code) 
 * [Disable CPU cores for power saving](#disable-cpu-cores-for-power-saving) 
 * [What is my "Kernel Configuration"?](#what-is-my-kernel-configuration)
+* [Is my system clock being updated properly?](#what-about-my-rtc-settings-and-timedatectl)
 * [REFERENCES:](#references) 
 
 
