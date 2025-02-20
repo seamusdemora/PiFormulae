@@ -1670,19 +1670,21 @@ Of course this is completely reversible if you need more *"horsepower"* from the
 
 Occasionally, you will need to know how your Linux kernel is "configured"; i.e. with what ***options*** was your kernel compiled? These options are defined by variables that *look like* environment variables - but they are not *environment variables* - at least not in the sense of `printenv`. I ran across [this informative post](https://www.baeldung.com/linux/kernel-config) recently, and finally learned how to answer that question. 
 
-As it turns out, for Raspberry Pi kernels at least, there may be only one way to learn *"how was my kernel configured?"*. **For example**, I wanted to know if my kernel had been compiled with the `CONFIG_RTC_SYSTOHC` variable; [this variable](https://www.thegoodpenguin.co.uk/blog/keeping-track-of-time-with-systemd/) instructs the kernel to update the RTC time from the system time at [11 minute intervals](https://github.com/torvalds/linux/blob/v5.16-rc2/kernel/time/ntp.c#L501). I *reasoned* that this variable was set on the RPi5 (which now includes a hardware RTC), but was completely uncertain as to whether it was set on systems having an *after-market* RTC added. 
+As it turns out, for Raspberry Pi 'bookworm' kernels at least, there may be only one way to learn *"how was my kernel configured?"*. **For example**, I wanted to know if my kernel had been compiled with the `CONFIG_RTC_SYSTOHC` variable; [this variable](https://www.thegoodpenguin.co.uk/blog/keeping-track-of-time-with-systemd/) instructs the kernel to update the RTC (*hardware clock*) time from the system time at [11 minute intervals](https://github.com/torvalds/linux/blob/v5.16-rc2/kernel/time/ntp.c#L501). I *reasoned* that this variable was set on the RPi5 (which now includes a hardware RTC), but was completely uncertain as to whether it was set on systems having an *after-market* RTC added. 
 
 ```bash
 $ cat /boot/config-$(uname -r) | grep -i CONFIG_RTC_SYSTOHC
  --
 CONFIG_RTC_SYSTOHC=y
 CONFIG_RTC_SYSTOHC_DEVICE="rtc0" 
+# As it turns out, this option is set on all RPi; whether they have an RTC installed or not. 
 
-# As it turns out, this option is set on all RPi that have a RTC installed. 
-# For those that do not have a RTC installed, the output of this command is null
+# If you want to know how many kernel config variables there are; this will give an estimate:
+
+$ cat /boot/config-$(uname -r) | grep -vc ^$ 
 ```
 
-And of course this command will ferret out any kernel configuration option; it's not limited to any option(s) in particular. 
+And of course this command will ferret out any kernel configuration option; it's not limited to any option(s) in particular. You can browse *all of them* by piping the `cat` output to `less` instead of `grep`. 
 
  [**⋀**](#table-of-contents) 
 
@@ -1699,7 +1701,8 @@ $ dmesg | grep "system clock"
 # if your system is NOT RPi5, you will get a different response:
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^
 # if your system does not have an RTC, the response will be 'null'
-# if the system does have an RTC, you will get this response: 
+# if the system does have an RTC, you will get a different response -
+# in this case from a RPi 3A+: 
 
 $ dmesg | grep "system clock"
 [   21.377058] rtc-ds1307 0-0068: setting system clock to 2025-02-16T02:09:01 UTC (1739671741)
@@ -1719,9 +1722,11 @@ and this line is in my `/boot/firmware/config.txt` file for the RPi Zero 2W:
 
 >####  Question: So - what happened? Why is a ds1307 RTC reported?
 
->#### Answer: Linux/RPi Incompetence and/or lack of coordination.
+>#### Answer: Linux/RPi Incompetence, lack of coordination, laziness or ...
 
-Note carefully that the 2nd (bogus) `dmesg` output string from above includes: `rtc-ds1307 0-0068`.  The **`0`** corresponds to the configured I2C bus, and the **`0068`** corresponds to the I2C address in use. This is definitely a misleading message, but likely reflects only a *"minor goof"*; i.e. something out-of-date, or overlooked. 
+Note carefully that the 2nd `dmesg` output string from above includes: `rtc-ds1307 0-0068`.  The **`0`** corresponds to the configured I2C bus, and the **`0068`** corresponds to the I2C address in use. This is definitely a misleading message, but likely reflects only a *"minor goof"*; i.e. something out-of-date, or overlooked. 
+
+<sub>Post script: According to a linux maintainer, `ds1307` is the ***driver name*** for several RTCs that were once built by ***D**allas **S**emiconductor*.</sub> 
 
 >  #### In conclusion then:
 
