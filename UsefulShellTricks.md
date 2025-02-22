@@ -1724,7 +1724,7 @@ and this line is in my `/boot/firmware/config.txt` file for the RPi Zero 2W:
 
 >#### Answer: Linux/RPi Incompetence, lack of coordination, laziness or ...
 
-Note carefully that the 2nd `dmesg` output string from above includes: `rtc-ds1307 0-0068`.  The **`0`** corresponds to the configured I2C bus, and the **`0068`** corresponds to the I2C address in use. This is definitely a misleading message, but likely reflects only a *"minor goof"*; i.e. something out-of-date, or overlooked. 
+Note carefully that the 2nd `dmesg` output string from above includes: `rtc-ds1307 0-0068`.  The **`0`** corresponds to the configured I2C bus, and the **`0068`** corresponds to the I2C address in use. This message is as [clear as mud](https://idioms.thefreedictionary.com/clear+as+mud), but if we look closelylikely reflects only a *"minor goof"*; i.e. something out-of-date, or overlooked. 
 
 <sub>Post script: According to a linux maintainer, `ds1307` is the ***driver name*** for several RTCs that were once built by ***D**allas **S**emiconductor*.</sub> 
 
