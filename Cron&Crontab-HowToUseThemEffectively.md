@@ -15,11 +15,11 @@ Let's get started; we'll begin with the **single most frequently asked question*
 
 ## #1 `cron` FAQ: Why does my crontab not work?
 
-### Answer: `cron` is simple in some respects, but enigmatic in others.
+### **The "Generic Answer"** to this question: **_`cron` is simple in some respects, but enigmatic in others._**
 
-I would say that there are three (3) primary factors that confuse users:
+I would say that there are <s>three (3)</s> four (4) primary factors that confuse users:
 
-#### Factor #1: the "environment" is different.
+### Factor #1: the "environment" is different.
 
 *In Linux, ["the environment"](https://www.tutorialspoint.com/unix/unix-environment.htm) is defined by a collection of variables. When you run a "job" (a command or a script) under `cron` your job will run in a **different** **environment** than it does when you run it from (for example) your interactive shell (e.g. `bash`).* This is important - read it again!  
 
@@ -53,7 +53,7 @@ I would say that there are three (3) primary factors that confuse users:
 
 - If you've been paying attention, you should now be asking, *"But how do I know what the environment is in `cron`?"*. That's a great question! - and there's a great answer: *"Ask `cron` to tell you what its environment is!"*...  [here's how to ask](#what-is-the-cron-environment). 
 
-#### Factor #2: `cron` has no awareness of the state of other system services.
+### Factor #2: `cron` has no awareness of the state of other system services.
 
 This is typically only an issue when using the `@reboot` scheduling facility in `cron/crontab`. As an example, consider a `cron` job that requires network services, and is scheduled `@reboot`. Those required network services *may or may not* have been started by `systemd` when `cron` starts, and so attempts to run its *network-dependent* `@reboot` job(s) *may or may not* be successful. 
 
@@ -77,14 +77,9 @@ FWIW: I asked a [Question on SE a few years ago, effectively "how to force `syst
    After=network-online.target
    ```
 
-#### Factor #3: `cron` output goes to `/dev/null`
+### Factor #3: `cron` output goes to `/dev/null`
 
 Users sometimes wonder why they don't see any output at the terminal from their `cron` jobs - as they did when they ran the same program from their interactive shell (e.g. `bash`). 
-
-
-#### Factor #4: Other "quirks"
-
-The `date` command is lying in wait to ambush you & waste hours of your time! 
 
 ***Remedies & Solutions:*** 
 
@@ -114,14 +109,27 @@ The `date` command is lying in wait to ambush you & waste hours of your time!
    $ sudo apt-get install exim4-daemon-light
    ```
    
+### Factor #4: Other "quirks"
 
+The `date` command is lying in wait to ambush you & waste hours of your time! I was just *ambushed!* 
+The `date` command uses the `%` symbol to specify formatting styles, and `cron` _"can't handle the"_ `%`. 
+
+***Remedies & Solutions:*** 
+
+If you use the `date` command in `cron`, the **`%`** symbols must be *escaped*; as in **`\%`**.
+Example:
+```
+echo "$(date "+%s" -d "+ 10 minutes")" > $WAKEALARM         # FAILS SILENTLY!!
+
+echo "$(date "+\%s" -d "+ 10 minutes")" > $WAKEALARM        # THE CURE!!
+```
 
 
 ## What is the cron environment?
 
 We'll ask `cron` to tell us: 
 
-#### Step 1: Open the user crontab for editing:
+### Step 1: Open the user crontab for editing:
 
 ```bash
    $ crontab -e 
@@ -129,7 +137,7 @@ We'll ask `cron` to tell us:
    $ sudo crontab -e
 ```
 
-#### Step 2: Add 1 line: 
+### Step 2: Add 1 line: 
 
 ```
    * * * * * /usr/bin/printenv > /home/yourusername/user-cronenv.txt 2>&1
@@ -137,7 +145,7 @@ We'll ask `cron` to tell us:
    * * * * * /usr/bin/printenv > /home/yourusername/root-cronenv.txt 2>&1
 ```
 
-#### Step 3: Save the file, and exit the editor: 
+### Step 3: Save the file, and exit the editor: 
 
 ```bash
    $ crontab -e (entered above, then editing ..., then exit editor)
@@ -145,7 +153,7 @@ We'll ask `cron` to tell us:
    $ 
 ```
 
-#### Step 4: Read cron's answer: 
+### Step 4: Read cron's answer: 
 
 ```bash
    $ cd && cat user-cronenv.txt
