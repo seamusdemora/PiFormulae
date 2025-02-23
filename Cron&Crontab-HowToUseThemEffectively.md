@@ -81,6 +81,11 @@ FWIW: I asked a [Question on SE a few years ago, effectively "how to force `syst
 
 Users sometimes wonder why they don't see any output at the terminal from their `cron` jobs - as they did when they ran the same program from their interactive shell (e.g. `bash`). 
 
+
+#### Factor #4: Other "quirks"
+
+The `date` command is lying in wait to ambush you & waste hours of your time! 
+
 ***Remedies & Solutions:*** 
 
 * `redirect (>, >>)` the output of your `cron` job to capture `stderr` & `stdout` in a file:
