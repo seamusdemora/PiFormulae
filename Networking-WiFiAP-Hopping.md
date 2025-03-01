@@ -1,3 +1,6 @@
+## New Life!
+This _useful_ recipe had become *irrelevant* under 'NetworkManager' - the replacement for `dhcpcd` designated by _"The Raspberries"_ when the 'bookworm' version of the OS was released. But after more than 2 years of 'NetworkManager', I find it simply **too arcane and convoluted** for daily use - my daily use at least. Consequently, I am returning to a simpler method of networking - sometimes called `ifupdown`, or just `networking`. If you're interested in shucking 'NetworkManager' for a reliable and much simpler alternative, you can read more [in this recipe](https://github.com/seamusdemora/PiFormulae/blob/master/Networking-aSimplerAlternative.md). As a *bonus incentive*, this recipe - which uses `wpa_supplicant` - remains viable, and useful! 
+
 ## Switching Between WiFi Access Points
 
 I came across an interesting question on the RPi SE recently. The question solicited an approach to accessing multiple WiFi networks/Access Points in an *automated* fashion; i.e. no `reboot` or manual intervention required. I'd never tried this before, but the idea intrigued me. I cobbled together an answer. Unfortunately, I don't have access to an environment that allows for full verification of my approach, and so I am posting it here for a couple of reasons:
