@@ -55,7 +55,7 @@ Say *hello* to simplicity! Here's what's required:
            address 192.168.1.221                  # use values appropriate for your network
            netmask 255.255.255.0                  #              "
            gateway 192.168.1.1                    #              "
-         # dns-nameserver 8.8.8.8									# deprecated! 
+         # dns-nameserver 8.8.8.8									# conflicted! 
         
         # the loopback network interface
         auto lo
@@ -64,9 +64,9 @@ Say *hello* to simplicity! Here's what's required:
 
 2.  And that's it - that is *all the configuration required*! After saving the  `/etc/networks/interfaces` file, you may `reboot`. For reasons that are not yet clear to me, I had to perform a "cold boot" (i.e. pull power, then re-apply) on some systems instead of a `reboot`. 
 
-3.  Note the ***deprecated*** comment on the `dns-nameserver` line. The Debian docs are *ambiguous* about the use of this option, but `dns` does not even appear in `man interfaces` (pretty good sign :)   Some of you will have a *gateway device(s) (e.g. firewall/DHCP server/etc)* that assign DNS for hosts on your network. For those of you who **do not**, use `/etc/resolv.conf` instead. This is done by declaring 1 DNS server per line (`nameserver 8.8.8.8` for example), and no more than 3 `nameserver` lines; ref `man resolv.conf`.  
+3.  Note the ***conflicted*** comment on the `dns-nameserver` line. The Debian docs seem *ambiguous* about the use of the `dns-nameserver` option. While `dns` does not even appear in `man interfaces`, it does contain a section titled `OPTIONS PROVIDED BY OTHER PACKAGES`. You should read this section if you have any interest in enabling this `dns-nameserver` option. **However**, some of you will have a *gateway device(s) (e.g. firewall/DHCP server/etc)* that may assign DNS for hosts on your network, and for those of you who **do not**, the easiest option is to use `/etc/resolv.conf` to assign DNS servers. This is done by declaring 1 DNS server per line (`nameserver 8.8.8.8` for example), and no more than 3 `nameserver` lines; ref `man resolv.conf`.  
 
-4.  Oh - a [*word to the wise*](https://idioms.thefreedictionary.com/word+to+the+wise) before moving on. *If you are setting up a static/fixed IP address*, you should verify that it is actually working! One obvious thing to do is make an SSH connection to the fixed-IP host you've just provisioned. Another thing is to verify that the static IP host has DNS; i.e. from your SSH connection to your static-configured host try `ping google.com` or something similar. A working DNS is imperative for things such as system timekeeping! 
+4.  Oh - a [*word to the wise*](https://idioms.thefreedictionary.com/word+to+the+wise) before moving on. *If you are setting up a static/fixed IP address*, you should verify that it is actually working! One obvious thing to do is make an SSH connection to the fixed-IP host you've just provisioned. Another thing is to verify that the static IP host has DNS; i.e. from your SSH connection to your static-configured host try `ping google.com` or something similar. **A working DNS is imperative for things such as system timekeeping!** 
 
 
 
