@@ -55,7 +55,7 @@ Say *hello* to simplicity! Here's what's required:
            address 192.168.1.221                  # use values appropriate for your network
            netmask 255.255.255.0                  #              "
            gateway 192.168.1.1                    #              "
-         # dns-nameserver 8.8.8.8									# conflicted! 
+         # dns-nameserver 8.8.8.8			  # conflicted! 
         
         # the loopback network interface
         auto lo
