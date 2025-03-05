@@ -50,7 +50,7 @@
 * [Disable CPU cores for power saving](#disable-cpu-cores-for-power-saving) 
 * [What is my "Kernel Configuration"?](#what-is-my-kernel-configuration)
 * [Is my system clock being updated properly?](#what-about-my-rtc-settings-and-timedatectl) 
-* [How much time is required to boot your system?]
+* [How much time is required to boot your system?](#how-much-time-is-required-to-boot-your-system) 
 * [REFERENCES:](#references) 
 
 
@@ -1737,7 +1737,7 @@ One other comment before closing this: As noted previously, the **RPi 5** has an
 
  [**⋀**](#table-of-contents) 
 
-## How much time is required to boot your system? 
+## How much time is required to boot your system?
 
 As they say, *"There's an app for that!"*.  In this case, the app is `systemd`, or more specifically `systemd-analyze`, or actually `systemd-analyze time`. You can read all about the options in `man systemd-analyze`, and [this article in RedHat's documentation](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/using_systemd_unit_files_to_customize_and_optimize_your_system/optimizing-systemd-to-shorten-the-boot-time_working-with-systemd#optimizing-systemd-to-shorten-the-boot-time_working-with-systemd) is also worth reading (RedHat being the *creator* of `systemd`). Two other options for `systemd-analyze` that seem interesting are `blame` and `critical-chain`. This *app* can *help* you reduce your system's boot time... Unfortunately - as is the case with most things associated with `systemd` - the path to efficiency is not straightforward! Here's a small demonstration from one of my **RPi-5** systems to illustrate:   
 
