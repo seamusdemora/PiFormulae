@@ -49,7 +49,8 @@
 * [Comment an entire block of code in a shell script](#comment-an-entire-block-of-code) 
 * [Disable CPU cores for power saving](#disable-cpu-cores-for-power-saving) 
 * [What is my "Kernel Configuration"?](#what-is-my-kernel-configuration)
-* [Is my system clock being updated properly?](#what-about-my-rtc-settings-and-timedatectl)
+* [Is my system clock being updated properly?](#what-about-my-rtc-settings-and-timedatectl) 
+* [How much time is required to boot your system?]
 * [REFERENCES:](#references) 
 
 
@@ -1735,6 +1736,82 @@ While the story is not as clean as we might like it, the `dmesg` output(s) above
 One other comment before closing this: As noted previously, the **RPi 5** has an in-built RTC, *but it's not a particularly accurate unit*. The only specification I could find appeared in this [RPi forum post](https://forums.raspberrypi.com/viewtopic.php?t=356991#p2139525), and was given as ***"50 ppm typical"***. Compare this figure to the [DS3231 RTC spec](https://www.analog.com/media/en/technical-documentation/data-sheets/DS3231.pdf) of: 2 ppm, or the [RV-3028 RTC](https://www.microcrystal.com/fileadmin/Media/Products/RTC/Datasheet/RV-3028-C7.pdf): 1 ppm. This is quite a difference in specifications! I've decided to post a "recipe" for replacing the Pi 5's in-built RTC with an RV-3028 - look for it soon! 
 
  [**⋀**](#table-of-contents) 
+
+## How much time is required to boot your system? 
+
+As they say, *"There's an app for that!"*.  In this case, the app is `systemd`, or more specifically `systemd-analyze`, or actually `systemd-analyze time`. You can read all about the options in `man systemd-analyze`, and [this article in RedHat's documentation](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/using_systemd_unit_files_to_customize_and_optimize_your_system/optimizing-systemd-to-shorten-the-boot-time_working-with-systemd#optimizing-systemd-to-shorten-the-boot-time_working-with-systemd) is also worth reading (RedHat being the *creator* of `systemd`). Two other options for `systemd-analyze` that seem interesting are `blame` and `critical-chain`. This *app* can *help* you reduce your system's boot time... Unfortunately - as is the case with most things associated with `systemd` - the path to efficiency is not straightforward! Here's a small demonstration from one of my **RPi-5** systems to illustrate:   
+
+```bash
+$ systemd-analyze time
+Startup finished in 3.149s (kernel) + 9.320s (userspace) = 12.470s
+multi-user.target reached after 2.016s in userspace. 
+
+# some time later, after a couple of reboots :
+
+$ systemd-analyze time
+Startup finished in 3.158s (kernel) + 1.901s (userspace) = 5.059s
+multi-user.target reached after 1.874s in userspace.
+```
+
+What's responsible for this big change in boot time?  The change is mostly in 'userspace', but that still affects the `multi-user.target` - generally held to be when the system is "available for use". No changes were made to the system's configuration; I'm at a loss... 
+
+While this *seems worthwhile*, I'm [not yet sold on it](https://idioms.thefreedictionary.com/be+sold+on+something). Why? Three things: ***first***, as shown above, the results vary randomly between `reboot`s; ***second*,** the results are inconsistent between identical models (RPi 5 for example) that are *seemingly* identically configured; and ***third***, results are inconsistent even between the same unit... depending *apparently* upon the order in which `systemd` services are enabled or disabled. I suspect this *inconsistency* can be attributed to the [*flakiness*](https://idioms.thefreedictionary.com/flakiness) of the conditions built into the `systemd` units themselves... it's a jungle in there! But for now, that's only speculation - maybe the consistency will improve with my understanding? 
+
+ [**⋀**](#table-of-contents) 
+
+<!---
+
+For example, in the two runs above there were no differences in the enabled services - as determined by `systemctl list-unit-files --state=enabled`!  I suspect this *inconsistency* can be attributed to the [*flakiness*](https://idioms.thefreedictionary.com/flakiness) of the conditions built into the `systemd` units themselves... it's a jungle in there! But for now, that's only speculation - maybe the consistency will improve with my understanding? 
+
+
+| pi@rpi5-2:~ $ systemctl list-unit-files --state=enabled  | pi@rpi5-2:~ $ systemctl list-unit-files --state=enabled  |
+| ---------------------------------------------- | ---------------------------------------------- |
+| **UNIT FILE      STATE  PRESET**                   | **UNIT FILE      STATE  PRESET**                   |
+| adjtimex.service       enabled enabled         | adjtimex.service       enabled enabled         |
+| apparmor.service       enabled enabled         | apparmor.service       enabled enabled         |
+| avahi-daemon.service     enabled enabled       | avahi-daemon.service     enabled enabled       |
+| bluetooth.service       enabled enabled        | bluetooth.service       enabled enabled        |
+| console-setup.service     enabled enabled      | console-setup.service     enabled enabled      |
+| cron.service         enabled enabled           | cron.service         enabled enabled           |
+| dphys-swapfile.service    enabled enabled      | dphys-swapfile.service    enabled enabled      |
+| e2scrub_reap.service     enabled enabled       | e2scrub_reap.service     enabled enabled       |
+| fake-hwclock.service     enabled enabled       | fake-hwclock.service     enabled enabled       |
+| getty@.service        enabled enabled          | getty@.service        enabled enabled          |
+| hciuart.service        enabled enabled         | hciuart.service        enabled enabled         |
+| keyboard-setup.service    enabled enabled      | keyboard-setup.service    enabled enabled      |
+| networking.service      enabled enabled        | networking.service      enabled enabled        |
+| rpi-display-backlight.service enabled  enabled | rpi-display-backlight.service enabled  enabled |
+| rpi-eeprom-update.service   enabled enabled    | rpi-eeprom-update.service   enabled enabled    |
+| ssh.service          enabled enabled           | ssh.service          enabled enabled           |
+| sshswitch.service       enabled enabled        | sshswitch.service       enabled enabled        |
+| systemd-pstore.service    enabled enabled      | systemd-pstore.service    enabled enabled      |
+| systemd-timesyncd.service   enabled enabled    | systemd-timesyncd.service   enabled enabled    |
+| triggerhappy.service     enabled enabled       | triggerhappy.service     enabled enabled       |
+| udisks2.service        enabled enabled         | udisks2.service        enabled enabled         |
+| wpa_supplicant.service    enabled enabled      | wpa_supplicant.service    enabled enabled      |
+| avahi-daemon.socket      enabled enabled       | avahi-daemon.socket      enabled enabled       |
+| triggerhappy.socket      enabled enabled       | triggerhappy.socket      enabled enabled       |
+| nfs-client.target       enabled enabled        | nfs-client.target       enabled enabled        |
+| remote-fs.target       enabled enabled         | remote-fs.target       enabled enabled         |
+| apt-daily-upgrade.timer    enabled enabled     | apt-daily-upgrade.timer    enabled enabled     |
+| apt-daily.timer        enabled enabled         | apt-daily.timer        enabled enabled         |
+| dpkg-db-backup.timer     enabled enabled       | dpkg-db-backup.timer     enabled enabled       |
+| e2scrub_all.timer       enabled enabled        | e2scrub_all.timer       enabled enabled        |
+| fstrim.timer         enabled enabled           | fstrim.timer         enabled enabled           |
+| logrotate.timer        enabled enabled         | logrotate.timer        enabled enabled         |
+| man-db.timer         enabled enabled           | man-db.timer         enabled enabled           |
+|                                                |                                                |
+| 33 unit files listed.                          | 33 unit files listed.                          |
+
+
+
+; for example, I was curious to know the effect of throwing `NetworkManager` overboard in favor of `ifupdown`. Here are some results from [that experiment](https://github.com/seamusdemora/PiFormulae/blob/master/Networking-aSimplerAlternative.md) on an RPi 5; first with `NetworkManager.service` disabled:
+
+Now, after `enable`ing the `NetworkManager.service` , and re-booting, we run this again: 
+
+-->
+
+
 
 <!---
 
