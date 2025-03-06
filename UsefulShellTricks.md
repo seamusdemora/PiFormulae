@@ -1759,129 +1759,7 @@ While this *seems worthwhile*, I'm [not yet sold on it](https://idioms.thefreedi
 
  [**⋀**](#table-of-contents) 
 
-<!---
 
-For example, in the two runs above there were no differences in the enabled services - as determined by `systemctl list-unit-files --state=enabled`!  I suspect this *inconsistency* can be attributed to the [*flakiness*](https://idioms.thefreedictionary.com/flakiness) of the conditions built into the `systemd` units themselves... it's a jungle in there! But for now, that's only speculation - maybe the consistency will improve with my understanding? 
-
-
-| pi@rpi5-2:~ $ systemctl list-unit-files --state=enabled  | pi@rpi5-2:~ $ systemctl list-unit-files --state=enabled  |
-| ---------------------------------------------- | ---------------------------------------------- |
-| **UNIT FILE      STATE  PRESET**                   | **UNIT FILE      STATE  PRESET**                   |
-| adjtimex.service       enabled enabled         | adjtimex.service       enabled enabled         |
-| apparmor.service       enabled enabled         | apparmor.service       enabled enabled         |
-| avahi-daemon.service     enabled enabled       | avahi-daemon.service     enabled enabled       |
-| bluetooth.service       enabled enabled        | bluetooth.service       enabled enabled        |
-| console-setup.service     enabled enabled      | console-setup.service     enabled enabled      |
-| cron.service         enabled enabled           | cron.service         enabled enabled           |
-| dphys-swapfile.service    enabled enabled      | dphys-swapfile.service    enabled enabled      |
-| e2scrub_reap.service     enabled enabled       | e2scrub_reap.service     enabled enabled       |
-| fake-hwclock.service     enabled enabled       | fake-hwclock.service     enabled enabled       |
-| getty@.service        enabled enabled          | getty@.service        enabled enabled          |
-| hciuart.service        enabled enabled         | hciuart.service        enabled enabled         |
-| keyboard-setup.service    enabled enabled      | keyboard-setup.service    enabled enabled      |
-| networking.service      enabled enabled        | networking.service      enabled enabled        |
-| rpi-display-backlight.service enabled  enabled | rpi-display-backlight.service enabled  enabled |
-| rpi-eeprom-update.service   enabled enabled    | rpi-eeprom-update.service   enabled enabled    |
-| ssh.service          enabled enabled           | ssh.service          enabled enabled           |
-| sshswitch.service       enabled enabled        | sshswitch.service       enabled enabled        |
-| systemd-pstore.service    enabled enabled      | systemd-pstore.service    enabled enabled      |
-| systemd-timesyncd.service   enabled enabled    | systemd-timesyncd.service   enabled enabled    |
-| triggerhappy.service     enabled enabled       | triggerhappy.service     enabled enabled       |
-| udisks2.service        enabled enabled         | udisks2.service        enabled enabled         |
-| wpa_supplicant.service    enabled enabled      | wpa_supplicant.service    enabled enabled      |
-| avahi-daemon.socket      enabled enabled       | avahi-daemon.socket      enabled enabled       |
-| triggerhappy.socket      enabled enabled       | triggerhappy.socket      enabled enabled       |
-| nfs-client.target       enabled enabled        | nfs-client.target       enabled enabled        |
-| remote-fs.target       enabled enabled         | remote-fs.target       enabled enabled         |
-| apt-daily-upgrade.timer    enabled enabled     | apt-daily-upgrade.timer    enabled enabled     |
-| apt-daily.timer        enabled enabled         | apt-daily.timer        enabled enabled         |
-| dpkg-db-backup.timer     enabled enabled       | dpkg-db-backup.timer     enabled enabled       |
-| e2scrub_all.timer       enabled enabled        | e2scrub_all.timer       enabled enabled        |
-| fstrim.timer         enabled enabled           | fstrim.timer         enabled enabled           |
-| logrotate.timer        enabled enabled         | logrotate.timer        enabled enabled         |
-| man-db.timer         enabled enabled           | man-db.timer         enabled enabled           |
-|                                                |                                                |
-| 33 unit files listed.                          | 33 unit files listed.                          |
-
-
-
-; for example, I was curious to know the effect of throwing `NetworkManager` overboard in favor of `ifupdown`. Here are some results from [that experiment](https://github.com/seamusdemora/PiFormulae/blob/master/Networking-aSimplerAlternative.md) on an RPi 5; first with `NetworkManager.service` disabled:
-
-Now, after `enable`ing the `NetworkManager.service` , and re-booting, we run this again: 
-
--->
-
-
-
-<!---
-
-But before we move on, let's take another look at the **RPi5**:
-
-The RTC that *"The Raspberries"* included in the RPi5 was not a particularly good one ("good" being a DS3231 or RV3028). My systems are sometimes shut down for weeks (even months) at a time, and initializing the system clock to a "long ago" setting in a mediocre RTC doesn't strike me as *a great idea*. Consequently, I installed an [RV3028](https://www.microcrystal.com/en/products/real-time-clock-rtc-modules/rv-3028-c7) in my RPi5 (iaw [this recipe](https://github.com/seamusdemora/PiFormulae/blob/master/AddRealTimeClock.md)), and after a `reboot` checked `dmesg`, and the `/dev` folder: 
-
-```bash
-$ dmesg | grep "system clock" 
-[    1.593066] rpi-rtc soc:rpi_rtc: setting system clock to 2025-02-15T23:17:45 UTC (1739661465)
-
-$ ls -l /dev | grep rtc
-lrwxrwxrwx 1 root root           4 Feb 15 23:17 rtc -> rtc0
-crw------- 1 root root    252,   0 Feb 15 23:17 rtc0
-crw------- 1 root root    252,   1 Feb 15 23:17 rtc1 
-
-$ cat /boot/config-$(uname -r) | grep -i CONFIG_RTC_SYSTOHC
-CONFIG_RTC_SYSTOHC=y
-CONFIG_RTC_SYSTOHC_DEVICE="rtc0"
-```
-
-But this [does not add up](https://idioms.thefreedictionary.com/add+up) - the `dmesg` output is the same as it was before the RV3028 was installed!!
-
-This is further confirmed as follows:
-
-```bash 
-$ sudo find /sys -type d -iname "*rtc*"
-...
-/sys/devices/platform/axi/1000120000.pcie/1f00074000.i2c/i2c-1/1-0052/rtc/rtc1
-...
-$ cat /sys/devices/platform/axi/1000120000.pcie/1f00074000.i2c/i2c-1/1-0052/rtc/rtc1/name
-rtc-rv3028 1-0052
-```
-
-And so, it appears that as long as the RV3028 is `/dev/rtc1`, it will not be used to update the system clock **:(**   This sounds like a job for `udev`...
-
-```bash
-$ udevadm info -a -p /sys/class/rtc/rtc1 | grep "ATTR{name}"
-    ATTR{name}=="rtc-rv3028 1-0052"
-$ 
-```
-
-------------------
-
-Not *unexpected*, but it does raise questions... like, *"which RTC is `dmesg` telling me about??"*. Trying to read the *hieroglyphics* is *dicey*, but I'll guess that `rtc0` is the *mediocre RTC supplied by "The Raspberries"*. If that's the case, it makes it quite difficult (impossible?) to have the RPi5 use the more accurate of the two RTCs connected to the system!  
-
-Let's [get off the reservation](https://idioms.thefreedictionary.com/off+the+reservation) for a bit, and try an ***experiment***. I've got a `RPi Zero 2W` (no *Raspberry-supplied RTC*) that I use for an "off-grid" project. I've connected a DS3231 RTC via I2C. The applicable line from `config.txt` is as follows: 
-
-```
-dtoverlay=i2c-rtc,ds3231,i2c0,addr=0x68,wakeup-source
-```
-
-Let's make sure nothing shows up in `dmesg` re "system clock":
-
-```bash
-$ dmesg | grep "system clock"
-[   21.309684] rtc-ds1307 0-0068: setting system clock to 2025-02-16T01:52:09 UTC (1739670729)
-```
-
-That's all about as [clear as mud](https://idioms.thefreedictionary.com/clear+as+mud). Why is the kernel's `dmesg` output proclaiming the system clock has been updated by an RTC whose overlay has been deleted? Let's not waste any more time wondering about this incompetence. 
-
-Before we ponder this result any further, let's take a look inside our **RPi5**'s  `/dev` folder:
-
-```bash
-$ ls -l /dev | grep rtc
-lrwxrwxrwx 1 root root           4 Feb 14 01:20 rtc -> rtc0
-crw------- 1 root root    252,   0 Feb 14 01:20 rtc0
-```
-
--->
 
 
 
@@ -2072,5 +1950,129 @@ There are (at least) two ways to execute an `awk` script:
 REF:
 
 1. [Q&A: How to run a .awk file?](https://stackoverflow.com/questions/9991858/how-to-run-a-awk-file) 
+
+-->
+
+<!---
+
+For example, in the two runs above there were no differences in the enabled services - as determined by `systemctl list-unit-files --state=enabled`!  I suspect this *inconsistency* can be attributed to the [*flakiness*](https://idioms.thefreedictionary.com/flakiness) of the conditions built into the `systemd` units themselves... it's a jungle in there! But for now, that's only speculation - maybe the consistency will improve with my understanding? 
+
+
+| pi@rpi5-2:~ $ systemctl list-unit-files --state=enabled | pi@rpi5-2:~ $ systemctl list-unit-files --state=enabled |
+| ------------------------------------------------------- | ------------------------------------------------------- |
+| **UNIT FILE      STATE  PRESET**                        | **UNIT FILE      STATE  PRESET**                        |
+| adjtimex.service       enabled enabled                  | adjtimex.service       enabled enabled                  |
+| apparmor.service       enabled enabled                  | apparmor.service       enabled enabled                  |
+| avahi-daemon.service     enabled enabled                | avahi-daemon.service     enabled enabled                |
+| bluetooth.service       enabled enabled                 | bluetooth.service       enabled enabled                 |
+| console-setup.service     enabled enabled               | console-setup.service     enabled enabled               |
+| cron.service         enabled enabled                    | cron.service         enabled enabled                    |
+| dphys-swapfile.service    enabled enabled               | dphys-swapfile.service    enabled enabled               |
+| e2scrub_reap.service     enabled enabled                | e2scrub_reap.service     enabled enabled                |
+| fake-hwclock.service     enabled enabled                | fake-hwclock.service     enabled enabled                |
+| getty@.service        enabled enabled                   | getty@.service        enabled enabled                   |
+| hciuart.service        enabled enabled                  | hciuart.service        enabled enabled                  |
+| keyboard-setup.service    enabled enabled               | keyboard-setup.service    enabled enabled               |
+| networking.service      enabled enabled                 | networking.service      enabled enabled                 |
+| rpi-display-backlight.service enabled  enabled          | rpi-display-backlight.service enabled  enabled          |
+| rpi-eeprom-update.service   enabled enabled             | rpi-eeprom-update.service   enabled enabled             |
+| ssh.service          enabled enabled                    | ssh.service          enabled enabled                    |
+| sshswitch.service       enabled enabled                 | sshswitch.service       enabled enabled                 |
+| systemd-pstore.service    enabled enabled               | systemd-pstore.service    enabled enabled               |
+| systemd-timesyncd.service   enabled enabled             | systemd-timesyncd.service   enabled enabled             |
+| triggerhappy.service     enabled enabled                | triggerhappy.service     enabled enabled                |
+| udisks2.service        enabled enabled                  | udisks2.service        enabled enabled                  |
+| wpa_supplicant.service    enabled enabled               | wpa_supplicant.service    enabled enabled               |
+| avahi-daemon.socket      enabled enabled                | avahi-daemon.socket      enabled enabled                |
+| triggerhappy.socket      enabled enabled                | triggerhappy.socket      enabled enabled                |
+| nfs-client.target       enabled enabled                 | nfs-client.target       enabled enabled                 |
+| remote-fs.target       enabled enabled                  | remote-fs.target       enabled enabled                  |
+| apt-daily-upgrade.timer    enabled enabled              | apt-daily-upgrade.timer    enabled enabled              |
+| apt-daily.timer        enabled enabled                  | apt-daily.timer        enabled enabled                  |
+| dpkg-db-backup.timer     enabled enabled                | dpkg-db-backup.timer     enabled enabled                |
+| e2scrub_all.timer       enabled enabled                 | e2scrub_all.timer       enabled enabled                 |
+| fstrim.timer         enabled enabled                    | fstrim.timer         enabled enabled                    |
+| logrotate.timer        enabled enabled                  | logrotate.timer        enabled enabled                  |
+| man-db.timer         enabled enabled                    | man-db.timer         enabled enabled                    |
+|                                                         |                                                         |
+| 33 unit files listed.                                   | 33 unit files listed.                                   |
+
+
+
+; for example, I was curious to know the effect of throwing `NetworkManager` overboard in favor of `ifupdown`. Here are some results from [that experiment](https://github.com/seamusdemora/PiFormulae/blob/master/Networking-aSimplerAlternative.md) on an RPi 5; first with `NetworkManager.service` disabled:
+
+Now, after `enable`ing the `NetworkManager.service` , and re-booting, we run this again: 
+
+-->
+
+
+
+<!---
+
+But before we move on, let's take another look at the **RPi5**:
+
+The RTC that *"The Raspberries"* included in the RPi5 was not a particularly good one ("good" being a DS3231 or RV3028). My systems are sometimes shut down for weeks (even months) at a time, and initializing the system clock to a "long ago" setting in a mediocre RTC doesn't strike me as *a great idea*. Consequently, I installed an [RV3028](https://www.microcrystal.com/en/products/real-time-clock-rtc-modules/rv-3028-c7) in my RPi5 (iaw [this recipe](https://github.com/seamusdemora/PiFormulae/blob/master/AddRealTimeClock.md)), and after a `reboot` checked `dmesg`, and the `/dev` folder: 
+
+```bash
+$ dmesg | grep "system clock" 
+[    1.593066] rpi-rtc soc:rpi_rtc: setting system clock to 2025-02-15T23:17:45 UTC (1739661465)
+
+$ ls -l /dev | grep rtc
+lrwxrwxrwx 1 root root           4 Feb 15 23:17 rtc -> rtc0
+crw------- 1 root root    252,   0 Feb 15 23:17 rtc0
+crw------- 1 root root    252,   1 Feb 15 23:17 rtc1 
+
+$ cat /boot/config-$(uname -r) | grep -i CONFIG_RTC_SYSTOHC
+CONFIG_RTC_SYSTOHC=y
+CONFIG_RTC_SYSTOHC_DEVICE="rtc0"
+```
+
+But this [does not add up](https://idioms.thefreedictionary.com/add+up) - the `dmesg` output is the same as it was before the RV3028 was installed!!
+
+This is further confirmed as follows:
+
+```bash 
+$ sudo find /sys -type d -iname "*rtc*"
+...
+/sys/devices/platform/axi/1000120000.pcie/1f00074000.i2c/i2c-1/1-0052/rtc/rtc1
+...
+$ cat /sys/devices/platform/axi/1000120000.pcie/1f00074000.i2c/i2c-1/1-0052/rtc/rtc1/name
+rtc-rv3028 1-0052
+```
+
+And so, it appears that as long as the RV3028 is `/dev/rtc1`, it will not be used to update the system clock **:(**   This sounds like a job for `udev`...
+
+```bash
+$ udevadm info -a -p /sys/class/rtc/rtc1 | grep "ATTR{name}"
+    ATTR{name}=="rtc-rv3028 1-0052"
+$ 
+```
+
+------------------
+
+Not *unexpected*, but it does raise questions... like, *"which RTC is `dmesg` telling me about??"*. Trying to read the *hieroglyphics* is *dicey*, but I'll guess that `rtc0` is the *mediocre RTC supplied by "The Raspberries"*. If that's the case, it makes it quite difficult (impossible?) to have the RPi5 use the more accurate of the two RTCs connected to the system!  
+
+Let's [get off the reservation](https://idioms.thefreedictionary.com/off+the+reservation) for a bit, and try an ***experiment***. I've got a `RPi Zero 2W` (no *Raspberry-supplied RTC*) that I use for an "off-grid" project. I've connected a DS3231 RTC via I2C. The applicable line from `config.txt` is as follows: 
+
+```
+dtoverlay=i2c-rtc,ds3231,i2c0,addr=0x68,wakeup-source
+```
+
+Let's make sure nothing shows up in `dmesg` re "system clock":
+
+```bash
+$ dmesg | grep "system clock"
+[   21.309684] rtc-ds1307 0-0068: setting system clock to 2025-02-16T01:52:09 UTC (1739670729)
+```
+
+That's all about as [clear as mud](https://idioms.thefreedictionary.com/clear+as+mud). Why is the kernel's `dmesg` output proclaiming the system clock has been updated by an RTC whose overlay has been deleted? Let's not waste any more time wondering about this incompetence. 
+
+Before we ponder this result any further, let's take a look inside our **RPi5**'s  `/dev` folder:
+
+```bash
+$ ls -l /dev | grep rtc
+lrwxrwxrwx 1 root root           4 Feb 14 01:20 rtc -> rtc0
+crw------- 1 root root    252,   0 Feb 14 01:20 rtc0
+```
 
 -->
