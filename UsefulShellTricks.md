@@ -1708,6 +1708,7 @@ $ dmesg | grep "system clock"
 $ dmesg | grep "system clock"
 [   21.377058] rtc-ds1307 0-0068: setting system clock to 2025-02-16T02:09:01 UTC (1739671741)
 ```
+<sub>Post script: According to a linux maintainer, `ds1307` is the ***driver name*** for several RTCs that were once built by ***D**allas **S**emiconductor*.</sub> 
 
 Which is all *well and good*, but isn't there a better way to verify that our system is actually updating the system time? **Yes, there is:**
 
@@ -1726,8 +1727,6 @@ $ sudo apt install linux-perf
 
 # see 'man perf' for details :)
 ```
-
-<sub>Post script: According to a linux maintainer, `ds1307` is the ***driver name*** for several RTCs that were once built by ***D**allas **S**emiconductor*.</sub> 
 
 >  #### In conclusion then:
 
