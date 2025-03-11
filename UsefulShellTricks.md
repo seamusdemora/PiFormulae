@@ -1710,9 +1710,17 @@ $ dmesg | grep "system clock"
 ```
 <sub>Post script: According to a linux maintainer, `ds1307` is the ***driver name*** for several RTCs that were once built by ***D**allas **S**emiconductor*.</sub> 
 
-Which is all *well and good*, but isn't there a better way to verify that our system is actually updating the system time? **Yes, there is:**
+Which is all *well and good*, but isn't there a better way (better than *fishing* with `dmesg`) to verify that our system is actually updating the system time? **Yes, there is; in fact there are two other ways:**
 
 ```bash
+# Method 1:
+$ adjtimex -p
+ status: 24577
+$ echo $[24577 & 64]
+0
+$  # where '0' means "it's working"
+
+# Method 2:
 $ sudo perf stat -e rtc:rtc_set_time
 # ... let it run for 11 minutes or more, and then stop it using ctrl-c
  Performance counter stats for 'system wide':
@@ -1720,12 +1728,11 @@ $ sudo perf stat -e rtc:rtc_set_time
     1106.122845035 seconds time elapsed
 $
 
-# note: install 'perf' as follows
-
+# notes: install 'adjtimex' and 'perf' as follows
 $ sudo apt update
 $ sudo apt install linux-perf
-
-# see 'man perf' for details :)
+$ sudo apt install adjtimex
+# see 'man ...' for details :)
 ```
 
 >  #### In conclusion then:
