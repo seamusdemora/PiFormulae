@@ -1738,7 +1738,7 @@ $ sudo apt install adjtimex
 
 >  #### In conclusion then:
 
-The `dmesg` output(s) and the `perf` outputs above both confirm that ***the 'Kernel Configuration' option is in fact acted upon by the kernel***!
+ `dmesg` , the `adjtimex` and  `perf` outputs above all confirm that ***the 'Kernel Configuration' option is in fact acted upon by the kernel***!
 
 One other comment before closing this: As noted previously, the **RPi 5** has an in-built RTC, *but it's not a particularly accurate unit*. The only specification I could find appeared in this [RPi forum post](https://forums.raspberrypi.com/viewtopic.php?t=356991#p2139525), and was given as ***"50 ppm typical"***. Compare this figure to the [DS3231 RTC spec](https://www.analog.com/media/en/technical-documentation/data-sheets/DS3231.pdf) of: 2 ppm, or the [RV-3028 RTC](https://www.microcrystal.com/fileadmin/Media/Products/RTC/Datasheet/RV-3028-C7.pdf): 1 ppm. This is quite a difference in specifications! 
 
