@@ -1691,7 +1691,7 @@ And of course this command will ferret out any kernel configuration option; it's
 
 ## What about my RTC settings and `timedatectl`?
 
-[REF: previous post](#what-is-my-kernel-configuration)... I couldn't resist digging into this a bit deeper :)  I wondered if the *'Kernel Configuration'* option (`CONFIG_RTC_SYSTOHC`) was actually acted upon by the kernel? 
+[REF: previous post](#what-is-my-kernel-configuration)... I couldn't resist digging into this [business of time](https://www.scientificamerican.com/article/a-chronicle-of-timekeeping-2006-02/) a bit deeper :)  I wondered if the *'Kernel Configuration'* option (`CONFIG_RTC_SYSTOHC`) was actually acted upon by the kernel? ...[some call me *skeptical*](https://unix.stackexchange.com/questions/791197/how-to-confirm-that-the-kernel-is-or-is-not-updating-the-hwclock-rtc) 
 
 ```bash
 # if your system is RPi5, you will get this response: 
