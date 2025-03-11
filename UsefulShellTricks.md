@@ -1694,16 +1694,17 @@ And of course this command will ferret out any kernel configuration option; it's
 [REF: previous post](#what-is-my-kernel-configuration)... I couldn't resist digging into this [business of time](https://www.scientificamerican.com/article/a-chronicle-of-timekeeping-2006-02/) a bit deeper :)  I wondered if the *'Kernel Configuration'* option (`CONFIG_RTC_SYSTOHC`) was actually acted upon by the kernel? ...[some call me *skeptical*](https://unix.stackexchange.com/questions/791197/how-to-confirm-that-the-kernel-is-or-is-not-updating-the-hwclock-rtc) 
 
 ```bash
-# if your system is RPi5, you will get this response: 
-# ^^^^^^^^^^^^^^^^^^^^^^
+# LET'S "GO FISHING" WITH 'dmesg' ... 
+#    if your system is RPi5, you will get this response: 
+#    ^^^^^^^^^^^^^^^^^^^^^^
 $ dmesg | grep "system clock"
 [    1.593066] rpi-rtc soc:rpi_rtc: setting system clock to 2025-02-15T23:17:45 UTC (1739661465)
 
-# if your system is NOT RPi5, you will get a different response:
-# ^^^^^^^^^^^^^^^^^^^^^^^^^^
-# if your system does not have an RTC, the response will be 'null'
-# if the system does have an RTC, you will get a different response -
-# in this case from a RPi 3A+: 
+#    if your system is NOT RPi5, you will get a different response:
+#    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+#    if your system does not have an RTC, the response will be 'null'
+#    if the system does have an RTC, you will get a different response -
+#    in this case from a RPi 3A+: 
 
 $ dmesg | grep "system clock"
 [   21.377058] rtc-ds1307 0-0068: setting system clock to 2025-02-16T02:09:01 UTC (1739671741)
