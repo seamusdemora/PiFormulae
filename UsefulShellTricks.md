@@ -1709,23 +1709,23 @@ $ dmesg | grep "system clock"
 [   21.377058] rtc-ds1307 0-0068: setting system clock to 2025-02-16T02:09:01 UTC (1739671741)
 ```
 
-***Huh !?!?*** I have no `ds1307` clock in any of my systems! Furthermore, the following line appears in my `/boot/firmware/overlays/README` file: 
+Which is all *well and good*, but isn't there a better way to verify that our system is actually updating the system time? **Yes, there is:**
 
+```bash
+$ sudo perf stat -e rtc:rtc_set_time
+# ... let it run for 11 minutes or more, and then stop it using ctrl-c
+ Performance counter stats for 'system wide':
+                 2      rtc:rtc_set_time
+    1106.122845035 seconds time elapsed
+$
+
+# note: install 'perf' as follows
+
+$ sudo apt update
+$ sudo apt install linux-perf
+
+# see 'man perf' for details :)
 ```
-    [ The ds1307-rtc overlay has been deleted. See i2c-rtc. ]
-```
-
-and this line is in my `/boot/firmware/config.txt` file for the RPi Zero 2W:
-
-```
-    dtoverlay=i2c-rtc,ds3231,i2c0,addr=0x68,wakeup-source
-```
-
->####  Question: So - what happened? Why is a ds1307 RTC reported?
-
->#### Answer: Linux/RPi Incompetence, lack of coordination, laziness or ...
-
-Note carefully that the 2nd `dmesg` output string from above includes: `rtc-ds1307 0-0068`.  The **`0`** corresponds to the configured I2C bus, and the **`0068`** corresponds to the I2C address in use. This message is as [clear as mud](https://idioms.thefreedictionary.com/clear+as+mud), but if we look closelylikely reflects only a *"minor goof"*; i.e. something out-of-date, or overlooked. 
 
 <sub>Post script: According to a linux maintainer, `ds1307` is the ***driver name*** for several RTCs that were once built by ***D**allas **S**emiconductor*.</sub> 
 
@@ -2074,5 +2074,23 @@ $ ls -l /dev | grep rtc
 lrwxrwxrwx 1 root root           4 Feb 14 01:20 rtc -> rtc0
 crw------- 1 root root    252,   0 Feb 14 01:20 rtc0
 ```
+------------------
+***Huh !?!?*** I have no `ds1307` clock in any of my systems! Furthermore, the following line appears in my `/boot/firmware/overlays/README` file: 
+
+```
+    [ The ds1307-rtc overlay has been deleted. See i2c-rtc. ]
+```
+
+and this line is in my `/boot/firmware/config.txt` file for the RPi Zero 2W:
+
+```
+    dtoverlay=i2c-rtc,ds3231,i2c0,addr=0x68,wakeup-source
+```
+
+>####  Question: So - what happened? Why is a ds1307 RTC reported?
+
+>#### Answer: Linux/RPi Incompetence, lack of coordination, laziness or ...
+
+Note carefully that the 2nd `dmesg` output string from above includes: `rtc-ds1307 0-0068`.  The **`0`** corresponds to the configured I2C bus, and the **`0068`** corresponds to the I2C address in use. This message is as [clear as mud](https://idioms.thefreedictionary.com/clear+as+mud), but if we look closelylikely reflects only a *"minor goof"*; i.e. something out-of-date, or overlooked. 
 
 -->
