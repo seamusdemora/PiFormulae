@@ -373,7 +373,9 @@ This section falls into the "for what it's worth" category (like many other sect
 *  A small BT speaker (OontZ Solo Bluetooth 5 watt mini-Speaker, ~$20) 
 *  "Custom Software" - shown below
 
-#### Software:
+#### Software: 
+
+<sub>**NOTE for "Lite" users: The script below does not avoid the necessity of using `bluetoothctl` to initially "pair" and "trust" your Bluetooth speaker. This is a "one-time" requirement - one time per speaker, that is.**</sub> 
 
 *  a short `bash` script & installation of the `mpg123` package: 
 
