@@ -35,7 +35,7 @@
 * [Background, nohup, infinite loops, daemons](#background-nohup-infinite-loops-daemons)
 * [Bluetooth](#bluetooth) 
 * [Change the modification date/time of a file](#change-the-modification-date-of-a-file)
-* [How to deal with *"Unix time"* when using `date`](#using-date-to-deal-with-unix-time) 
+* [★★How to deal with *"Unix time"* when using `date`](#using-date-to-deal-with-unix-time) 
 * [Process management using <kbd>ctrl</kbd>+<kbd>z</kbd>, `fg`, `bg` & `jobs`](#process-management-jobs-fg-bg-and-ctrl-z) 
 * [Download a file from GitHub](#download-a-file-from-github) 
 * [Verify a file system is mounted with `findmnt` - *before trying to use it*!](#verify-file-system-is-mounted) 
