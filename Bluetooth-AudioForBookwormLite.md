@@ -404,7 +404,7 @@ This section falls into the "for what it's worth" category (like many other sect
 
 
 
-<--!
+<!---
 
 ## Build and configure `bluez-alsa` under 'bookworm Lite'
 
