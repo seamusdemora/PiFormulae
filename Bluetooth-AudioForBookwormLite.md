@@ -1,6 +1,18 @@
-# Bluetooth Audio on Raspberry Pi *Lite* (Yes, It Can Be Done)
+# Bluetooth Audio on Raspberry Pi *Lite* 
 
-##### NOTE: *Skip all of the BS, and go to the [Summary](#summary) if you don't need all the verbiage!*
+#### (*Yes, It Can Be Done*)
+
+### ToC
+
+​	Background (keep reading)
+
+​	[Summary](#summary)
+
+​	[Detailed Installation & Configuration](#all-the-details)
+
+​	[Example BT setup on Pi Zero 2W](#an-example-bluetooth-setup) 
+
+---
 
 Any of you that have followed my misadventures on [Stack Exchange](https://raspberrypi.stackexchange.com/users/83790/seamus?tab=profile) will know that I have struggled [off-and-on for **years**](https://raspberrypi.stackexchange.com/questions/116819/bluetooth-blues-redux) trying to get my Raspberry Pi OS 'Lite' to play audio over Bluetooth. This frustration came to a head recently during a [dialog with the RPi staff on GitHub](https://github.com/RPi-Distro/repo/issues/369). This was (and is) a simple case of ***corporate irresponsibility***!  I got more than a little fed up with the nonsense from *some of* the Raspberry Pi maintainers.  It wasn't an abusive exchange - but it was *pointed*. Pointed enough that I was "banned" from their GitHub site - apparently *"for life"*.  Wow!... This is one thin-skinned bunch of assholes! 
 
@@ -350,7 +362,7 @@ Once you see your user listed on `tty1`, you may `logout` if you wish, and your 
 
 
 
-## An example Bluetooth setup 
+## An example Bluetooth setup
 
 This section falls into the "for what it's worth" category (like many other sections here :)  I wrote in a [related recipe](https://github.com/seamusdemora/PiFormulae/blob/master/Bluetooth-UsingBackportsForPipewire.md#results-of-reliability-testing-of-the-backported-pipewire) regarding a "reliability test" I performed on a then-new `pipewire` installation. This section describes a simple project that grew out of that testing: a "white-noise BT music player". I use it every night, and it seems to have helped me get more and better sleep! Following is a quick recipe: 
 
