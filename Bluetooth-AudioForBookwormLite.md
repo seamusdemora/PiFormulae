@@ -11,7 +11,7 @@ And Raspberry Pi is not like other *open-source* projects - this organization ma
 Recently, I have managed to extend this success with Bluetooth: 
 
 * Completed a *fresh installation* (documented herein) of `pipewire` (ver '0.3.65') on the latest [RPi OS Lite (July 4, 2024) 'bookworm'](https://downloads.raspberrypi.com/raspios_lite_armhf/images/raspios_lite_armhf-2024-07-04/) on an [**RPi 3A+**](https://datasheets.raspberrypi.com/rpi3/raspberry-pi-3-a-plus-product-brief.pdf) 
-* Have Bluetooth audio working on a **[RPi Zero 2W](https://datasheets.raspberrypi.com/rpizero2/raspberry-pi-zero-2-w-product-brief.pdf)** 'bookworm' using [`bluez-alsa`](https://github.com/Arkq/bluez-alsa) 
+* I temporarily used  [`bluez-alsa`](https://github.com/Arkq/bluez-alsa) as a solution on my  **[RPi Zero 2W](https://datasheets.raspberrypi.com/rpizero2/raspberry-pi-zero-2-w-product-brief.pdf)** 'bookworm, 64-bit'. It worked, but I found it *less reliable* than the `pipewire` installation.  Consequently, I have *amiably* removed the section devoted to `bluez-alsa` in this recipe.  
 * Most recently, have **upgraded `pipewire` to ver. 1.2.1** on RPi Zero 2W 'bookworm' using Debian's `bookworm-backports`     
 
 I'll cover this in the sequel below. 
@@ -349,6 +349,51 @@ pi       pts/0        -3386239902218585523 (192.168.1.209)
 Once you see your user listed on `tty1`, you may `logout` if you wish, and your music will continue to play! 
 
 
+
+## An example Bluetooth setup 
+
+This section falls into the "for what it's worth" category (like many other sections here :)  I wrote in a [related recipe](https://github.com/seamusdemora/PiFormulae/blob/master/Bluetooth-UsingBackportsForPipewire.md#results-of-reliability-testing-of-the-backported-pipewire) regarding a "reliability test" I performed on a then-new `pipewire` installation. This section describes a simple project that grew out of that testing: a "white-noise BT music player". I use it every night, and it seems to have helped me get more and better sleep! Following is a quick recipe: 
+
+#### Ingredients:
+
+*  [Raspberry Pi Zero 2W](https://datasheets.raspberrypi.com/rpizero2/raspberry-pi-zero-2-w-product-brief.pdf), running 'bookworm-64 Lite' 
+*  A "white noise" file I named [`rainstorm.mp3`](pix/rainstorm.mp3) (thunderstorm recording found on YouTube) 
+*  A small BT speaker (OontZ Solo Bluetooth 5 watt mini-Speaker, ~$20) 
+*  "Custom Software" - shown below
+
+#### Software:
+
+*  a short `bash` script & installation of the `mpg123` package: 
+
+   *  ```bash
+      $ nano start-storm.sh          # add the following lines, save & exit
+      
+      #!/usr/bin/bash
+      sleep 5
+      if [ "$(/usr/bin/bluetoothctl devices Connected)" != "Device DF:45:E9:00:EB:DD OontZ Angle solo DS E8B" ]; then
+          /usr/bin/bluetoothctl connect DF:45:E9:00:BE:8B
+      fi
+      sleep 1
+      /usr/bin/mpg123 --loop -1 /home/pi/rainstorm.mp3
+      ```
+
+   *  ```bash
+      $ sudo apt update
+      $ sudo apt install mpg123
+      ```
+
+*  a one-line entry in the `root crontb` to start playing at `reboot`: 
+
+   *  ```bash
+      $ sudo crontab -e                # add the following line, save & exit 
+      
+      @reboot su pi -l -c /home/pi/start-storm.sh > /home/pi/start-storm.log 2>&1
+      ```
+
+
+
+<--!
+
 ## Build and configure `bluez-alsa` under 'bookworm Lite'
 
 If you're *considering your options* for a Bluetooth audio setup, the most important thing to consider wrt `bluez-alsa` (as described in this recipe) is that *it's not available *as-is* in `apt` package format*. IOW, what we cover here requires you download the source files, and build (compile & install) `bluez-alsa`.  
@@ -365,4 +410,4 @@ I'll defer on more details at this time. I did manage to successfully install `b
 
 In an effort to overcome the occasional *glitch* in BT audio on my Zero 2W running `bluez-alsa`, I decided to try the 'bookworm-backport' of `pipewire`.  I re-installed the [latest release of 'bookworm'](https://downloads.raspberrypi.com/raspios_lite_armhf/images/raspios_lite_armhf-2024-07-04/), and added `bookworm-backports` to `/etc/apt/sources.list`. I'm not going to delve into the details of that installation here as this *recipe* has already become too wordy for my tastes; I'll put this in a new *recipe*, and add a link here when it's completed.  
 
-
+-->
