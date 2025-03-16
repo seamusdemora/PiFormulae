@@ -708,7 +708,16 @@ set tabstospaces
 
 * `grep` can return TRUE/FALSE: `grep -q PATTERN [FILE]`; `0` if TRUE, `non-zero` if FALSE
 * `grep` can return the matching object only: `grep -o PATTERN [FILE]` instead of the entire line
+* `grep` can return everything that ***does not match*** the search term by using the `-v` option
 * you can `pipe` the output of a command to `grep`:  `cat somefile.txt | grep 'Christmas' 
+* you can combine grep with redirection... ***if you do it correctly***: 
+
+     ```bash
+      $ rsync -av /src/foo/ /dest/bar | grep --line-buffered "search term" > somefile.log 
+      #                                 ^^^^^^^^^^^^^^^^^^^^
+     ```
+
+
 * `grep` can process a [`Here String`](https://linux.die.net/abs-guide/x15683.html):  `grep PATTERN <<< "$VALUE"`, where  `$VALUE` is expanded & fed to `grep`. 
 * `grep`*'s* `PATTERN` may be a literal string, or a regular expression; e.g. to find **IPv4 ADDRESSES** in a file: 
 
