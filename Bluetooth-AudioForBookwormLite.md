@@ -371,7 +371,7 @@ This section falls into the "[*for what it's worth*](https://www.merriam-webster
 ***After*** performing Steps 1, 2 & 3 above:
 
 *  [Raspberry Pi Zero 2W](https://datasheets.raspberrypi.com/rpizero2/raspberry-pi-zero-2-w-product-brief.pdf), running 'bookworm-64 Lite' 
-*  A "white noise" file I named [`rainstorm.mp3`](pix/rainstorm.mp3) (thunderstorm recording found on YouTube) 
+*  A "white noise" file I named [`rainstorm.mp3`](pix/rainstorm.mp3) (thunderstorm recording originally found on YouTube) 
 *  A small BT speaker (OontZ Solo Bluetooth 5 watt mini-Speaker, ~$20) 
 *  "Custom Software" - shown below
 
