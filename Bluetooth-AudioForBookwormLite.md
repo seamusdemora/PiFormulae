@@ -364,7 +364,7 @@ Once you see your user listed on `tty1`, you may `logout` if you wish, and your 
 
 ## An example Bluetooth setup
 
-This section falls into the "for what it's worth" category (like many other sections here :)  I wrote in a [related recipe](https://github.com/seamusdemora/PiFormulae/blob/master/Bluetooth-UsingBackportsForPipewire.md#results-of-reliability-testing-of-the-backported-pipewire) regarding a "reliability test" I performed on a then-new `pipewire` installation. This section describes a simple project that grew out of that testing: a "white-noise BT music player". I use it every night, and it seems to have helped me get more and better sleep! Following is a quick recipe: 
+This section falls into the "[*for what it's worth*](https://www.merriam-webster.com/dictionary/for%20what%20it's%20worth)" category (like many other sections here :)  I wrote in a [related recipe](https://github.com/seamusdemora/PiFormulae/blob/master/Bluetooth-UsingBackportsForPipewire.md#results-of-reliability-testing-of-the-backported-pipewire) regarding a "reliability test" I performed on a then-new `pipewire` installation. This section describes a simple project that grew out of that testing: a "white-noise BT music player". I use it every night, and it seems to have helped me get more and better sleep! Following is a quick recipe: 
 
 #### Ingredients:
 
