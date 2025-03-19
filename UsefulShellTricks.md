@@ -709,7 +709,7 @@ set tabstospaces
 * `grep` can return TRUE/FALSE: `grep -q PATTERN [FILE]`; `0` if TRUE, `non-zero` if FALSE
 * `grep` can return the matching object only: `grep -o PATTERN [FILE]` instead of the entire line
 * `grep` can return everything that ***does not match*** the search term by using the `-v` option
-* you can `pipe` the output of a command to `grep`:  `cat somefile.txt | grep 'Christmas' 
+* you can `pipe` the output of a command to `grep`:  `cat somefile.txt | grep 'Christmas'` 
 * you can combine grep with redirection... ***if you do it correctly***: 
 
      ```bash
@@ -717,16 +717,29 @@ set tabstospaces
       #                                 ^^^^^^^^^^^^^^^^^^^^
      ```
 
-
 * `grep` can process a [`Here String`](https://linux.die.net/abs-guide/x15683.html):  `grep PATTERN <<< "$VALUE"`, where  `$VALUE` is expanded & fed to `grep`. 
 * `grep`*'s* `PATTERN` may be a literal string, or a regular expression; e.g. to find **IPv4 ADDRESSES** in a file: 
 
 ```bash
     sudo grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}" /etc/network/interfaces
 ```
+   >*NOTE: This is not an exact match for an IP address, only an approximation, and may occasionally return something other than an IP address. An [exact match](https://www.regextester.com/22) is available here.*
+   >
 
->*NOTE: This is not an exact match for an IP address, only an approximation, and may occasionally return something other than an IP address. An [exact match](https://www.regextester.com/22) is available here.*
->
+* `grep` can search through multiple files for a match; e.g. to recursively search through all files in the `pwd` :
+   
+     ```bash
+     $ grep -rni "my search string" *
+     README.md:6:my search string
+     test.txt:1:my search string
+     ^^^^^^^^ ^ ^^^^^^^^^^^^^^^^
+        |     |         |________ 3rd field - the matched string
+        |     |__________________ 2nd field - the line # containing the matching string
+        |________________________ 1st field - the filename that contains a match
+     
+     ```
+
+
 [**⋀**](#table-of-contents)  
 
 ## Filtering `grep` processes from `grep` output
