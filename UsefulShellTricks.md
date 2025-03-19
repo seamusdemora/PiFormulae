@@ -39,7 +39,6 @@
 * [Process management using <kbd>ctrl</kbd>+<kbd>z</kbd>, `fg`, `bg` & `jobs`](#process-management-jobs-fg-bg-and-ctrl-z) 
 * [Download a file from GitHub](#download-a-file-from-github) 
 * [Verify a file system is mounted with `findmnt` - *before trying to use it*!](#verify-file-system-is-mounted) 
-* [How to "roll back" an `apt upgrade`](#how-to-roll-back-an-apt-upgrade) (coming soon) 
 * [Should I use `scp`, or `sftp`?](#scp-vs-sftp) 
 * [So you want to remove `rpi-eeprom` package & save 25MB?](#want-to-remove-the-rpi-eeprom-package-to-save-25mb-tough-shit-say-the-raspberries) 
 * [How to move or copy a file without accidentally overwriting a destination file](#move-or-copy-a-file-without-accidentally-overwriting-a-destination-file) 
@@ -2037,7 +2036,10 @@ Now, after `enable`ing the `NetworkManager.service` , and re-booting, we run thi
 
 
 
-<!---
+<!--- 
+
+* [How to "roll back" an `apt upgrade`](#how-to-roll-back-an-apt-upgrade) (coming soon) 
+
 
 But before we move on, let's take another look at the **RPi5**:
 
