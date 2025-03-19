@@ -49,7 +49,8 @@
 * [Disable CPU cores for power saving](#disable-cpu-cores-for-power-saving) 
 * [What is my "Kernel Configuration"?](#what-is-my-kernel-configuration)
 * [Is my system clock being updated properly?](#what-about-my-rtc-settings-and-timedatectl) 
-* [How much time is required to boot your system?](#how-much-time-is-required-to-boot-your-system) 
+* [How much time is required to boot your system?](#how-much-time-is-required-to-boot-your-system)
+* [Use the `at` command for scheduling](#how-to-use-the-at-command-for-scheduling)
 * [REFERENCES:](#references) 
 
 
