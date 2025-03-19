@@ -726,7 +726,7 @@ set tabstospaces
    >
 
 * `grep` can search through multiple files for a match; e.g. to recursively search through all files in the `pwd` :
-   
+  
      ```bash
      $ grep -rni "my search string" *
      README.md:6:my search string
@@ -1788,7 +1788,30 @@ While this *seems worthwhile*, I'm [not yet sold on it](https://idioms.thefreedi
 
  [**⋀**](#table-of-contents) 
 
+## How to use the `at` command for scheduling 
 
+`man at` is wonderfully succinct in its **DESCRIPTION** of `at` : 
+
+>  **at      executes commands at a specified time**. 
+
+Rather than blether on about details, I'll just explain how I use `at`.  I use `at` as a *"reminder service"* to tell me when I need to get off the computer, and go interact with the real world in some way. For example, as I began writing this topic, I entered the following command into my [Bluetooth-enabled Raspberry Pi](./Bluetooth-AudioForBookwormLite.md):  
+
+```bash
+$ at -f ~/getoffyourass.sh now +30 minutes
+```
+
+What does this do?
+
+`30 minutes` from `now` the script named `getoffyourass.sh` will execute. The `getoffyourass.sh` script is simply as follows: 
+
+```bash
+#!/usr/bin/bash
+mpg123 -q /home/pi/offyourasspotatoboy.mp3
+```
+
+The mp3 file is a recording I made that instructs me that, "Your time is up; get off your ass - now!". I get a chuckle when I hear this "friendly" reminder, and I know it's time to get out of the chair & do "something else".  That concludes this installment; here's a [good reference](https://linuxize.com/post/at-command-in-linux/) on how to use `at` for ***your*** purposes. OK, gotta' run - time's up. 
+
+ [**⋀**](#table-of-contents) 
 
 
 
