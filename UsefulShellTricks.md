@@ -846,9 +846,7 @@ And here are the examples. All have been tested using the file `testsearch.txt`,
   <td></td>
 </tr>
 </tbody>
-</table>
-
-**TO BE CONTINUED...**  
+</table>  
 
 [**⋀**](#table-of-contents)  
 
@@ -903,6 +901,7 @@ Sometimes, *finesse* is over-rated. Sometimes things get misplaced, and you need
 # search `/etc` recursively for filenames containing lines beginning w/ string 'inform'
 # in this example binary files are excluded from the search by use of the 'I' option
 # piping to pager 'less' avoids clutter in your terminal
+
 $ sudo grep -rlI '/etc' -e '^inform' | less -N 
 /etc/dhcpcd.conf
 $
@@ -910,7 +909,9 @@ $
 Other times, the file you need to find is binary, or maybe you don't recall any of its contents, but you do recall part of the filename. In this situation, `find` may be the right tool.  Keep in mind that *recursion* is "free" when using `find`, but you can limit the depth of the recursion. See `man find` for the details; this may get you started: 
 
 ```bash
-$ find /some/path -name '*part-of-a-filename*'
+$ find /some/path -type d -name "*doright*"   # '-type d' is a directory/folder   -name' is case-sensitive
+# -OR-
+$ find . -type f -iname "*money*"             # '-type f' is a file   '-iname' is case-insensitive
 ```
 
 [**⋀**](#table-of-contents)  
