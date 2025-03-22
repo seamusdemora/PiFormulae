@@ -1,6 +1,5 @@
 # PiFormulae
 
-[Search this repo](https://cse.google.com/cse?cx=b6628dc62eeb74754)  
 This is a collection of ***recipes*** for using and maintaining a [*Raspberry Pi* - or ***RPi***](https://en.wikipedia.org/wiki/RPi). The entries in the table below link to some of the "How-To" guides in this ***repo***(*sitory*), and other pages with potentially useful information. Admittedly, that's a low bar for inclusion, but feel free to peruse anything that strikes you as potentially useful. 
 
 Most importantly, feel free to ***contribute***… [GitHub explains](https://guides.github.com/activities/forking/) how to create a fork of this repo, or there's a good (and v. brief) [YouTube video that explains the process](https://www.youtube.com/watch?v=f5grYMXbAV0), and why you'd want to fork a repo. If you find an error in this repo, or feel any of these *recipes* could be improved, there are (at least) two ways to contribute:
