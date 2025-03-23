@@ -51,6 +51,7 @@
 * [Is my system clock being updated properly?](#what-about-my-rtc-settings-and-timedatectl) 
 * [How much time is required to boot your system?](#how-much-time-is-required-to-boot-your-system)
 * [Use the `at` command for scheduling](#how-to-use-the-at-command-for-scheduling)
+* [What's the IP address of myRPi? - Finding all RPi on the local network](#finding-all-rpi-on-the-local-network) 
 * [REFERENCES:](#references) 
 
 
@@ -1811,6 +1812,52 @@ mpg123 -q /home/pi/offyourasspotatoboy.mp3
 ```
 
 The mp3 file is a recording I made that instructs me that, "Your time is up; get off your ass - now!". I get a chuckle when I hear this "friendly" reminder, and I know it's time to get out of the chair & do "something else".  That concludes this installment; here's a [good reference](https://linuxize.com/post/at-command-in-linux/) on how to use `at` for ***your*** purposes. OK, gotta' run - time's up. 
+
+ [**⋀**](#table-of-contents) 
+
+
+
+## Finding all RPi on the local network
+
+This used to be a recipe, but it looked a bit lost, and out-of-date as a separate recipe. It's been moved here.
+
+You may find yourself in a situation where you don't know the IP address of your RPi. This can easily happen for any one of several reasons. Here's a procedure to find it; we use `arp` to do this, but we'll also need some help from `ping`. You can read all about [Address Resolution Protocol (ARP)](https://en.wikipedia.org/wiki/Address_Resolution_Protocol) in this Wikipedia article. Just a couple of things to point out:
+
+*  ARP is restricted to a single subnetwork & cannot be routed beyond that subnet. If your local network is (for example) `192.168.25.0/24` `arp` will search all addresses in that subnet. If you have a 2nd local network (for example) `192.168.1.0/24`, an `arp` search launched in the first subnet will not search the  `192.168.1.0/24` subnet - and *vice-versa*. This is typically not a restriction for most users, but worth mentioning to avoid confusion.
+*  When you run `arp` on a host (Windows/macOS/Linux/Unix), it only reports other hosts ***who have made a "recent" connection*** to the "`arp` host". This is because the `arp` command searches the "ARP cache" of the "`arp` host" for IP/MAC addresses, and the "ARP cache" is *volatile* (refreshed periodically). This is why we "need some help from `ping`" for `arp` to tell us about **all** RPi on the local network. 
+
+I guess that's enough theory... let's get down to business in two steps: 
+
+1.  Issue a `ping` to every IP address on your local subnet; we'll assume that subnet is `192.168.1.0/24` for this example:
+
+      ```bash
+         $ echo 192.168.1.{1..254} | xargs -n1 -P0 ping -c1 | grep "bytes from"  # add a pipe to 'less' to avoid terminal clutter 
+        
+        64 bytes from 192.168.1.1: icmp_seq=0 ttl=64 time=2.635 ms
+        64 bytes from 192.168.1.115: icmp_seq=0 ttl=64 time=32.199 ms
+        64 bytes from 192.168.1.148: icmp_seq=0 ttl=64 time=11.932 ms
+        ...
+        64 bytes from 192.168.1.193: icmp_seq=0 ttl=64 time=270.611 ms
+        64 bytes from 192.168.1.132: icmp_seq=0 ttl=64 time=372.720 ms
+        64 bytes from 192.168.1.188: icmp_seq=0 ttl=32 time=611.825 ms
+        64 bytes from 192.168.1.185: icmp_seq=0 ttl=64 time=673.579 ms
+      ```
+
+2.  Now that your ARP cache is refreshed by `ping`, it contains a record of every active host on your subnet.  We're now prepared to run `arp`. We use `grep` to filter the results of the `arp` command based on the [**OUI** code](https://en.wikipedia.org/wiki/Organizationally_unique_identifier) - which is part of the [**MAC** address](https://en.wikipedia.org/wiki/MAC_address). The OUI codes for RPi continue to proliferate as "The Raspberries" continue morphing their organization... there was only one OUI in the beginning; now there are four!  
+
+      ```bash
+        arp -a | grep -i "b8:27:eb\|dc:a6:32\|2c:cf:67\|d8:3a:dd"  # note: '\' used to "escape" the "OR" token '|'
+        
+        rpi4b.local (192.168.1.144) at dc:a6:32:2:f0:96 on en0 ifscope [ethernet]
+        rpi3a.local (192.168.1.148) at b8:27:eb:c:75:a7 on en0 ifscope [ethernet]
+        rpi2w3.local (192.168.1.175) at 2c:cf:67:ae:2b:1 on en0 ifscope [ethernet]
+        rpi2w.local (192.168.1.185) at d8:3a:dd:a9:71:94 on en0 ifscope [ethernet]
+        rpi2w2.local (192.168.1.193) at d8:3a:dd:87:a0:2a on en0 ifscope [ethernet]
+        rpi5-2.local (192.168.1.221) at d8:3a:dd:bf:71:c3 on en0 ifscope [ethernet]
+        raspberrypi5.local (192.168.1.223) at d8:3a:dd:a7:b1:fe on en0 ifscope [ethernet]
+      ```
+    
+    ***One final thing to note here :*** Every host in the list above contains a reference to `en0` and `ethernet` This, despite the fact that each and every one of the RPi listed above connect to the network via WiFi, **and** the "`arp` host" for this command is a macbook - also connected via wifi.   **Not to worry!**  ***The IP addresses themselves are correct, despite the fact the device is wrong***. At least some of the reasons for this are discussed in this [old LWN article](https://lwn.net/Articles/45373/); other reasons may include the 2008 vintage `arp` command on my Mac.
 
  [**⋀**](#table-of-contents) 
 
