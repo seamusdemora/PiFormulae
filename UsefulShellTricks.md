@@ -176,11 +176,26 @@ $ hostnamectl     # p/o systemd, see man hostnamectl for options & usage info
       Architecture: arm
 ```
 
-### MAC address: 
+### MAC address:
 
 ```bash
 ethtool --show-permaddr eth0    # for the Ethernet adapter 
 ethtool --show-permaddr wlan0   # for the WiFi adapter 
+```
+
+### IP address: 
+
+There are *several* ways to get the IP address: 
+
+```bash
+#1:★ $ hostname -I
+#2:  $ hostname --all-ip-addresses 
+#3:  $ ip route get 8.8.8.8
+#4:  $ ip route get 8.8.8.8 | awk '{print $7; exit}'
+#5:  $ ip addr                   # general, all devices
+#6:  $ ip -4 -o addr show wlan0  # specific device (e.g. 'wlan0')
+#7  :$ ip -4 -o addr show wlan0 | awk '{print $4; exit}'
+#8:  $ ifconfig
 ```
 
 ### `vcgencmd` tool
