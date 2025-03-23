@@ -1,6 +1,6 @@
 ## Minimize Raspberry Pi 4B Power Consumption After `halt`... or `shutdown`... or `poweroff` 
 
-   N.B. If you are using - or have plans to use - the `dtoverlay=gpio-poweroff` in `/boot/config.txt`, please review the [UPDATES](#UPDATES) before you proceed here.
+   N.B. If you are using - or have plans to use - the `dtoverlay=gpio-poweroff` in `/boot/config.txt`, please review the [UPDATES](#UPDATES) section at the bottom of this page before you proceed here.
 
 ---
 
