@@ -51,7 +51,7 @@
 * [Is my system clock being updated properly?](#what-about-my-rtc-settings-and-timedatectl) 
 * [How much time is required to boot your system?](#how-much-time-is-required-to-boot-your-system)
 * [Use the `at` command for scheduling](#how-to-use-the-at-command-for-scheduling)
-* [What's the IP address of myRPi? - Finding all RPi on the local network](#finding-all-rpi-on-the-local-network) 
+* [What's the IP address of my Raspberry Pi? - How to find **all** RPi on the local network](#finding-all-rpi-on-the-local-network) 
 * [REFERENCES:](#references) 
 
 
