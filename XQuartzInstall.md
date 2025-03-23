@@ -1,5 +1,5 @@
 ## Introduction: 
-There are several ways to approach development of Python code on a Raspberry Pi (RPi). These approaches [range from simple and free to complex and expensive](https://wiki.python.org/moin/IntegratedDevelopmentEnvironments). Assuming that you are running your RPi in "headless" mode, you can simply launch `pico` from the command line and begin coding, or you can invest in a commercial development environment such as [PyCharm](https://www.jetbrains.com/pycharm/), or [Wing](https://wingware.com/). This "recipe" discusses only one approach; an intermediate approach that utilizes the "native" [IDLE](https://docs.python.org/3/library/idle.html) running on the RPi, and displayed in an **[X Window](https://en.wikipedia.org/wiki/X_Window_System) on a Mac**. 
+There are several ways to approach development of Python code on a Raspberry Pi (RPi). These approaches [range from simple and free to complex and expensive](https://wiki.python.org/moin/IntegratedDevelopmentEnvironments). Assuming that you are running your RPi in "headless" mode, you can simply launch `nano` from the command line and begin coding, or you can invest in a commercial development environment such as [PyCharm](https://www.jetbrains.com/pycharm/), or [Wing](https://wingware.com/). This "recipe" discusses only one approach; an intermediate approach that utilizes the "native" [IDLE](https://docs.python.org/3/library/idle.html) running on the RPi, and displayed in an **[X Window](https://en.wikipedia.org/wiki/X_Window_System) on a Mac**. 
 
 ## Installation and Setup:
 
@@ -7,7 +7,7 @@ Installation and setup is easy:
 
 ### 1. Download & install [XQuartz](https://www.xquartz.org/). 
 
-   The current version as of this writing is 2.7.11. It runs on Mac OS High Sierra (10.13.x), and on Mojave (10.14.5). 
+   The current version as of this writing is 2.8.5. It runs on Mac OS 10.9 and higher. 
 
 ### 2. Start XQuartz 
    From the Launchpad, or `open -a XQuartz` from `bash`. This will verify that XQuartz has been installed properly. You should see an Xterm window on your desktop as shown below: 
