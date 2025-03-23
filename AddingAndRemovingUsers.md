@@ -7,7 +7,7 @@ You may go for years (as I have) without needing to add (or remove) a user from 
 ### `adduser`, or `useradd`... What's the difference?
 
 1. Know the difference between `adduser` and `useradd`! 
-2. Because **RPi OS** is a *derivative* of **Debian**, know that for **routine use **,  **`adduser` ** is a *one-stop* command solution. It adds the user, prompts you to create a password, and creates a *ready-to-use* **`/home`** directory for the new user. ***Forget about `useradd`*** unless you need something *non-routine*; e.g. no `/home` directory, no login password, etc. Here's a preview in which we add a user named **stooge**: 
+2. Because **RPi OS** is a *derivative* of **Debian**, know that for **routine use**,  **`adduser`** is a *one-stop* command solution. It adds the user, prompts you to create a password, and creates a *ready-to-use* **`/home`** directory for the new user. ***Forget about `useradd`*** unless you need something *non-routine*; e.g. no `/home` directory, no login password, etc. Here's a preview in which we add a user named **stooge**: 
 
    ```bash
    $ sudo adduser stooge
