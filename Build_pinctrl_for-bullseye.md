@@ -1,6 +1,6 @@
 ## Building 'pinctrl' on a *bullseye* or *bookworm* system 
 
-This *recipe* is for building the latest version of `pinctrl` on a `bullseye` system (aka `.oldstable`). `pinctrl` is a potentially useful adjunct in our testing and experimentation with `libgpiod`. 
+This *recipe* is for building the latest version of `pinctrl` on a `bullseye` (or `bookworm`) system (aka `.oldstable`). `pinctrl` is a potentially useful adjunct in our testing and experimentation with `libgpiod`. 
 
 1. `pinctrl` is a member of the [`utils` repo](https://github.com/raspberrypi/utils/tree/master) at the Raspberry Pi GitHub site. For reasons that are not clear to me, cloning this repo is a *two-step* process: 
 
