@@ -55,7 +55,7 @@ Before going further, I'll note that despite what [the documentation](https://gi
 
 Controlling GPIO is more fun if you have [**blinkenlights**](https://hackaday.com/2025/01/11/blinkenlights-first-retrocomputer-design/) to watch :)  Here's how to make a simple and neat *blinkenlight* for your experimentation:  
 
-![blikenlight2](/Users/jmoore/Documents/GitHub/PiFormulae/pix/blikenlight2.png)
+![blikenlight2](pix/blikenlight2.png)
 
 With this *blinkenlight*, we will use a GPIO pin that is adjacent to a GND pin on the 40-pin header. There are [several candidates](https://pinout.xyz/pinout/pin37_gpio26/); we chose GPIO 26 (header pins 37 & 39) as it is easy to find, and typically not *conflicted* as other GPIOs used for common functions such as I2C, SPI, UART, etc. You will need to assemble this respecting the [anode & cathode pins](https://www.westfloridacomponents.com/blog/led-basics-how-to-tell-which-lead-is-positive-or-negative/) on the LED, and you will need a 330 Ohm resistor. I soldered the resistor to the LED anode lead (**+**) so that is the end that is connected to GPIO 26 (header pin 37); the cathode (**-**) lead goes to GND (header pin 39). 
 
