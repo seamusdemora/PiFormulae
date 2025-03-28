@@ -94,7 +94,7 @@ Using GPIO as an input is slightly more complicated than using it as an output. 
 
 We'll need another prop for the GPIO input examples that follow. As inputs are often switches, I'll use my ***ugly toggle switch*** shown below: 
 
-![uglytogglesw2](/Users/jmoore/Documents/GitHub/PiFormulae/pix/uglytogglesw2.png)
+![uglytogglesw2](pix/uglytogglesw2.png)
 
 I like this *ugly toggle switch* because it has lots and lots of [contact bounce](https://www.allaboutcircuits.com/textbook/digital/chpt-4/contact-bounce/)... it's a good switch to use for testing purposes! Note the addition of the .01uF capacitor in the figure above; this eliminates most of the contact bounce. Just for grins, you may want to disconnect the capacitor from your *ugly toggle switch*, and observe the reaction while running the `pinctrl poll` example below. 
 
