@@ -30,7 +30,7 @@
 * [What version of `awk` is available on my Raspberry Pi?](#what-version-of-awk-is-available-on-my-raspberry-pi) 
 * [Find what you need in that huge `man` page](#find-what-you-need-in-that-huge-man-page) 
 * [Where did I put that file? - it's *somewhere* in my system](#that-file-is-somewhere-in-my-system)
-* [A useful tool for GPIO hackers: `raspi-gpio`](#a-useful-tool-for-gpio-hackers-raspi-gpio) 
+* [Useful tools for GPIO hackers](#useful-tools-for-gpio-hackers-raspi-gpio-and-pinctrl) 
 * [`raspi-config` from the command line?](#raspi-config-from-the-command-line)
 * [Background, nohup, infinite loops, daemons](#background-nohup-infinite-loops-daemons)
 * [Bluetooth](#bluetooth) 
@@ -946,9 +946,18 @@ Not a *shell trick* exactly, but ***useful***: Most systems use the *pager* name
 
 [**⋀**](#table-of-contents)  
 
-## A useful tool for GPIO hackers: `raspi-gpio`
+## Useful tools for GPIO hackers: `raspi-gpio` and `pinctrl`
 
 `raspi-gpio` is a useful tool for those interested in working with external hardware. It's included as a standard package - even in the `Lite` distro, but was developed by an individual - i.e. outside "The Foundation". The [raspi-gpio GitHub repo](https://github.com/RPi-Distro/raspi-gpio) has some useful resources; there is no `man raspi-gpio`, but `raspi-gpio help` will do just that. You can compare it against the [`gpio` directive](https://www.raspberrypi.com/documentation/computers/config_txt.html#gpio)... ponder that for a moment :)  
+
+A better choice for GPIO hacking is now `pinctrl` - [here from "The Raspberries" GitHub](https://github.com/raspberrypi/utils/blob/master/pinctrl/README.md), and the subject of a ["recipe" here](https://github.com/seamusdemora/PiFormulae/blob/master/GPIO_Using_pinctrl.md) from yours truly. Note that "The Raspberries" have embedded a "disclaimer" in `pinctrl help`: 
+
+>WARNING! pinctrl set writes directly to the GPIO control registers
+ignoring whatever else may be using them (such as Linux drivers) -
+it is designed as a debug tool, only use it if you know what you
+are doing and at your own risk!
+
+Readers will have to *digest* this warning in the context of the Linux kernel's entry in the *"GPIO Race"* - `libgpiod`. For me personally, it's not much of a race... while I've not tried the `libgpiod` library itself, I did a [fair and thorough evaluation](https://github.com/seamusdemora/PiFormulae/blob/master/Testing-libgpiod-ver2.1.md#25-summary---step-2-simple-libgpiod-testing-using-an-led-) of the so-called `libgpiod tools`. And the fact that the [self-designated promoter](https://forums.raspberrypi.com/search.php?keywords=&terms=all&author=warthog618&sc=1&sf=all&sr=posts&sk=t&sd=d&st=0&ch=300&t=0&submit=Search) of `libgpiod` is a cocky, overbearing, shit-for-brains idiot doesn't help :)  
 
 [**⋀**](#table-of-contents)  
 
