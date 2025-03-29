@@ -1,24 +1,26 @@
 ## Using 'pinctrl' for GPIO input and output
 
-This *recipe* is for building and using the latest version of `pinctrl` on a `bullseye` (or `bookworm`) system. As cautioned by *"The Raspberries"* in their documentation `pinctrl` is a potentially useful *adjunct* in our *testing, experimentation and troubleshooting* with our RPi systems. 
+This *recipe* is for building and using the latest version of `pinctrl` on a `bullseye` (or `bookworm`) system. As cautioned by *"The Raspberries"* in their `pinctrl help` documentation: 
 
-I have a different take on this advice: 
+>WARNING! pinctrl set writes directly to the GPIO control registers ignoring whatever else may be using them (such as Linux drivers) - it is designed as a debug tool, only use it if you know what you are doing and at your own risk!
 
->  IMHO, their advice is based on some sort of *perverted deference* to the **Kernel God**... yes, I'm referring to Linus Torvalds. Some of you will wonder why I utter such blasphemies... allow me to explain my reasoning: First, Linus Torvalds deserves a lot of credit for creating the Linux kernel, but he has become incredibly *wealthy and powerful* as a result of his work. Mr. Torvalds derives much of his wealth from "donations" supplied by industry - the companies that make and sell the thousands of devices the Linux kernel controls. This is simply "*business as usual*" in the OpenSource world! 
+I have a slightly different take on this advice: 
+
+>  IMHO, their advice is based on some sort of *perverted deference* to the **Kernel God**... yes, I'm referring to Linus Torvalds. Some of you will wonder why I utter such blasphemies... allow me to explain my reasoning: First, Linus Torvalds deserves a lot of credit for creating the Linux kernel, but he has become incredibly *wealthy and powerful* as a result of his work. Mr. Torvalds derives much of his wealth from "donations" supplied by industry - the companies that make and sell the thousands of devices the Linux kernel controls. This is "*business as usual*" in the OpenSource world - those with the ability to exploit free/cheap resources often do extremely well for themselves! 
 >
->  If you don't see things the same as I do - that's fine - we're all entitled to believe what we choose to believe. But in this case I find the `pinctrl` utility a *straightforward and easy to use* utility for controlling GPIO resources. Further, my systems are not encumbered with hardware or software that makes use of `libgpiod`... For those of you who don't know:  `libgpiod` is the *official, sanctioned tool* for GPIO manipulation under the Linux kernel. So - yeah - another source of revenue for Mr. Torvalds. 
+>  If you don't see things the same as I do - that's fine - we're all entitled to believe what we choose to believe. But in this case I find the `pinctrl` utility a *straightforward and easy to use* utility for controlling GPIO resources. Further, my systems are not encumbered with hardware or software that makes use of `libgpiod`... For those of you who don't know:  `libgpiod` is the *official, sanctioned tool* for GPIO manipulation under the Linux kernel. As such, it is merely another source of revenue for Mr. Torvalds. 
 
-That said, let's get on with the business at hand: using `pinctrl`. 
+Having gotten that [*off my chest*](https://idioms.thefreedictionary.com/get+it+off+your+chest), let's get on with the business at hand: using `pinctrl`. 
 
 ### Installation:
 
-`pinctrl` is not available as a "package" that can be installed using `apt`. But its installation is straightforward and simple... in a nutshell, git clone the repo, then build and install it. Details follow:
+`pinctrl` is not available as a "package" that can be installed using `apt`. But its installation is straightforward and simple... in a nutshell, `git clone` the repo, then build and install it. Details follow:
 
 ```bash
 $ cd
 # install the prerequisites using 'apt': 
 $ sudo apt update
-$ sudo apt install git cmake device-tree-compiler libfdt-dev
+$ sudo apt install git cmake device-tree-compiler libfdt-dev   # necessary tools
 # ...
 $ git clone https://github.com/raspberrypi/utils 
 $ cd utils/pinctrl
@@ -57,9 +59,9 @@ Controlling GPIO is more fun if you have [**blinkenlights**](https://hackaday.co
 
 ![blikenlight2](pix/blikenlight2.png)
 
-With this *blinkenlight*, we will use a GPIO pin that is adjacent to a GND pin on the 40-pin header. There are [several candidates](https://pinout.xyz/pinout/pin37_gpio26/); we chose GPIO 26 (header pins 37 & 39) as it is easy to find, and typically not *conflicted* as other GPIOs used for common functions such as I2C, SPI, UART, etc. You will need to assemble this respecting the [anode & cathode pins](https://www.westfloridacomponents.com/blog/led-basics-how-to-tell-which-lead-is-positive-or-negative/) on the LED, and you will need a 330 Ohm resistor. I soldered the resistor to the LED anode lead (**+**) so that is the end that is connected to GPIO 26 (header pin 37); the cathode (**-**) lead goes to GND (header pin 39). 
+With this *blinkenlight*, we use a GPIO pin adjacent to a GND pin on the 40-pin header. There are [several candidates](https://pinout.xyz/pinout/pin37_gpio26/); I chose GPIO 26 (header pins 37 & 39) as it is easy to find, and typically not *conflicted* as other GPIOs used for common functions such as I2C, SPI, UART, etc. You should assemble this *blinkenlight* respecting the [anode & cathode pins](https://www.westfloridacomponents.com/blog/led-basics-how-to-tell-which-lead-is-positive-or-negative/) on the LED.  You'll also need a resistor in the range of 120 to 330 Ohms. I soldered the resistor to the LED anode lead (**+**) - the end connected to GPIO 26 (header pin 37); the cathode (**-**) lead goes to GND (header pin 39). 
 
-Connect your *blinkenlight* to header pins 37 & 39 of your Raspberry Pi, and we'll take *baby steps* to see how easy it is to use the `pinctrl` software interface in `bash`. When using GPIO pins as outputs, we will make use of the `op` (output) option with `pinctrl`. The typically-used options with `op` are `dh` (drive hi) and `dl` (drive lo). : 
+Connect your *blinkenlight* to header pins 37 & 39 of your Raspberry Pi, and we'll take *baby steps* to see how easy it is to use the `pinctrl` software interface in `bash`. When using GPIO pins as outputs, we will make use of the `op` (output) option with `pinctrl`. Typically-used options with `op` are `dh` (drive hi) and `dl` (drive lo). : 
 
 ```bash
 $ pinctrl get 26                    # check status of GPIO 26
@@ -86,7 +88,7 @@ Next we'll do everything we did with *baby steps* above in a single command. Oh.
 $ pinctrl set 26 op dh           # set GPIO 26 as output, and 'drive high'; LED ILLUMINATES!
 ```
 
-While LEDs are a rather trite use case, hopefully the reader can appreciate that there are many applications where driving GPIO pins 'hi' and 'lo' can be applied. In addition, there are many more applications where using GPIO as an **input** is useful. We'll look at a couple of examples in the next section.  
+While LEDs are a rather trite use case, hopefully the reader can appreciate that there are many applications where driving GPIO pins 'hi' and 'lo' can be applied. In addition, there are many more applications where using GPIO as an **input** is useful. Next we'll look at some ***input*** examples.  
 
 ### Using 'pinctrl' with GPIO *input*
 
@@ -117,12 +119,12 @@ $ pinctrl lev 25                    # get "logic level" of GPIO 25
 $ pinctrl set 25 pn                 # set "no pull" on GPIO 25
 
 $ pinctrl lev 25                    # get "logic level" of GPIO 25
-1                                   # NOTE! logic level remains at '1' !
+1                                   # NOTE! logic level remained at '1' !
 
 $ pinctrl set 25 pd                 # set a pull-down on GPIO 25
 
 $ pinctrl lev 25                    # get "logic level" of GPIO 25
-0                                   # NOTE: logic level changes to '0' after 'pd' ! 
+0                                   # NOTE: logic level changed to '0' after 'pd' ! 
 
 $ pinctrl set 25 pu                 # return to a pull-up on GPIO 25
 
@@ -145,7 +147,7 @@ Apologies to the "***pull [cognoscenti](https://www.merriam-webster.com/dictiona
 
 ### Using 'pinctrl' with the 'poll' option 
 
-I'll try to pick up the pace a bit in this last section. If you read every word of the sparse documentation, you may have noticed that [this document](https://github.com/raspberrypi/utils/tree/master/pinctrl#readme) referenced a `poll` option. There's nothing else said about the `poll` option - which is *surprising*. However, the script below uses the `poll` option of `pinctrl` to do something that ***may be*** useful. Please open an editor on your RPi, and enter the following simple script. 
+I'll try to pick up the pace a bit in this last section. If you read *every word* of the sparse documentation on `pinctrl`, you may have noticed that [this document](https://github.com/raspberrypi/utils/tree/master/pinctrl#readme) referenced a `poll` option. There's nothing else said about the `poll` option - which is *surprising*. However, the script below uses the `poll` option of `pinctrl` to do something ***useful***. Please open an editor on your RPi, and enter/copy the following simple script. 
 
 ```bash 
 #!/usr/bin/env bash
@@ -171,7 +173,7 @@ After saving the script in your home folder, run it as follows:
 $ cd
 $ chmod 755 ~/sw-state.sh 
 $ ./sw-state.sh           # note that this script does not "return to the prompt"
-                          # after you enter 'control+c' from the keyboard
+                          # --- until after you enter 'control+c' from the keyboard
 
 ```
 
@@ -186,9 +188,9 @@ hi		GPIO25 is hi - nothing to do
 lo	3	GPIO25 is lo - get busy!
 ```
 
-If you did not add the capacitor (debounce filter) you may see a lot more output than shown above! These additional outputs simply reflect the switch contacts "slapping around" before they finally settle out to a steady state. 
+If you did not add the capacitor (debounce filter) to your *ugly toggle switch*, you may see a lot more output than shown above! These additional outputs would simply reflect the switch contacts "slapping around" before they finally settle out to a steady state. 
 
-Let's make one minor modification before closing this recipe...  I couldn't think of a clever application, so I've just made use of the fact that we still have the *blinkenlight* connected on GPIO 26:
+Let's make one minor modification before closing this recipe...  I couldn't think of a ***clever application***, so I've just made use of the fact that we still have the *blinkenlight* connected on GPIO 26:
 
 ```bash 
 #!/usr/bin/env bash
@@ -211,7 +213,13 @@ pinctrl set 26 op
 done
 ```
 
-And it does what we expect: when the *ugly toggle switch* is CLOSED (such that current flows through the pullup), the  *blinkenlight* is turned ON, and when the switch is OPEN (no current flows), *blinkenlight* is turned OFF. Hopefully, readers will conjure more imaginative applications for this simple script. 
+And it does what we expect: when the *ugly toggle switch* is CLOSED (such that current flows through the pullup, and `pinctrl lev 25` is `0`), the  *blinkenlight* is turned **ON**, and when the switch is OPEN (no current flows, and  `pinctrl lev 25` is `1`), *blinkenlight* is turned **OFF**. Hopefully, readers will conjure more imaginative applications for this simple script. 
+
+<heavy sarcasm>
+
+And will wonders never cease?... We were able to use `pinctrl` without burning the house down! 
+
+</heavy sarcasm>
 
 
 
