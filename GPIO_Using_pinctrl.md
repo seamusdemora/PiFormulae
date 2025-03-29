@@ -215,11 +215,11 @@ done
 
 And it does what we expect: when the *ugly toggle switch* is CLOSED (such that current flows through the pullup, and `pinctrl lev 25` is `0`), the  *blinkenlight* is turned **ON**, and when the switch is OPEN (no current flows, and  `pinctrl lev 25` is `1`), *blinkenlight* is turned **OFF**. Hopefully, readers will conjure more imaginative applications for this simple script. 
 
-<heavy sarcasm>
+`<heavy sarcasm>`
 
 And will wonders never cease?... We were able to use `pinctrl` without burning the house down! 
 
-</heavy sarcasm>
+`</heavy sarcasm>`
 
 
 
