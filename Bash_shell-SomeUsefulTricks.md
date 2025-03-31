@@ -74,15 +74,20 @@
    *  [Background, nohup, infinite loops, daemons](#background-nohup-infinite-loops-daemons) 
    *  [Process management using <kbd>ctrl</kbd>+<kbd>z</kbd>, `fg`, `bg` & `jobs`](#process-management-jobs-fg-bg-and-ctrl-z) 
 
-*  ### Miscellaneous 
+*  ### RPi specific 
+
+   *  [So you want to remove `rpi-eeprom` package & save 25MB?](#want-to-remove-the-rpi-eeprom-package-to-save-25mb-tough-shit-say-the-raspberries) 
+   
+   *  [Disable CPU cores for power saving](#disable-cpu-cores-for-power-saving) 
+   
+   *  [`raspi-config` from the command line?](#raspi-config-from-the-command-line) 
+   
+*  ### Miscellaneous
 
    *  [Using the default editor `nano` effectively](#using-the-default-editor-nano-effectively) 
    *  [What version of `awk` is available on my Raspberry Pi?](#what-version-of-awk-is-available-on-my-raspberry-pi) 
-   *  [`raspi-config` from the command line?](#raspi-config-from-the-command-line) 
-   *  [Disable CPU cores for power saving](#disable-cpu-cores-for-power-saving) 
    *  [Download a file from GitHub](#download-a-file-from-github) 
    *  [Use the `at` command for scheduling](#how-to-use-the-at-command-for-scheduling) 
-   *  [So you want to remove `rpi-eeprom` package & save 25MB?](#want-to-remove-the-rpi-eeprom-package-to-save-25mb-tough-shit-say-the-raspberries) 
    *  [Should I use `scp`, or `sftp`?](#scp-vs-sftp) 
 
 *  ### [REFERENCES:](#references) 
