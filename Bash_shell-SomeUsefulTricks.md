@@ -1,62 +1,95 @@
-# Useful shell tricks:
+# Some useful shell tricks:
 
-### Table of contents
+## Table of contents
 
-* [How do I tell my system to tell me about my system: OS, Kernel, Hardware, etc](#tell-me-about-my-system) 
-* [Resolve Permission Issues When Using Redirection](#permission-issues-when-using-redirection) 
-* [Reload `bash` or `zsh` `.profile` without restarting shell:](#refresh-shell-configuration-without-restarting)
-* [Clear the contents of a file without deleting the file:](#clear-the-contents-of-a-file-without-deleting-the-file) 
-* [List all directories - not files, just directories:](#list-all-directories---not-files-just-directories) 
-* [Pitfalls of parsing `ls`](#pitfalls-of-parsing-ls) 
-* [Sequential shell command execution:](#sequential-shell-command-execution)
-* [Get a date-time stamp for a log:](#get-a-date-time-stamp-for-a-log)
-* [String manipulation with bash:](#string-manipulation-with-bash)
-* [Testing things in bash:](#testing-things-in-bash)
-* [The Shell Parameters of bash](#the-shell-parameters-of-bash) 
-* [Assign shell command output to a variable in `bash`](#assign-shell-command-output-to-a-variable-in-bash); a.k.a. *command substitution* 
-* [Know the Difference Between `NULL` and an Empty String](#the-difference-between-null-and-empty-strings) 
-* [How do I see my *environment*?](#how-do-i-see-my-environment) 
-* [Shell variables: UPPER case, lower case, or SoMeThInG_eLsE...?](#shell-variables-what-is-the-best-naming-convention) 
-* [What do file and directory permissions mean?](#what-do-file-and-directory-permissions-mean) 
-* [Using `which` to find commands](#using-which-to-find-commands) - *accurately!* 
-* [Using your shell command history](#using-your-shell-command-history) 
-* [Searching command history](#searching-command-history) 
-* [Access compressed log files easily](#access-compressed-log-files-easily) 
-* [Filename expansion; a.k.a. "globbing"](#filename-expansion-aka-globbing) 
-* [Using the default editor `nano` effectively](#using-the-default-editor-nano-effectively) 
-* [Some Options with `grep`](#some-options-with-grep) 
-* [Filtering `grep` processes from `grep` output](#filtering-grep-processes-from-grep-output) 
-* [Finding pattern matches: `grep` or `awk`?](#finding-pattern-matches-grep-or-awk) 
-* [What version of `awk` is available on my Raspberry Pi?](#what-version-of-awk-is-available-on-my-raspberry-pi) 
-* [Find what you need in that huge `man` page](#find-what-you-need-in-that-huge-man-page) 
-* [Where did I put that file? - it's *somewhere* in my system](#that-file-is-somewhere-in-my-system)
-* [Useful tools for GPIO hackers](#useful-tools-for-gpio-hackers-raspi-gpio-and-pinctrl) 
-* [`raspi-config` from the command line?](#raspi-config-from-the-command-line)
-* [Background, nohup, infinite loops, daemons](#background-nohup-infinite-loops-daemons)
-* [Bluetooth](#bluetooth) 
-* [Change the modification date/time of a file](#change-the-modification-date-of-a-file)
-* [★★How to deal with *"Unix time"* when using `date`](#using-date-to-deal-with-unix-time) 
-* [Process management using <kbd>ctrl</kbd>+<kbd>z</kbd>, `fg`, `bg` & `jobs`](#process-management-jobs-fg-bg-and-ctrl-z) 
-* [Download a file from GitHub](#download-a-file-from-github) 
-* [Verify a file system is mounted with `findmnt` - *before trying to use it*!](#verify-file-system-is-mounted) 
-* [Should I use `scp`, or `sftp`?](#scp-vs-sftp) 
-* [So you want to remove `rpi-eeprom` package & save 25MB?](#want-to-remove-the-rpi-eeprom-package-to-save-25mb-tough-shit-say-the-raspberries) 
-* [How to move or copy a file without accidentally overwriting a destination file](#move-or-copy-a-file-without-accidentally-overwriting-a-destination-file) 
-* [Using `socat` to test network connections](#using-socat-to-test-network-connections) 
-* [Using `dirname`, `basename` & `realpath`](#using-dirname-basename-and-realpath) 
-* ['shell parameter expansion' examples](#shell-parameter-expansion) 
-* [Comment an entire block of code in a shell script](#comment-an-entire-block-of-code) 
-* [Disable CPU cores for power saving](#disable-cpu-cores-for-power-saving) 
-* [What is my "Kernel Configuration"?](#what-is-my-kernel-configuration)
-* [Is my system clock being updated properly?](#what-about-my-rtc-settings-and-timedatectl) 
-* [How much time is required to boot your system?](#how-much-time-is-required-to-boot-your-system)
-* [Use the `at` command for scheduling](#how-to-use-the-at-command-for-scheduling)
-* [What's the IP address of my Raspberry Pi? - How to find **all** RPi on the local network](#finding-all-rpi-on-the-local-network) 
-* [REFERENCES:](#references) 
+*  ### bash *particulars* 
 
+   *  [Reload `bash` or `zsh` `.profile` without restarting shell](#refresh-shell-configuration-without-restarting) 
+   *  [Sequential shell command execution](#sequential-shell-command-execution) 
+   *  [The Shell Parameters of bash](#the-shell-parameters-of-bash) 
+   *  [*Command substitution*; assign shell command output to a variable](#assign-shell-command-output-to-a-variable-in-bash) 
+   *  [*Shell parameter expansion*; some examples](#shell-parameter-expansion) 
+   *  [Shell variables: UPPER case, lower case, or SoMeThInG_eLsE...?](#shell-variables-what-is-the-best-naming-convention) 
+   *  [Using your shell command history](#using-your-shell-command-history) 
+   *  [Resolve Permission Issues When Using Redirection](#permission-issues-when-using-redirection) 
+   *  [Comment an entire block of code in a shell script](#comment-an-entire-block-of-code) 
+   *  [Testing things in bash](#testing-things-in-bash) 
 
-[**⋀**](#table-of-contents)
-## Tell me about my system:
+*  ### System information
+
+   *  [How do I tell my system to tell me about my system: OS, Kernel, Hardware, etc](#tell-me-about-my-system) 
+   *  [How do I see my *environment*?](#how-do-i-see-my-environment) 
+   *  [What is my "Kernel Configuration"?](#what-is-my-kernel-configuration) 
+   *  [How much time is required to boot your system?](#how-much-time-is-required-to-boot-your-system) 
+
+*  ### File operations
+
+   *  [What do file and directory permissions mean?](#what-do-file-and-directory-permissions-mean) 
+   *  [Clear the contents of a file without deleting the file](#clear-the-contents-of-a-file-without-deleting-the-file) 
+   *  [List all directories - not files, just directories](#list-all-directories---not-files-just-directories) 
+   *  [Pitfalls of parsing `ls`](#pitfalls-of-parsing-ls) 
+   *  [Access compressed log files easily](#access-compressed-log-files-easily) 
+   *  [Filename expansion; a.k.a. "globbing"](#filename-expansion-aka-globbing) 
+   *  [Change the modification date/time of a file](#change-the-modification-date-of-a-file) 
+   *  [Verify a file system is mounted with `findmnt` - *before trying to use it*!](#verify-file-system-is-mounted) 
+   *  [How to move or copy a file without accidentally overwriting a destination file](#move-or-copy-a-file-without-accidentally-overwriting-a-destination-file) 
+   *  [Using `dirname`, `basename` & `realpath`](#using-dirname-basename-and-realpath) 
+
+*  ### Date and time Operations
+
+   *  [Get a date-time stamp for a log](#get-a-date-time-stamp-for-a-log) 
+   *  [★★How to deal with *"Unix time"* when using `date`](#using-date-to-deal-with-unix-time) 
+   *  [Is my system clock being updated properly?](#what-about-my-rtc-settings-and-timedatectl) 
+
+*  ### String manipulation
+
+   *  [String manipulation with bash](#string-manipulation-with-bash) 
+   *  [Know the Difference Between `NULL` and an Empty String](#the-difference-between-null-and-empty-strings) 
+
+*  ### Finding things on your system
+
+   *  [Using `which` to find commands](#using-which-to-find-commands) - *accurately!* 
+   *  [Searching command history](#searching-command-history) 
+   *  [Some options with `grep`](#some-options-with-grep) 
+   *  [Filtering `grep` processes from `grep` output](#filtering-grep-processes-from-grep-output); *separating the wheat from the chaff* 
+   *  [Finding pattern matches: `grep` or `awk`?](#finding-pattern-matches-grep-or-awk) 
+   *  [Find what you need in that huge `man` page](#find-what-you-need-in-that-huge-man-page) 
+   *  [Where did I put that file? - it's *somewhere* in my system](#that-file-is-somewhere-in-my-system) 
+
+*  ### Using Bluetooth 
+
+   *  [Bluetooth](#bluetooth) 
+
+*  ### Networking 
+
+   *  [Using `socat` to test network connections](#using-socat-to-test-network-connections) 
+   *  [What's the IP address of my Raspberry Pi? - How to find **all** RPi on the local network](#finding-all-rpi-on-the-local-network) 
+
+*  ### Using GPIO
+
+   *  [Useful tools for GPIO hackers](#useful-tools-for-gpio-hackers-raspi-gpio-and-pinctrl) 
+
+*  ### Process management
+
+   *  [Background, nohup, infinite loops, daemons](#background-nohup-infinite-loops-daemons) 
+   *  [Process management using <kbd>ctrl</kbd>+<kbd>z</kbd>, `fg`, `bg` & `jobs`](#process-management-jobs-fg-bg-and-ctrl-z) 
+
+*  ### Miscellaneous 
+
+   *  [Using the default editor `nano` effectively](#using-the-default-editor-nano-effectively) 
+   *  [What version of `awk` is available on my Raspberry Pi?](#what-version-of-awk-is-available-on-my-raspberry-pi) 
+   *  [`raspi-config` from the command line?](#raspi-config-from-the-command-line) 
+   *  [Disable CPU cores for power saving](#disable-cpu-cores-for-power-saving) 
+   *  [Download a file from GitHub](#download-a-file-from-github) 
+   *  [Use the `at` command for scheduling](#how-to-use-the-at-command-for-scheduling) 
+   *  [So you want to remove `rpi-eeprom` package & save 25MB?](#want-to-remove-the-rpi-eeprom-package-to-save-25mb-tough-shit-say-the-raspberries) 
+   *  [Should I use `scp`, or `sftp`?](#scp-vs-sftp) 
+
+*  ### [REFERENCES:](#references) 
+
+---
+
+## Tell me about my system
 
 ### Hardware model: 
 
@@ -80,7 +113,7 @@ Serial		: 000000003e3ab978
 Model		: Raspberry Pi Model B Plus Rev 1.2
 ```
 
-#### OR, on a 4B: 
+#### OR, on a 4B:
 
 ```
 $ cat /proc/cpuinfo 
@@ -284,7 +317,7 @@ The problem is obvious once it's explained, but the solutions may vary. The **pr
 If you're interested, this [Q&A on SO](https://stackoverflow.com/questions/82256/how-do-i-use-sudo-to-redirect-output-to-a-location-i-dont-have-permission-to-wr) has much more on this subject.  
 [**⋀**](#table-of-contents) 
 
-## Refresh shell configuration without restarting:
+## Refresh shell configuration without restarting
 
 There are two user-owned files that control many aspects of the `bash` shell's behavior - uh, *interactive shells, that is*: `~/.profile` & `~/.bashrc`. Likewise for `zsh`, the `~/.zprofile` & `~/.zshrc`. There will be occasions when changes to these files will need to be made in the current session - without exiting one shell session, and starting a new one. Examples of such changes are changes to the `PATH`, or addition of an `alias`. 
 
@@ -309,7 +342,7 @@ $ . ~/.bashrc             #        "
 
 [**⋀**](#table-of-contents)
 
-## Clear the contents of a file without deleting the file:
+## Clear the contents of a file without deleting the file
 
 ```bash
 $ > somefile.xyz			# works in bash
@@ -322,7 +355,7 @@ $ cp /dev/null somefile.xyz     	# any system
 ```
 [**⋀**](#table-of-contents)  
 
-## List all directories - not files, just directories:
+## List all directories - not files, just directories
 
 ```bash
 $ find . -type d   # list all dirs in pwd (.)
@@ -347,7 +380,7 @@ I try to keep discussion on the topics here *brief*, but don't always succeed. I
 
 [**⋀**](#table-of-contents)
 
-## Sequential shell command execution:
+## Sequential shell command execution 
 
 Sometimes we want to execute a series of commands, but only if all previous commands execute successfully. In this case, we should use **`&&`** to join the commands in the sequence: 
 
@@ -362,7 +395,7 @@ cp /home/pi/README /home/auser; rsync -av /home/auser /mnt/BackupDrv/auser_backu
 ```
 [**⋀**](#table-of-contents) 
 
-## Get a date-time stamp for a log:
+## Get a date-time stamp for a log 
 
 It's often useful to insert a date-time stamp in a log file, inserted in a string, etc. Easily done w/ `date` using [*command substitution*](https://bash.cyberciti.biz/guide/Command_substitution): 
 
@@ -384,7 +417,7 @@ There are numerous options with the `date` command. Check `man date`, or peruse 
 
 [**⋀**](#table-of-contents)
 
-## String manipulation with bash:
+## String manipulation with bash 
 
 It's often useful to manipulate string variables in bash. These websites have some examples: [website 1](https://www.tutorialkart.com/bash-shell-scripting/bash-string-manipulation-examples/); [website 2](https://www.thegeekstuff.com/2010/07/bash-string-manipulation/). The [Wooledge Wiki](https://mywiki.wooledge.org/BashFAQ/100#How_do_I_do_string_manipulations_in_bash.3F) is a bit more advanced, and a trove of string manipulation methods available in `bash`. [Section 10.1 of the Advanced Bash-Scripting Guide](https://tldp.org/LDP/abs/html/string-manipulation.html) is another comprehensive source of information on string manipulation. For example:
 
@@ -398,7 +431,7 @@ for everything there is a season
 ```
 [**⋀**](#table-of-contents) 
 
-## Testing things in bash:
+## Testing things in bash 
 
 Testing the equality of two strings is a common task in shell scripts. You'll need to watch your step as there are numerous ways to screw this up! Consider a few examples: 
 
@@ -470,7 +503,7 @@ You might also learn something of the difference between *single quotes* `''`, a
 
 [**⋀**](#table-of-contents)  
 
-## Assign shell command output to a variable in `bash`:
+## Assign shell command output to a variable in `bash` 
 
 Sometimes you need the output of a shell command to be *persistent*; assign it to a variable for use later. This is known as [**command substitution**](https://bash.cyberciti.biz/guide/Command_substitution). Consider the case of a *tmp file* you've created. Here's how: 
 
