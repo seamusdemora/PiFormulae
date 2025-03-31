@@ -986,9 +986,9 @@ Not a *shell trick* exactly, but ***useful***: Most systems use the *pager* name
 
 ## Useful tools for GPIO hackers: `raspi-gpio` and `pinctrl`
 
-`raspi-gpio` is a useful tool for those interested in working with external hardware. It's included as a standard package - even in the `Lite` distro, but was developed by an individual - i.e. outside "The Foundation". The [raspi-gpio GitHub repo](https://github.com/RPi-Distro/raspi-gpio) has some useful resources; there is no `man raspi-gpio`, but `raspi-gpio help` will do just that. You can compare it against the [`gpio` directive](https://www.raspberrypi.com/documentation/computers/config_txt.html#gpio)... ponder that for a moment :)  
+`raspi-gpio` was a useful tool for those interested in working with RPi's GPIO. It's said to be *deprecated* now, but is still included in all standard RPi distros through 'bookworm' - even in the `Lite` distro. The [apparent reason](https://github.com/RPi-Distro/raspi-gpio) for the *deprecation* of `raspi-gpio` is that it does not (cannot) support RPi5. Presumably, `raspi-gpio` will continue to work on all other RPi models, but it seems unlikely that further development effort will go into it. 
 
-A better choice for GPIO hacking is now `pinctrl` - [here from "The Raspberries" GitHub](https://github.com/raspberrypi/utils/blob/master/pinctrl/README.md), and the subject of a ["recipe" here](https://github.com/seamusdemora/PiFormulae/blob/master/GPIO_Using_pinctrl.md) from yours truly. Note that "The Raspberries" have embedded a "disclaimer" in `pinctrl help`: 
+The replacement for GPIO hacking is now `pinctrl` - available [from "The Raspberries" GitHub](https://github.com/raspberrypi/utils/blob/master/pinctrl/README.md), and the subject of a ["recipe" here](https://github.com/seamusdemora/PiFormulae/blob/master/GPIO_Using_pinctrl.md) from yours truly. Note that "The Raspberries" have embedded a "disclaimer" in `pinctrl help`: 
 
 >WARNING! pinctrl set writes directly to the GPIO control registers
 ignoring whatever else may be using them (such as Linux drivers) -
@@ -996,6 +996,8 @@ it is designed as a debug tool, only use it if you know what you
 are doing and at your own risk!
 
 Readers will have to *digest* this warning in the context of the Linux kernel's entry in the *"GPIO Race"* - `libgpiod`. For me personally, it's not much of a race... while I've not tried the `libgpiod` library itself, I did a [fair and thorough evaluation](https://github.com/seamusdemora/PiFormulae/blob/master/Testing-libgpiod-ver2.1.md#25-summary---step-2-simple-libgpiod-testing-using-an-led-) of the so-called `libgpiod tools`. And the fact that the [self-designated promoter](https://forums.raspberrypi.com/search.php?keywords=&terms=all&author=warthog618&sc=1&sf=all&sr=posts&sk=t&sd=d&st=0&ch=300&t=0&submit=Search) of `libgpiod` is a cocky, overbearing, shit-for-brains idiot doesn't help :)  
+
+And we should not fail to mention the [**`gpio` directive**](https://www.raspberrypi.com/documentation/computers/config_txt.html#gpio) that may be placed within your `config.txt` file! Fortunately, the `gpio` directive uses options that closely resemble those of `raspi-gpio` and `pinctrl`. Interestingly,  `gpio` directives in `config.txt`  `gpio` **can be overridden by `pinctrl`**. Even more interestingly, the  [`gpio` directive documentation](https://www.raspberrypi.com/documentation/computers/config_txt.html#gpio) does not include the warning/disclaimer found in `pinctrl help`  :)  
 
 [**⋀**](#table-of-contents)  
 
