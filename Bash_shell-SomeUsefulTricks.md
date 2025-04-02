@@ -1934,9 +1934,11 @@ If you're using a SSD (as a mass torage/auxiliary drive) in one of your RPi proj
 
 *  format (re-format) the drive using the [`f2fs` filesystem](https://en.wikipedia.org/wiki/F2FS); aka *"flash friendly file system"*: 
 
-     ```bash
-      sudo mkfs.f2fs -f /dev/sdb1      # or, wherever your un-mounted SSD is plugged in
-     ```
+   ```bash
+    # install the tools, and format the SSD
+    $ sudo apt install f2fs-tools
+    $ sudo mkfs.f2fs -f /dev/sdb1      # or, wherever your un-mounted SSD is plugged in
+   ```
 
    *  Note any *exceptions* in the command output; e.g.:
 
@@ -1949,16 +1951,17 @@ If you're using a SSD (as a mass torage/auxiliary drive) in one of your RPi proj
 
 *  `mount`ing may be handled as follows: 
 
-   *  from the command line: 
+   *  from the command line (after running `lsblk --fs` to learn the device location): 
 
      ```bash
+      $ sudo mkdir /mnt/bluessd
       $ sudo mount /dev/sdb1 /mnt/bluessd
      ```
 
    *  from `/etc/fstab`: 
 
      ```
-      2095f553-6fdf-4862-9c22-5bf2acff4c0a /mnt/bluessid f2fs defaults,noatime 0 0 
+      UUID=97bd5811-e1b6-4582-8bbf-862b4a957b10 /mnt/bluessd f2fs defaults,nofail,noatime 0 0 
      ```
 
 *  *"TRIM"* the drive periodically to clean and optimize the filesystem by "trimming" empty data blocks. Once a week is ***probably*** sufficient for most RPi users; use the `fstrim` command for this:
@@ -1983,7 +1986,7 @@ If you're using a SSD (as a mass torage/auxiliary drive) in one of your RPi proj
 *  Use the `noatime` option when you `mount` the SSD; for example in `/etc/fstab`: 
 
      ```
-      2095f553-6fdf-4862-9c22-5bf2acff4c0a /mnt/bluessid f2fs defaults,noatime 0 0
+      UUID=97bd5811-e1b6-4582-8bbf-862b4a957b10 /mnt/bluessd f2fs defaults,nofail,noatime 0 0
      ```
 
    *  Why? Because left to itself, the kernel will update the last `atime` (read/access time) on each file on the SSD. Turns out this is rather a [complex operation](https://www.tiger-computing.co.uk/file-access-time-atime/), and we can live without it - the `noatime` option is also used by default (and wisely) on the root partition ( `/` ) of our beloved SD cards. 
@@ -1995,7 +1998,7 @@ If you're using a SSD (as a mass torage/auxiliary drive) in one of your RPi proj
       none [mq-deadline] kyber bfq             # looks like it's 'mq-deadline'
      ```
 
-   *  It also seems that **every mounted block device** on my 'bookworm' system is set to this `mq-deadline` scheduler. And finally FWIW, it seems there have been recent improvements to this scheduler! 
+   *  It also seems that **every mounted block device** on my 'bookworm' system is set to this `mq-deadline` scheduler. And finally FWIW, it seems [there have been recent improvements to this scheduler](https://www.phoronix.com/news/MQ-Deadline-Scalability)! 
 
  
 
