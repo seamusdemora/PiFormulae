@@ -1930,7 +1930,7 @@ I guess that's enough theory... let's get down to business in two steps:
 
 ## How to format and 'mount' an SSD for use in RPi
 
-If you're using a SSD (as a mass torage/auxiliary drive) in one of your RPi projects, you will realize some benefits by formatting it properly, and taking some other measures that will improve the performance an reliability of this particular type of drive. Here's how: 
+If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi projects, you will realize some benefits by formatting it properly, and taking other measures that will improve the performance and reliability of this particular type of drive. Here's my **"six step approach to SSD use"**: 
 
 *  format (re-format) the drive using the [`f2fs` filesystem](https://en.wikipedia.org/wiki/F2FS); aka *"flash friendly file system"*: 
 
