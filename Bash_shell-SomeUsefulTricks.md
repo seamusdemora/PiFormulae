@@ -2159,6 +2159,7 @@ If you're using a SSD (as a mass torage/auxiliary drive) in one of your RPi proj
 18. [A blog post on shell parameter expansion from 'LinuxConfig.org'](https://linuxconfig.org/introduction-to-bash-shell-parameter-expansions) 
 19. [How to Optimize Linux for SSD](https://www.baeldung.com/linux/solid-state-drive-optimization) - a blog post from Baeldung 
 20. [How and When to Change I/O Scheduler in Linux](https://thelinuxcode.com/change-i-o-scheduler-linux/) 
+21. [MQ-Deadline Scheduler Optimized For Much Better Scalability](https://www.phoronix.com/news/MQ-Deadline-Scalability) 
 
 
 
