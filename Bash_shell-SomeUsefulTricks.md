@@ -2155,6 +2155,7 @@ If you're using a SSD (as a mass torage/auxiliary drive) in one of your RPi proj
 17. [GNU `bash` documentation on shell parameter expansion](https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html) 
 18. [A blog post on shell parameter expansion from 'LinuxConfig.org'](https://linuxconfig.org/introduction-to-bash-shell-parameter-expansions) 
 19. [How to Optimize Linux for SSD](https://www.baeldung.com/linux/solid-state-drive-optimization) - a blog post from Baeldung 
+20. [How and When to Change I/O Scheduler in Linux](https://thelinuxcode.com/change-i-o-scheduler-linux/) 
 
 
 
