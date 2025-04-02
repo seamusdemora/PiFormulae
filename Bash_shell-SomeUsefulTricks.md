@@ -2007,7 +2007,7 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
 
 ## How to make a loop mount in `fstab`
 
-We'll use this hands 3-step procedure: 
+We'll use this handy 3-step procedure: 
 
 ##### Step 1: run `fdisk` to get the image layout:
 
