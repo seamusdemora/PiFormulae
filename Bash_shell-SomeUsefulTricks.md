@@ -35,6 +35,7 @@
    *  [How to move or copy a file without accidentally overwriting a destination file](#move-or-copy-a-file-without-accidentally-overwriting-a-destination-file) 
    *  [Using `dirname`, `basename` & `realpath`](#using-dirname-basename-and-realpath) 
    *  [How to Format and Mount a SSD](#how-to-format-and-mount-an-ssd-for-use-in-rpi) 
+   *  [How to make a loop mount in `/etc/fstab`](#how-to-make-a-loop-mount-in-fstab)
 
 *  ### Date and time Operations
 
@@ -2000,7 +2001,64 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
 
    *  It also seems that **every mounted block device** on my 'bookworm' system is set to this `mq-deadline` scheduler. And finally FWIW, it seems [there have been recent improvements to this scheduler](https://www.phoronix.com/news/MQ-Deadline-Scalability)! 
 
- 
+ [**⋀**](#table-of-contents) 
+
+
+
+## How to make a loop mount in `fstab`
+
+We'll use this hands 3-step procedure: 
+
+##### Step 1: run `fdisk` to get the image layout:
+
+```bash
+fdisk -l ./example.img    # example.img has two partitions, vfat & ext4
+Disk ./example.img: 2.69 GiB, 2889875456 bytes, 5644288 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x00f24f4c
+
+Device                                          Boot  Start     End Sectors  Size Id Type
+./example.img1        2048  526335  524288  256M  c W95 FAT32 (LBA)
+./example.img2      526336 5644287 5117952  2.4G 83 Linux
+```
+
+##### Step 2: calculate `offset` and `sizelimit` for each partition from Step 1 data, and verify via successful `mount`:
+
+```bash
+$ sudo mount -o loop,offset=1048576,sizelimit=268435456 ./example.img /mnt/usb/boot 
+
+$ sudo mount -o loop,offset=269484032,sizelimit=2620391424 ./example.img /mnt/usb/root
+```
+
+##### Step 3: "translate" Step 2 mounts to `/etc/fstab` entries:
+
+```
+# mount -o loop,offset=1048576,sizelimit=268435456 ./example.img /mnt/boot 
+
+/home/pi/example.img /mnt/boot vfat loop,offset=1048576,sizelimit=268435456 defaults,nofail  0 0
+
+
+# mount -o loop,offset=269484032,sizelimit=2620391424 ./example.img /mnt/root
+
+/home/pi/example.img /mnt/root ext4 loop,offset=269484032,sizelimit=2620391424 defaults,nofail  0 0
+```
+
+Afterwards, you may `reboot` to test the new `fstab`, and run `lsblk` to verify:
+
+```bash
+$ lsblk --fs
+NAME        FSTYPE FSVER LABEL       UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+loop0       vfat   FAT32 boot        AAFD-EB1F                             203.1M    20% /mnt/boot
+loop1       ext4   1.0   rootfs      e7baf291-a31a-4f9c-8cbb-6e7dc7b00af4  374.3M    78% /mnt/root
+mmcblk0
+├─mmcblk0p1 vfat   FAT32 bootfs      4EF5-6F55                             453.3M    11% /boot/firmware
+└─mmcblk0p2 ext4   1.0   rootfs      ce208fd3-38a8-424a-87a2-cd44114eb820   52.5G     4% /
+```
+
+
 
  [**⋀**](#table-of-contents) 
 
