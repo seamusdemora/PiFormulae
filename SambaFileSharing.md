@@ -1,23 +1,12 @@
 ## Use Samba to Share Files on Raspberry Pi
 
-### Table of Contents
-
-   * [Objective](#objective)  
-   * [Q&amp;A: Why Would I Do This?](#qa-why-would-i-do-this)
-   * [1. Check the fstab entry for the external drive](#1-check-the-fstab-entry-for-the-external-drive)
-   * [2. Install Samba:](#2-install-samba)
-   * [3. Configure Samba:](#3-configure-samba)  
-      * [3.a Edit the Samba Configuration file](#3a-edit-the-samba-configuration-file)  
-      * [3.b Add the user pi to Samba's password database file](#3b-add-the-user-pi-to-sambas-password-database-file)  
-      * [3.c An example of Samba permissions](#3c-a-brief-overview-of-samba-permissions)  
-      * [3.d Restart Samba to read the revised Samba Configuration file](#3d-restart-samba-to-read-the-revised-samba-configuration-file)  
-   * [4. Connect to the Samba share:](#4-connect-to-the-samba-share)
-
 ### Objective
 
 This "recipe" provides a method for sharing files that are on your Raspberry Pi over a local area network. Specifically, this recipe addresses configuring a **Raspberry Pi** (RPi) as a *file server* to **share a USB thumb drive**. Since I also use a Mac, we'll illustrate sharing with a **Mac** **client**. Note however the process for sharing with a **Windows** or **Linux** client is very similar. 
 
-We will begin with the **USB thumb drive** physically plugged into a USB port on a RPi, and mounted.  If you're unfamiliar with mounting an external drive on RPi, please [review this recipe before proceeding](https://github.com/seamusdemora/PiFormulae/blob/master/ExternalDrives.md).  For this example the thumb drive has only a single *partition* formatted as an `exFAT` file system.  
+***We will begin with a USB thumb drive that is physically plugged into a USB port on a RPi, AND mounted.***  
+
+If you're unfamiliar with mounting an external drive on RPi, please [review this recipe before proceeding](https://github.com/seamusdemora/PiFormulae/blob/master/ExternalDrives.md).  For this example the thumb drive has only a single *partition* formatted as an `exFAT` file system.  
 
 This recipe shows installation and configuration steps that should yield an operational [Samba](https://www.samba.org/) server on your RPi. At the conclusion, you should be able to **access** the shared  **USB thumb drive** plugged into your RPi **over a network connection** to a Mac (or Windows or Linux).
 
@@ -27,9 +16,13 @@ Answer: __Convenience__. One could simply unmount the USB thumb drive on the RPi
 
 As you'll see, Samba presents a [**distributed file system**](https://www.geeksforgeeks.org/network-file-system-nfs/) to its clients. Samba's distributed file system is called SMB (aka CIFS); but there are also other distributed file systems. You can [refer to this article for more details](https://www.varonis.com/blog/cifs-vs-smb) on these distributed file systems, but [*''in a nutshell''*](https://idioms.thefreedictionary.com/in+a+nutshell), the ***distributed file system*** allows disparate systems with vastly different ***native file systems*** to share files across system boundaries. 
 
-### 1. Check the `fstab` entry for the external drive
+## Create a Samba "distributed file system server"
 
-Check that you have a valid *mount point*; you may do this by entering the `lsblk` command at the command line prompt as follows: 
+Here's how to do it: 
+
+### 1. Verify `fstab` entry for the external drive
+
+Check that you have a valid *mount point* for the external drive you're going to share.  You may do this by entering the `lsblk` command at the command line prompt as follows: 
 
 ```bash
 $ lsblk --fs
@@ -37,8 +30,11 @@ NAME        FSTYPE FSVER LABEL       UUID                                 FSAVAI
 mmcblk0
 ├─mmcblk0p1 vfat   FAT32 bootfs      4EF5-6F55                             453.3M    11% /boot/firmware
 └─mmcblk0p2 ext4   1.0   rootfs      ce208fd3-38a8-424a-87a2-cd44114eb820   52.3G     5% /
+# the external drive to be shared ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 sda
-└─sda1      exfat  1.0   SANDISK16GB 67EB-734A                              12.2G    18% /mnt/usb
+└─sda1      exfat  1.0   SANDISK16GB 67EB-734A                              12.2G    18% 
+/mnt/usb 
+# 
 sdb
 └─sdb1      f2fs   1.15              97bd5811-e1b6-4582-8bbf-862b4a957b10  925.6G     1% /mnt/bluessd
 ```
@@ -93,13 +89,11 @@ Add the following lines to the tail of `smb.conf`:
     only guest = no
     create mask = 0700
     directory mask = 0700
-    force user = pi
+    force user = pi           # if you are not user pi, change this to your user name
 
-The default `smb.conf` in Raspbian contains a number of settings that are not clear to me. Rather than wade through that, consider downloading and using this [minimal `smb.conf` file](seamus_smb.conf). As of this writing, it works on my RPi and supports my Mac client.  Alternatively, refer to the Samba project's configuration guide to [Setting up Samba as a Standalone Server](https://wiki.samba.org/index.php/Setting_up_Samba_as_a_Standalone_Server).  
+Note that the `smb.conf` file being modified here is the one that was installed by `apt` in Step 2 on a standard 'bookworm Lite' distro obtained from the raspberrypi.com website.  I mention this to call attention to the fact that there are [***many*** possible settings for `smb.conf` files](https://www.samba.org/samba/docs/current/man-html/smb.conf.5.html). If you need to do something *"more elaborate"*, you may wish to peruse this link.  If not, suggest you refer to the Samba project's configuration guide: [Setting up Samba as a Standalone Server](https://wiki.samba.org/index.php/Setting_up_Samba_as_a_Standalone_Server).  
 
-One other item from the configuration file: the `[homes]` directive under the `Share Definitions` section implements a feature that you may find useful. __If enabled, `/home/pi` is exported as a Samba share!__ This only works if you log in as the `pi` user (as we do here). It's not enabled here, but you may enable it by uncommenting the appropriate lines in `smb.conf`, beginning with the `[homes]` directive. 
-
-To use this configuration file, complete any edits you wish to make in `smb.conf`, verify that the backup file you created earlier is still in place, and save the edited file to `etc/samba/smb.conf`
+One other item to note from the `smb.conf` file: the `[homes]` directive under the `Share Definitions` section implements a feature that you may find useful. __If left enabled (i.e. the default), `/home/pi` is exported as a 'read-only' Samba share!__  If you don't want this, you may delete or comment the lines in the `[homes]` directive.  
 
 #### 3.b Add user `pi` to Samba's password database file
 
@@ -109,6 +103,8 @@ When we mount the exported Samba share, we'll authenticate as user `pi`. Samba k
     New SMB password:
     Retype new SMB password:
     Added user pi.
+
+And of course if you **do not** use the username `pi`, replace `pi` with whatever username you do use. 
 
 #### 3.c Restart Samba to read the revised `smb.conf` file
 
