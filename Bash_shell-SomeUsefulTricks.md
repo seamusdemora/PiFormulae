@@ -2081,7 +2081,7 @@ The `less` utility doesn't get enough credit. We're going to devote some space t
 *  Go to the bottom (or top) of the current open file: 
 
      ```
-      type 'Q' to go to the bottom, 'q' to go to the top 
+      type 'G' to go to the bottom, 'g' to go to the top 
      ```
 
 *  "Colorized" text display in `less`
