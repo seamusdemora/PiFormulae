@@ -32,8 +32,7 @@ mmcblk0
 └─mmcblk0p2 ext4   1.0   rootfs      ce208fd3-38a8-424a-87a2-cd44114eb820   52.3G     5% /
 # the external drive to be shared ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 sda
-└─sda1      exfat  1.0   SANDISK16GB 67EB-734A                              12.2G    18% 
-/mnt/usb 
+└─sda1      exfat  1.0   SANDISK16GB 67EB-734A                              12.2G    18%  /mnt/usb 
 # 
 sdb
 └─sdb1      f2fs   1.15              97bd5811-e1b6-4582-8bbf-862b4a957b10  925.6G     1% /mnt/bluessd
