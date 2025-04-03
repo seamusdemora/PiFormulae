@@ -80,7 +80,7 @@ $ sudo nano /etc/samba/smb.conf
 
 Add the following lines to the tail of `smb.conf`:
 
-    [thumbdrive]
+    [thumbdrive]             # the share name
     Comment = Shared Folder
     Path = /mnt/usb
     Browseable = yes
