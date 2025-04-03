@@ -11,8 +11,8 @@
    *  [*Shell parameter expansion*; some examples](#shell-parameter-expansion) 
    *  [Shell variables: UPPER case, lower case, or SoMeThInG_eLsE...?](#shell-variables-what-is-the-best-naming-convention) 
    *  [Using your shell command history](#using-your-shell-command-history) 
-   *  [Resolve Permission Issues When Using Redirection](#permission-issues-when-using-redirection) 
-   *  [Comment an entire block of code in a shell script](#comment-an-entire-block-of-code) 
+   *  [Permission issues with redirects (`>`, `>>`)](#permission-issues-when-using-redirection) 
+   *  [Comment an **entire block of code** in a shell script](#comment-an-entire-block-of-code) 
    *  [Testing things in bash](#testing-things-in-bash) 
 
 *  ### System information
@@ -87,6 +87,7 @@
 *  ### Miscellaneous
 
    *  [Using the default editor `nano` effectively](#using-the-default-editor-nano-effectively) 
+   *  [The power of `less`](#the-power-of-less) 
    *  [What version of `awk` is available on my Raspberry Pi?](#what-version-of-awk-is-available-on-my-raspberry-pi) 
    *  [Download a file from GitHub](#download-a-file-from-github) 
    *  [Use the `at` command for scheduling](#how-to-use-the-at-command-for-scheduling) 
@@ -2057,6 +2058,40 @@ mmcblk0
 ├─mmcblk0p1 vfat   FAT32 bootfs      4EF5-6F55                             453.3M    11% /boot/firmware
 └─mmcblk0p2 ext4   1.0   rootfs      ce208fd3-38a8-424a-87a2-cd44114eb820   52.5G     4% /
 ```
+
+ [**⋀**](#table-of-contents) 
+
+
+
+## The power of `less`
+
+The `less` utility doesn't get enough credit. We're going to devote some space to it here. 
+
+*  Open multiple files simultaneously with `less`:
+
+      ```bash
+      $ less file1, file2, file3
+      # Q: OK... but what do I do with 3 files? 
+      # A: You can "navigate" between these files using ':n' (next), or ':p' (previous)
+      #    simply enter :n or :p in the "'less' command line"; i.e. just type ": n"; 
+      #   'less' will figure out where it goes! 
+      # BONUS: entering ':e file4' adds that file to others that are open!
+      ```
+
+*  Go to the bottom (or top) of the current open file: 
+
+     ```
+      type 'Q' to go to the bottom, 'q' to go to the top 
+     ```
+
+*  "Colorized" text display in `less`
+
+     I didn't know this was possible before reading [this Q&A](https://askubuntu.com/questions/482803/how-do-i-make-less-output-colors); the excellent answer shows us *"the way"*:
+
+     ```bash
+      $ ls -l --color=always | less -R 
+      # good candidate for an alias in ~/.bashrc
+     ```
 
 
 
