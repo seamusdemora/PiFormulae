@@ -1982,8 +1982,6 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
       $ sudo hdparm -I /dev/sdX
       ```
 
-
-
 2.  Format (re-format) the drive using the [`f2fs`](https://en.wikipedia.org/wiki/F2FS); aka *"flash friendly file system"*: 
 
    ```bash
@@ -2006,9 +2004,13 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
    *  These particular *exceptions* are due to use of an adapter/connector - or the SSD itself - that is **not** IAW the **UASP** (*USB Attached SCSI Protocol*); you can find the [proper adapters in this search](https://duckduckgo.com/?q=SSD-USB+cables+%22UASP%22&t=ffab&ia=web). 
 
 *  `mount`ing may be handled as follows: 
+=======
+2.  `mount`ing may be handled as follows: 
+>>>>>>> Stashed changes
 =======
 2.  `mount`ing may be handled as follows: 
 >>>>>>> Stashed changes
