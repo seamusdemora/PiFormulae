@@ -2016,7 +2016,7 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
 4.  *"TRIM"* the drive periodically to clean and optimize the filesystem by "trimming" empty data blocks. Once a week is ***probably*** sufficient for most RPi users; use the `fstrim` command for this:
 
    ```bash 
-    $ sudo fstrim -v /dev/sdX1
+    $ sudo fstrim -v /mnt/bluessd
    ```
 
    *  If you're using an RPi OS, you will have a `systemd` service that takes care of running `fstrim` periodically for you. Use `systemctl` to check that the `fstrim` service is running as shown below.   Otherwise, you may want to create a small script, and execute the script from the `root crontab`; see `man fstrim` for a description of all the options. 
