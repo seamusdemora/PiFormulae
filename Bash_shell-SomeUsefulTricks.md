@@ -1934,7 +1934,7 @@ I guess that's enough theory... let's get down to business in two steps:
 
 If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi projects, you will realize some benefits by formatting it properly (with the `f2fs` filesystem), and taking other measures that will improve the performance and reliability of this particular type of drive. Here's my **"seven step approach to SSD use"**: 
 
-1.  Step 1 (this step) would typically come *after* you had already done several (maybe all) of the remaining steps, and then realized: ***something isn't correct here!*** This is what I did; and if you're reading this *before* trying to set up your SSD, you will benefit from my mistake  **:)**  This step is to **make a `udev` rule**; it's **necessary** because on a RPi **you will be connecting your SSD via a USB-to-SATA adapter cable**. It's not hard if you know how: 
+1.  This step is to **make a `udev` rule**. It's **necessary** because on a RPi **you will be connecting your SSD via a USB-to-SATA adapter cable**. While working out this procedure, in the beginning, I did not know it would be needed. Consequently, it came *after* I'd completed all the other steps... then I realized: ***something isn't correct here!*** And so you benefit from my mistake  **:)**    
 
    *  First - plug your SSD into a USB port on your RPi 
 
