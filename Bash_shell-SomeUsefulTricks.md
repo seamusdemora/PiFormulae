@@ -1996,29 +1996,30 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
       Info: format successful
      ```
      
-   *  The lack of `BLKSECDISCARD` support appears frequently; it is *related to* a defect in the secure erase/wipe capability. It is a recent "kernel bug" that is [said to be "patched"](https://secalerts.co/vulnerability/CVE-2024-49994)... perhaps by disabling secure erase? I have chosen to ignore it for now.  
+   *  The lack of `BLKSECDISCARD` support appears frequently in [recent online sources](https://real-world-systems.com/docs/mkfs.f2fs.1.html). It appears to be *related to* a defect in the secure erase/wipe capability. It is a recent "kernel bug" that is [said to be "patched"](https://secalerts.co/vulnerability/CVE-2024-49994)... perhaps by disabling secure erase? I have chosen to ignore it for now.  
 
 3.  `mount`ing may be handled as follows: 
+   
    *  from the command line (after running `lsblk --fs` to learn the device location): 
-
+   
      ```bash
       $ sudo mkdir /mnt/bluessd
       $ sudo mount /dev/sdX1 /mnt/bluessd
      ```
-
-   *  from `/etc/fstab`: 
-
+   
+   *  Add the following to `/etc/fstab` for a permanent automount: 
+   
      ```
       LABEL=BlueSSD /mnt/bluessd f2fs defaults,nofail,noatime 0 0 
      ```
-
+   
 4.  *"TRIM"* the drive periodically to clean and optimize the filesystem by "trimming" empty data blocks. Once a week is ***probably*** sufficient for most RPi users; use the `fstrim` command for this:
 
    ```bash 
     $ sudo fstrim -v /dev/sdX1
    ```
 
-   *  If you're using an RPi OS, you will have a `systemd` service that takes care of running `fstrim` periodically for you. Otherwise You may want to create a small script, and execute the script from the `root crontab`; see `man fstrim` for a description of all the options. Check that the `fstrim` service is running: 
+   *  If you're using an RPi OS, you will have a `systemd` service that takes care of running `fstrim` periodically for you. Use `systemctl` to check that the `fstrim` service is running as shown below.   Otherwise, you may want to create a small script, and execute the script from the `root crontab`; see `man fstrim` for a description of all the options. 
 
    *  ```bash
       $ systemctl status fstrim
