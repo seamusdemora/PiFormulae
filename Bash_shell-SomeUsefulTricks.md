@@ -1943,9 +1943,9 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
    *  ```bash
       $ lsusb
       Bus 001 Device 007: ID 0781:556c SanDisk Corp. Ultra
-      #==> NOTE the next line: ----------------------------
+      #==> NOTE ID string ↓↓↓↓↓↓↓↓↓↓↓↓ ----------------------------
       Bus 001 Device 011: ID 174c:55aa ASMedia Technology Inc. ASM1051E SATA 6Gb/s bridge, ASM1053E SATA 6Gb/s bridge, ASM1153 SATA 3Gb/s bridge, ASM1153E SATA 6Gb/s bridge
-      # ---------------------------------------------------
+      # -----------------------------------------------------------
       Bus 001 Device 005: ID 0424:7800 Microchip Technology, Inc. (formerly SMSC)
       Bus 001 Device 003: ID 0424:2514 Microchip Technology, Inc. (formerly SMSC) USB 2.0 Hub
       Bus 001 Device 002: ID 0424:2514 Microchip Technology, Inc. (formerly SMSC) USB 2.0 Hub
