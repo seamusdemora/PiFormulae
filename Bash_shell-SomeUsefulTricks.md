@@ -2041,13 +2041,13 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
 
    *  Interestingly, for the RPi - which uses an SD card - the *"swappiness"* value is set to `60` - a value that *encourages* fairly frequent memory-SD swaps. But there are [important differences between SD cards and SSDs](https://www.maketecheasier.com/sd-card-vs-ssd/). Without getting carried away with this subject, ***if*** you're planning to use your SSD as the primary drive in your system, you may wish to consider **reducing** the *"swappiness level"* to preserve its life. *"Swappiness"* is a kernel parameter. It is set by adding/changing a line in `/etc/sysctl.conf` (e.g. `vm.swappiness=20`), and incorporated via `reboot` - or using `sysctl -p` from the command line at runtime.  
 
-6.  Use the `noatime` option when you `mount` the SSD; for example in `/etc/fstab`: 
+6.  Use the `noatime` option in your permanent `mount` for the SSD in `/etc/fstab`: 
 
    ```
-    UUID=97bd5811-e1b6-4582-8bbf-862b4a957b10 /mnt/bluessd f2fs defaults,nofail,noatime 0 0
+    LABEL=BlueSSD /mnt/bluessd f2fs defaults,nofail,noatime 0 0
    ```
 
-   *  Why? Because left to itself, the kernel will update the last `atime` (read/access time) on each file on the SSD. Turns out this is rather a [complex operation](https://www.tiger-computing.co.uk/file-access-time-atime/), and we can live without it - the `noatime` option is also used by default (and wisely) on the root partition ( `/` ) of our beloved SD cards. 
+   *  Why? Because left to itself, the kernel will update the last `atime` (read/access time) on each file on the SSD. Turns out this is rather a [complex operation](https://www.tiger-computing.co.uk/file-access-time-atime/); it reduces the life of our SSD, and we can live without it.  The `noatime` option is also used by default (and wisely) on the root partition ( `/` ) of our beloved SD cards. 
 
 7.  The scheduler... I'm running out of gas here, and IMHO the kernel's I/O scheduler is not hugely important. If you feel differently, [you can take it up with "The Raspberries" yourself, but be prepared to get slapped around some for asking such an *impertinent* question](https://github.com/raspberrypi/linux/issues/3359#issuecomment-1410657002)... yes, they're a testy bunch :) At any rate, I think I did finally find where the system I/O scheduler setting was buried: 
 
