@@ -1934,9 +1934,7 @@ I guess that's enough theory... let's get down to business in two steps:
 
 If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi projects, you will realize some benefits by formatting it properly (with the `f2fs` filesystem), and taking other measures that will improve the performance and reliability of this particular type of drive. Here's my **"seven step approach to SSD use"**: 
 
-1.  Step 1 (this step) would typically come *after* you had already done several (maybe all) of the remaining steps, and then realized: ***something isn't correct here!*** This is what I did; and if you're reading this *before* trying to set up your SSD, you will benefit from my mistake  **:)**  
-
-   This step is to **make a `udev` rule**; it's **necessary** because on a RPi **you will be connecting your SSD via a USB-to-SATA adapter cable**. It's not hard if you know how: 
+1.  Step 1 (this step) would typically come *after* you had already done several (maybe all) of the remaining steps, and then realized: ***something isn't correct here!*** This is what I did; and if you're reading this *before* trying to set up your SSD, you will benefit from my mistake  **:)**  This step is to **make a `udev` rule**; it's **necessary** because on a RPi **you will be connecting your SSD via a USB-to-SATA adapter cable**. It's not hard if you know how: 
 
    *  First - plug your SSD into a USB port on your RPi 
 
@@ -1955,7 +1953,7 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
       ```
       
    *  If you don't recognize which device is your SSD & adapter cable, you may need to un-plug it, run `lsusb` again, then re-plug it, and compare the difference.  ***TAKE NOTE of the ID:*** **`ID 174c:55aa`**. 
-
+   
    *  Open your editor (e.g. `nano`) as follows, and enter the following line of text:
 
    *  ```bash
@@ -1966,7 +1964,7 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
       ```
       
    *  **After saving** the `udev` rule, you should **un-plug your SSD**... Then, **re-plug your SSD**. 
-
+   
    *  Verify that the "discard options" are available:
 
    *  ```bash
@@ -1975,13 +1973,13 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
       sdb           0      512B       4G         0
       └─sdb1        0      512B       4G         0
       ```
-
+   
    *  Check out your SSD's features if you like:
       
    *  ```bash
       $ sudo hdparm -I /dev/sdX
       ```
-
+   
 2.  Format (re-format) the drive using the [`f2fs`](https://en.wikipedia.org/wiki/F2FS); aka *"flash friendly file system"*: 
 
    ```bash
