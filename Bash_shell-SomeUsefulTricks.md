@@ -2000,30 +2000,7 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
      
    *  The lack of `BLKSECDISCARD` support appears frequently; it is *related to* a defect in the secure erase/wipe capability. It is a recent "kernel bug" that is [said to be "patched"](https://secalerts.co/vulnerability/CVE-2024-49994)... perhaps by disabling secure erase? I have chosen to ignore it for now.  
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-   *  These particular *exceptions* are due to use of an adapter/connector - or the SSD itself - that is **not** IAW the **UASP** (*USB Attached SCSI Protocol*); you can find the [proper adapters in this search](https://duckduckgo.com/?q=SSD-USB+cables+%22UASP%22&t=ffab&ia=web). 
-
-*  `mount`ing may be handled as follows: 
-=======
-2.  `mount`ing may be handled as follows: 
->>>>>>> Stashed changes
-=======
-2.  `mount`ing may be handled as follows: 
->>>>>>> Stashed changes
-=======
-2.  `mount`ing may be handled as follows: 
->>>>>>> Stashed changes
-=======
-2.  `mount`ing may be handled as follows: 
->>>>>>> Stashed changes
-=======
-2.  `mount`ing may be handled as follows: 
->>>>>>> Stashed changes
-
+3.  `mount`ing may be handled as follows: 
    *  from the command line (after running `lsblk --fs` to learn the device location): 
 
      ```bash
@@ -2034,7 +2011,7 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
    *  from `/etc/fstab`: 
 
      ```
-      UUID=97bd5811-e1b6-4582-8bbf-862b4a957b10 /mnt/bluessd f2fs defaults,nofail,noatime 0 0 
+      LABEL=BlueSSD /mnt/bluessd f2fs defaults,nofail,noatime 0 0 
      ```
 
 4.  *"TRIM"* the drive periodically to clean and optimize the filesystem by "trimming" empty data blocks. Once a week is ***probably*** sufficient for most RPi users; use the `fstrim` command for this:
@@ -2054,7 +2031,7 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
              Docs: man:fstrim(8)
       ```
 
-4.  ***IF*** you're planning on using a SSD as the "**primary**" drive in your RPi, you **may** want to adjust its [*"swappiness"*](https://www.baeldung.com/linux/swap-space-settings); i.e. the propensity to *swap* between RAM and non-volatile storage (SSD in this case). You probably do not need to do this if (like me), your plans for the SSD are to use it for file storage; e.g. as a Samba share. If you're *wondering*, *"can/should I use the `f2fs` file system as my primary drive ..."* - [**here you go** - ***knock yourself out :)***](https://duckduckgo.com/?t=ffab&q=will+raspberry+pi+run+from+a+f2fs+format+drive&ia=web) 
+5.  ***IF*** you're planning on using a SSD as the "**primary**" drive in your RPi, you **may** want to adjust its [*"swappiness"*](https://www.baeldung.com/linux/swap-space-settings); i.e. the propensity to *swap* between RAM and non-volatile storage (SSD in this case). You probably do not need to do this if (like me), your plans for the SSD are to use it for file storage; e.g. as a Samba share. If you're *wondering*, *"can/should I use the `f2fs` file system as my primary drive ..."* - [**here you go** - ***knock yourself out :)***](https://duckduckgo.com/?t=ffab&q=will+raspberry+pi+run+from+a+f2fs+format+drive&ia=web) 
 
    *  **But back to the business at hand:** You can check the *"swappiness"* value currently set for your system as follows: 
 
@@ -2065,7 +2042,7 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
 
    *  Interestingly, for the RPi - which uses an SD card - the *"swappiness"* value is set to `60` - a value that *encourages* fairly frequent memory-SD swaps. But there are [important differences between SD cards and SSDs](https://www.maketecheasier.com/sd-card-vs-ssd/). Without getting carried away with this subject, ***if*** you're planning to use your SSD as the primary drive in your system, you may wish to consider **reducing** the *"swappiness level"* to preserve its life. *"Swappiness"* is a kernel parameter. It is set by adding/changing a line in `/etc/sysctl.conf` (e.g. `vm.swappiness=20`), and incorporated via `reboot` - or using `sysctl -p` from the command line at runtime.  
 
-5.  Use the `noatime` option when you `mount` the SSD; for example in `/etc/fstab`: 
+6.  Use the `noatime` option when you `mount` the SSD; for example in `/etc/fstab`: 
 
    ```
     UUID=97bd5811-e1b6-4582-8bbf-862b4a957b10 /mnt/bluessd f2fs defaults,nofail,noatime 0 0
@@ -2073,7 +2050,7 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
 
    *  Why? Because left to itself, the kernel will update the last `atime` (read/access time) on each file on the SSD. Turns out this is rather a [complex operation](https://www.tiger-computing.co.uk/file-access-time-atime/), and we can live without it - the `noatime` option is also used by default (and wisely) on the root partition ( `/` ) of our beloved SD cards. 
 
-6.  The scheduler... I'm running out of gas here, and IMHO the kernel's I/O scheduler is not hugely important. If you feel differently, [you can take it up with "The Raspberries" yourself, but be prepared to get slapped around some for asking such an *impertinent* question](https://github.com/raspberrypi/linux/issues/3359#issuecomment-1410657002)... yes, they're a testy bunch :) At any rate, I think I did finally find where the system I/O scheduler setting was buried: 
+7.  The scheduler... I'm running out of gas here, and IMHO the kernel's I/O scheduler is not hugely important. If you feel differently, [you can take it up with "The Raspberries" yourself, but be prepared to get slapped around some for asking such an *impertinent* question](https://github.com/raspberrypi/linux/issues/3359#issuecomment-1410657002)... yes, they're a testy bunch :) At any rate, I think I did finally find where the system I/O scheduler setting was buried: 
 
    ```bash
     $ cat /sys/block/mmcblk0/queue/scheduler
