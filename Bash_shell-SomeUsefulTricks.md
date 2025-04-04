@@ -34,7 +34,7 @@
    *  [Verify a file system is mounted with `findmnt` - *before trying to use it*!](#verify-file-system-is-mounted) 
    *  [How to move or copy a file without accidentally overwriting a destination file](#move-or-copy-a-file-without-accidentally-overwriting-a-destination-file) 
    *  [Using `dirname`, `basename` & `realpath`](#using-dirname-basename-and-realpath) 
-   *  [How to Format and Mount a SSD](#how-to-format-and-mount-an-ssd-for-use-in-rpi) 
+   *  [Format an SSD w/ `f2fs` filesystem and mount it](#how-to-format-and-mount-an-ssd-for-use-in-rpi) 
    *  [How to make a loop mount in `/etc/fstab`](#how-to-make-a-loop-mount-in-fstab)
 
 *  ### Date and time Operations
@@ -1932,32 +1932,89 @@ I guess that's enough theory... let's get down to business in two steps:
 
 ## How to format and 'mount' an SSD for use in RPi
 
-If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi projects, you will realize some benefits by formatting it properly, and taking other measures that will improve the performance and reliability of this particular type of drive. Here's my **"six step approach to SSD use"**: 
+If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi projects, you will realize some benefits by formatting it properly (with the `f2fs` filesystem), and taking other measures that will improve the performance and reliability of this particular type of drive. Here's my **"seven step approach to SSD use"**: 
 
-*  format (re-format) the drive using the [`f2fs` filesystem](https://en.wikipedia.org/wiki/F2FS); aka *"flash friendly file system"*: 
+1.  Step 1 (this step) would typically come *after* you had already done several (maybe all) of the remaining steps, and then realized: ***something isn't correct here!*** This is what I did; and if you're reading this *before* trying to set up your SSD, you will benefit from my mistake  **:)**  
+
+   This step is to **make a `udev` rule**; it's **necessary** because on a RPi **you will be connecting your SSD via a USB-to-SATA adapter cable**. It's not hard if you know how: 
+
+   *  First - plug your SSD into a USB port on your RPi 
+
+   *  Next, run `lsusb` from the CLI: 
+
+   *  ```bash
+      $ lsusb
+      Bus 001 Device 007: ID 0781:556c SanDisk Corp. Ultra
+      #==> NOTE the next line: ----------------------------
+      Bus 001 Device 011: ID 174c:55aa ASMedia Technology Inc. ASM1051E SATA 6Gb/s bridge, ASM1053E SATA 6Gb/s bridge, ASM1153 SATA 3Gb/s bridge, ASM1153E SATA 6Gb/s bridge
+      # ---------------------------------------------------
+      Bus 001 Device 005: ID 0424:7800 Microchip Technology, Inc. (formerly SMSC)
+      Bus 001 Device 003: ID 0424:2514 Microchip Technology, Inc. (formerly SMSC) USB 2.0 Hub
+      Bus 001 Device 002: ID 0424:2514 Microchip Technology, Inc. (formerly SMSC) USB 2.0 Hub
+      Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+      ```
+      
+   *  If you don't recognize which device is your SSD & adapter cable, you may need to un-plug it, run `lsusb` again, then re-plug it, and compare the difference.  ***TAKE NOTE of the ID:*** **`ID 174c:55aa`**. 
+
+   *  Open your editor (e.g. `nano`) as follows, and enter the following line of text:
+
+   *  ```bash
+      $ sudo nano /etc/udev/rules.d/50-usb-ssd-trim.rules 
+      # enter:
+      ACTION=="add|change", ATTRS{idVendor}=="174c", ATTRS{idProduct}=="55aa", SUBSYSTEM=="scsi_disk", ATTR{provisioning_mode}="unmap" 
+      # ID: 174c:55aa; 174c is 'idVendor'; 55aa is 'idProduct'
+      ```
+      
+   *  **After saving** the `udev` rule, you should **un-plug your SSD**... Then, **re-plug your SSD**. 
+
+   *  Verify that the "discard options" are available:
+
+   *  ```bash
+      $ lsblk --discard /dev/sdX
+      NAME   DISC-ALN DISC-GRAN DISC-MAX DISC-ZERO
+      sdb           0      512B       4G         0
+      └─sdb1        0      512B       4G         0
+      ```
+
+   *  Check out your SSD's features if you like:
+      
+   *  ```bash
+      $ sudo hdparm -I /dev/sdX
+      ```
+
+
+
+2.  Format (re-format) the drive using the [`f2fs`](https://en.wikipedia.org/wiki/F2FS); aka *"flash friendly file system"*: 
 
    ```bash
     # install the tools, and format the SSD
     $ sudo apt install f2fs-tools
-    $ sudo mkfs.f2fs -f /dev/sdb1      # or, wherever your un-mounted SSD is plugged in
+    $ sudo mkfs.f2fs -f -d9 -l BlueSSD /dev/sdX1      # -d9 opt recommended; verify /dev/sdX
    ```
 
-   *  Note any *exceptions* in the command output; e.g.:
+   *  Note any *exceptions*, and the *conclusion* in the command output; e.g.:
 
      ```
       Info: This device doesn't support BLKSECDISCARD
-      Info: This device doesn't support BLKDISCARD
+      ...
+      Info: format successful
      ```
+     
+   *  The lack of `BLKSECDISCARD` support appears frequently; it is *related to* a defect in the secure erase/wipe capability. It is a recent "kernel bug" that is [said to be "patched"](https://secalerts.co/vulnerability/CVE-2024-49994)... perhaps by disabling secure erase? I have chosen to ignore it for now.  
 
+<<<<<<< Updated upstream
    *  These particular *exceptions* are due to use of an adapter/connector - or the SSD itself - that is **not** IAW the **UASP** (*USB Attached SCSI Protocol*); you can find the [proper adapters in this search](https://duckduckgo.com/?q=SSD-USB+cables+%22UASP%22&t=ffab&ia=web). 
 
 *  `mount`ing may be handled as follows: 
+=======
+2.  `mount`ing may be handled as follows: 
+>>>>>>> Stashed changes
 
    *  from the command line (after running `lsblk --fs` to learn the device location): 
 
      ```bash
       $ sudo mkdir /mnt/bluessd
-      $ sudo mount /dev/sdb1 /mnt/bluessd
+      $ sudo mount /dev/sdX1 /mnt/bluessd
      ```
 
    *  from `/etc/fstab`: 
@@ -1966,15 +2023,24 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
       UUID=97bd5811-e1b6-4582-8bbf-862b4a957b10 /mnt/bluessd f2fs defaults,nofail,noatime 0 0 
      ```
 
-*  *"TRIM"* the drive periodically to clean and optimize the filesystem by "trimming" empty data blocks. Once a week is ***probably*** sufficient for most RPi users; use the `fstrim` command for this:
+4.  *"TRIM"* the drive periodically to clean and optimize the filesystem by "trimming" empty data blocks. Once a week is ***probably*** sufficient for most RPi users; use the `fstrim` command for this:
 
-     ```bash 
-      $ sudo fstrim -v /dev/sdb1
-     ```
+   ```bash 
+    $ sudo fstrim -v /dev/sdX1
+   ```
 
-   *  You may want to put this command in a small script, and execute the script from the `root crontab`; see `man fstrim` for a description of all the options. And again: your cable/adapter must be IAW **UASP** to use `fstrim`. 
+   *  If you're using an RPi OS, you will have a `systemd` service that takes care of running `fstrim` periodically for you. Otherwise You may want to create a small script, and execute the script from the `root crontab`; see `man fstrim` for a description of all the options. Check that the `fstrim` service is running: 
 
-*  ***IF*** you're planning on using a SSD as the "**primary**" drive in your RPi, you **may** want to adjust its [*"swappiness"*](https://www.baeldung.com/linux/swap-space-settings); i.e. the propensity to *swap* between RAM and non-volatile storage (SSD in this case). You probably do not need to do this if (like me), your plans for the SSD are to use it for file storage; e.g. as a Samba share. If you're *wondering*, *"can/should I use the `f2fs` file system as my primary drive ..."* - [**here you go** - ***knock yourself out :)***](https://duckduckgo.com/?t=ffab&q=will+raspberry+pi+run+from+a+f2fs+format+drive&ia=web) 
+   *  ```bash
+      $ systemctl status fstrim
+      ○ fstrim.service - Discard unused blocks on filesystems from /etc/fstab
+           Loaded: loaded (/lib/systemd/system/fstrim.service; static)
+           Active: inactive (dead)
+      TriggeredBy: ● fstrim.timer
+             Docs: man:fstrim(8)
+      ```
+
+4.  ***IF*** you're planning on using a SSD as the "**primary**" drive in your RPi, you **may** want to adjust its [*"swappiness"*](https://www.baeldung.com/linux/swap-space-settings); i.e. the propensity to *swap* between RAM and non-volatile storage (SSD in this case). You probably do not need to do this if (like me), your plans for the SSD are to use it for file storage; e.g. as a Samba share. If you're *wondering*, *"can/should I use the `f2fs` file system as my primary drive ..."* - [**here you go** - ***knock yourself out :)***](https://duckduckgo.com/?t=ffab&q=will+raspberry+pi+run+from+a+f2fs+format+drive&ia=web) 
 
    *  **But back to the business at hand:** You can check the *"swappiness"* value currently set for your system as follows: 
 
@@ -1985,20 +2051,20 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
 
    *  Interestingly, for the RPi - which uses an SD card - the *"swappiness"* value is set to `60` - a value that *encourages* fairly frequent memory-SD swaps. But there are [important differences between SD cards and SSDs](https://www.maketecheasier.com/sd-card-vs-ssd/). Without getting carried away with this subject, ***if*** you're planning to use your SSD as the primary drive in your system, you may wish to consider **reducing** the *"swappiness level"* to preserve its life. *"Swappiness"* is a kernel parameter. It is set by adding/changing a line in `/etc/sysctl.conf` (e.g. `vm.swappiness=20`), and incorporated via `reboot` - or using `sysctl -p` from the command line at runtime.  
 
-*  Use the `noatime` option when you `mount` the SSD; for example in `/etc/fstab`: 
+5.  Use the `noatime` option when you `mount` the SSD; for example in `/etc/fstab`: 
 
-     ```
-      UUID=97bd5811-e1b6-4582-8bbf-862b4a957b10 /mnt/bluessd f2fs defaults,nofail,noatime 0 0
-     ```
+   ```
+    UUID=97bd5811-e1b6-4582-8bbf-862b4a957b10 /mnt/bluessd f2fs defaults,nofail,noatime 0 0
+   ```
 
    *  Why? Because left to itself, the kernel will update the last `atime` (read/access time) on each file on the SSD. Turns out this is rather a [complex operation](https://www.tiger-computing.co.uk/file-access-time-atime/), and we can live without it - the `noatime` option is also used by default (and wisely) on the root partition ( `/` ) of our beloved SD cards. 
 
-*  The scheduler... I'm running out of gas here, and IMHO the kernel's I/O scheduler is not hugely important. If you feel differently, [you can take it up with "The Raspberries" yourself, but be prepared to get slapped around some for asking such an impertinent question](https://github.com/raspberrypi/linux/issues/3359#issuecomment-1410657002)... yes, they're a testy bunch :) At any rate, I think I did finally find where the system I/O scheduler setting was buried: 
+6.  The scheduler... I'm running out of gas here, and IMHO the kernel's I/O scheduler is not hugely important. If you feel differently, [you can take it up with "The Raspberries" yourself, but be prepared to get slapped around some for asking such an *impertinent* question](https://github.com/raspberrypi/linux/issues/3359#issuecomment-1410657002)... yes, they're a testy bunch :) At any rate, I think I did finally find where the system I/O scheduler setting was buried: 
 
-     ```bash
-      $ cat /sys/block/mmcblk0/queue/scheduler
-      none [mq-deadline] kyber bfq             # looks like it's 'mq-deadline'
-     ```
+   ```bash
+    $ cat /sys/block/mmcblk0/queue/scheduler
+    none [mq-deadline] kyber bfq             # looks like it's 'mq-deadline'
+   ```
 
    *  It also seems that **every mounted block device** on my 'bookworm' system is set to this `mq-deadline` scheduler. And finally FWIW, it seems [there have been recent improvements to this scheduler](https://www.phoronix.com/news/MQ-Deadline-Scalability)! 
 
