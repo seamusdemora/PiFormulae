@@ -1932,11 +1932,11 @@ I guess that's enough theory... let's get down to business in two steps:
 
 ## How to format and 'mount' an SSD for use in RPi
 
-If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi projects, you will realize some benefits by formatting it properly (with the `f2fs` filesystem), and taking other measures that will improve the performance and reliability of this particular type of drive. Here's my **"seven step approach to SSD use"**: 
+If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi projects, you will realize some benefits by formatting it properly (with the `f2fs` or `ext4` filesystem), and taking other measures that will improve the performance and reliability of this particular type of drive. Here's my **"seven step approach to SSD use"**: 
 
-1.  This step is to **make a `udev` rule**. It's **necessary** because on a RPi **you will be connecting your SSD via a USB-to-SATA adapter cable**. While working out this procedure, in the beginning, I did not know it would be needed. Consequently, it came *after* I'd completed all the other steps... then I realized: ***something isn't right here!*** And so you benefit from my mistake  **:)**    
+1.  The first step is to **write a `udev` rule**. I found the `udev` rule was *necessary* for **persistence** in properly mounting the SSD on the RPi 3B+ I used for this exercise.  That ***might*** be due to the fact that the 3B+ does not support [**UASP**](https://en.wikipedia.org/wiki/USB_Attached_SCSI) (USB Attached SCSI Protocol); I really don't know for sure. I do know that the `udev` rule made things much simpler for me - but you're free to try without it! Let's get started:   
 
-   *  First - plug your SSD into a USB port on your RPi 
+   *  First - plug your SSD into a USB port on your RPi (do not mount it yet)
 
    *  Next, run `lsusb` from the CLI: 
 
@@ -1952,7 +1952,7 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
       Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
       ```
       
-   *  If you don't recognize which device is your SSD & adapter cable, you may need to un-plug it, run `lsusb` again, then re-plug it, and compare the difference.  ***TAKE NOTE of the ID:*** **`ID 174c:55aa`**. 
+   *  Note that this listing *does not show your SSD* - rather what is being reported is the USB-SATA adapter cable! If you don't recognize which device is your SSD adapter cable, you may need to un-plug it, run `lsusb` again, re-plug it, and compare the difference.  ***TAKE NOTE of the ID:*** **`ID 174c:55aa`**. 
    
    *  Open your editor (e.g. `nano`) as follows, and enter the following line of text:
 
@@ -1965,7 +1965,7 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
       
    *  **After saving** the `udev` rule, you should **un-plug your SSD**... Then, **re-plug your SSD**. 
    
-   *  Verify that the "discard options" are available:
+   *  Verify that the "discard options" `DISC-GRAN` and `DISC-MAX` are non-zero:
 
    *  ```bash
       $ lsblk --discard /dev/sdX
@@ -1974,10 +1974,12 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
       └─sdb1        0      512B       4G         0
       ```
    
-   *  Check out your SSD's features if you like:
+   *  Check out your SSD's features if you like; you can verify your SSD supports `TRIM`:
       
    *  ```bash
-      $ sudo hdparm -I /dev/sdX
+      $ sudo hdparm -I /dev/sdX| grep TRIM
+      	   *	Data Set Management TRIM supported (limit 8 blocks)
+      	   *	Deterministic read ZEROs after TRIM
       ```
    
 2.  Format (re-format) the drive using the [`f2fs`](https://en.wikipedia.org/wiki/F2FS); aka *"flash friendly file system"*: 
@@ -1985,7 +1987,7 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
    ```bash
     # install the tools, and format the SSD
     $ sudo apt install f2fs-tools
-    $ sudo mkfs.f2fs -f -d9 -l BlueSSD /dev/sdX1      # -d9 opt recommended; verify /dev/sdX
+    $ sudo mkfs.f2fs -f -d9 -L BlueSSD /dev/sdX1      # -d9 opt recommended; verify /dev/sdX
    ```
 
    *  Note any *exceptions*, and the *conclusion* in the command output; e.g.:
@@ -1996,7 +1998,7 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
       Info: format successful
      ```
      
-   *  The lack of `BLKSECDISCARD` support appears frequently in [recent online sources](https://real-world-systems.com/docs/mkfs.f2fs.1.html). It appears to be *related to* a defect in the secure erase/wipe capability. It is a recent "kernel bug" that is [said to be "patched"](https://secalerts.co/vulnerability/CVE-2024-49994)... perhaps by disabling secure erase? I have chosen to ignore it for now.  
+   *  The lack of `BLKSECDISCARD` support appears frequently in [recent online sources](https://real-world-systems.com/docs/mkfs.f2fs.1.html) on `f2fs` formatting. It appears to be *related to* a defect in the secure erase/wipe capability. It is a recent "kernel bug" that is [said to be "patched"](https://secalerts.co/vulnerability/CVE-2024-49994)... perhaps by disabling secure erase? I have chosen to ignore it for now. If it bothers you, I'd suggest you use `mkfs.ext4` to format - they should both give good performance with SSDs.  
 
 3.  `mount`ing may be handled as follows: 
    
@@ -2011,12 +2013,15 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
    
      ```
       LABEL=BlueSSD /mnt/bluessd f2fs defaults,nofail,noatime 0 0 
+      # -- OR, for an ext4-formatted SSD: -- 
+      LABEL=BlueSSD /mnt/bluessd f2fs defaults,nofail,noatime,discard 0 0
      ```
    
 4.  *"TRIM"* the drive periodically to clean and optimize the filesystem by "trimming" empty data blocks. Once a week is ***probably*** sufficient for most RPi users; use the `fstrim` command for this:
 
    ```bash 
     $ sudo fstrim -v /mnt/bluessd
+    /mnt/bluessd: 915.8 GiB (983318855680 bytes) trimmed  # initial run, later runs will vary
    ```
 
    *  If you're using an RPi OS, you will have a `systemd` service that takes care of running `fstrim` periodically for you. Use `systemctl` to check that the `fstrim` service is running as shown below.   Otherwise, you may want to create a small script, and execute the script from the `root crontab`; see `man fstrim` for a description of all the options. 
@@ -2030,7 +2035,7 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
              Docs: man:fstrim(8)
       ```
 
-5.  ***IF*** you're planning on using a SSD as the "**primary**" drive in your RPi, you **may** want to adjust its [*"swappiness"*](https://www.baeldung.com/linux/swap-space-settings); i.e. the propensity to *swap* between RAM and non-volatile storage (SSD in this case). You probably do not need to do this if (like me), your plans for the SSD are to use it for file storage; e.g. as a Samba share. If you're *wondering*, *"can/should I use the `f2fs` file system as my primary drive ..."* - [**here you go** - ***knock yourself out :)***](https://duckduckgo.com/?t=ffab&q=will+raspberry+pi+run+from+a+f2fs+format+drive&ia=web) 
+5.  ***IF*** you're planning on using a SSD as the "**primary**" drive in your RPi, you **may** also want to adjust its [*"swappiness"*](https://www.baeldung.com/linux/swap-space-settings); i.e. the propensity to *swap* between RAM and non-volatile storage (SSD in this case). You probably *do not* need to do this if (like me), your plans for the SSD are to use it for file storage; e.g. as a Samba share. If you're *wondering*, *"can/should I use the `f2fs` file system as my primary drive ..."* - [**here you go** - ***knock yourself out :)***](https://duckduckgo.com/?t=ffab&q=will+raspberry+pi+run+from+a+f2fs+format+drive&ia=web) 
 
    *  **But back to the business at hand:** You can check the *"swappiness"* value currently set for your system as follows: 
 
@@ -2041,7 +2046,7 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
 
    *  Interestingly, for the RPi - which uses an SD card - the *"swappiness"* value is set to `60` - a value that *encourages* fairly frequent memory-SD swaps. But there are [important differences between SD cards and SSDs](https://www.maketecheasier.com/sd-card-vs-ssd/). Without getting carried away with this subject, ***if*** you're planning to use your SSD as the primary drive in your system, you may wish to consider **reducing** the *"swappiness level"* to preserve its life. *"Swappiness"* is a kernel parameter. It is set by adding/changing a line in `/etc/sysctl.conf` (e.g. `vm.swappiness=20`), and incorporated via `reboot` - or using `sysctl -p` from the command line at runtime.  
 
-6.  Use the `noatime` option in your permanent `mount` for the SSD in `/etc/fstab`: 
+6.  Don't fail to apply the `noatime` option in your `/etc/fstab` `mount` for the SSD: 
 
    ```
     LABEL=BlueSSD /mnt/bluessd f2fs defaults,nofail,noatime 0 0
