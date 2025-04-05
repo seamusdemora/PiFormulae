@@ -959,9 +959,19 @@ Sometimes, *finesse* is over-rated. Sometimes things get misplaced, and you need
 # in this example binary files are excluded from the search by use of the 'I' option
 # piping to pager 'less' avoids clutter in your terminal
 
-$ sudo grep -rlI '/etc' -e '^inform' | less -N 
-/etc/dhcpcd.conf
+$ sudo grep -rlI '/etc' -e '^inform' | less -N     # '-N' gets line numbers in 'less'
 $
+# other useful options:
+# -i : case-insensitive
+# -R : recursive, but follow symlinks
+# -n : output the line number
+# -l : show the file name
+# other examples:
+# include ONLY files ending in .bash or .sh
+$ grep --include=\*.{bash,sh} -rl '/home/pi/scripts' -e "shazam" 
+# exclude named sub-directories from the search
+$ grep --exclude-dir={network,cron*} -rl '/etc' -e "goober" 
+
 ```
 Other times, the file you need to find is binary, or maybe you don't recall any of its contents, but you do recall part of the filename. In this situation, `find` may be the right tool.  Keep in mind that *recursion* is "free" when using `find`, but you can limit the depth of the recursion. See `man find` for the details; this may get you started: 
 
