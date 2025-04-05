@@ -1944,13 +1944,36 @@ I guess that's enough theory... let's get down to business in two steps:
 
 If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi projects, you will realize some benefits by formatting it properly (with the `f2fs` or `ext4` filesystem), and taking other measures that will improve the performance and reliability of this particular type of drive. Here's my **"seven step approach to SSD use"**: 
 
-1.  The first step is to **write a `udev` rule**. I found the `udev` rule was *necessary* for **persistence** in properly mounting the SSD on the RPi 3B+ I used for this exercise.  That ***might*** be due to the fact that the 3B+ does not support [**UASP**](https://en.wikipedia.org/wiki/USB_Attached_SCSI) (USB Attached SCSI Protocol); I really don't know for sure. I do know that the `udev` rule made things much simpler for me - but you're free to try without it! Let's get started:   
+1.  In this case, the *first step* was to **write a `udev` rule**. I found the `udev` rule was *necessary* for **persistence** in properly mounting the SSD on the RPi 3B+ I used for this exercise: `Raspberry Pi 3 Model B Plus Rev 1.4`.  This `udev` rule made things *easier and better* for me, but ***you may find that you do not need it***. In either case you're free to try without it (skip to Step 2). The utility of this `udev` rule ***might*** be due to the fact that the 3B+ does not support [**UASP**](https://en.wikipedia.org/wiki/USB_Attached_SCSI) (USB Attached SCSI Protocol); I really don't know for sure, **but**... 
 
-   *  First - plug your SSD into a USB port on your RPi (do not mount it yet)
+   *  I do know how to determine if your USB-SSD connection is being handled by UASP, or by the older, slower [USB "Bulk Only Transport" (BOT) protocol](https://www.usb.org/sites/default/files/usbmassbulk_10.pdf); following are the results from my RPi 3B+.  The last line in the output says, *"You've got the old, slow BOT protocol"*. And I'm OK with that for my application; in this case as a *"music file"* server : 
 
-   *  Next, run `lsusb` from the CLI: 
+      ```bash 
+      # when plugged into a USB 2 port of an RPi 3B+:
+      $ lsusb -t
+      /:  Bus 01.Port 1: Dev 1, Class=root_hub, Driver=dwc_otg/1p, 480M
+          |__ Port 1: Dev 2, If 0, Class=Hub, Driver=hub/4p, 480M
+              |__ Port 1: Dev 3, If 0, Class=Hub, Driver=hub/3p, 480M
+                  |__ Port 1: Dev 4, If 0, Class=Vendor Specific Class, Driver=lan78xx, 480M
+                  |__ Port 2: Dev 13, If 0, Class=Mass Storage, Driver=usb-storage, 480M
+      ```
 
-   *  ```bash
+      Compare this against the result from an RPi 5 when the SSD is plugged into one of the USB 3 (blue tongue) slots. Here, the last line says, *"You've got the new, fast UASP protocol"*. Interestingly, it says *the same thing* if you plug it into one of the USB 2 (black tongue) slots - but the speed is `480M` instead of `5000M`. :
+
+      ```bash
+      # when plugged into a USB 3 port of theRPi 5:
+      $ lsusb -t
+      /:  Bus 04.Port 1: Dev 1, Class=root_hub, Driver=xhci-hcd/1p, 5000M
+          |__ Port 1: Dev 2, If 0, Class=Mass Storage, Driver=uas, 5000M
+          ...
+      # when plugged into a USB 2 port of theRPi 5:
+      /:  Bus 01.Port 1: Dev 1, Class=root_hub, Driver=xhci-hcd/2p, 480M
+          |__ Port 2: Dev 2, If 0, Class=Mass Storage, Driver=uas, 480M
+      ```
+
+   *  But to proceed with the `udev` rule: We need some more information from `lsusb` to write the `udev` rule; we'll get that information by **plugging the SSD into a USB port** (don't `mount` it just yet), and running `lsusb`:   
+
+      ```bash
       $ lsusb
       Bus 001 Device 007: ID 0781:556c SanDisk Corp. Ultra
       #==> NOTE ID string ↓↓↓↓↓↓↓↓↓↓↓↓ ----------------------------
@@ -1962,45 +1985,49 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
       Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
       ```
       
-   *  Note that this listing *does not show your SSD* - rather what is being reported is the USB-SATA adapter cable! If you don't recognize which device is your SSD adapter cable, you may need to un-plug it, run `lsusb` again, re-plug it, and compare the difference.  ***TAKE NOTE of the ID:*** **`ID 174c:55aa`**. 
-   
-   *  Open your editor (e.g. `nano`) as follows, and enter the following line of text:
+      Note that this listing *does not show your SSD* - rather what is being reported is the USB-SATA adapter cable! If you don't recognize which device is your SSD adapter cable, you may need to un-plug it, run `lsusb` again, re-plug it, and compare the difference.  ***TAKE NOTE of the ID:*** **`ID 174c:55aa`**. 
 
-   *  ```bash
+   *  With the **ID** values in hand, we are ready to write the `udev` rule. Open your editor (e.g. `nano`) as follows, and enter the following line of text:
+
+      ```bash
       $ sudo nano /etc/udev/rules.d/50-usb-ssd-trim.rules 
       # enter:
       ACTION=="add|change", ATTRS{idVendor}=="174c", ATTRS{idProduct}=="55aa", SUBSYSTEM=="scsi_disk", ATTR{provisioning_mode}="unmap" 
       # ID: 174c:55aa; 174c is 'idVendor'; 55aa is 'idProduct'
       ```
       
-   *  **After saving** the `udev` rule, you should **un-plug your SSD**... Then, **re-plug your SSD**. 
-   
-   *  Verify that the "discard options" `DISC-GRAN` and `DISC-MAX` are non-zero:
+   *  Exit the editor **after saving** the `udev` rule. With the rule now "installed" you should **un-plug your SSD**... Then, **re-plug your SSD**... Then, **verify** that the "discard options" `DISC-GRAN` and `DISC-MAX` are non-zero:
 
-   *  ```bash
+      ```bash
       $ lsblk --discard /dev/sdX
       NAME   DISC-ALN DISC-GRAN DISC-MAX DISC-ZERO
       sdb           0      512B       4G         0
       └─sdb1        0      512B       4G         0
       ```
-   
-   *  Check out your SSD's features if you like; you can verify your SSD supports `TRIM`:
+
+   *  If the preceding step did not show both *"discard options"* are non-zero, you should verify your SSD supports `TRIM`. Note that in this step, you are communicating with the SSD itself; ***not*** the cable, or software:
       
-   *  ```bash
-      $ sudo hdparm -I /dev/sdX| grep TRIM
+      ```bash
+      $ sudo hdparm -I /dev/sdX | grep TRIM
       	   *	Data Set Management TRIM supported (limit 8 blocks)
       	   *	Deterministic read ZEROs after TRIM
       ```
-   
-2.  Format (re-format) the drive using the [`f2fs`](https://en.wikipedia.org/wiki/F2FS); aka *"flash friendly file system"*: 
+      
+      If you did not get both "discard options" as non-zero values, and the `hdparm` output shows no evidence of TRIM support, you may have a very odd or very old SSD. OTOH, each manufacturer is *unique*; for example [Crucial has this to say re TRIM](https://www.crucial.com/articles/about-ssd/what-is-trim): 
+      
+      >  Trim & Active Garbage Collection are useful tools that benefit the speed, function, & longevity of your SSD. But **if your operating system doesn't support Trim, it's not a disaster**. All Crucial SSDs are  designed and tested assuming that they will be used without Trim.  
+
+2.  Format (re-format) the drive using the [`f2fs`](https://en.wikipedia.org/wiki/F2FS) (aka *"flash friendly file system"*) - or `ext4` : 
 
    ```bash
     # install the tools, and format the SSD
     $ sudo apt install f2fs-tools
-    $ sudo mkfs.f2fs -f -d9 -L BlueSSD /dev/sdX1      # -d9 opt recommended; verify /dev/sdX
+    $ sudo mkfs.f2fs -f -d9 -l BlueSSD /dev/sdX1  
+    # --OR, use ext4 filesystem instead of f2fs
+    $ sudo mkfs.ext4 -L BlueSSD /dev/sda1
    ```
 
-   *  Note any *exceptions*, and the *conclusion* in the command output; e.g.:
+   *  Note any *exceptions*, and the *conclusion* in the command output; e.g. when `f2fs` was used:
 
      ```
       Info: This device doesn't support BLKSECDISCARD
@@ -2008,25 +2035,25 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
       Info: format successful
      ```
      
-   *  The lack of `BLKSECDISCARD` support appears frequently in [recent online sources](https://real-world-systems.com/docs/mkfs.f2fs.1.html) on `f2fs` formatting. It appears to be *related to* a defect in the secure erase/wipe capability. It is a recent "kernel bug" that is [said to be "patched"](https://secalerts.co/vulnerability/CVE-2024-49994)... perhaps by disabling secure erase? I have chosen to ignore it for now. If it bothers you, I'd suggest you use `mkfs.ext4` to format - they should both give good performance with SSDs.  
+      The lack of `BLKSECDISCARD` support appears frequently in [recent online sources](https://real-world-systems.com/docs/mkfs.f2fs.1.html) on `f2fs` formatting, but I've seen no comments or even a recognition of its presence. It appears to be *related to* a defect in the secure erase/wipe capability. It is a recent "kernel bug" that is [said to be "patched"](https://secalerts.co/vulnerability/CVE-2024-49994)... perhaps by disabling secure erase? I have chosen to ignore it for now. If it bothers you, I'd suggest you use `mkfs.ext4` to format - `ext4` will also give good performance with SSDs.  
 
 3.  `mount`ing may be handled as follows: 
-   
+
    *  from the command line (after running `lsblk --fs` to learn the device location): 
-   
+
      ```bash
       $ sudo mkdir /mnt/bluessd
       $ sudo mount /dev/sdX1 /mnt/bluessd
      ```
-   
+
    *  Add the following to `/etc/fstab` for a permanent automount: 
-   
+
      ```
       LABEL=BlueSSD /mnt/bluessd f2fs defaults,nofail,noatime 0 0 
       # -- OR, for an ext4-formatted SSD: -- 
-      LABEL=BlueSSD /mnt/bluessd f2fs defaults,nofail,noatime,discard 0 0
+      LABEL=BlueSSD /mnt/bluessd ext4 defaults,nofail,noatime,discard 0 0
      ```
-   
+
 4.  *"TRIM"* the drive periodically to clean and optimize the filesystem by "trimming" empty data blocks. Once a week is ***probably*** sufficient for most RPi users; use the `fstrim` command for this:
 
    ```bash 
@@ -2036,7 +2063,7 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
 
    *  If you're using an RPi OS, you will have a `systemd` service that takes care of running `fstrim` periodically for you. Use `systemctl` to check that the `fstrim` service is running as shown below.   Otherwise, you may want to create a small script, and execute the script from the `root crontab`; see `man fstrim` for a description of all the options. 
 
-   *  ```bash
+      ```bash
       $ systemctl status fstrim
       ○ fstrim.service - Discard unused blocks on filesystems from /etc/fstab
            Loaded: loaded (/lib/systemd/system/fstrim.service; static)
@@ -2058,13 +2085,15 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
 
 6.  Don't fail to apply the `noatime` option in your `/etc/fstab` `mount` for the SSD: 
 
-   ```
-    LABEL=BlueSSD /mnt/bluessd f2fs defaults,nofail,noatime 0 0
-   ```
+     ```bash
+     LABEL=BlueSSD /mnt/bluessd f2fs defaults,nofail,noatime 0 0  
+      # -- OR, for an ext4-formatted SSD: -- 
+      LABEL=BlueSSD /mnt/bluessd ext4 defaults,nofail,noatime,discard 0 0
+     ```
 
    *  Why? Because left to itself, the kernel will update the last `atime` (read/access time) on each file on the SSD. Turns out this is rather a [complex operation](https://www.tiger-computing.co.uk/file-access-time-atime/); it reduces the life of our SSD, and we can live without it.  The `noatime` option is also used by default (and wisely) on the root partition ( `/` ) of our beloved SD cards. 
 
-7.  The scheduler... I'm running out of gas here, and IMHO the kernel's I/O scheduler is not hugely important. If you feel differently, [you can take it up with "The Raspberries" yourself, but be prepared to get slapped around some for asking such an *impertinent* question](https://github.com/raspberrypi/linux/issues/3359#issuecomment-1410657002)... yes, they're a testy bunch :) At any rate, I think I did finally find where the system I/O scheduler setting was buried: 
+8.  The scheduler... I'm running out of gas here, and IMHO the kernel's I/O scheduler is not hugely important. If you feel differently, [you can take it up with "The Raspberries" yourself, but be prepared to get slapped around some for asking such an *impertinent* question](https://github.com/raspberrypi/linux/issues/3359#issuecomment-1410657002)... yes, they're a testy bunch :) At any rate, I think I did finally find where the system I/O scheduler setting was buried: 
 
    ```bash
     $ cat /sys/block/mmcblk0/queue/scheduler
