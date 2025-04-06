@@ -2108,12 +2108,18 @@ If you're using a SSD (as a mass storage/auxiliary drive) in one of your RPi pro
 
 ## How to make a loop mount in `fstab`
 
-We'll use this handy 3-step procedure: 
+I use [RonR's image-utils](https://github.com/seamusdemora/RonR-RPi-image-utils) to perform backups of my RPi - it's an excellent backup utility! It creates a single raw image file that contains both partitions (`/` and `/boot/firmware`) of the SD card or NVME. These image files come in quite handy for a variety of uses... for example *experimenting* with different configurations, data recovery, etc. 
 
-##### Step 1: run `fdisk` to get the image layout:
+I've found that the easiest/most convenient way for me to work with these image files is to copy the raw image file to a USB storage device, `mount` the device on a Raspberry Pi, and then `loop mount` each partition separately. This gives me convenient RW access to the entire image. In the procedure below, we break out each partition as a  `loop device`, and `mount` both devices in `/etc/fstab`. 
+
+We begin with a USB storage device that contains a raw image file named `example.img`. The USB device (`/dev/sda` in this example) is mounted at `/mnt/usb`. We have also created `mount` points on our RPi: `/mnt/usb/root`, and `/mnt/usb/boot`. 
+
+#### Step 1: run `fdisk` to get the image layout:
+
+We begin with a single image file created by `image-backup` (one of the scripts in `image-utils`); we'll call it `example.img`. Run `fdisk` to get the information needed for breakout and mounting.
 
 ```bash
-fdisk -l ./example.img    # example.img has two partitions, vfat & ext4
+fdisk -l ./example.img    # example.img has two partitions; a vfat & an ext4
 Disk ./example.img: 2.69 GiB, 2889875456 bytes, 5644288 sectors
 Units: sectors of 1 * 512 = 512 bytes
 Sector size (logical/physical): 512 bytes / 512 bytes
@@ -2121,12 +2127,21 @@ I/O size (minimum/optimal): 512 bytes / 512 bytes
 Disklabel type: dos
 Disk identifier: 0x00f24f4c
 
-Device                                          Boot  Start     End Sectors  Size Id Type
+Device         Boot  Start     End Sectors  Size Id Type
 ./example.img1        2048  526335  524288  256M  c W95 FAT32 (LBA)
 ./example.img2      526336 5644287 5117952  2.4G 83 Linux
 ```
 
-##### Step 2: calculate `offset` and `sizelimit` for each partition from Step 1 data, and verify via successful `mount`:
+#### Step 2: calculate `offset` & `sizelimit` for each partition, `mount` and verify:
+
+We must calculate `offset` and `sizelimit` parameters for the `loop` mount, and they must be expressed in `bytes`, not `sectors` as provided by `fdisk`. `offset` corresponds to `Start`, and `sizelimit` corresponds to `Sectors`.  We *do the math*:  
+
+*  `boot offset` = 2048 * 512 = 1048576
+*  `boot sizelimit` = 524288 * 512 = 268435456
+*  `root offset` = 526336 * 512 = 269484032
+*  `root sizelimit` = 5117952 * 512 = 2620391424
+
+With these calculations, we can create a loop mount for our `vfat` (`/boot/firmware`) partition, and another loop mount for our `root` ( `/` ) partition. 
 
 ```bash
 $ sudo mount -o loop,offset=1048576,sizelimit=268435456 ./example.img /mnt/usb/boot 
@@ -2134,30 +2149,36 @@ $ sudo mount -o loop,offset=1048576,sizelimit=268435456 ./example.img /mnt/usb/b
 $ sudo mount -o loop,offset=269484032,sizelimit=2620391424 ./example.img /mnt/usb/root
 ```
 
-##### Step 3: "translate" Step 2 mounts to `/etc/fstab` entries:
-
-```
-# mount -o loop,offset=1048576,sizelimit=268435456 ./example.img /mnt/boot 
-
-/home/pi/example.img /mnt/boot vfat loop,offset=1048576,sizelimit=268435456 defaults,nofail  0 0
-
-
-# mount -o loop,offset=269484032,sizelimit=2620391424 ./example.img /mnt/root
-
-/home/pi/example.img /mnt/root ext4 loop,offset=269484032,sizelimit=2620391424 defaults,nofail  0 0
-```
-
-Afterwards, you may `reboot` to test the new `fstab`, and run `lsblk` to verify:
+We can verify: 
 
 ```bash
 $ lsblk --fs
 NAME        FSTYPE FSVER LABEL       UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
-loop0       vfat   FAT32 boot        AAFD-EB1F                             203.1M    20% /mnt/boot
-loop1       ext4   1.0   rootfs      e7baf291-a31a-4f9c-8cbb-6e7dc7b00af4  374.3M    78% /mnt/root
+loop0       vfat   FAT32 boot        AAFD-EB1F                             203.1M    20% /mnt/usb/boot
+loop1       ext4   1.0   rootfs      e7baf291-a31a-4f9c-8cbb-6e7dc7b00af4  374.3M    78% /mnt/usb/root
+sda
+└─sda1      exfat  1.0   SANDISK16GB 67EB-734A                              12.2G    18% /mnt/usb 
 mmcblk0
 ├─mmcblk0p1 vfat   FAT32 bootfs      4EF5-6F55                             453.3M    11% /boot/firmware
-└─mmcblk0p2 ext4   1.0   rootfs      ce208fd3-38a8-424a-87a2-cd44114eb820   52.5G     4% /
+└─mmcblk0p2 ext4   1.0   rootfs      ce208fd3-38a8-424a-87a2-cd44114eb820   52.2G     5% /
 ```
+
+
+
+#### Step 3: "translate" mounts in Step 2 to `/etc/fstab` entries:
+
+```
+# mount -o loop,offset=1048576,sizelimit=268435456 ./example.img /mnt/boot 
+# mount -o loop,offset=269484032,sizelimit=2620391424 ./example.img /mnt/root
+# ---
+UUID=67EB-734A /mnt/usb exfat defaults,nofail,noatime 0 0
+/mnt/usb/example.img /mnt/usb/boot auto loop,offset=1048576,sizelimit=268435456,nofail  0 0
+/mnt/usb/example.img /mnt/usb/root auto loop,offset=269484032,sizelimit=2620391424,nofail  0 0
+```
+
+Afterwards, you may `reboot` to test the new `fstab`, and run `lsblk --fs` to verify.
+
+
 
  [**⋀**](#table-of-contents) 
 
