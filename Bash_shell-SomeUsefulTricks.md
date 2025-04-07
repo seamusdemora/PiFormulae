@@ -28,7 +28,7 @@
    *  [Clear the contents of a file without deleting the file](#clear-the-contents-of-a-file-without-deleting-the-file) 
    *  [List all directories - not files, just directories](#list-all-directories---not-files-just-directories) 
    *  [Pitfalls of parsing `ls`](#pitfalls-of-parsing-ls) 
-   *  [Access compressed log files easily](#access-compressed-log-files-easily) 
+   *  [Access `.gz` compressed log files easily](#access-compressed-log-files-easily) 
    *  [Filename expansion; a.k.a. "globbing"](#filename-expansion-aka-globbing) 
    *  [Change the modification date/time of a file](#change-the-modification-date-of-a-file) 
    *  [Verify a file system is mounted with `findmnt` - *before trying to use it*!](#verify-file-system-is-mounted) 
