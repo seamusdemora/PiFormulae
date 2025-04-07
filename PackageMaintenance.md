@@ -98,7 +98,7 @@ The following lists of `apt` and `apt-get` commands is not intended to be a comp
 </tr>
 
 <tr>
-<td width="30%"><b><code>apt show XXXX</code></b><br>--OR--<br><code>apt-cache show XXXX</code>code></td>
+<td width="30%"><b><code>apt show XXXX</code><br>--OR--<br><code>apt-cache show XXXX</code></b></td>
 <td width="70%">Show information about package(s) XXXX including dependencies, installation size, sources, etc.</td>
 </tr>
 
