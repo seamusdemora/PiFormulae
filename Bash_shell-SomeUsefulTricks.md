@@ -12,6 +12,7 @@
    *  [Shell variables: UPPER case, lower case, or SoMeThInG_eLsE...?](#shell-variables-what-is-the-best-naming-convention) 
    *  [Using your shell command history](#using-your-shell-command-history) 
    *  [Permission issues with redirects (`>`, `>>`)](#permission-issues-when-using-redirection) 
+   *  [What happens to `stderr` when one command is piped to another?](#how-to-pipe-the-stderr-of-one-command-to-another) 
    *  [Comment an **entire block of code** in a shell script](#comment-an-entire-block-of-code) 
    *  [Testing things in bash](#testing-things-in-bash) 
 
@@ -2210,13 +2211,104 @@ The `less` utility doesn't get enough credit. We're going to devote some space t
      I didn't know this was possible before reading [this Q&A](https://askubuntu.com/questions/482803/how-do-i-make-less-output-colors); the excellent answer shows us *"the way"*:
 
      ```bash
-      $ ls -l --color=always | less -R 
+     "" $ ls -l --color=always | less -R 
       # good candidate for an alias in ~/.bashrc
      ```
 
-
-
  [**⋀**](#table-of-contents) 
+
+
+
+## How to 'pipe' the 'stderr' of one command to another
+
+If you've been using Linux/Unix very long at all, you have probably used a 'pipe' ( `|` ) to route the output of one command (on the left) to the input of another command (on the right); i.e.: 
+
+```bash
+$ command1 | command2
+```
+
+This works as we expect when the output of `command1` is exclusively in the `stdout` stream; i.e. when there are no errors in `command1`.  However, there are times when it's important to operate on output of `command1` that is in the `stderr` stream. Otherwise, the `stderr` output is silently ignored. How do we send `stderr` and `stdout` to `command2`? 
+
+The answer is found in `man bash` (GNU bash, 5.2) following a search for 'pipe' or 'pipeline' where we find this: 
+
+>If **`|&`** is used, command1's standard error, in addition to its standard output, is connected to command2's standard input through the  pipe; it is shorthand for **`2>&1 |`**. 
+
+That gives us two options for sending both `stdout` and `stderr` of command1 to command2:
+
+```bash
+$ command1 |& command2
+# -- OR --
+$ command1 2>&1 | command2
+```
+
+If you want the opposite of the default (pipe `stdout` only); i.e. pipe ***only*** `stderr` to `command2`: 
+
+```bash 
+$ command1 2>&1 >/dev/null | command2
+# --OR --
+$ command1 2>&1 1>/dev/null | command2  # if you prefer specificity :)
+```
+
+[**⋀**](#table-of-contents) 
+
+<!---
+
+## systemd is "illogical"
+
+Ran across an(*other*) example of perverted logic in the design of `systemd`, and thought I should mention it here. I ran across this while experimenting with `mpd` and `mpc`. I am occasionally getting this message:
+
+```
+$ mpc playlist | less
+MPD error: Connection refused
+```
+
+Which seems a clear indication "the wheels have come off". I'm trying to write a script to automate some music playing, and realized this `MPD error` is something that needs to be "caught" - and corrected. And so I created the following functions in my `bash` script:
+
+```bash
+# THIS CODE SHOULD NOT BE USED "AS-IS"; 
+# Read the entire note & make the "correction" shown below
+#
+srv="mpd.service"
+function reset_mpd {
+# ASSUME mpd.service has failed (ref "MPD error"), and 'restart':
+    systemctl --user restart $srv
+    sleep 2
+# VERIFY mpd.service is now working/active; if not then EXIT for troubleshooting: 
+    if ! systemctl --user -q is-active $srv; then        # bullshit!  :) 
+        echo -e "at $(date) $srv is not active; (re-) start failed --- EXITING! ---" >> $log
+        exit 1
+    fi
+}
+
+function status_mpc {
+    if [ "$(/usr/bin/mpc --quiet status 2>&1 | cut -c 1-9)" = "MPD error" ]; then
+        reset_mpd     # call fn to restart mpd.service
+    fi
+} 
+
+# ... doing mpc stuff ...
+
+status_mpc 
+```
+
+So - I call `status_mpc` at various points in my script - to make sure nothing has failed (which seems to be a real problem with **`mpd`** in 'bookworm stable') . `status_mpc` "discovers" the failure, and calls `reset_mpd`. 
+
+In `reset_mpd` I assume that `mpd` ***is*** the problem, and do a `restart` as the first step. Then, to verify that `mpd.service` has successfully restarted, I check it using `systemctl`'s `is-active` option, and  `exit` the script for manual troubleshooting... pretty straightforward - or so I thought.   
+
+***However***, it turns out that the ***systemd-brain*** has decided that `is-active` ***does not mean that the service is actually active... even though it is!*** You can read the perversity of thinking in `man systemctl`. The solution that finally worked for me was to replace the `is-active` option with the `is-failed` option & **negate** the logic; i.e.:  
+
+```
+# DO NOT DO THIS! Why? 'systemd' lies!! 
+if ! systemctl --user -q is-active $srv; then
+# INSTEAD, YOU MUST DO THIS: 
+if systemctl --user -q is-failed $srv; then
+```
+
+-->
+
+
+
+
 
 
 
