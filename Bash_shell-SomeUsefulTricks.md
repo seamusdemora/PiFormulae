@@ -2262,7 +2262,7 @@ Right - this has nothing to do with the `bash` shell, but I tought it needed to 
 
 GitHub's documentation is comprehensive I guess, but IMHO not very easy to use. In particular, when searching for related **issues** or **discussions**, I can't seem to remember these little helpful "tidbits" that potentially make the search useful and productive. Here they are... in screenshot form: 
 
-![github_searchterms](/Users/jmoore/Desktop/screenshots/github_searchterms.png)
+![github_searchterms](pix/github_searchterms.png)
 
 
 
