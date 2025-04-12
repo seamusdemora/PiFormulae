@@ -36,7 +36,8 @@
    *  [How to move or copy a file without accidentally overwriting a destination file](#move-or-copy-a-file-without-accidentally-overwriting-a-destination-file) 
    *  [Using `dirname`, `basename` & `realpath`](#using-dirname-basename-and-realpath) 
    *  [Format an SSD w/ `f2fs` filesystem and mount it](#how-to-format-and-mount-an-ssd-for-use-in-rpi) 
-   *  [How to make a loop mount in `/etc/fstab`](#how-to-make-a-loop-mount-in-fstab)
+   *  [How to make a loop mount in `/etc/fstab`](#how-to-make-a-loop-mount-in-fstab) 
+   *  [How to create and extract `tar` and `.tgz` files](#tar-files-and-compressed-tar-files) 
 
 *  ### Date and time Operations
 
@@ -2264,6 +2265,33 @@ GitHub's documentation is comprehensive I guess, but IMHO not very easy to use. 
 
 ![github_searchterms](/Users/jmoore/Desktop/screenshots/github_searchterms.png)
 
+[**⋀**](#table-of-contents) 
+
+
+
+## tar files and compressed tar files
+
+You may have heard the term "tar ball"; you might have wondered wtf? The "tar" in "tar ball" is an acronym for ***T**ape **AR**chive*, a term dating back to '60s-era IT. As it turns out, "tar balls" are still used today for distribution of software & media, and occasionally as a container for backups.  The `tar` manual describes it  as follows:
+
+>tar is an archiving program designed to store multiple files in a single file (an archive), and  to  manipulate  such archives
+
+Tarballs are also typically compressed, but they don't have to be.  Compressed "tarballs" typically use a file extension of `.gz`, `.tgz` or `.tar.gz`;  un-compressed tarballs use `.tar`.   We all need to know how to create them, and how to *retrieve* the contents of a tarball. 
+
+*  To ***c***reate a *compressed* tarball:
+
+      ```
+      tar -czf <name of tarball>.tgz /path/to/source/folder
+      ```
+
+*  To e***x***tract and de-compress a compressed tarball
+
+      ```
+      tar -xzf <name of tarball>.tgz                            # extracts to 'pwd'
+      tar -xzf <name of tarball>.tgz -C /path/to/dest/folder    # extracts to '-C path'
+      ```
+      
+
+I'll stop here - ***far short*** of the numerous options available for `tar`; start with `man tar` to learn more. 
 
 
 [**⋀**](#table-of-contents) 
