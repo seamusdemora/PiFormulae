@@ -93,6 +93,9 @@
    *  [Download a file from GitHub](#download-a-file-from-github) 
    *  [Use the `at` command for scheduling](#how-to-use-the-at-command-for-scheduling) 
    *  [Should I use `scp`, or `sftp`?](#scp-vs-sftp) 
+   *  [How to search GitHub](#how-to-search-github) 
+
+   
 
 *  ### [REFERENCES:](#references) 
 
@@ -2248,6 +2251,20 @@ $ command1 2>&1 >/dev/null | command2
 # --OR --
 $ command1 2>&1 1>/dev/null | command2  # if you prefer specificity :)
 ```
+
+[**⋀**](#table-of-contents) 
+
+
+
+## How to search GitHub
+
+Right - this has nothing to do with the `bash` shell, but I tought it needed to go somewhere. 
+
+GitHub's documentation is comprehensive I guess, but IMHO not very easy to use. In particular, when searching for related **issues** or **discussions**, I can't seem to remember these little helpful "tidbits" that potentially make the search useful and productive. Here they are... in screenshot form: 
+
+![github_searchterms](/Users/jmoore/Desktop/screenshots/github_searchterms.png)
+
+
 
 [**⋀**](#table-of-contents) 
 
