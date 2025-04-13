@@ -2291,6 +2291,14 @@ Tarballs are also typically compressed, but they don't have to be.  Compressed "
       ```
       
 
+The minimal, essential options are: 
+
+*  -c : create a tarball 
+*  -x : extract a tarball
+*  -z : compress (or de-compress when used in combo with -x) the tarball
+*  -f : the file name to be created or extracted
+*  -C : the directory to *Change* to before creating or extracting
+
 I'll stop here - ***far short*** of the numerous options available for `tar`; start with `man tar` to learn more. 
 
 
