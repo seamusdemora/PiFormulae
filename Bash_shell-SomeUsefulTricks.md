@@ -2271,7 +2271,7 @@ GitHub's documentation is comprehensive I guess, but IMHO not very easy to use. 
 
 ## tar files and compressed tar files
 
-You may have heard the term "tar ball"; you might have wondered wtf? The "tar" in "tar ball" is an acronym for ***T**ape **AR**chive*, a term dating back to '60s-era IT. As it turns out, "tar balls" are still used today for distribution of software & media, and occasionally as a container for backups.  The `tar` manual describes it  as follows:
+You may have heard the term *"**tar ball**"*; you might have wondered wtf? The "tar" in "tar ball" is an acronym for ***T**ape **AR**chive*, a term dating back to '60s-era IT. As it turns out, "tar balls" are still used today for distribution of software & media, and occasionally as a container for backups.  The `tar` manual describes it  as follows:
 
 >tar is an archiving program designed to store multiple files in a single file (an archive), and  to  manipulate  such archives
 
