@@ -2,7 +2,19 @@
 
 *Note: This "recipe" is a merger of two older (now retired) recipes, and motivated by a desire to reduce the [sprawl](https://www.merriam-webster.com/dictionary/sprawl) of this RPi repo.* 
 
-If you're interested, you can read about the [history of `cron`](https://en.wikipedia.org/wiki/Cron#History) in this Wikipedia article. Perhaps the best-known of the [modern versions of `cron`](https://en.wikipedia.org/wiki/Cron#Modern_versions) is Paul Vixie's implementation which first appeared in 1987; aka *Vixie cron*. This is the [version of `cron` used in Debian](https://wiki.debian.org/cron), and the sole focus of this recipe.
+If you're interested, you can read about the [history of `cron`](https://en.wikipedia.org/wiki/Cron#History) in this Wikipedia article. Perhaps the best-known of the [modern versions of `cron`](https://en.wikipedia.org/wiki/Cron#Modern_versions) is Paul Vixie's implementation which first appeared in 1987; aka *Vixie cron*. This is the [version of `cron` used in Debian](https://wiki.debian.org/cron), and the sole focus of this recipe. 
+
+## Table of Contents: 
+
+1. [Introduction](#introduction) 
+2. [Most FAQ: Why doesn't my crontab work?](#why-does-my-crontab-not-work) 
+3. [What is cron's environment?](#what-is-the-cron-environment) 
+4. [Where are my crontabs kept?](#where-are-my-crontabs-kept) 
+5. [REFERENCES](#references) 
+
+---
+
+## Introduction:
 
 Those getting started with `cron` may be wondering what exactly is meant by the terms `cron` and `crontab`. A bit of explanation is in order: 
 
@@ -11,9 +23,9 @@ Those getting started with `cron` may be wondering what exactly is meant by the 
 
 Let's get started; we'll begin with the **single most frequently asked question**:
 
+---
 
-
-## #1 `cron` FAQ: Why does my crontab not work?
+## Why does my crontab not work?
 
 ### **The "Generic Answer"** to this question: **_`cron` is simple in some respects, but enigmatic in others._**
 
@@ -33,13 +45,16 @@ I would say that there are <s>three (3)</s> four (4) primary factors that confus
 
   **Example:** 
 
-  - ```bash
+    ```bash
     $ sudo crontab -e
     ... (in editor, add one line:) ...
     
     @reboot su pi -l -c /home/pi/start-mpg123.sh > /home/pi/start-mpg123.log 2>&1 
-    
-    ... (where 'start-mpg123.sh' is a simple script:) 
+    # we use 'su' to become user 'pi'; ref 'man su'
+    #    option '-l' : start a login shell
+    #    option '-c' : pass a command to the (login) shell; i.e. '/home/pi/start-mpg123.sh'
+    # where 'start-mpg123.sh' is a simple script shown below: 
+    # save & exit editor
     
     $ cat ~/start-mpg123.sh
     #!/usr/bin/bash
@@ -48,6 +63,7 @@ I would say that there are <s>three (3)</s> four (4) primary factors that confus
         /usr/bin/bluetoothctl connect DF:45:E9:00:BE:8B
     fi
     /usr/bin/mpg123 --loop -1 /home/pi/rainstorm.mp3
+    exit 0
     ```
 
 
@@ -124,6 +140,7 @@ echo "$(date "+%s" -d "+ 10 minutes")" > $WAKEALARM         # FAILS SILENTLY!!
 echo "$(date "+\%s" -d "+ 10 minutes")" > $WAKEALARM        # THE CURE!!
 ```
 
+---
 
 ## What is the cron environment?
 
@@ -137,7 +154,7 @@ We'll ask `cron` to tell us:
    $ sudo crontab -e
 ```
 
-### Step 2: Add 1 line: 
+### Step 2: Add 1 line, save & exit the editor:
 
 ```
    * * * * * /usr/bin/printenv > /home/yourusername/user-cronenv.txt 2>&1
@@ -145,15 +162,7 @@ We'll ask `cron` to tell us:
    * * * * * /usr/bin/printenv > /home/yourusername/root-cronenv.txt 2>&1
 ```
 
-### Step 3: Save the file, and exit the editor: 
-
-```bash
-   $ crontab -e (entered above, then editing ..., then exit editor)
-   crontab: installing new crontab
-   $ 
-```
-
-### Step 4: Read cron's answer: 
+### Step 3: Read cron's answer:
 
 ```bash
    $ cd && cat user-cronenv.txt
@@ -167,15 +176,57 @@ We'll ask `cron` to tell us:
    PWD=/home/pi
 ```
 
-You may repeat Steps 1-4 above for the `root crontab`. Next, you may want to try adding an environment variable to your `crontab`, and observe the change in `user-cronenv.txt`. 
+You may repeat Steps 1-3 above for the `root crontab`. Next, you may want to try adding an environment variable to your `crontab`, and observe the change in `user-cronenv.txt`. 
 
 If you're not familiar with your own user *environment* under your *interactive/login* shell, it may be informative to run `printenv` from the CLI, and compare it against the `cron` *environment*. You'll notice numerous differences. Having this information, knowing how the `cron` user's environment differs from yours, will help create rational `cron` jobs, and help troubleshooting when they don't behave as you'd like. Finally, you can change the *environment* for `cron`; modify it to better meet your needs. See the REFERENCES for ideas.  
+
+---
+
+## Where are my crontabs kept?
+
+You might have noticed that after editing a `crontab` (yours, or the `root` `crontab`) that your editor actually saves the "new" `crontab` in the `/tmp` directory; e.g. `/tmp/crontab.b6uLfb/crontab`. If you're the curious sort, you might have wondered, *"WTF?"*. 
+
+The answer is not complicated, and reflects the care that was taken in the development of `cron`: 
+
+When you call `crontab` from the command line, the editor you have previously chosen opens the file that contains your `crontab` file; it also does **syntax checking** on the edited file to make sure that your instructions to `cron` are *correct* instructions! 
+
+The use of `/tmp` for storage is only, uh - *temporary*... IOW, a location from which `crontab` can do its syntax checks **before** saving the file to its "final destination". The "final destination" is ***currently*** at **`/var/spool/cron/crontabs`**... *currently* as of Debian 'bookworm'; you can verify this: 
+
+```
+$ sudo ls -l /var/spool/cron/crontabs
+ 
+-rw------- 1 pi   crontab 1143 Feb 17 07:56 pi
+-rw------- 1 root crontab 2270 Apr 13 21:21 root
+
+# note: 'sudo' required due to 'drwx-wx--T' permissions of parent folder!
+```
+
+This *suggests* the possibility of a couple of tactics to ***preserve*** your `crontab`s: 
+
+#### 1. "Relocate" your `crontab`:  
+
+     # pwd = /home/pi
+     $ mkdir -m mycrontabs
+     $ crontab -l ~/mycrontabs/pi        # to save your crontab in $HOME/...
+     $ crontab /home/pi/mycrontabs/pi    # to "install" your user crontab to a new location
+     # and afterwards: 
+     $ crontab -e                        # opens user crontab for editing in its new location
+     # going forward, crontab uses this location in lieu of '/var/spool/cron/crontabs'
+     # ... this can also be done for the root crontab! 
+
+#### 2.  Create a `cron` job to backup your `crontab`: 
+
+    # create a cron job to backup your crontab to $HOME
+    $ crontab -e 
+    # add a line:
+    0 12 * * * /usr/bin/crontab -l > /home/pi/myctab/myctab.backup
+    # save & exit editor
 
 
 
 ------
 
-REFERENCES:
+## REFERENCES:
 
 1. [The **crontab guru** will help you with your schedule specification](https://crontab.guru/#30_0,1,2,3_*_*_*) 
 2. [`cron`, `crontab`... What are you talking about?](https://www.ostechnix.com/a-beginners-guide-to-cron-jobs/) 
