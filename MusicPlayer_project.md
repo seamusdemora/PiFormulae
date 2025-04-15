@@ -19,7 +19,7 @@ As usual, this job began with some research :)
 *  These were productive searches: [1](https://duckduckgo.com/?t=ffab&q=linux+how+to+read+input+from+a+device+file%3F&ia=web), [2](https://duckduckgo.com/?t=ffab&q=read+%2Fdev%2Finput+device+file+to+get+keyboard+input&ia=web), [3](https://duckduckgo.com/?q=read+%22%2Fdev%2Finput%22+using+bash&t=ffab&ia=web), [4](https://duckduckgo.com/?q=detect+keyboard+inputs+from+%22%2Fdev%2Finput%22+in+%22bash%22&t=ffab&ia=web). 
 *  This [Baeldung article](https://www.baeldung.com/linux/mouse-events-input-event-interface) turned out to be very helpful, though initially it didn't make a lot of sense to *a newbie like* me  :)  
 *  [This document](https://www.kernel.org/doc/html/latest/input/input.html) is part of the Linux kernel documentation, but it's *quite a good overview* IMO! [*Comment: This is the "way it goes"... the more you learn, the more things make sense*  :P ] 
-*  [This Q&A was a "breakthrough"; it provided a nearly perfect example](https://unix.stackexchange.com/questions/428399/how-can-i-run-a-shell-script-on-input-device-event), but I didn't discover it  
+*  [This Q&A provided a nearly perfect example](https://unix.stackexchange.com/questions/428399/how-can-i-run-a-shell-script-on-input-device-event), but I didn't discover it until later.  
 
 I now have a reasonably good idea of how to proceed... I have wandered through the darkness, but I am now beginning to see the light. Here's how it went: 
 
