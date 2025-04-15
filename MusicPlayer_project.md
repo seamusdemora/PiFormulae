@@ -25,7 +25,7 @@ I now have a reasonably good idea of how to proceed... I have wandered through t
 
 ### Reading the keyboard:
 
-`/dev` is always full of surprises. I thought the `tree` command could show me the "lay of the land" - and it did. The command output below suggested which device I needed to read from: `/dev/input/event3`:
+`/dev` is always full of surprises. I thought the `tree` command could show me the [*"lay of the land"*](https://idioms.thefreedictionary.com/lay+of+the+land) - and it did. The command output below suggested which device I needed to read from: `/dev/input/event3`:
 
 ```
 $ tree /dev/input
