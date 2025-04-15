@@ -6,7 +6,7 @@ I'm working on a music player project: a "music controller" that accepts input f
 
 The keyboard will be connected to an "embedded Linux" device (a Raspberry Pi) via USB. This keyboard is to provide the "complete interface" for the music player; the user will not need to "log in" to the "embedded Linux" device to control the music. The keyboard will be similar to the one shown below. 
 
-I've never done anything with keyboards. All the keyboards I've ever used have been full-size keyboards that are plugged into a USB port, and they "just work". I've never given them any thought - until now, and so I ***begin in darkness***.  
+I've never done anything with keyboards. All the keyboards I've ever used have been full-size keyboards that are plugged into a USB port, and they "just work". I've never given them any thought until now. So I ***begin in the darkness***.  
 
 <img src="https://github.com/seamusdemora/PiFormulae/blob/master/pix/small_kybd.jpg" height="500px" />
 
