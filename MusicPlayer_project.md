@@ -142,7 +142,9 @@ evtest "$kbdev" | while read line; do
 done 
 ```
 
-A short test showed "this works"! I'll return and resume this once I have the "6-key" keyboard, and have made further progress. Until then ...
+A short test showed "this works"! I'll return and resume this once I have the "6-key" keyboard, and have made further progress. 
+
+Until then ...
 
 
 
