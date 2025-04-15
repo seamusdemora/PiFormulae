@@ -8,9 +8,7 @@ The keyboard will be connected to an "embedded Linux" device (a Raspberry Pi) vi
 
 I've never done anything with keyboards. All the keyboards I've ever used have been full-size keyboards that are plugged into a USB port, and they "just work". I've never given them any thought - until now, and so I ***begin in darkness***.  
 
-![small_kybd](/Users/jmoore/Documents/GitHub/PiFormulae/pix/small_kybd.jpg)
-
-<img src="https://github.com/seamusdemora/PiFormulae/blob/master/pix/small_kybd.jpg" height="200px" />
+<img src="https://github.com/seamusdemora/PiFormulae/blob/master/pix/small_kybd.jpg" height="500px" />
 
 ### Project overview and research:
 
