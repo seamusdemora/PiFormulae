@@ -148,3 +148,19 @@ Until then ...
 
 
 
+---
+
+## REFERENCES: 
+
+1.  [The Linux Kernel-Subsystems-Human Interfaces-Input Documentation, by Vojtech Pavlik](https://www.kernel.org/doc/html/latest/input/input.html)
+2.  [Understanding evdev, by Peter Hutterer](https://who-t.blogspot.com/2016/09/understanding-evdev.html) 
+3.  [What is libevdev?, by Peter Hutterer](https://who-t.blogspot.com/2013/09/libevdev-handling-input-events.html); see also the [GitLab repo](https://gitlab.freedesktop.org/libevdev/libevdev) 
+4.  [Mouse Events and Input Event Interface in Linux](https://www.baeldung.com/linux/mouse-events-input-event-interface) 
+5.  [`evdev` - Wikipedia](https://en.wikipedia.org/wiki/Evdev) 
+6.  [Linux kernel interfaces - Wikipedia](https://en.wikipedia.org/wiki/Linux_kernel_interfaces#Linux_API) 
+7.  [Linux input ecosystem, by Joe Shaw](https://www.joeshaw.org/linux-input-ecosystem/) 
+8.  [evdev - Generic Linux Input driver - archlinux](https://man.archlinux.org/man/evdev.4) 
+9.  [Python: evdev](https://pypi.org/project/evdev/)
+10.  [What is evsieve?](https://github.com/KarsMulder/evsieve) 
+11.  [Writing My Own Keyboard Driver](https://dev.to/frosnerd/writing-my-own-keyboard-driver-16kh) 
+12.  [Creating an input device driver - Linux Kernel docs](https://www.kernel.org/doc/html/latest/input/input-programming.html) 
