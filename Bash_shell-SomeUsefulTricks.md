@@ -416,6 +416,12 @@ It's often useful to insert a date-time stamp in a log file, inserted in a strin
 echo $(date) >> mydatalog.txt   # using `echo` inserts a newline after the date & time 
 # log entry will be in this format: Tue Mar 24 04:28:31 CDT 2020 + newline
 echo $(date -u)                 # `-u` gives UTC 
+
+# if you need to log the time in a specific time zone, 
+# see '/usr/share/zoneinfo/posix' for a list, and then (for example): 
+echo $(TZ=CST6CDT date)       # for US CST/Central DST
+# --OR--
+echo $(TZ=Portugal date)      # for Portugal -> ../Europe/Lisbon
 ```
 
 If you need more control over the format, use `printf` w/ `date`:
