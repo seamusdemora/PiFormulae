@@ -39,11 +39,13 @@ I would say that there are <s>three (3)</s> four (4) primary factors that confus
 
 - `PATH` is an environment variable; in `cron` `PATH` is typically limited to: `/usr/bin:/bin` - that's it - two folders! Therefore, it's good practice to use absolute path statements everywhere: `$HOME/scriptname.sh` instead of `scriptname.sh` or `./scriptname.sh` or `~/scriptname.sh`. 
 
+- If you've been paying attention, you should now be asking, *"But how do I know what the environment is in `cron`?"*. That's a great question! - and there's a great answer: *"Ask `cron` to tell you what its environment is!"*...  [here's how to ask](#what-is-the-cron-environment). 
+
 - You can add environment variables to the `cron` user's environment in `crontab` - [see this Q&A for how-to](https://stackoverflow.com/a/10657111/22595851).  And there are many other answers on SE (e.g. [1](https://unix.stackexchange.com/questions/27289/how-can-i-run-a-cron-command-with-existing-environmental-variables), [2](https://serverfault.com/questions/337631/crontab-execution-doesnt-have-the-same-environment-variables-as-executing-user), [3](https://stackoverflow.com/questions/2135478/how-to-simulate-the-environment-cron-executes-a-script-with)), but many of these are misguided - or flat-out *wrong*. My best advice is to proceed with caution, and test extensively before you deploy a solution. 
 
 - I feel the following is a [silver bullet](https://www.merriam-webster.com/dictionary/silver%20bullet) solution to the problem of **environment**. It uses the `-l, --login` option of `su` to import any user's (effectively) complete environment. This can be done  without resort to the authentication requirement that usually  accompanies `su` - **if** it is run from the `root crontab`. As an example here, we start `mpg123` - a sound player that may be used with Bluetooth speakers. It is running with `pipewire` (*which may be partly responsible for the **environment***). 
 
-  **Example:** 
+  **Example #1:** 
 
     ```bash
     $ sudo crontab -e
@@ -65,9 +67,52 @@ I would say that there are <s>three (3)</s> four (4) primary factors that confus
     /usr/bin/mpg123 --loop -1 /home/pi/rainstorm.mp3
     exit 0
     ```
+  
+  **Example #2:** 
+  
+  Ever try to control a `systemd` service from a script you start from `cron` ? If so, you might appreciate this application; consider a script that (for example) checks `status` of a service, and `restart`s the service if it's failed. I'll use another **music player** example - `mpd` . Consider this simplified script: `verify_mpd.sh`: 
+  
+  ``` 
+  #!/usr/bin/bash 
+  
+  # check that the music player daemon (mpd) service is active/running & re-start it if not
+  if systemctl -q --user is-active mpd.service; then
+      echo "all is well with mpd"
+  else
+      echo "mpd.service is not active; re-start"
+      systemctl -q --user restart mpd.service
+      sleep 5
+      if systemctl -q --user is-active mpd.service; then
+          echo "mpd.service had failed; it was re-started successfully"
+      else
+          echo "mpd.service re-start was unsuccessful; exiting"
+          exit 1
+  fi
+  ```
+  
+  If you run this script from a `user crontab`, the job will fail because the `cron` job does not include the environment required for using the `D-Bus` - a RedHat protocol required by RedHat's `systemd` :P .  You have two options: 
+  
+  1. add the `D-bus` environment to your script: 
+  
+        ```
+        #!/usr/bin/bash
+        ...
+        XDG_RUNTIME_DIR=/run/user/$(id -u)
+        DBUS_SESSION_BUS_ADDRESS=unix:path=${XDG_RUNTIME_DIR}/bus
+        export DBUS_SESSION_BUS_ADDRESS XDG_RUNTIME_DIR
+        ...
+        ```
+        
+  2. use the "silver bullet" in the `root crontab` :) 
+  
+        ```
+        $ sudo crontab -e
+        # use your editor to add one line:
+        */6 * * * * su pi -l -c /home/pi/verify_mpd.sh
+        ```
+  
 
 
-- If you've been paying attention, you should now be asking, *"But how do I know what the environment is in `cron`?"*. That's a great question! - and there's a great answer: *"Ask `cron` to tell you what its environment is!"*...  [here's how to ask](#what-is-the-cron-environment). 
 
 ### Factor #2: `cron` has no awareness of the state of other system services.
 
