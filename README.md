@@ -20,6 +20,12 @@ You can use ***git*** directly from the RPi command line to create or update a G
 </thead>
 <tbody>
   <tr>
+    <td>A "consolidation" of two recipes for <code>crontab</code> into a <a href="https://github.com/seamusdemora/PiFormulae/blob/master/Cron%26Crontab-HowToUseThemEffectively.md">single recipe.</a> 
+    </td>
+    <td>An effort to reduce the sprawl here! 
+    </td>
+  </tr>
+  <tr>
     <td>The latest addition to the <a href="https://github.com/seamusdemora/PiFormulae/blob/master/UsefulShellTricks.md#want-to-remove-the-rpi-eeprom-package-to-save-25mb-tough-shit-say-the-raspberries">"Useful Shell Tricks"</a> recipe.
     </td>
     <td>A rant titled, "Want to remove the useless <code>rpi-eeprom</code> package and save 25MB?" <em>"Tough shit", say The Raspberries</em>
@@ -114,14 +120,6 @@ You can use ***git*** directly from the RPi command line to create or update a G
 <tr>  
   <td><a href="WhatHardwareAndSoftwareVersionRaspberryPi.md">What's my RPi hardware, and what version of Raspbian am I running?</a></td>
   <td>If you've got more than one of these things, your recollection may fail occasionally. But your system always knows the correct answer!</td>
-</tr>
-<tr>  
-  <td><a href="MyCrontabDoesntWork.md">`cron` is straightforward to use if you know its limitations</a></td>
-  <td>Most failures with `cron` are caused by not understanding these limitations.</td>
-</tr>
-<tr>  
-  <td><a href="WhatIsCronEnvironment.md">What is <code>cron</code>'s <i>environment</i>?'</a></td>
-  <td>A fair question! It's easy to say, "cron's environment is different than your user environment.", but <b>what is its environment?</b> This is a simple script that will tell you.</td>
 </tr>
 <tr>  
   <td></td>
