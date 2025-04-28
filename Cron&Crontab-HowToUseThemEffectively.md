@@ -70,7 +70,7 @@ I would say that there are <s>three (3)</s> four (4) primary factors that confus
   
   **Example #2:** 
   
-  Ever try to control a `systemd` service from a script you start from `cron` ? If so, you might appreciate this application; consider a script that (for example) checks `status` of a service, and `restart`s the service if it's failed. I'll use another **music player** example - `mpd` . Consider this simplified script: `verify_mpd.sh`: 
+  Ever try to control a `systemd` service from a script you start from `cron` ? If so, you might appreciate this application; consider a script that (for example) checks `status` of a service, and `restart`s the service if it's failed. I'll use another **music player** example - [**`mpd`**](https://github.com/MusicPlayerDaemon/MPD) . Consider this simplified script: `verify_mpd.sh`: 
   
   ``` 
   #!/usr/bin/bash 
