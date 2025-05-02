@@ -627,7 +627,7 @@ For now, I will remain *skeptical* that ***"snake case"*** or any other case-rel
 >
 > r = list the contents of the directory  
 > w = delete or add a file in the directory  
-> x = search/list the directory contents
+> x = `cd` into the directory
 
 To modify file or directory permissions, the `chmod` command is used. Perhaps the *simplest* usage of `chmod` is to express the permissions as numeric values; e.g. `chmod 644 /path/to/file`. This perhaps makes more sense if we take the `644` permissions one digit at a time (6, 4, 4); for a **file** : 
 
