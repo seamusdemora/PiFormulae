@@ -25,7 +25,7 @@
 
 *  ### File operations
 
-   *  [What do file and directory permissions mean?](#what-do-file-and-directory-permissions-mean) 
+   *  [What do file and directory permissions mean?](#file-and-directory-permissions) 
    *  [Clear the contents of a file without deleting the file](#clear-the-contents-of-a-file-without-deleting-the-file) 
    *  [List all directories - not files, just directories](#list-all-directories---not-files-just-directories) 
    *  [Pitfalls of parsing `ls`](#pitfalls-of-parsing-ls) 
@@ -615,19 +615,54 @@ For now, I will remain *skeptical* that ***"snake case"*** or any other case-rel
 
 [**⋀**](#table-of-contents)  
 
-## What do file and directory permissions mean?
+## File and directory permissions
 
 >**File permissions:**   
 >
->r = read the contents of the file  
->w = modify the file  
->x = run the file as an executable  
+>r = read the contents of the file; value: `4`; binary: `100`  
+>w = modify the file; value `6`; binary: `110`  
+>x = run the file as an executable; value `7`; binary: `111`  
 
 > **Directory permissions:**  
 >
-> r = list the contents of the directory, but not 'ls' into it  
+> r = list the contents of the directory, but not `cd` into it  
 > w = delete or add a file in the directory  
-> x = move into the directory
+> x = search/list the directory contents
+
+To modify file or directory permissions, the `chmod` command is used. Perhaps the *simplest* usage of `chmod` is to express the permissions as numeric values; e.g. `chmod 644 /path/to/file`. This perhaps makes more sense if we take the `644` permissions one digit at a time (6, 4, 4); for a **file** : 
+
+-  `6` : file "owner" permission; expressed as binary: `110`  =>  permission to write (modify) the file
+-  `4` : file "group member" permission; expressed as binary: `100`
+-  `4` : "everyone else" permission; expressed as binary: `100`
+
+IOW, each user entity (owner, group member, everyone else) has his permissions set by an octal (0-7) code. The *"everyone else"* designation refers to users who are **not** the owner, and **not** a group member. 
+
+Perhaps the most frequent need for `chmod` is to declare a *script* file as *executable*. For example, you have written a script - `helloworld.sh`, and now you want to ***run*** that script. Before you can run  it, the script file must be marked as executable: 
+
+```bash
+$ chmod 755 helloworld.sh
+$ ./helloworld.sh
+Hello World!
+$
+```
+
+But there are many other situations where `chmod` could (and should) be used. An example I encountered recently was *uniformly* setting all file and folder permissions in a "music library" I created. The library was sourced from various locations: an old Windows machine, and even older NAS drive, YouTube downloads, etc, etc. It was a *mess*! Complicating this was of course the fact that file and folder permissions mean different things, and they should not be set the same. Here's a useful technique to remember: 
+
+```bash
+# first - set all folder permissions so any user can access all music in the library
+# this means setting folder permissions to include "execute" privileges
+# we use 'find' with the '-exec' option to identify & set permissions for all folders
+
+$ find /path/to/dir -type d -exec chmod 755 {} + 
+
+# second - set all file permissions so any user can read all music, only the owner can change the files
+
+$ find /path/to/dir -type f -exec chmod 644 {} +
+```
+
+Finally - you might be wondering why the command to manipulate permissions is called `chmod`. Consulting [wikipedia](https://en.wikipedia.org/wiki/Chmod), provides the answer to that question: 
+
+>  `chmod` is a shell command for changing access permissions (and *flags*) of files and directories/folders. The name is short for ***ch**ange **mod**e* where ***mode*** refers to the permissions and flags collectively.
 
 [**⋀**](#table-of-contents)
 
