@@ -625,7 +625,7 @@ For now, I will remain *skeptical* that ***"snake case"*** or any other case-rel
 
 > **Directory permissions:**  
 >
-> r = list the contents of the directory, but not `cd` into it  
+> r = list the contents of the directory, but not `ls` (search) it  
 > w = delete or add a file in the directory  
 > x = search/list the directory contents
 
