@@ -55,8 +55,8 @@ The only thing I've found that makes this process any simpler is to do it ***as 
    ```bash
       $ rfkill list
       0: hci0: Bluetooth
-	Soft blocked: yes     # WTF !!
-	Hard blocked: no
+	    Soft blocked: yes     # WTF !!
+	    Hard blocked: no
       ...
       $ rfkill unblock bluetooth
       $
