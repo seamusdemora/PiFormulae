@@ -50,7 +50,19 @@ There may be alternatives, but the simplest effective solution I found was to se
 
 The only thing I've found that makes this process any simpler is to do it ***as quickly as possible***. 
 
-   a. Let's verify that Step 1 actually left us with only one controller (*it did!*) & then give it an alias: 
+   a. As a *precaution*, check `rfkill` to make sure `bluetooth` is not being blocked:  
+
+   ```bash
+      $ rfkill list
+      0: hci0: Bluetooth
+	Soft blocked: yes     # WTF !!
+	Hard blocked: no
+      ...
+      $ rfkill unblock bluetooth
+      $
+   ```
+
+   b. Let's verify that Step 1 actually left us with only one controller (*it did!*) & then give it an alias: 
 
    ```bash
       $ bluetoothctl
@@ -63,7 +75,7 @@ The only thing I've found that makes this process any simpler is to do it ***as 
       [bluetooth]#
    ```
 
-   b. We'll need to *recapture* our BT audio sink (i.e. speaker/headphones). So ***quickly*** power on your speaker, press its "pair" button, and then:  
+   c. We'll need to *recapture* our BT audio sink (i.e. speaker/headphones). So ***quickly*** power on your speaker, press its "pair" button, and then:  
 
    ```bash
    [bluetooth]# scan on 
