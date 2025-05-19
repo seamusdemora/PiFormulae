@@ -4,7 +4,7 @@
 
 I continue to attempt a few "advancements" in my Raspberry Pi-based sound system. Along the way, I've encountered some "myths".  Oh - that word - "myth" is a bit disingenuous I suppose... I should be more forthcoming - like the legendary [Paul Klipsch](https://en.wikipedia.org/wiki/Paul_Wilbur_Klipsch). One of the things that Klipsch did best was [debunking](https://en.wikipedia.org/wiki/Paul_Wilbur_Klipsch#Eccentricities) the outlandish claims made by "audio charlatans" promoting their products. He had little patience with such fools, and had a pin-on button made up... the button had the word "BULLSHIT" printed on it. He often wore one behind the lapel of his coat, and flashed it from time to time :)  And there's the tie... look carefully. 
 
-| ![](/Users/jmoore/Documents/GitHub/PiFormulae/pix/BS_Button.jpg) | ![](/Users/jmoore/Documents/GitHub/PiFormulae/pix/BS-PWK-Bullshit-Tie.jpg) |
+| ![bs button](pix/BS_Button.jpg) | ![bs tie](pix/BS-PWK-Bullshit-Tie.jpg) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
 Paul Klipsch is no longer with us, but the "audio charlatans" continue to thrive, and make profits from BULLSHIT claims for their technology. Let's examine two of these claims: 
