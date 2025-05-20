@@ -7,7 +7,7 @@ I continue to attempt a few "advancements" in my Raspberry Pi-based sound system
 | ![bs button](pix/BS_Button.jpg) | ![bs tie](pix/BS-PWK-Bullshit-Tie.jpg) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
-Paul Klipsch is no longer with us, but the "audio charlatans" continue to thrive, and make profits from BULLSHIT claims for their technology. Let's examine two of these claims: 
+Paul Klipsch is no longer with us, but the "audio charlatans" are. They continue to thrive, and make profits from BULLSHIT claims for their technology. Let's examine two of these claims: 
 
 #### False claim # 1: Bluetooth Stereo/A2DP/etc/etc.
 
@@ -15,11 +15,11 @@ I came to this conclusion slowly - and hesitantly. It certainly ***seemed*** a r
 
 When I initially got a single channel of audio over a BT link using `pipewire` I had been quite happy with that!  Shortly thereafter I tried adding a second BT speaker to achieve "stereo"... that is when I began to suspect that there was something "off". No matter how I tried, I was unable to get sound to two speakers - not even *monaural* sound - much less stereo! 
 
-Now granted, WiFi has more bandwidth than Bluetooth, but even reasonably high quality audio does not require a ton of bandwidth. FYI, the [Bluetooth Consortium claims a maximum data rate of 2 MBits/sec for BT 5, and 1 Mbit/sec for Bluetooth 4](https://www.bluetooth.com/blog/exploring-bluetooth-5-how-fast-can-it-be/).  Audio data rates depend on how the sound is encoded, but for example [the highest quality MP3 bit rate is 320 kbps at 16 bits](https://primesound.org/audio-bitrate/). The math is not complicated... even the Bluetooth 4 bandwidth of 1 Mbit/sec ***should*** be more than adequate to carry the highest MP3 recording. 
+Now granted, WiFi has more bandwidth than Bluetooth, but even reasonably high quality audio does not require a ton of bandwidth. FYI, the [Bluetooth Consortium claims a maximum data rate of 2 MBits/sec for BT 5, and 1 Mbit/sec for Bluetooth 4](https://www.bluetooth.com/blog/exploring-bluetooth-5-how-fast-can-it-be/).  Audio data rates depend on how the sound is encoded, but for example [the highest quality MP3 bit rate is 320 kbps at 16 bits](https://primesound.org/audio-bitrate/). The math is not complicated... even the Bluetooth 4 bandwidth of 1 Mbit/sec ***should*** be more than adequate to carry the highest quality MP3 recording. 
 
 So why was I having so much difficulty? ... after days of trying, and numerous failed attempts - why could I not connect and play sound through 2 speakers via Bluetooth? 
 
-Getting reliable information online has proven to be difficult-to-impossible. Search engines are clogged with vapid, brain-dead "explanations" by hundreds of technical charlatans. It seems the only purpose of most of these posts is to obfuscate and deceive. [This post is an example of such drivel](https://easytechsolver.com/what-is-the-use-of-a2dp/); it simply parrots the Bluetooth marketing messages without even a weak attempt to explain how it actually works! [Who is this "Ronald Cooper"](https://duckduckgo.com/?t=ffab&q=ronald+cooper+technical+author&ia=web) - the "author" of this tripe? Who paid him to write this gibberish, and how did it come to be ranked in one of the top spots for the search term [***"bluetooth A2DP fundamentals"***](https://duckduckgo.com/?q=bluetooth+A2DP+fundamentals&t=ffab&ia=web)?  Has "Ronald Cooper" really written nearly [31,560 articles](https://easytechsolver.com/page/3156/) since 2023? Of course not; this is complete and total **deceit**... and I still wonder who's paying for it? The bottom line is this: There is a ton of mis-information being disseminated on the Internet!! 
+Getting reliable information online has proven to be difficult-to-impossible. Search engines are clogged with vapid, brain-dead "explanations" by hundreds of technical charlatans. It seems the only purpose of most of these posts is to obfuscate and deceive. [This post is an example of such drivel](https://easytechsolver.com/what-is-the-use-of-a2dp/); it simply parrots the Bluetooth marketing messages without even a weak attempt to explain how it actually works! [Who is this "Ronald Cooper"](https://duckduckgo.com/?t=ffab&q=ronald+cooper+technical+author&ia=web) - the "author" of this tripe? Who paid him to write this gibberish, and how did it come to be ranked in one of the top spots for the search term [***"bluetooth A2DP fundamentals"***](https://duckduckgo.com/?q=bluetooth+A2DP+fundamentals&t=ffab&ia=web)?  Has "Ronald Cooper" really written nearly [31,560 articles](https://easytechsolver.com/page/3156/) since 2023? Of course not; this is complete and total **deceit !** And I still wonder who's paying for it? The Nixon-era cliche [***"follow the money"***](https://idioms.thefreedictionary.com/follow+the+money) seems appropriate - or just figure who benefits from the publication of such junk. The bottom line is this: There is a ton of mis-information being disseminated on the Internet!! 
 
 So here is a summary of the "Bluetooth Stereo Myth": 
 
@@ -31,13 +31,13 @@ So here is a summary of the "Bluetooth Stereo Myth":
       $ ffprobe -i YourMusicFile.mp3 -show_streams -select_streams a:0
       ```
 
-3. ***Yet - using current Linux Bluetooth software (`bluetoothctl`) and audio software (`pipewire`, `wireplumber`) it is not possible to directly connect and play a two-channel audio file through two "A2DP-qualified" speakers from a single Bluetooth controller.*** If you think you have managed to do this, I would really like to hear from you!! 
+3. ***Yet - using current Linux Bluetooth software (`bluetoothctl`) and audio software (`pipewire`, `wireplumber`) it is not possible to directly connect and play a two-channel audio file through two speakers from a single Bluetooth controller.*** If you think you have managed to do this, I would really like to hear from you!! 
 
 4. **NOTE:** For some "A2DP-qualified" speakers, it is possible to connect to one speaker, and then, through the additional services of an "app", or a button-pushing sequence on the speakers (or both), it may be possible to get something claimed to be "stereo sound". *But what's with the apps and button-pushing? - Why is that necessary??* 
 
 After posting several questions in online forums, etc, I have found no one who claims they have played a sound file through Linux Bluetooth over two speakers without additional apps and/or button-pushing. (*One person did claim he could do this on his headphones, but declined to provide any details* ??) In spite of this, most choose to believe "Ronald Cooper", and the myths he is peddling. 
 
-#### False claim # 2: The 3.5mm "audio jack" on all Raspberry Pis (until RPi5) 
+#### False claim # 2: The 3.5mm "audio jack" on all Raspberry Pis (until RPi5)
 
 From the Raspberry Pi forum, [posted on Mon Oct 02, 2023 7:46 AM by Raspberry Pi Engineer & Forum Moderator known as jdb](https://forums.raspberrypi.com/viewtopic.php?p=2140444&sid=e6163f092397819aecb25153cfdb58ce#p2140444) says (among other things): 
 
@@ -48,3 +48,5 @@ Despite this, there are innumerable "posts" that can be found touting the 3.5mm 
 >  ... understanding how to optimize the 3.5mm jack’s performance can transform your listening experience from merely functional to impressively rich. 
 
 There ***may be*** some way to get decent sound from the 3.5mm audio jack. I cannot say for certain. What I can say is that between the vagaries and lack of documentation in the alsa software, and the ever-changing options under `raspi-config` this is a [crapshoot](https://idioms.thefreedictionary.com/crapshoot) at best. I've tried several different recipes - some with recent posting dates - all have failed. 
+
+#### To summarize: In general, audio seems to be a weak point in the Linux portfolio.
