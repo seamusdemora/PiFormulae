@@ -998,20 +998,25 @@ Know that version 5 of `gawk` is available in `bullseye`'s package repo, but the
 
 ## That file is somewhere in my system
 
-Sometimes, *finesse* is over-rated. Sometimes things get misplaced, and you need to find it quickly. A feeling of panic may be creeping upon you due to impending schedule deadlines - or whatever the reason. This might help if you can remember anything at all about the filename - or its contents: 
+Sometimes, *finesse* is over-rated. Sometimes things get misplaced, and you need to find it quickly. A feeling of panic may be creeping upon you due to impending schedule deadlines - or whatever the reason. These examples should help if you can remember anything at all about the filename - or its contents. And as always, refer to the appropriate `man` page on your system for up-to-date and appropriate details. 
+
+#### You remember something (word, word-segment, phrase) that's in the file:
 
 ```bash
 # search `/etc` recursively for filenames containing lines beginning w/ string 'inform'
-# in this example binary files are excluded from the search by use of the 'I' option
+# search a named path recursively for filenames & line nos matching the whole word 'mypattern'
 # piping to pager 'less' avoids clutter in your terminal
+# use 'sudo' to read "root-restricted" files; e.g. -rw-r--r-- 1 root root
 
 $ sudo grep -rlI '/etc' -e '^inform' | less -N     # '-N' gets line numbers in 'less'
-$
-# other useful options:
+$ grep -rlnw '/path/you/choose/' -e 'mypattern'
+# some useful options:
 # -i : case-insensitive
-# -R : recursive, but follow symlinks
+# -I : do not search binary files
+# -R : recursive, follow symlinks; -r : recursive, do not follow symlinks
 # -n : output the line number
 # -l : show the file name
+#
 # other examples:
 # include ONLY files ending in .bash or .sh
 $ grep --include=\*.{bash,sh} -rl '/home/pi/scripts' -e "shazam" 
@@ -1019,12 +1024,15 @@ $ grep --include=\*.{bash,sh} -rl '/home/pi/scripts' -e "shazam"
 $ grep --exclude-dir={network,cron*} -rl '/etc' -e "goober" 
 
 ```
+#### You remember/know the file name, or some portion of it: 
+
 Other times, the file you need to find is binary, or maybe you don't recall any of its contents, but you do recall part of the filename. In this situation, `find` may be the right tool.  Keep in mind that *recursion* is "free" when using `find`, but you can limit the depth of the recursion. See `man find` for the details; this may get you started: 
 
 ```bash
-$ find /some/path -type d -name "*doright*"   # '-type d' is a directory/folder   -name' is case-sensitive
-# -OR-
-$ find . -type f -iname "*money*"             # '-type f' is a file   '-iname' is case-insensitive
+# search from the named path, '-type d' is a directory/folder,  '-name' is case-sensitive
+$ find /some/path -type d -name "*doright*"  
+# search from the 'pwd' (.), '-type f' is a file,  '-iname' is case-insensitive, pipe output to 'less' pager
+$ find . -type f -iname "*money*" | less
 ```
 
 [**⋀**](#table-of-contents)  
@@ -2487,7 +2495,7 @@ if systemctl --user -q is-failed $srv; then
 2. [Q&A grep on a variable](https://unix.stackexchange.com/questions/163810/grep-on-a-variable).
 3. [Grep OR – Grep AND – Grep NOT – Match Multiple Patterns](https://www.shellhacks.com/grep-or-grep-and-grep-not-match-multiple-patterns/); `grep -E "PATTERN1|PATTERN2" file`  
 4. [How To find process information in Linux  -PID and more](https://linuxconfig.net/manuals/howto/how-to-find-out-the-pid-of-process-in-linux.html) 
-5. [Q&A How do I find all files containing specific text on Linux?](https://stackoverflow.com/questions/16956810/how-do-i-find-all-files-containing-specific-text-on-linux) - a popular Q&A
+5. [Q&A How do I find all files containing specific text on Linux?](https://stackoverflow.com/questions/16956810/how-do-i-find-all-files-containing-specific-text-on-linux) - a very popular Q&A w/ 50+ answers!
 6. [The GNU grep manual](https://www.gnu.org/software/grep/manual/) - recommended by `man grep`! 
 
 ### Using `awk` for heavy lifting
