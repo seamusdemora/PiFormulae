@@ -9,7 +9,7 @@ I continue to attempt a few "advancements" in my Raspberry Pi-based sound system
 
 Paul Klipsch is no longer with us, but the "audio charlatans" are. They continue to thrive, and make profits from BULLSHIT claims for their technology. Let's examine two of these claims: 
 
-#### False claim # 1: Bluetooth Stereo/A2DP/etc/etc.
+### False claim # 1: Bluetooth Stereo/A2DP/etc/etc.
 
 I came to this conclusion slowly - and hesitantly. It certainly ***seemed*** a reasonable premise that Bluetooth would be capable of transmitting two channels of audio in a single RF channel. The Sonos system (which I previously owned) had been doing this for years over a WiFi link. 
 
@@ -48,7 +48,7 @@ Fortunately, there are some that prefer to stick to the [facts WRT "Bluetooth st
 >  ... the profile *[A2DP]* **doesn’t handle true wireless stereo** (TWS). A2DP sends the stream to one device, which then splits the channels via a wire. *[for headphones; for speakers there is a second transmission from the "Master" sink to the "Slave" sink]* TWS also requires two separate devices to receive the audio stream and emit each channel in perfect synchronization. 
 
 
-#### False claim # 2: The 3.5mm "audio jack" on all Raspberry Pis (until RPi5)
+### False claim # 2: The 3.5mm "audio jack" on all Raspberry Pis (until RPi5)
 
 From the Raspberry Pi forum, [posted on Mon Oct 02, 2023 7:46 AM by Raspberry Pi Engineer & Forum Moderator known as jdb](https://forums.raspberrypi.com/viewtopic.php?p=2140444&sid=e6163f092397819aecb25153cfdb58ce#p2140444) says (among other things): 
 
