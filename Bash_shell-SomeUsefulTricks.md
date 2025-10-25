@@ -1009,7 +1009,7 @@ Sometimes, *finesse* is over-rated. Sometimes things get misplaced, and you need
 # use 'sudo' to read "root-restricted" files; e.g. -rw-r--r-- 1 root root
 
 $ sudo grep -rlI '/etc' -e '^inform' | less -N     # '-N' gets line numbers in 'less'
-$ grep -rlnw '/path/you/choose/' -e 'mypattern'
+$ grep -rn '/path/you/choose/' -e 'mypattern'
 # some useful options:
 # -i : case-insensitive
 # -I : do not search binary files
