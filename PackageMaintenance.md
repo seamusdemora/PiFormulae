@@ -1,4 +1,8 @@
-# Package Management:<br> Updating and Upgrading Raspbian (Raspberry Pi OS)
+# Package Management:<br> Updating and Upgrading Raspberry Pi OS
+
+Routine updates & upgrades in the same version
+
+The "version upgrade"
 
 In an earlier version of this recipe, I criticized Debian's documentation of their "package management" system. In fact, I said flatly that it was [god-awful](https://www.merriam-webster.com/dictionary/god-awful). I felt that was true - at the time. I've recently reviewed their documentation again, and found it to be _improved_... still somewhat disjointed - but improved. But [this inanity still exists](https://www.debian.org/doc/manuals/debian-handbook/sect.apt-get.en.html) in the Administrator's Handbook: 
 
@@ -174,9 +178,111 @@ Setting up some_pkg.deb...
 # refer to man apt-get for details
 ```
 
-## Version Upgrade
+## Perform an "In Place" Version Upgrade
 
-***N.B:*** This is typically not a reliable method to upgrade Raspbian (though it often works well with some distributions) 
+***N.B:*** The approach outlined here [**IS NOT** recommended by Raspberry Pi](https://forums.raspberrypi.com/viewtopic.php?t=389477&hilit=trixie&sid=3b08de45639c497872007516b76c0eb3#p2323593) for a "version upgrade"; e.g. bookworm-to-trixie. Nevertheless, this approach was developed and provided by RPi in [this forum post](https://forums.raspberrypi.com/viewtopic.php?t=389477). The procedure here has been slightly modified from that provided by RPi to reflect the fact that I use only Lite/headless versions of RPi OS, and adding a `tee` to the `apt` command that performs the ***"in-place upgrade"***. 
+
+Without further ado: 
+
+1.  Use `apt` to `update` & `upgrade` the existing bookworm system 
+
+      ```bash
+        $ sudo apt update
+        $ sudo apt -y full-upgrade
+      ```
+
+2.  Perform a full image backup on the system to be upgraded. I recommend RonR's `image-utils` scripts for backups; the scripts are available [here](https://forums.raspberrypi.com/viewtopic.php?t=332000) and [here as a git repo](https://github.com/seamusdemora/RonR-RPi-image-utils) :
+
+      ```bash
+      $ sudo image-backup 
+      # the script will prompt for everything needed to perform the backup:
+      ```
+
+3.  Once `image-backup` is successfully completed, we are ready to begin the *"in-place" upgrade* from *bookworm* to *trixie*: 
+
+    -  In the file `/etc/apt/sources.list`, change every reference to "bookworm" to "trixie". 
+    -  Do the same in the file `/etc/apt/sources.list.d/raspi.list`
+    -  ***IF*** your system has other repository files - in addition to `raspi.list` - these files should also be updated. 
+
+4.  Use `apt` to update the `.list` files modified in the previous step:
+
+      ```bash
+        $ sudo apt update
+          ...
+        # this will yield approx. 30 (or more) lines of output, the last of which should be similar to:
+        # "518 packages can be upgraded. Run 'apt list --upgradable' to see them."
+      ```
+
+
+5.  And finally we reach the actual **upgrade**; recall this is for a ***Lite ("headless")*** system **ONLY**. If you are not upgrading a Lite system, please refer to the [RPi forum post](https://forums.raspberrypi.com/viewtopic.php?t=389477) for applicable instructions. 
+
+      ```bash
+        $ sudo apt full-upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" --purge --auto-remove | tee upgrade_log.txt
+      ```
+    As you might expect, this generates quite a lot of output in the terminal. Note that a `pipe` to `tee` has been appended to this command. This will be useful to maintain a record of the upgrade. Some other recommendations: 
+    
+    -  This ran successfully for me. If it did not do the same for you... hopefully you took Step #2 above (`sudo image-backup`). The voluminous output leaves many questions for me, but we'll save those for later.
+    
+    -  You'll be prompted to decide how to handle service re-starts; I recommend the "automated" option. 
+    
+    -  Read/scan the terminal output (or, the file to which the output is `tee`'d'); you'll find useful tidbits such as: 
+    
+       -  ```
+          Setting up dbus (1.16.2-2) ...
+          A reboot is required to replace the running dbus-daemon.
+          ```
+    
+       -  ```
+          dpkg: warning: unable to delete old directory '/lib/aarch64-linux-gnu/security': Directory not empty
+          ```
+    
+       -  ```
+          dpkg: libssl3:arm64: dependency problems, but removing anyway as you requested:
+           wpasupplicant depends on libssl3 (>= 3.0.0).
+           systemd depends on libssl3 (>= 3.0.0).
+           rsync depends on libssl3 (>= 3.0.0).
+           ppp depends on libssl3 (>= 3.0.0).
+           openssl depends on libssl3 (>= 3.0.9).
+           openssh-server depends on libssl3 (>= 3.0.17).
+           openssh-client depends on libssl3 (>= 3.0.17).
+           linux-kbuild-6.6.31+rpt depends on libssl3 (>= 3.0.0).
+           libsystemd-shared:arm64 depends on libssl3 (>= 3.0.0).
+           libsasl2-modules:arm64 depends on libssl3 (>= 3.0.0).
+           libpython3.11-minimal:arm64 depends on libssl3 (>= 3.0.0).
+           libkrb5-3:arm64 depends on libssl3 (>= 3.0.0).
+           libfido2-1:arm64 depends on libssl3 (>= 3.0.0).
+          ...
+          dpkg: libgnutls30:arm64: dependency problems, but removing anyway as you requested:
+           network-manager depends on libgnutls30 (>= 3.7.2).
+          ...
+          dpkg: python3.11: dependency problems, but removing anyway as you requested:
+           python3 depends on python3.11 (>= 3.11.2-1~).
+          ...
+          dpkg: libreadline8:arm64: dependency problems, but removing anyway as you requested:
+           wpasupplicant depends on libreadline8 (>= 6.0).
+           gawk depends on libreadline8 (>= 6.0).
+           fdisk depends on libreadline8 (>= 6.0).
+           bc depends on libreadline8 (>= 6.0).
+          ...
+          dpkg: libdvdread8:arm64: dependency problems, but removing anyway as you requested:
+           mkvtoolnix depends on libdvdread8 (>= 4.1.3).
+          ```
+    
+       -  ```
+          openssh (1:9.3p2-1) unstable; urgency=high
+          
+            OpenSSH 9.3p2 includes a number of changes that may affect existing
+            configurations:
+            ...
+          ```
+
+That concludes this recipe for the ***"in-place upgrade"***  - at least for now. I'll post additional installments as needed after I've gained some experience with this upgraded system. 
+
+<!--- 
+
+
+
+
 
 To do an in-place upgrade of the OS; e.g. from jessie to stretch:
 
@@ -202,6 +308,8 @@ Opinions vary on the details, but in general: (note: `sudo` needed for all comma
 NOTE: This recipe augments [one at the raspberrypi.org website on the same subject- *but lost in the great documentation re-shuffle*](https://www.raspberrypi.org/documentation/raspbian/updating.md), and from [this source for linux tutorials](https://www.howtoforge.com/tutorial/how-to-upgrade-debian-8-jessie-to-9-stretch/).
 
 ## 
+
+-->
 
 ## REFERENCES:
 
