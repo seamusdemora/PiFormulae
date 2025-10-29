@@ -217,7 +217,7 @@ Without further ado:
 5.  And finally we reach the actual **upgrade**; recall this is for a ***Lite ("headless")*** system **ONLY**. If you are not upgrading a Lite system, please refer to the [RPi forum post](https://forums.raspberrypi.com/viewtopic.php?t=389477) for applicable instructions. 
 
       ```bash
-        $ sudo apt full-upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" --purge --auto-remove | tee upgrade_log.txt
+        $ sudo DEBIAN_FRONTEND=noninteractive apt full-upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" --purge --auto-remove | tee upgrade_log.txt
       ```
     As you might expect, this generates quite a lot of output in the terminal. Note that a `pipe` to `tee` has been appended to this command. This will be useful to maintain a record of the upgrade. Some other recommendations: 
     
