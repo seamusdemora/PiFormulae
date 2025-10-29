@@ -1,4 +1,4 @@
-## Networking - An alternative to 'NetworkManager'
+## Networking - A simpler alternative to 'NetworkManager'
 
 If you're weary of constantly searching for the proper command to invoke some networking option in 'NetworkManager' (via `nmcli` or `nmtui`), or perhaps wondering, *"What were "The Raspberries" thinking?!"* when  they threw over the relative simplicity of `dhcpcd` for the complexity of 'NetworkManager'... ***this recipe may offer some respite***. You have two options here: 1) read some background details, or 2) [skip ahead to the implementation](#a-simpler-network-configuration).
 
@@ -66,7 +66,16 @@ Say *hello* to simplicity! Here's what's required:
         iface lo inet loopback
       ```
 
-2.  You should verify your network DNS settings also; this is stored in `/etc/resolv.conf` under `ifupdown` networking: 
+2.  **IMPORTANT:** After making any changes to the `/etc/network/interfaces` file, you **should check** the status of the  `networking.service`, and you **must restart** it: 
+
+    ```
+    $ sudo systemctl status networking
+    $ sudo systemctl restart networking
+    ```
+
+    Failure to restart the  `networking.service` may lock you out of an SSH connection. 
+
+3.  You should verify your network DNS settings also; this is stored in `/etc/resolv.conf` under `ifupdown` networking: 
 
     ```bash
     $ sudo nano /etc/resolv.conf 
@@ -85,25 +94,30 @@ Say *hello* to simplicity! Here's what's required:
     ```
 
 
-3.  And that's it - that is *all the configuration required*! After editing and saving the  `/etc/network/interfaces` and `/etc/resolv.conf` files, you may `reboot`. For reasons that are not yet clear to me, I had to perform a "cold boot" (i.e. pull power, then re-apply) on some systems instead of a `reboot`. 
+4.  And that's it - that is *all the configuration required*! After editing and saving the  `/etc/network/interfaces` and `/etc/resolv.conf` files, you may `reboot`. For reasons that are not yet clear to me, I had to perform a "cold boot" (i.e. pull power, then re-apply) on some systems instead of a `reboot`. 
 5.  Oh - a [*word to the wise*](https://idioms.thefreedictionary.com/word+to+the+wise) before moving on. *If you are setting up a static/fixed IP address*, you should verify that it is actually working! One obvious thing to do is make an SSH connection to the fixed-IP host you've just provisioned. Another thing is to verify that this static IP host has DNS; i.e. from your SSH connection to your static-configured host try `ping www.google.com` or something similar. **A working DNS is imperative for things such as system timekeeping and `apt` !** 
 
 ### What's the point of having 'NetworkManager' around?
 
-First thing to say here is that this part of the recipe is **optional**... and if you're just evaluating `ifupdown` my advice would be to skip this step. That said, let's trim some cruft  :) 
+An earlier version of this recipe stated the following were *optional* steps. This was based on documentation found in [Debian's wiki on Networking](https://wiki.debian.org/NetworkManager#Ignored_network_interfaces):
 
-Like most daemons/services in Linux today, 'NetworkManager' is run under a `systemd` unit. In fact, there are (at least) three `systemd` units devoted to networking - even on a 'Lite' distro:
+```
+"By default it [NetworkManager] does not handle interfaces declared in /etc/network/interfaces"
+```
 
-*  `systemd-networkd.service`
-*  `NetworkManager.service`
-*  `networking.service`
+***However...*** I for one am not convinced that this bit of documentation matches the actual function of the software. My skepticism was aroused after I checked the contents of the `/etc/network/interfaces` file I had edited, and found that each and every line had been ***commented out***! 
 
-The `networking.service` is the only one we actually need when using `ifupdown` networking, so let's `disable` the other two. Note that a `disable` doesn't delete or remove anything permanently - it is simply a way to tell `systemd` to ***not*** start a service on `boot`. This will do it: 
+***That said, my advice here is to `disable` the `NetworkManager.service` once you have confirmed that your configuration in `/etc/network/interfaces` is functional and working.*** : 
 
-   ```bash
-   $ sudo systemctl disable NetworkManager.service
-   $ sudo systemctl disable systemd-networkd.service
-   ```
+``` 
+$ sudo systemctl disable NetworkManager.service
+```
+
+And while I have no reason to believe that the `systemd-networkd.service` is as nocuous as `NetworkManager`, I favor disabling it as well: 
+
+```
+sudo systemctl disable systemd-networkd.service
+```
 
 Afterwards, you can check status of all 3 services; you should see this: 
 
@@ -125,8 +139,6 @@ Afterwards, you can check status of all 3 services; you should see this:
         Loaded: loaded (/lib/systemd/system/networking.service; enabled; preset: enabled)
         Active: active (exited) since Fri 2025-02-28 22:02:27 UTC; 6min ago
    ```
-
-Note that we got this result without having to disable the `systemd-networkd.service`. Why? I don't really know, but suspect that `systemd-networkd` disables itself when `networking.service` is enabled - which apparently occurs when the file `/etc/network/interfaces` is *"populated"*. In any event, we are now running slightly *more efficiently* without these unneeded services, and a simple network management scheme. 
 
 ### Further explorations
 
