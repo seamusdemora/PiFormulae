@@ -116,7 +116,7 @@ $ sudo systemctl disable NetworkManager.service
 And while I have no reason to believe that the `systemd-networkd.service` is as nocuous as `NetworkManager`, I favor disabling it as well: 
 
 ```
-sudo systemctl disable systemd-networkd.service
+$ sudo systemctl disable systemd-networkd.service
 ```
 
 Afterwards, you can check status of all 3 services; you should see this: 
