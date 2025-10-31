@@ -215,9 +215,14 @@ Without further ado:
 
 
 5.  And finally we reach the actual **upgrade**; recall this is for a ***Lite ("headless")*** system **ONLY**. If you are not upgrading a Lite system, please refer to the [RPi forum post](https://forums.raspberrypi.com/viewtopic.php?t=389477) for applicable instructions. 
+  ***NOTE*** the addition of the environment variable `DEBIAN_FRONTEND`: The **`noninteractive`** option adopts the default option, whereas the **`readline`** option uses plain text to present the option rather than the `ncurses`-style presentation ([REF](https://unix.stackexchange.com/a/800850/286615)). 
 
       ```bash
         $ sudo DEBIAN_FRONTEND=noninteractive apt full-upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" --purge --auto-remove | tee upgrade_log.txt
+        #
+        # an alternative to use IF you must interact with the command:
+        #
+        $ sudo DEBIAN_FRONTEND=readline apt full-upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" --purge --auto-remove | tee upgrade_log.txt
       ```
     As you might expect, this generates quite a lot of output in the terminal. Note that a `pipe` to `tee` has been appended to this command. This will be useful to maintain a record of the upgrade. Some other recommendations: 
     
@@ -327,6 +332,7 @@ NOTE: This recipe augments [one at the raspberrypi.org website on the same subje
 12. [10 Cool Linux Terminal Commands](https://helpdeskgeek.com/linux-tips/10-cool-linux-terminal-commands-you-have-to-try/) - a couple of these actually *do* look cool! 
 13. [Debian Package Dependencies](https://linuxhint.com/debian_package_dependencies/); another *useful* guide from [Frank Hofmann](https://linuxhint.com/author/frank_hofmann/) 
 14. [Q&A: How to let `dpkg -i` install dependencies for me?](https://askubuntu.com/questions/40011/how-to-let-dpkg-i-install-dependencies-for-me) 
+15. [Q&A: Capturing terminal output from Debian upgrade, but `tee` breaks ncurses dialog?](https://unix.stackexchange.com/a/800850/286615) 
 
 <!--- 
 
