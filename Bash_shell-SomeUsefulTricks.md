@@ -38,6 +38,7 @@
    *  [Format an SSD w/ `f2fs` filesystem and mount it](#how-to-format-and-mount-an-ssd-for-use-in-rpi) 
    *  [How to make a loop mount in `/etc/fstab`](#how-to-make-a-loop-mount-in-fstab) 
    *  [How to create and extract `tar` and `.tgz` files](#tar-files-and-compressed-tar-files) 
+   *  [Use `sed` to automate file edits](#-a-simple-sed-example) 
 
 *  ### Date and time Operations
 
@@ -2350,6 +2351,54 @@ The minimal, essential options are:
 
 I'll stop here - ***far short*** of the numerous options available for `tar`; start with `man tar` to learn more. 
 
+[**⋀**](#table-of-contents) 
+
+
+
+## a simple `sed` example
+
+I'm not a frequent user of [`sed`](https://www.gnu.org/software/sed/manual/sed.html) - the "stream editor". But I will say that occasionally, it comes in very handy. Rather than blether on about it, I'll just provide one simple example: 
+
+***I keep all of my systems on UTC time***. In fact, I am a strong proponent of eliminating time zones completely! And I'm not alone... just ask Prof. [Steve Hanke](https://engineering.jhu.edu/ehe/faculty/steve-h-hanke/); you can also read [this brief article titled "*Why Don't We All Use the Same Time Zone?*"](https://science.howstuffworks.com/environmental/earth/geophysics/time-zone.htm). ICYI, our current system was developed in 1876 by an idiot from Scotland - Sir Sandford Fleming. And Fleming's "system" is made even worse by the addition of [Daylight Savings Time](https://en.wikipedia.org/wiki/Daylight_saving_time). Again we have another idiot from the UK to thank for this: [William Willett in the 19th century](https://www.popsci.com/science/permanent-daylight-saving-time-usa/). 
+
+I called upon `sed` to help manage this rancid timekeeping stupidity! Unfortunately, I live in an irrational world, and I must accept that - and deal with it. My computers must learn to deal with it also! The first step is that my computers must always know what "local (idiot) time" it is, and (some) scheduled tasks must be adjusted accordingly. My current solution is to define a "global" environment variable that I have named `DIFF_LOC_UTC`, and defined in `/etc/environment`. 
+
+If it weren't for *Daylight Savings Time*, this would be all I needed. Instead, twice a year (on dates that continually change), I must now update my `DIFF_LOC_UTC` environment variable. Here's how I've automated that: 
+
+```bash
+#!/usr/bin/env bash
+# my handle: /usr/local/sbin/diff-loc-utc
+# my purpose: maintain an env var that provides the diff between LOCAL & UTC time
+DIFF=$(($(TZ="UTC" date +%H) - $(TZ="America/Chicago" date +%H --date tomorrow)))
+ENV_STRING="DIFF_LOC_UTC="$DIFF""
+#
+sed -E -i "s/DIFF_LOC_UTC=[0-9]/$ENV_STRING/" /etc/environment
+#
+. /etc/environment      # source /etc/environment
+# read the value of $DIFF_LOC_UTC & log it for confirmation
+echo "'DIFF_LOC_UTC' value is: "$DIFF_LOC_UTC"" > /home/pi/diff-loc-utc.log
+```
+
+I run this script from the `root crontab` each day at 12 o'clock noon UTC: 
+
+```
+0 12 * * * /usr/local/sbin/diff-loc-utc
+```
+
+The `sed` command is broken down as follows; also see `man sed`: 
+
+```
+sed -E -i "s/DIFF_LOC_UTC=[0-9]/$ENV_STRING/" /etc/environment
+     |  |  |              ----- -----------    ---------------
+     |  |  |              |     |              : file to operate on
+     |  |  |              |     : substitution
+     |  |  |              : regex character class; matches a number between 0 & 9
+     |  |  : substitute the regexp with the replacement; s/regexp/replacement/
+     |  : edit the file to operate on "in-place"; as opposed to a second file
+     : use extended regular expressions 
+```
+
+And so we see that `sed` gives us an alternative to manually editing files.
 
 [**⋀**](#table-of-contents) 
 
