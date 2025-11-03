@@ -38,7 +38,7 @@
    *  [Format an SSD w/ `f2fs` filesystem and mount it](#how-to-format-and-mount-an-ssd-for-use-in-rpi) 
    *  [How to make a loop mount in `/etc/fstab`](#how-to-make-a-loop-mount-in-fstab) 
    *  [How to create and extract `tar` and `.tgz` files](#tar-files-and-compressed-tar-files) 
-   *  [Use `sed` to automate file edits](#-a-simple-sed-example) 
+   *  [Use `sed` to automate file edits](#a-simple-sed-example) 
 
 *  ### Date and time Operations
 
