@@ -293,3 +293,5 @@ This *suggests* the possibility of a couple of tactics to ***preserve*** your `c
 18. [Why is my crontab not working, and how can I troubleshoot it?](https://serverfault.com/questions/449651/why-is-my-crontab-not-working-and-how-can-i-troubleshoot-it) - a canonical question at serverfaultSE
 19. [Why crontab scripts are not working?](https://askubuntu.com/questions/23009/why-crontab-scripts-are-not-working) - a canonical question at askubuntuSE 
 20. [Q&A: Where is the user crontab stored?](https://askubuntu.com/questions/216692/where-is-the-user-crontab-stored) 
+21. [How to set the **PATH** environment variable in `cron`](https://www.baeldung.com/linux/cron-jobs-path) 
+22. [How to **create & modify `crontab` from a script**!](https://www.baeldung.com/linux/create-crontab-script) 
