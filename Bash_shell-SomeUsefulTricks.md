@@ -2518,15 +2518,17 @@ if systemctl --user -q is-failed $srv; then
 ### General guides to `bash`
 
 1. [GNU's `bash` Reference Manual](https://www.gnu.org/software/bash/manual/) - in a variety of formats
-1. [GNU's Core Utilities - 'coreutils'](https://www.gnu.org/software/coreutils/manual/) - in a variety of formats 
-1. [Shell Builtin Commands](https://www.gnu.org/software/bash/manual/html_node/Shell-Builtin-Commands.html#Shell-Builtin-Commands) - an index to all the builtins
-1. [Bash POSIX Mode](https://www.gnu.org/software/bash/manual/html_node/Bash-POSIX-Mode.html); a brief guide for using `POSIX mode` in `bash`   
-1. [Baeldung's Linux Tutorials and Guides](https://www.baeldung.com/linux/list-programs-started-nohup) - excellent & searchable
-2. [Wooledge's Bash Guide](http://mywiki.wooledge.org/BashGuide); can be puzzling to navigate, may be a bit dated, but still useful 
-3. [How to find all the `bash` How-Tos on linux.com](https://www.linux.com/?s=bash) ; this really shouldn't be necessary!  
-4. [commandlinefu.com - a searchable archive of command line wisdom](https://www.commandlinefu.com/commands/browse)  
-5.  [*Cool Unix and Linux CLI Commands* - nearly 10,000 items!](https://www.scribd.com/doc/232825009/Cool-Unix-CLI) 
-5.  [Assign Output of Shell Command To Variable in Bash](https://pupli.net/2022/03/assign-output-of-shell-command-to-variable-in-bash/); a.k.a. **command substitution**  
+2. [GNU's Core Utilities - 'coreutils'](https://www.gnu.org/software/coreutils/manual/) - in a variety of formats 
+3. [Shell Builtin Commands](https://www.gnu.org/software/bash/manual/html_node/Shell-Builtin-Commands.html#Shell-Builtin-Commands) - an index to all the builtins
+4. [Bash POSIX Mode](https://www.gnu.org/software/bash/manual/html_node/Bash-POSIX-Mode.html); a brief guide for using `POSIX mode` in `bash`   
+5. [Baeldung's Linux Tutorials and Guides](https://www.baeldung.com/linux/list-programs-started-nohup) - excellent & searchable
+6. [Wooledge's Bash Guide](http://mywiki.wooledge.org/BashGuide); can be puzzling to navigate, may be a bit dated, but still useful 
+7. [How to find all the `bash` How-Tos on linux.com](https://www.linux.com/?s=bash) ; this really shouldn't be necessary!  
+8. [commandlinefu.com - a searchable archive of command line wisdom](https://www.commandlinefu.com/commands/browse)  
+9. [*Cool Unix and Linux CLI Commands* - nearly 10,000 items!](https://www.scribd.com/doc/232825009/Cool-Unix-CLI) 
+10. [Assign Output of Shell Command To Variable in Bash](https://pupli.net/2022/03/assign-output-of-shell-command-to-variable-in-bash/); a.k.a. **command substitution**  
+11. [GNU `bash` Command Grouping](https://www.gnu.org/software/bash/manual/html_node/Command-Grouping.html) 
+12. [GNU docs on the `set` builtin](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html); and [other docs on set](https://linuxcommand.org/lc3_man_pages/seth.html) 
 
 ### The `~/.bashrc` & `~/.bash_profile` files
 
