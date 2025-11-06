@@ -15,6 +15,7 @@
    *  [What happens to `stderr` when one command is piped to another?](#how-to-pipe-the-stderr-of-one-command-to-another) 
    *  [Comment an **entire block of code** in a shell script](#comment-an-entire-block-of-code) 
    *  [Testing things in bash](#testing-things-in-bash) 
+   *  [Redirection with command substitution & compound commands](#redirection-with-command-substitution)
 
 *  ### System information
 
@@ -2401,6 +2402,52 @@ sed -E -i "s/DIFF_LOC_UTC=[0-9]/$ENV_STRING/" /etc/environment
 And so we see that `sed` gives us an alternative to manually editing files.
 
 [**⋀**](#table-of-contents) 
+
+
+
+## Redirection with command substitution
+
+Redirection is *fairly straightforward*... **unless** you're trying to redirect the output (`stdout` or `stderr`) of a command that contains a `command substitution`.  You are probably familiar with the redirection symbol `2>&1` - rather cryptic until you understand its meaning: 
+
+```
+2>&1 : redirect & combine 'stderr' (2) with 'stdout' (1); stderr & stdout become a single stream
+```
+
+ Let's look at a couple of examples with and without `command substitution` included: 
+
+-  Without command substitution:
+
+     ```bash
+      $ ls nonexistentfile > testlog.log 2>&1
+      $ cat testlog.log
+      ls: cannot access 'nonexistentfile': No such file or directory
+     ```
+
+-  With command substitution: 
+
+     ```bash
+      $ echo -e "$(datee)\t\t This is only a test" > testlog.log 2>&1
+      -bash: datee: command not found 
+      $ 
+      # ?! Why is that error sent to the tty instead of the file 'testlog.log'? 
+      # Let's do redirection that actually works when command substitution is invoked:
+      $ { echo -e "$(datee)" && echo -e "\t\t This is only a test"; } > testlog.log 2>&1
+      $ cat testlog.log
+      -bash: datee: command not found
+      
+      		 This is only a test
+      $
+     ```
+
+This is covered *succinctly* in the [GNU bash manual](https://www.gnu.org/software/bash/manual/html_node/Command-Grouping.html). It's called *command grouping* - `bash` provides two (2) different syntax for command grouping. In summary: *When commands are grouped, **redirections** may be applied to the entire command list.* Command grouping is also quite useful in `crontabs`, which often have compound/grouped commands; e.g.:
+
+  ```
+   * * * * * { /usr/bin/echo "===> $(date) : prepare yourself"; /usr/bin/sleep 15; /usr/bin/echo -e "\t<== For what?"; } >> /home/pi/grp_redir.log 2>&1 
+  ```
+
+[**⋀**](#table-of-contents) 
+
+
 
 <!---
 
