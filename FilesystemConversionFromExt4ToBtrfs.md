@@ -283,5 +283,44 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
 
 Can I not hide stuff any longer?
 
+1.  With your TARGET RPi system up and running on **SD1**, insert **SD2** into a [USB-SD adapter](https://duckduckgo.com/?q=USB-SD%20adapter&t=ffab&ia=web), and plug the adapter into a USB port on the TARGET RPi. 
+
+2.  Use [image-utils](https://github.com/seamusdemora/RonR-RPi-image-utils) (`image-backup`) to create a backup image of your current trixie system. Name this image file `trixie-btrfs.img`; we shall modify this image file to create a bootable RPi OS image. The `trixie-btrfs.img` may be saved to a USB device, NAS or whatever, but you must have access to this storage medium from your TARGET RPi trixie system. 
+
+3.  Write the `trixie-btrfs.img` file to **SD2** using [Etcher](https://etcher.balena.io/) - or `dd`, or a competent image writer of your choice. 
+
+4.  Issue a `halt` to your TARGET RPi system; remove power (unplug USB power cable), and remove **SD1**. Set **SD1** aside for safekeeping, and mark or label it as the "original" **SD1**.
+
+5.  Insert **SD2** into your TARGET RPi system, apply power (plug USB power cable) and log in once the system boots. 
+
+6.  Having booted from **SD2**, we modify this system's `initramfs` to add kernel support for booting `btrfs`. Recall that the [sole purpose of initramfs is to mount the root filesystem](https://www.linuxfromscratch.org/blfs/view/svn/postlfs/initramfs.html); we will give this `initramfs` the ability to mount a `btrfs` root filesystem by adding the single word: `btrfs` to `/etc/initramfs-tools/modules`, and then running `update-initramfs -u` afterwards. 
+
+7.  We've done all that's needed to be done from the system running from **SD2**;  now issue a `halt` to the RPi, remove power, remove **SD2**, re-insert **SD1**, re-power the system under **SD1** and login. 
+
+8.  Using a [USB-SD adapter](https://duckduckgo.com/?q=USB-SD%20adapter&t=ffab&ia=web), insert **SD2** into the adapter, and plug the adapter into a USB port on your TARGET RPi system running under **SD1**. Afterwards run `lsblk --fs` to verify that **SDA2** shows up as `/dev/sdX`, and note the device designation. 
+
+9.  Install the `btrfs-progs` package on our running **SD1** system as follows: `sudo apt update && sudo apt install btrfs-progs`. Now "convert" the `ext4` filesystem on **SD2** (e.g. `/dev/sda2`) to `btrfs` by running: `sudo btrfs-convert -L /dev/sda2`. Note that `btrfs-convert` must be run on an un-mounted file system. 
+
+10.  Next, we must make some edits to files on **SD2** - which means that both partitions in **SD2** must be `mount`ed. Assuming **SD2** is at `dev/sda1` & `/dev/sda2`, and mounted at `/mnt/sd2boot` and `/mnt/sd2root`: 
+
+     -  open `/mnt/sd2boot/cmdline.txt` in your editor & make two changes:
+        -  FROM: `rootfstype=ext4`  TO:  `rootfstype=btrfs`
+        -  FROM: `fsck.repair=yes`  TO:  `fsck.repair=no` 
+
+     -  open `/mnt/sd2root/etc/fstab` in your editor & make this change:
+        -  FROM: `PARTUUID=26576298-02  /               ext4    defaults,noatime  0       1`
+        -  TO: `PARTUUID=26576298-02  /               btrfs    defaults,noatime  0       0` 
+
+
+    Please note the following: 
+    
+    A.  `fsck.repair` is set "=no" because `fsck` is not needed for `btrfs` 
+    B.  PARTUUID remains the same. It was assigned during GPT partitioning process as a unique partition identifier, and does not change even if the partition is reformatted or moved. 
+    C.  The sixth field in a `/etc/fstab` line is known as the 'fs_passno', and is used to determine the order that `fsck` is run. Again, as there is no benefit to running `fsck` on a `btrfs` partition, 'fs_passno' is changed from `1` to `0`. And yes, this is redundant with `cmdline.txt`... Why? You can ask "The Raspberries" - I don't really know. 
+
+10.  At this point, **SD2** should now be bootable, ***and*** have a `btrfs` root partition. While there are additional "things" you'll likely want to do, you can now issue a `halt` on the **SD1**/`ext4` system, pull power, swap out **SD1** for **SD2**, re-power, and see your **SD2**/`btrfs` system boot! 
+
+
+
 -->
 
