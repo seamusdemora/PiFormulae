@@ -322,6 +322,143 @@ Procedure II: Uses one Raspberry Pi
 
 10.  At this point, **SD2** should now be bootable, ***and*** have a `btrfs` root partition. While there are additional "things" you'll likely want to do, you can now issue a `halt` on the **SD1**/`ext4` system, pull power, swap out **SD1** for **SD2**, re-power, and see your **SD2**/`btrfs` system boot! 
 
+--> 
+
+<!---
+
+but If you're familiar with the commands, the outline may be all you need. The detailed procedure is just that - **d-e-t-a-i-l-e-d**; it is the exact procedure that was executed to arrive at a bootable RPi OS that uses `btrfs` for its root filesystem.  
+
+1.  write trixie-bkup.img to SD card 1 (SD1), boot RPi, and 
+2.  run echo btrfs >> /etc/initramfs-tools/modules && update-initramfs -u
+3.  halt RPi; remove SD1; insert another SD card, boot, connect SD1 to USB as /dev/sdX
+4.  run sudo btrfs-convert -L /dev/sdX
+5.  mount /dev/sdY - the bootfs partition on SD1 & modify cmdline.txt
+6.  set `/etc/fstab` as follows:
+
+```
+PARTUUID=26576298-02  /               btrfs   defaults,noatime  0       0
+# for btrfs partition: change fs_passno (the sixth and final field) from 1 to 0;
+# this turns fsck OFF as it is not needed for btrfs per https://unix.stackexchange.com/a/679848/286615
+```
+
+8.  once you're "happy" with the btrfs conversion, there are a few steps to tidy up:
+
+```
+sudo btrfs subvolume delete /mnt/ext2_saved  # or, on a live system: sudo rm -rf /ext2_saved
+btrfs filesystem defrag -v -r -f -t 32M /mnt/btrfs
+
+```
+
+9.  `lsinitramfs /boot/initrd.img-$(uname -r) | grep btrfs`
+
+
+
+*POTENTIALLY* good advice: 
+
+1.  [Corruption-proof SD card filesystem for RPi ~~embedded Linux~~?](https://unix.stackexchange.com/a/186954/286615) 
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+1.  sudo losetup -Pf /path/to/trixie-bkup.img
+2.  run lsblk --fs to verify the loop mount has worked & get device locations for bootfs and rootfs
+3.  run sudo btrfs-convert -L /dev/loop1p2
+4.  mount the bootfs & modify cmdline.txt: sudo mount /dev/loop1p1 /mnt/bootfs
+5.  "detach" the loop device: sudo losetup -d /dev/loop1
+6.  write the modified /path/to/trixie-bkup.img to an SD card (Ethcher)
+
+
+
+In an exploration of alternative file systems (to`ext4`), and their related snapshot (backup) capabilities: 
+
+*  Beginning in 2018, user @Ingo made [several posts](https://raspberrypi.stackexchange.com/search?q=user%3A79866+%22LVM%22) in RPi SE generally promoting the use of LVM. In particular, in these two posts from [Jan](https://raspberrypi.stackexchange.com/a/78659/83790) & [Jul](https://raspberrypi.stackexchange.com/a/85959/83790) (updated in Jan 2021), he indicated the necessity of loading LVM drivers (via `initrd`/`initramfs`) to enable the system to boot from an LVM "drive". He outlined a rather complex configuration to achieve the objective of booting from an LVM partition that included:  
+
+   *  changes in `config.txt` to select & configure the appropriate kernel-modules via `initramfs`
+   *  listing the modules to load via edits to `/etc/initramfs-tools/initramfs.conf` 
+   *  using `mkinitramfs` to create the ramdisks necessary for booting 
+   *  use a 2nd computer to create LVM volumes on the SD card, and then... 
+   *  ... move the root partition on SD card to an LVM volume
+   *  ... make additional changes to `boot/cmdline.txt` and `etc/fstab` to reflect LVM volume names
+   *  etc, etc... note that Ingo referred to this as the "simpler" configuration. I won't quibble with his choice of terms, but I cannot agree that this is a "simple" configuration. It also requires that **part of the procedure be repeated any time there is a kernel upgrade**. I left a comment for Ingo on Nov 9, 2025 asking if he thought the procedure had become "simpler". Now, in hindsight, I ~~believe that~~ *wonder if* it has.
+
+*  **RE: Replacing** `ext4` with `btrfs` as the root filesystem; I found [this site/page](https://www.linuxfromscratch.org/blfs/view/svn/postlfs/initramfs.html) in a link from [this github thread](https://github.com/raspberrypi/linux/issues/5342#issuecomment-1849894020)...  The passages of interest are these: 
+
+   ```
+   # from the github thread
+   "initramfs includes enough modules to get the rootfs loaded: 
+   https://www.linuxfromscratch.org/blfs/view/svn/postlfs/initramfs.html
+   and it is loaded by the firmware."
+   
+   # from the linked reference:
+   "The only purpose of an initramfs is to mount the root filesystem."
+   ```
+
+   Together, these statements ***imply*** that one can boot from a `btrfs` root partition with no additional configuration required - just as easily as one can boot from an `ext4` partition. We *should be* able to verify this:
+
+   ```bash
+   lsinitramfs /boot/initrd.img-$(uname -r)
+   # the following "suggests" that the implication above is true; in both cases, there were several lines of output for each
+   $ lsinitramfs /boot/initrd.img-$(uname -r) | grep btrfs | less
+   $ lsinitramfs /boot/initrd.img-$(uname -r) | grep lvm | less
+   ```
+
+   While not being intimately familiar with the construction or format of  these files, all I can say is that the above outputs "**suggest**" that everything needed to boot from a `btrfs` partition, or an LVM volume - is included in the default `initramfs` found on my RPi trixie system.  
+
+   So - now the question becomes how to *efficiently* **install** the RPi OS root partition onto a `btrfs` or `lvm` partition? Or alternatively, can an `ext4` partition be **converted** to a `btrfs` or `lvm` partition? ... Let's go to a new bullet:
+
+*  **Installing** and/or **converting** an existing `ext4 root` partition to `btrfs` or `lvm` :  
+
+   Recall that while `btrfs` is a true filesystem, `lvm` is not. In fact `lvm` is designed to manage (virtually) any type of filesystem: `btrfs`, `ext4`, `dos`, etc.   
+
+   We have already seen how to use `lvm` to create and format `ext4`, `vfat` and `btrfs` "partitions". There is even a ["*Baeldung blog*"](https://www.baeldung.com/linux/btrfs-lvm) that covers this. Again, `btrfs` is a true filesystem, and as it turns out, there is a command that *should* be able to convert an existing `ext4` partition to `btrfs`; the `btrfs-convert` utility will do an *in-place* conversion : 
+
+   ```bash  
+   btrfs-convert /dev/sdXn
+   ```
+
+   It seems that putting (installing) existing, default RPi partitions into corresponding LVM "partitions" may be done by using a loop mount to copy from one to the other. Let's take that up in a new bullet:
+
+*  "**Moving**" image file partitions: 
+
+   Let's take a look at what's inside an "image" file; e.g. a recent backup image made with `image-utils`:
+
+   *  ```
+      $ fdisk -l 20251105_Pi2W_trixie-imgbackup.img
+      Disk 20251105_Pi2W_trixie-imgbackup.img: 3.35 GiB, 3592298496 bytes, 7016208 sectors
+      Units: sectors of 1 * 512 = 512 bytes
+      Sector size (logical/physical): 512 bytes / 512 bytes
+      I/O size (minimum/optimal): 512 bytes / 512 bytes
+      Disklabel type: dos
+      Disk identifier: 0x26576298
+      
+      Device                              Boot   Start     End Sectors  Size Id Type
+      20251105_Pi2W_trixie-imgbackup.img1         2048 1050623 1048576  512M  c W95 FAT32 (LBA)
+      20251105_Pi2W_trixie-imgbackup.img2      1050624 7016207 5965584  2.8G 83 Linux
+      ```
+
+   We see that there are actually two images - one is the `/boot` partition (`*.img1`, a FAT32 partition), the other is the `/` root partition (`*.img2`, a Linux/`ext4` partition). We know from [another recipe here](https://github.com/seamusdemora/PiFormulae/blob/master/WorkingWithImage-backupFiles.md) that these images can be written/copied to a device file (e.g. `/dev/sdaX`). Accordingly, it should be possible to "move" these images from one partition type or filesystem to another. IOW, we can see filesystems and partitions as different containers for the actual contents: 
+
+   *  ```
+      *.img ==> /dev/pi_volgrp/pi_lv03 													: move image to lvm device
+      *.img ==> /dev/pi_volgrp/pi_lv03 | btrfs-convert /dev/...	: convert filesystem
+      ```
+
+   And - having moved/converted the images, we ***hope*** that the "box stock" Rpi `initramfs` will simply boot from these "moved" images. 
+
+   WRT setting /boot up under LVM, this article says ["maybe don't do that!"](https://www.baeldung.com/linux/lvm-boot-partition-recommendations). 
+
+
+
+## To summarize: 
+
+1.  Taking [the knob who authored this github post](https://github.com/raspberrypi/linux/issues/5342#issuecomment-1849894020) at his word, the "box stock" RPi `initramfs` has the ability to boot from LVM partitions and/or `btrfs` filesystems. 
+2.  Consequently, we should be able to "*move*"**/**"*re-package*" our existing default images to different partitions/filesystems. ***and*** retain the ability to boot our system from them. 
+
 
 
 -->
