@@ -30,7 +30,7 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
       ```
 
 
-3.  Plug the TARGET SD card (**SD1**) into a USB port on the **SUPPORT RPi**. Also, plug **SD2** into a USB port on the **SUPPORT RPi**. Then - verify you have what you need using `lsblk --fs`. Here, we see `/dev/sda` (**SD1**), and `/dev/sdb` (**SD2**). 
+3.  On the **SUPPORT RPi**: Plug **SD1** ***and*** **SD2** into USB ports; verify using `lsblk --fs`.
 
       ```
         lsblk --fs
@@ -46,7 +46,7 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
       ```
 
 
-4.  On the **SUPPORT RPi**, we use `fdisk` to obtain needed information on `/dev/sda` (**SD1**). This information is needed to correctly prepare `/dev/sdb` (**SD2**) :  
+4.  On the **SUPPORT RPi**: use `fdisk` to obtain needed information on `/dev/sda` (**SD1**).   
 
       ```
         # get some information from fdisk on SD1:
@@ -66,7 +66,7 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
 
 
 
-5.  On the **SUPPORT RPi**, use `fdisk` to create three (3) partitions on `/dev/sdb` (**SD2**): 
+5.  On the **SUPPORT RPi**: use `fdisk` to create three (3) partitions on `/dev/sdb` (**SD2**): 
 
       ```
         sudo fdisk /dev/sdb		# "blank" Command inputs are actually 'Enter' to accept default
@@ -172,7 +172,7 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
       ```
 
 
-6.  Again, on the **SUPPORT RPi**, we complete preparations of SD2 to make it bootable: 
+6.  On the **SUPPORT RPi**: copy from SD1 to SD2, and format SD2: 
 
       ```
         # we take care of the `/boot/firmware` partition first (`dev/sdb1`);
@@ -244,7 +244,7 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
       ```
 
 
-7.  We now have a couple of minor edits to make to `/dev/sdb1` and `/dev/sdb2` to complete the procedure: 
+7.  On the **SUPPORT RPi**: Minor edits to make to make SD2 bootable: 
       ```
         # /mnt/sdb2 should still be mounted at /mnt/SD2, so make required changes there first:
         sudo nano /mnt/SD2/etc/fstab		# or use your preferred editor to make these changes:
