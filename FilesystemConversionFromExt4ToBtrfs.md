@@ -227,7 +227,8 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
            
         # We format /dev/sdb3 as btrfs to use as an "extra space" to house snapshots, etc. 
            
-        sudo mkfs.btrfs -L rootfs /dev/sdb3
+        sudo mkfs.btrfs -L BTRFS1 /dev/sdb3
+      
         lsblk --fs
         NAME        FSTYPE FSVER LABEL  UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
         sda
