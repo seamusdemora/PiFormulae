@@ -172,7 +172,7 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
       ```
 
 
-5.  Again, on the **SUPPORT RPi**, we complete preparations of SD2 to make it bootable: 
+6.  Again, on the **SUPPORT RPi**, we complete preparations of SD2 to make it bootable: 
 
       ```
         # we take care of the `/boot/firmware` partition first (`dev/sdb1`);
@@ -244,7 +244,7 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
       ```
 
 
-6.  We now have a couple of minor edits to make to `/dev/sdb1` and `/dev/sdb2` to complete the procedure: 
+7.  We now have a couple of minor edits to make to `/dev/sdb1` and `/dev/sdb2` to complete the procedure: 
       ```
         # /mnt/sdb2 should still be mounted at /mnt/SD2, so make required changes there first:
         sudo nano /mnt/SD2/etc/fstab		# or use your preferred editor to make these changes:
@@ -278,6 +278,8 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
 3. Re Step 6; use of LABELs vs PARTUUIDs vs UUIDs, etc, etc. This may be useful to some: The folder `/dev/disk` contains nine (9) sub-folders dedicated to the various methods for referring to a device that is a "disk". If you want to use something other than LABEL, you can find it here. 
 4. Re Step 1; the modification of `initramfs`: [Some accounts](https://unix.stackexchange.com/a/186954/286615) on the Internet state that changes made to `initramfs` are ephemeral; lasting only until the next kernel upgrade. IOW, when the kernel is upgraded (e.g. in `apt`), any changes made to initramfs must be re-applied to remain effective under the new/upgraded kernel. In researching this, I found a [post in the RPi GitHub Issues](https://github.com/raspberrypi/linux/issues/5342#issuecomment-1849894020) that ***seems*** to address the question, but like other posts from this [knob](https://www.slangsphere.com/understanding-knob-slang-meaning-usage-and-cultural-impact/), it is [inscrutable](https://www.merriam-webster.com/dictionary/inscrutable). IOW this "answer" was unclear, and we may have to wait for a kernel upgrade to learn the answer. If you know the answer - please share! In the meantime, this may help: `lsinitramfs /boot/initrd.img-$(uname -r) | grep btrfs`
 5. The ability of `btrfs` to make "snapshots" of the file system is obviously a major attraction for those that like to experiment with their RPi systems. I am still learning the configuration process, but I hear of an app named `snapper` that is said by some to be quite good. I'll post a follow-up to this recipe once I've "found my footing".
+
+
 
 
 
@@ -324,10 +326,6 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
 
 
 
-
-
-
-
 but If you're familiar with the commands, the outline may be all you need. The detailed procedure is just that - **d-e-t-a-i-l-e-d**; it is the exact procedure that was executed to arrive at a bootable RPi OS that uses `btrfs` for its root filesystem.  <!--- In an effort to *convert* an existing trixie installation from an ext4 filesystem to a btrfs filesystem: --> 
 
 1.  write trixie-bkup.img to SD card 1 (SD1), boot RPi, and 
@@ -358,11 +356,6 @@ btrfs filesystem defrag -v -r -f -t 32M /mnt/btrfs
 *POTENTIALLY* good advice: 
 
 1.  [Corruption-proof SD card filesystem for RPi ~~embedded Linux~~?](https://unix.stackexchange.com/a/186954/286615) 
-
-
-
-
-
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -464,10 +457,6 @@ In an exploration of alternative file systems (to`ext4`), and their related snap
 
 
 -->
-
-
-
-
 
 
 
