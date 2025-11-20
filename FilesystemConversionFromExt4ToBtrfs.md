@@ -241,29 +241,39 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
 6.  On the **SUPPORT RPi**: Minor edits to make to make SD2 bootable: 
       ```
         # /mnt/sdb2 should still be mounted at /mnt/SD2, so make required changes there first:
-        sudo nano /mnt/SD2/etc/fstab		# or use your preferred editor to make these changes:
+        
+      sudo nano /mnt/SD2/etc/fstab		# or use your preferred editor to make these changes:
+      
         # FROM: 
-        PARTUUID="whatever-1"  /boot/firmware  vfat    defaults          0       2
-        PARTUUID="whatever-2"  /               ext4    defaults,noatime  0       1
+        
+      PARTUUID="whatever-1"  /boot/firmware  vfat    defaults          0       2
+      PARTUUID="whatever-2"  /               ext4    defaults,noatime  0       1
+      
         # TO: 
-        LABEL=bootfs          /boot/firmware  vfat    defaults          0       2
-        LABEL=rootfs          /               btrfs   defaults,noatime  0       0
-        # PARTUUID="whatever-1"  /boot/firmware  vfat    defaults          0       2
-        # PARTUUID="whatever-2"  /               ext4    defaults,noatime  0       1
-           
+        
+      LABEL=bootfs          /boot/firmware  vfat    defaults          0       2
+      LABEL=rootfs          /               btrfs   defaults,noatime  0       0
+      # PARTUUID="whatever-1"  /boot/firmware  vfat    defaults          0       2
+      # PARTUUID="whatever-2"  /               ext4    defaults,noatime  0       1
+      
         # now mount /dev/sdb1 for another edit to cmdline.txt :
-        sudo mount /dev/sdb1 /mnt/SD1
-        sudo nano /mnt/SD1/cmdline.txt
+        
+      sudo mount /dev/sdb1 /mnt/SD1
+      sudo nano /mnt/SD1/cmdline.txt
+      
         # FROM:
-        console=serial0,115200 console=tty1 root=PARTUUID=whatever1 rootfstype=ext4 fsck.repair=yes rootwait cfg80211.ieee80211_regdom=US
+      
+      console=serial0,115200 console=tty1 root=PARTUUID=whatever1 rootfstype=ext4 fsck.repair=yes rootwait cfg80211.ieee80211_regdom=US
+      
         #TO:
-        console=serial0,115200 console=tty1 root=LABEL=rootfs rootfstype=btrfs fsck.repair=no rootwait cfg80211.ieee80211_regdom=US
-           
-        # C'est terminé!! You should be able to remove SD2 from the SUPPORT RPi, 
-        # insert it into the TARGET RPi and boot from it.
+      
+      console=serial0,115200 console=tty1 root=LABEL=rootfs rootfstype=btrfs fsck.repair=no rootwait cfg80211.ieee80211_regdom=US
+      
+      # C'est terminé!! You should be able to remove SD2 from the SUPPORT RPi, 
+      # insert it into the TARGET RPi and boot from it.
       ```
-
-    Just some quick comments on the above changes: Note that I used `LABEL`s instead of `PARTUUID`s. That's just a personal preference; you may use `PARTUUID` (or anything else in **`ls -l /dev/disk`**). If I had hundreds of RPi, constantly swapping SD cards, I suppose I might find `PARTUUID`s useful... for my present purposes, `LABEL`s work fine.  :) 
+    
+    *C'est terminé*! ... You should now be able to remove **SD2** from the **SUPPORT RPi**, insert it into the **TARGET RPi** and boot from it. And a quick comment on the above changes: Note that I used `LABEL`s instead of `PARTUUID`s. That's just a personal preference; you may use `PARTUUID` (or something else in **`ls -l /dev/disk`**). If I had hundreds of RPi, constantly swapping SD cards, I suppose I might find `PARTUUID`s useful... for my present purposes, `LABEL`s work fine.  :) 
 
 ### Notes:
 
