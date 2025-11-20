@@ -46,7 +46,7 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
       ```
 
 
-4.  On the **SUPPORT RPi**, we use `fdisk` to obtain needed information on `/dev/sda` (**SD1**); information needed to correctly prepare `/dev/sdb` (**SD2**) :  
+4.  On the **SUPPORT RPi**, we use `fdisk` to obtain needed information on `/dev/sda` (**SD1**). This information is needed to correctly prepare `/dev/sdb` (**SD2**) :  
 
       ```
         # get some information from fdisk on SD1:
