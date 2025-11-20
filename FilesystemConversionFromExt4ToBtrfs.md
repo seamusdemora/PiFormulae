@@ -284,8 +284,6 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
 
 
 
-
-
 <!---
 
 ###  Procedure II: Uses one Raspberry Pi
@@ -329,10 +327,6 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
 
 
 
-
-
-
-
 but If you're familiar with the commands, the outline may be all you need. The detailed procedure is just that - **d-e-t-a-i-l-e-d**; it is the exact procedure that was executed to arrive at a bootable RPi OS that uses `btrfs` for its root filesystem.  <!--- In an effort to *convert* an existing trixie installation from an ext4 filesystem to a btrfs filesystem: --> 
 
 1.  write trixie-bkup.img to SD card 1 (SD1), boot RPi, and 
@@ -363,11 +357,6 @@ btrfs filesystem defrag -v -r -f -t 32M /mnt/btrfs
 *POTENTIALLY* good advice: 
 
 1.  [Corruption-proof SD card filesystem for RPi ~~embedded Linux~~?](https://unix.stackexchange.com/a/186954/286615) 
-
-
-
-
-
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -469,10 +458,6 @@ In an exploration of alternative file systems (to`ext4`), and their related snap
 
 
 -->
-
-
-
-
 
 
 
