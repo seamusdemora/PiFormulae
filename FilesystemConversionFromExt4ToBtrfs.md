@@ -284,7 +284,7 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
 
 
 
-<!---
+<!--- 
 
 ###  Procedure II: Uses one Raspberry Pi
 
