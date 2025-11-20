@@ -279,5 +279,9 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
 4. Re Step 1; the modification of `initramfs`: [Some accounts](https://unix.stackexchange.com/a/186954/286615) on the Internet state that changes made to `initramfs` are ephemeral; lasting only until the next kernel upgrade. IOW, when the kernel is upgraded (e.g. in `apt`), any changes made to initramfs must be re-applied to remain effective under the new/upgraded kernel. In researching this, I found a [post in the RPi GitHub Issues](https://github.com/raspberrypi/linux/issues/5342#issuecomment-1849894020) that ***seems*** to address the question, but like other posts from this [knob](https://www.slangsphere.com/understanding-knob-slang-meaning-usage-and-cultural-impact/), it is [inscrutable](https://www.merriam-webster.com/dictionary/inscrutable). IOW this "answer" was unclear, and we may have to wait for a kernel upgrade to learn the answer. If you know the answer - please share! In the meantime, this may help: `lsinitramfs /boot/initrd.img-$(uname -r) | grep btrfs`
 5. The ability of `btrfs` to make "snapshots" of the file system is obviously a major attraction for those that like to experiment with their RPi systems. I am still learning the configuration process, but I hear of an app named `snapper` that is said by some to be quite good. I'll post a follow-up to this recipe once I've "found my footing".
 
+<!---
 
+Can I not hide stuff any longer?
+
+-->
 
