@@ -285,9 +285,7 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
 
 
 
-
-
-###  Procedure II: Uses one Raspberry Pi
+Procedure II: Uses one Raspberry Pi
 
 1.  With your TARGET RPi system up and running on **SD1**, insert **SD2** into a [USB-SD adapter](https://duckduckgo.com/?q=USB-SD%20adapter&t=ffab&ia=web), and plug the adapter into a USB port on the TARGET RPi. 
 
