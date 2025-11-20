@@ -283,6 +283,8 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
 
 Can I not hide stuff any longer?
 
+Procedure II: Uses one Raspberry Pi
+
 1.  With your TARGET RPi system up and running on **SD1**, insert **SD2** into a [USB-SD adapter](https://duckduckgo.com/?q=USB-SD%20adapter&t=ffab&ia=web), and plug the adapter into a USB port on the TARGET RPi. 
 
 2.  Use [image-utils](https://github.com/seamusdemora/RonR-RPi-image-utils) (`image-backup`) to create a backup image of your current trixie system. Name this image file `trixie-btrfs.img`; we shall modify this image file to create a bootable RPi OS image. The `trixie-btrfs.img` may be saved to a USB device, NAS or whatever, but you must have access to this storage medium from your TARGET RPi trixie system. 
