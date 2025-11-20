@@ -172,7 +172,7 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
       ```
 
 
-5.  Again, on the **SUPPORT RPi**, we complete preparations of SD2 to make it bootable: 
+6.  Again, on the **SUPPORT RPi**, we complete preparations of SD2 to make it bootable: 
 
       ```
         # we take care of the `/boot/firmware` partition first (`dev/sdb1`);
@@ -244,7 +244,7 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
       ```
 
 
-6.  We now have a couple of minor edits to make to `/dev/sdb1` and `/dev/sdb2` to complete the procedure: 
+7.  We now have a couple of minor edits to make to `/dev/sdb1` and `/dev/sdb2` to complete the procedure: 
       ```
         # /mnt/sdb2 should still be mounted at /mnt/SD2, so make required changes there first:
         sudo nano /mnt/SD2/etc/fstab		# or use your preferred editor to make these changes:
