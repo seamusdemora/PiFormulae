@@ -2486,7 +2486,7 @@ $ command -V iwX
 
 ```
 
-The syntax may seem a little odd, but it comes in handy when used in a bash script. If you're interested, here's an [answer on U&L SE](https://unix.stackexchange.com/a/85250/286615) with lots of information re command vs. its "competitors". 
+The syntax may seem a little odd, but it comes in handy when used in a bash script. If you're interested, here's an [answer on U&L SE](https://unix.stackexchange.com/a/85250/286615) with lots of information re command vs. its "competitors", and a very good [blog post from Baeldung](https://www.baeldung.com/linux/bash-script-check-program-exists) on the same subject. 
 
 [**⋀**](#table-of-contents) 
 
