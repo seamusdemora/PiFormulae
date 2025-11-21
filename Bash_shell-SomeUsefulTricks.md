@@ -61,6 +61,7 @@
    *  [Finding pattern matches: `grep` or `awk`?](#finding-pattern-matches-grep-or-awk) 
    *  [Find what you need in that huge `man` page](#find-what-you-need-in-that-huge-man-page) 
    *  [Where did I put that file? - it's *somewhere* in my system](#that-file-is-somewhere-in-my-system) 
+   *  [Do I have that `command` on my system, and where is it?](#the-command-command)
 
 *  ### Using Bluetooth 
 
@@ -2448,6 +2449,46 @@ This is covered *succinctly* in the [GNU bash manual](https://www.gnu.org/softwa
 [**⋀**](#table-of-contents) 
 
 
+
+## The `command` command 
+
+To learn if your system has a particular command installed, and its location, you should consider the command called ... `command`! It's a shell built-in, and it works quite well... if you use it correctly. There is no `man` page for `command`, but help is available by entering the following: 
+
+```bash
+$ command --help
+command: command [-pVv] command [arg ...]
+    Execute a simple command or display information about commands.
+
+    Runs COMMAND with ARGS suppressing  shell function lookup, or display
+    information about the specified COMMANDs.  Can be used to invoke commands
+    on disk when a function with the same name exists.
+
+    Options:
+      -p    use a default value for PATH that is guaranteed to find all of
+            the standard utilities
+      -v    print a description of COMMAND similar to the `type' builtin
+      -V    print a more verbose description of each COMMAND
+
+    Exit Status:
+    Returns exit status of COMMAND, or failure if COMMAND is not found. 
+```
+
+Usage is straightforward; some examples follow: 
+
+```bash
+$ command -v lsinitramfs
+/usr/bin/lsinitramfs
+$ command -V lsinitramfs
+lsinitramfs is /usr/bin/lsinitramfs		# see the difference verbose mode (V vs v) makes :) 
+$ command -v iwX
+$ command -V iwX
+-bash: command: iwX: not found				# Verbose mode for commands not on your system
+
+```
+
+The syntax may seem a little odd, but it comes in handy when used in a bash script. If you're interested, here's an [answer on U&L SE](https://unix.stackexchange.com/a/85250/286615) with lots of information re command vs. its "competitors". 
+
+[**⋀**](#table-of-contents) 
 
 <!---
 
