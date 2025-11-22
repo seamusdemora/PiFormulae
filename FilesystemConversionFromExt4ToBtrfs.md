@@ -273,7 +273,7 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
       # insert it into the TARGET RPi and boot from it.
       ```
     
-    *C'est terminé*! ... You should now be able to remove **SD2** from the **SUPPORT RPi**, insert it into the **TARGET RPi** and boot from it. And a quick comment on the above changes: Note that I used `LABEL`s instead of `PARTUUID`s. That's just a personal preference; you may use `PARTUUID` (or something else in **`ls -l /dev/disk`**). If I had hundreds of RPi, constantly swapping SD cards, I suppose I might find `PARTUUID`s useful... for my present purposes, `LABEL`s work fine.  :) 
+    *C'est terminé*! ... You should now be able to remove **SD2** from the **SUPPORT RPi**, insert it into the **TARGET RPi** and boot from it. And a quick comment on the above changes: Note that I used `LABEL`s instead of `PARTUUID`s. That's just a personal preference; you may use `PARTUUID` (or something else in **`ls -l /dev/disk`**, or via the **`blkid`** command). If I had hundreds of RPi, constantly swapping SD cards, I suppose I might find `PARTUUID`s useful... for my present purposes, `LABEL`s *mostly* work fine.  :) 
 
 ### Notes:
 
