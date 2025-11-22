@@ -283,6 +283,20 @@ We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **T
 4. Re Step 1; the modification of `initramfs`: [Some accounts](https://unix.stackexchange.com/a/186954/286615) on the Internet state that changes made to `initramfs` are ephemeral; lasting only until the next kernel upgrade. IOW, when the kernel is upgraded (e.g. in `apt`), any changes made to initramfs must be re-applied to remain effective under the new/upgraded kernel. In researching this, I found a [post in the RPi GitHub Issues](https://github.com/raspberrypi/linux/issues/5342#issuecomment-1849894020) that ***seems*** to address the question, but like other posts from this [knob](https://www.slangsphere.com/understanding-knob-slang-meaning-usage-and-cultural-impact/), it is [inscrutable](https://www.merriam-webster.com/dictionary/inscrutable). IOW this "answer" was unclear, and we may have to wait for a kernel upgrade to learn the answer. If you know the answer - please share! In the meantime, this may help: `lsinitramfs /boot/initrd.img-$(uname -r) | grep btrfs`
 5. The ability of `btrfs` to make "snapshots" of the file system is obviously a major attraction for those that like to experiment with their RPi systems. I am still learning the configuration process, but I hear of an app named `snapper` that is said by some to be quite good. I'll post a follow-up to this recipe once I've "found my footing".
 
+### References: 
+
+If you want to capitalize on the *potential* advantages of `btrfs`, there is quite a lot to learn! This list of references is deliberately brief, but hopefully helpful toward an understanding. More detailed references may follow. 
+
+1. [The Btrfs filesystem: An introduction](https://lwn.net/Articles/576276/): *A series of articles from LWN (Linux Weekly News), published in 2013-2014. Note that sequels to this article are listed at the end of the article.* 
+2. [Working with Btrfs – General Concepts](https://fedoramagazine.org/working-with-btrfs-general-concepts/): A series of articles from Fedora Magazine, published in 2022-2023. 
+3. [Debian's btrfs Wiki](https://wiki.debian.org/Btrfs): There are several good [`btrfs` wikis](https://duckduckgo.com/?q=Btrfs%20Documentation%20(Btrfs%20Wiki)&t=ffab&ia=web); this one was selected for obvious reasons :) Check the [*change log*](https://wiki.debian.org/Btrfs?action=info) for the update history. 
+
+
+
+
+
+
+
 <!---
 
 Can I still hide stuff ?
