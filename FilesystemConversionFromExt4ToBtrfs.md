@@ -2,13 +2,13 @@
 
 If you're interested in trying the `btrfs` filesystem (as an alternative to `ext4`) on your Raspberry Pi, you've come to the right place. This procedure assumes your system is running the ***trixie*** release of RPi OS. If you're running another OS, you're welcome to ***try*** this procedure, but please keep in mind that it was written for RPi OS 'trixie' running on RPi hardware. FWIW, the "target" system hardware here is an [RPi Zero 2W](https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/), but the conversion procedure should work for any system.
 
-Let's get to it... As currently written this procedure requires two (2) RPis; however, a "desktop/laptop Linux" can probably be used in lieu of the second RPi. I have also done this *`btrfs` conversion* using only a single RPi (the "target" system), but have elected not to include that here - at least for now. If you need the single-RPi version of this procedure, let me know; I'll clean it up and post it here.  
+Let's get to it... As currently written this procedure uses two (2) RPis. However, it's also *"do-able"* on a single system. I have done this *`btrfs` conversion* by creating new partitions on a 2nd SD card, and using `rsync` to copy from the original `ext4` *source* SD. An alternative to that approach is to use the `btrfs-convert` utility (p/o the `btrfs-progs` package) on the un-mounted  `ext4` *source* partition. I've elected not to include that alternative here, but if you're interested, let me know; I'll clean it up and post it here.  
 
 **You will need a 2nd SD card for this procedure**; you will also need two (2) [USB-SD adapters](https://duckduckgo.com/?q=USB-SD%20adapter&t=ffab&ia=web). We will refer to this 2nd SD card as **SD2**. I used a SanDisk 64GB SDXC microSD card for **SD2**. Please note that this procedure will **not** modify your current trixie system (other than to install two software packages via `apt`), nor will it modify your **original SD card** - **SD1**. In this way, you have a "**fallback**" - your original system remains "as-is" on **SD1** in case something goes wrong, or you simply decide after a short trial that `btrfs` is not for you.
 
-### `btrfs` Conversion Procedure Using Two Raspberry Pis
+### `btrfs` Conversion Procedure for Raspberry Pis
 
-We refer to the two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **TARGET RPi** is the RPi that will have its root filesystem converted to `btrfs`. 
+Again, I used two RPis here for my convenience. I refer to these two RPis as the **TARGET RPi**, and the **SUPPORT RPi**; the **TARGET RPi** is the RPi that will have its root filesystem converted to `btrfs`. 
 
 1.  On the **TARGET RPi**, use `apt` to update, upgrade & install two packages, and add `btrfs` support to your `initramfs`:
 
@@ -289,7 +289,7 @@ If you want to capitalize on the *potential* advantages of `btrfs`, there is qui
 
 1. [The Btrfs filesystem: An introduction](https://lwn.net/Articles/576276/): *A series of articles from LWN (Linux Weekly News), published in 2013-2014. Note that sequels to this article are listed at the end of the article.* 
 2. [Working with Btrfs – General Concepts](https://fedoramagazine.org/working-with-btrfs-general-concepts/): A series of articles from Fedora Magazine, published in 2022-2023. 
-3. [Debian's btrfs Wiki](https://wiki.debian.org/Btrfs): There are several good [`btrfs` wikis](https://duckduckgo.com/?q=Btrfs%20Documentation%20(Btrfs%20Wiki)&t=ffab&ia=web); this one was selected for obvious reasons :) Check the [*change log*](https://wiki.debian.org/Btrfs?action=info) for the update history. 
+3. [Debian's btrfs Wiki](https://wiki.debian.org/Btrfs): There are several good [`btrfs` wikis](https://duckduckgo.com/?q=Btrfs%20Documentation%20(Btrfs%20Wiki)&t=ffab&ia=web); this one was selected for obvious reasons :) Check the wiki's [*change log*](https://wiki.debian.org/Btrfs?action=info) for the update history. 
 
 And I'll add a couple of references to *"assessment articles"* on `btrfs` ICYI: 
 
