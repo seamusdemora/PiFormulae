@@ -285,7 +285,7 @@ Again, I used two RPis here for my convenience. I refer to these two RPis as the
 
 ### References: 
 
-If you want to capitalize on the *potential* advantages of `btrfs`, there is quite a lot to learn! This list of references is deliberately brief, but hopefully helpful toward an understanding. I've also included a couple of *"assessment articles"* on `btrfs` ICYI: More detailed references may follow. 
+If you want to capitalize on the *potential* advantages of `btrfs`, there is quite a lot to learn! This list of references is deliberately brief, but hopefully helpful toward an understanding. I've also included a couple of *"assessment articles"* on `btrfs` ICYI. More detailed references may follow. 
 
 1. [The Btrfs filesystem: An introduction](https://lwn.net/Articles/576276/): *A series of articles from LWN (Linux Weekly News), published in 2013-2014. Note that sequels to this article are listed at the end of the article.* 
 2. [Working with Btrfs – General Concepts](https://fedoramagazine.org/working-with-btrfs-general-concepts/): A series of articles from Fedora Magazine, published in 2022-2023. 
