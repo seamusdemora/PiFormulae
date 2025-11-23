@@ -285,16 +285,14 @@ Again, I used two RPis here for my convenience. I refer to these two RPis as the
 
 ### References: 
 
-If you want to capitalize on the *potential* advantages of `btrfs`, there is quite a lot to learn! This list of references is deliberately brief, but hopefully helpful toward an understanding. More detailed references may follow. 
+If you want to capitalize on the *potential* advantages of `btrfs`, there is quite a lot to learn! This list of references is deliberately brief, but hopefully helpful toward an understanding. I've also included a couple of *"assessment articles"* on `btrfs` ICYI: More detailed references may follow. 
 
 1. [The Btrfs filesystem: An introduction](https://lwn.net/Articles/576276/): *A series of articles from LWN (Linux Weekly News), published in 2013-2014. Note that sequels to this article are listed at the end of the article.* 
 2. [Working with Btrfs – General Concepts](https://fedoramagazine.org/working-with-btrfs-general-concepts/): A series of articles from Fedora Magazine, published in 2022-2023. 
 3. [Debian's btrfs Wiki](https://wiki.debian.org/Btrfs): There are several good [`btrfs` wikis](https://duckduckgo.com/?q=Btrfs%20Documentation%20(Btrfs%20Wiki)&t=ffab&ia=web); this one was selected for obvious reasons :) Check the wiki's [*change log*](https://wiki.debian.org/Btrfs?action=info) for the update history. 
 
-And I'll add a couple of references to *"assessment articles"* on `btrfs` ICYI: 
-
-4. [Examining btrfs, Linux's perpetually half-finished filesystem](https://arstechnica.com/gadgets/2021/09/examining-btrfs-linuxs-perpetually-half-finished-filesystem/), from **ars technica**, dtd Sep, 2021
-5. [Is Btrfs still unstable?](https://darwinsdata.com/is-btrfs-still-unstable/), from **Darwin's Data**, dtd Oct 2023
+4. **An assessment**: [Examining btrfs, Linux's perpetually half-finished filesystem](https://arstechnica.com/gadgets/2021/09/examining-btrfs-linuxs-perpetually-half-finished-filesystem/), from **ars technica**, dtd Sep, 2021
+5. **An assessment:** [Is Btrfs still unstable?](https://darwinsdata.com/is-btrfs-still-unstable/), from **Darwin's Data**, dtd Oct 2023
 
 
 
