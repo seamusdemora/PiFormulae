@@ -1,5 +1,15 @@
 ## Improving Bluetooth Reliability on a 'Zero 2W' Through 'debian-backports' 
 
+```
+Foreword:
+---------
+The increasing maturity of the `pipewire` package has reduced the relevance of this recipe from when it was first pulished. I am leaving it in the "active" part of this repo - at least for now - for a couple of reasons: 
+1. There are some who still use the 'bookworm' distro. 
+2. Usage of 'backports' remains an occasionally useful/necessary process. 
+```
+
+
+
 This is *more-or-less* a continuation of a recipe segment that was [started under another recipe](./Bluetooth-AudioForBookwormLite.md#build-and-configure-bluez-alsa-under-bookworm-lite). Briefly, this recipe is an effort to get the *"best"* (most reliable) performance from the Bluetooth susbsystem on my [Raspberry Pi Zero 2W](https://datasheets.raspberrypi.com/rpizero2/raspberry-pi-zero-2-w-product-brief.pdf). After using [`bluez-alsa`](https://github.com/Arkq/bluez-alsa) for a few months, I was still experiencing occasional audio *dropouts*. I learned that a `pipewire` package version 1.2.1 was available through Debian's 'backports'  (*as opposed to* **ver 0.3.65** through the default `/etc/apt/sources.list`). I decided to give it a try.  
 
 I tried to *think through the considerations*: 
