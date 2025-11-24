@@ -1,9 +1,10 @@
 ## Improving Bluetooth Reliability on a 'Zero 2W' Through 'debian-backports' 
 
 ```
-Foreword:
----------
-The increasing maturity of the `pipewire` package has reduced the relevance of this recipe from when it was first pulished. I am leaving it in the "active" part of this repo - at least for now - for a couple of reasons: 
+Foreword:  (dtd 20251124)
+-------------------------
+The increasing maturity of the `pipewire` package has reduced the relevance of this recipe from when it was first 
+pulished. I am leaving it in the "active" part of this repo - at least for now - for a couple of reasons: 
 1. There are some who still use the 'bookworm' distro. 
 2. Usage of 'backports' remains an occasionally useful/necessary process. 
 ```
