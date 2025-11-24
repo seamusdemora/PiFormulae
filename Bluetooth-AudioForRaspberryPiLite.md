@@ -14,6 +14,17 @@
 
 ---
 
+```
+Foreword:
+---------
+This "recipe" was written for the 'bookworm' RPi OS distro. Consequently, its relevance is fading. In my case, I have recently upgraded my RPi 3A+ system from 'bookworm' to 'trixie' (ref 'In-Place Upgrade UR' below). The (mostly) positive experience from that in-place upgrade is that the Bluetooth functionality survived the upgrade! However, there has been at least one "negative": The BT speaker no longer automatically connects following a 'reboot'; I'll troubleshoot this once I have some time. AFAIK now, the procedures in this recipe remain valid for a "fresh" 'trixie' install, but again I'll likely update/refresh/revise (or rewrite) this recipe after doing a fresh install. So - until then ...
+
+In-Place Upgrade URL:
+https://github.com/seamusdemora/PiFormulae/blob/master/PackageMaintenance.md#perform-an-in-place-version-upgrade
+```
+
+
+
 Any of you that have followed my misadventures on [Stack Exchange](https://raspberrypi.stackexchange.com/users/83790/seamus?tab=profile) will know that I have struggled [off-and-on for **years**](https://raspberrypi.stackexchange.com/questions/116819/bluetooth-blues-redux) trying to get my Raspberry Pi OS 'Lite' to play audio over Bluetooth. This frustration came to a head recently during a [dialog with the RPi staff on GitHub](https://github.com/RPi-Distro/repo/issues/369). This was (and is) a simple case of ***corporate irresponsibility***!  I got more than a little fed up with the nonsense from *some of* the Raspberry Pi maintainers.  It wasn't an abusive exchange - but it was *pointed*. Pointed enough that I was "banned" from their GitHub site - apparently *"for life"*.  Wow!... This is one thin-skinned bunch of assholes! 
 
 And Raspberry Pi is not like other *open-source* projects - this organization makes a tidy profit from the sale of devices, and supporting their industrial customer base. Consequently, they have an obligation to support the items they sell!  Imagine that you have a profitable business selling Raspberry Pi hardware. You *should realize* that part and parcel of that business is producing and maintaining a certain amount of **software**. But then you allow some of your employees to *lord it over* users/customers. IMO, their attitude is _**all wrong!**_ Unlike many other *open source* projects, **_Raspberry Pi provides nothing for free_**!  To close this [*brouhaha*](https://dictionary.cambridge.org/dictionary/english/brouhaha): I'm sick and tired of _arses_ who refuse to support their own software product because they deem it to be *niche*. \<END OF RANT\>
