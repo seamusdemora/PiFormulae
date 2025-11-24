@@ -17,7 +17,13 @@
 ```
 Foreword:
 ---------
-This "recipe" was written for the 'bookworm' RPi OS distro. Consequently, its relevance is fading. In my case, I have recently upgraded my RPi 3A+ system from 'bookworm' to 'trixie' (ref 'In-Place Upgrade UR' below). The (mostly) positive experience from that in-place upgrade is that the Bluetooth functionality survived the upgrade! However, there has been at least one "negative": The BT speaker no longer automatically connects following a 'reboot'; I'll troubleshoot this once I have some time. AFAIK now, the procedures in this recipe remain valid for a "fresh" 'trixie' install, but again I'll likely update/refresh/revise (or rewrite) this recipe after doing a fresh install. So - until then ...
+This "recipe" was written for the 'bookworm' RPi OS distro. Consequently, its relevance is fading. In my case, 
+I have recently upgraded my RPi 3A+ system from 'bookworm' to 'trixie' (ref 'In-Place Upgrade UR' below). 
+The (mostly) positive experience from that in-place upgrade is that the Bluetooth functionality survived the upgrade! 
+However, there has been at least one "negative": The BT speaker no longer automatically connects following a 
+'reboot'; I'll troubleshoot this once I have some time. AFAIK now, the procedures in this recipe remain valid for a 
+"fresh" 'trixie' install, but again I'll likely update/refresh/revise (or rewrite) this recipe after doing a fresh 
+install. So - until then ...
 
 In-Place Upgrade URL:
 https://github.com/seamusdemora/PiFormulae/blob/master/PackageMaintenance.md#perform-an-in-place-version-upgrade
