@@ -15,8 +15,8 @@
 ---
 
 ```
-Foreword:
----------
+Foreword: (dtd 20251124)
+------------------------
 This "recipe" was written for the 'bookworm' RPi OS distro. Consequently, its relevance is fading. In my case, I 
 have recently upgraded my RPi 3A+ system from 'bookworm' to 'trixie' (ref 'In-Place Upgrade URL' below). The 
 (mostly) positive experience from that in-place upgrade is that the Bluetooth functionality survived the upgrade! 
