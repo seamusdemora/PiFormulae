@@ -1,6 +1,6 @@
 # Running `fsck` on the Raspberry Pi 
 
-[`fsck`](https://en.wikipedia.org/wiki/Fsck) is a system utility that performs a *file system consistency check*.  In *my experience*, running `fsck` on the Raspberry Pi is rarely useful. However, if you don't have a backup of your filesystem, you have nothing to lose by trying. 
+[`fsck`](https://en.wikipedia.org/wiki/Fsck) is a system utility that performs a *file system consistency check*.  In *my experience*, running `fsck` on the Raspberry Pi is rarely useful. However, if you've run into problems, and you don't have a backup of your filesystem, you have nothing to lose by trying. 
 
 As a fine point, `fsck` simply calls `e2fsck` to do the real work. In current versions of the RPi OS, `fsck` serves as a _"wrapper"_ or _"front-end"_ to provide _legacy_ support. Note that calling `fsck` will get the job done in _most cases_, but it may not be capable of passing all of the _options_ you wish to use with `e2fsck`. Note also that `fsck` (and `e2fsck`) *can not run on a mounted file system*. There are options, but the most straightforward method for running `fsck` on a root filesystem (`/`) is to run it during the boot process - before the root filesystem is mounted.
 
