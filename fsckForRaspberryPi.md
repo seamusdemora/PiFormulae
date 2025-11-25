@@ -1,12 +1,12 @@
 # Running `fsck` on the Raspberry Pi 
 
-[`fsck`](https://en.wikipedia.org/wiki/Fsck) is a system utility that performs a *file system consistency check*.  In *my experience*, running `fsck` on the Raspberry Pi is rarely useful. However, if you've run into problems, and you don't have a backup of your filesystem, you have nothing to lose by trying. 
+[`fsck`](https://en.wikipedia.org/wiki/Fsck) is a system utility that performs a *file system consistency check*.  In *my experience*, running `fsck` on the Raspberry Pi is rarely useful. However, if you've run into problems, and you don't have a backup of your filesystem, you have nothing to lose by trying; e.g. for an `ext4` filesystem, run `e2fck -p`. 
 
-As a fine point, `fsck` simply calls `e2fsck` to do the real work. In current versions of the RPi OS, `fsck` serves as a _"wrapper"_ or _"front-end"_ to provide _legacy_ support. Note that calling `fsck` will get the job done in _most cases_, but it may not be capable of passing all of the _options_ you wish to use with `e2fsck`. Note also that `fsck` (and `e2fsck`) *can not run on a mounted file system*. There are options, but the most straightforward method for running `fsck` on a root filesystem (`/`) is to run it during the boot process - before the root filesystem is mounted.
+As a fine point, `fsck` simply calls `e2fsck` to do the real work - at least for `ext4` filesystems. In current versions of the RPi OS, `fsck` serves as a _"wrapper"_ or _"front-end"_ to provide _legacy_ support. Note that calling `fsck` will get the job done in _most cases_, but it may not be capable of passing all of the _options_ you wish to use with `e2fsck`. Note also that `fsck` (and `e2fsck`) *can not run on a mounted file system*. There are options, but the most straightforward method for running `fsck` on a root filesystem (`/`) is to run it during the boot process - before the root filesystem is mounted. An alternative is to remove the SD card, insert it into a [USB-microSD adapter](https://duckduckgo.com/?t=ffab&q=USB%20to%20micro%20SD%20adapter&ia=images&iax=images), and plug the adapter & questionable SD card into another RPi/linux computer.
 
 That said, and given that RPi OS uses `systemd` here's the **recommended** way to run `fsck` on every boot:
 
-### Recommended: Use your editor to add the following line to `/boot/cmdline.txt`:
+### Recommended: Use your editor to add the following line to `/boot/cmdline.txt` *or* `/boot/firmware/cmdline.txt`:
 
 > fsck.mode=force
 
