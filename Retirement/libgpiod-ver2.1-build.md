@@ -1,3 +1,7 @@
+```
+This (gpio library) does not seem to be moving forward at a reasonable pace, and so it is being "Retired".
+
+```
 ## Building libgpiod-ver2.1 on a *bullseye* system
 
 This *recipe* is for building the latest version of `libgpiod` on a `bullseye` system (aka `.oldstable` as of Dec 2023). 
