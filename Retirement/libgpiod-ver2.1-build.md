@@ -1,6 +1,8 @@
 ```
 This (gpio library) does not seem to be moving forward at a reasonable pace, and so it is being "Retired".
-
+The 'pinctrl' utility OTOH seems straightforward and easy to use for simple control of GPIO resources.
+For other GPIO functions (e.g. I2C, PWM, etc), libgpiod is completely useless, and these other functions
+  still depend upon the 'sysfs' interface - or, alternatively using the 'WiringPi' package.
 ```
 ## Building libgpiod-ver2.1 on a *bullseye* system
 
