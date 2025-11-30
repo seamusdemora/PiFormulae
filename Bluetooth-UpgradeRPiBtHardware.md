@@ -163,5 +163,8 @@ The only thing I've found that makes this process any simpler is to do it ***as 
    Jul 29 06:25:10 rpi3a bluetoothd[604]: Endpoint unregistered: sender=:1.34 path=/MediaEndpoint/A2DPSource/opus_05_duplex
    ```
 
-This all looks good, and in fact it was. I was able to begin playing music immediately. A fairly straightforward hardware upgrade. And how's it working? So far, so good... I'll post any revelations as follow-ups to this recipe. 
+### What has your experience been using the dongle? 
+
+* **July 30, 2024:** This all looks good, and in fact it was. I was able to begin playing music immediately. A fairly straightforward hardware upgrade. And how's it working? So far, so good... I'll post any revelations as follow-ups to this recipe.
+* **Nov 27, 2025:** This (RPi 3A+) system was upgraded from 'bookworm' to 'trixie' about a month ago. The [Edimax BT dongle](https://www.edimax.com/edimax/merchandise/merchandise_detail/data/edimax/global/bluetooth/bt-8500/) has been 100% reliable since then. Out of curiosity, I decided to _"revert"_ to the native/in-built BT hardware: I removed the Edimax dongle, and removed the `dtoverlay=disable-bt` from `/boot/firmware/config.txt`. The following day, while listening to music, playback suddenly stopped, the `cmus` app appeared to "lock up", and I lost control of the RPi (SSH was non-op). I could find no "smoking gun" in `dmesg` or `journalctl`. A re-boot resolved it, but I decided to restore the Edimax setup! 
 
