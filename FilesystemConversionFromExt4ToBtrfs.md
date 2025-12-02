@@ -1,6 +1,6 @@
 ## Converting ext4 to btrfs Filesystem & Related Matters
 
-If you're interested in trying the `btrfs` filesystem (as an alternative to `ext4`) on your Raspberry Pi, you've come to the right place. This procedure assumes your system is running the ***trixie*** release of RPi OS. If you're running another OS, you're welcome to ***try*** this procedure, but please keep in mind that it was written for RPi OS 'trixie' running on RPi hardware. FWIW, the "target" system hardware here is an [RPi Zero 2W](https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/), but the conversion procedure should work for any system.
+If you're interested in trying the `btrfs` filesystem (as an alternative to `ext4`) on your Raspberry Pi, you've come to ~~the right~~ ***some*** place. This procedure assumes your system is running the ***trixie*** release of RPi OS. If you're running another OS, you're welcome to ***try*** this procedure, but please keep in mind that it was written for RPi OS 'trixie' running on RPi hardware. FWIW, the "target" system hardware here is an [RPi Zero 2W](https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/), but the conversion procedure should work for any system.
 
 Let's get to it... As currently written this procedure uses two (2) RPis. However, it's also *"do-able"* on a single system. I have done this *`btrfs` conversion* by creating new partitions on a 2nd SD card, and using `rsync` to copy from the original `ext4` *source* SD. An alternative to that approach is to use the `btrfs-convert` utility (p/o the `btrfs-progs` package) on the un-mounted  `ext4` *source* partition. I've elected not to include that alternative here, but if you're interested, let me know; I'll clean it up and post it here.  
 
@@ -274,6 +274,10 @@ Again, I used two RPis here for my convenience. I refer to these two RPis as the
       ```
     
     *C'est terminé*! ... You should now be able to remove **SD2** from the **SUPPORT RPi**, insert it into the **TARGET RPi** and boot from it. And a quick comment on the above changes: Note that I used `LABEL`s instead of `PARTUUID`s. That's just a personal preference; you may use `PARTUUID` (or something else in **`ls -l /dev/disk`**, or via the **`blkid`** command). If I had hundreds of RPi, constantly swapping SD cards, I suppose I might find `PARTUUID`s useful... for my present purposes, `LABEL`s *mostly* work fine.  :) 
+
+### Summary: 
+
+Hopefully, you now have a working (boot-able) `btrfs` on your RPi. And now that you're here, you may be wondering, *"OK... what next?"* Well, that's a good question, but unfortunately I don't have a good answer at present - other than, *"use it as it is - instead of `ext4`"* ! So far, I've not found switching to `btrfs` a big change at all... everything I did under `ext4` I am still able to do under `btrfs`.  However - I am currently *exploring* some alternatives... I hope to have something more intelligent to say soon, but as of now - not much. I'll also *opine* that the vast majority of documentation on `btrfs`, and how to use it (e.g. for *"snapshots"*) to be [inscrutable](https://www.merriam-webster.com/dictionary/inscrutable) [gobbledygook](https://dictionary.cambridge.org/dictionary/english/gobbledygook).  Put another way, in one of the many pieces I've read recently, the author simply stated it this way, *"Taking snapshots with btrfs is easy; managing those snapshots is not"*. 
 
 ### Notes:
 
