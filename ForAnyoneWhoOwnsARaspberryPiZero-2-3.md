@@ -27,7 +27,7 @@ sudo dpkg -i rpi-eeprom_1.0_all.deb
 
 There's apparently not much documentation on `equivs`; this [Debian package description](https://packages.debian.org/sid/equivs) is all I could find. The manuals are `man equivs-control` and `man equivs-build`. And of course you can `apt purge equivs` to recover the space on your SD card. You can keep the `rpi-eeprom_1.0_all.deb` file for use on other systems. 
 
-#### *A word on disaster recovery:* 
+#### *A word on disaster recovery:*
 
 For those (like me) who used `dpkg` to force the removal of `rpi-eeprom` : 
 
@@ -35,7 +35,7 @@ For those (like me) who used `dpkg` to force the removal of `rpi-eeprom` :
 sudo dpkg --remove --force-depends rpi-eeprom
 ```
 
-You will soon discover that this breaks your package system in a way that prevents you from using `apt` to install any new packages! Here's how to recover from this disaster:
+You will soon discover that this breaks your package system in a way that prevents you from using `apt` to install any new packages! Here's one way to recover from this disaster; another way would possibly have been to re-install `rpi-eeprom` (but we learn nothing from that!) :
 
 ```bash
 cd /var/lib/dpkg
@@ -49,7 +49,7 @@ And finally, in the *"for whatever it's worth"* column, another use for `dpkg` &
 
 ```bash
 dpkg -L rpi-eeprom
-# gives you everything, you can filter the output in the usual wys; e.g.
+# ⬆︎ gives you everything; you can filter the output in the usual wa☝️ys; e.g.
 dpkg -L rpi-eeprom | xargs file | grep executable 
 /usr/bin/rpi-bootloader-key-convert:    Python script, ASCII text executable
 /usr/bin/rpi-eeprom-config:             Python script, ASCII text executable
