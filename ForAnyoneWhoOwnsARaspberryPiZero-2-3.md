@@ -1,6 +1,6 @@
 ## For anyone who owns a Raspberry Pi Zero, 2 or 3: 
 
-Do you get tired of supporting the `rpi-eeprom` tool that came with the default install given that **your RPi does not have an EEPROM**? `rpi-eeprom` takes about 25MB of space on your SD card, and for some reason is frequently updated. 
+Do you get tired of supporting the `rpi-eeprom` tool that came with the default install given that **your RPi does not have an EEPROM**? `rpi-eeprom` takes about 50MB of space on your SD card, and for some reason is frequently updated. 
 
 You can "mark" `rpi-eeprom` to prevent it from being upgraded: 
 
