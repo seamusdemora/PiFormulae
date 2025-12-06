@@ -25,7 +25,7 @@ equivs-build rpi-eeprom.control
 sudo dpkg -i rpi-eeprom_99_all.deb
 ```
 
-There's apparently not much documentation on `equivs`; this [Debian package description](https://packages.debian.org/sid/equivs) is all I could find. The manuals are `man equivs-control` and `man equivs-build`. And of course you can `apt purge equivs` to recover the space on your SD card. You can keep the `rpi-eeprom_1.0_all.deb` file for use on other systems. 
+There's apparently not much documentation on `equivs`; this [Debian package description](https://packages.debian.org/sid/equivs) is all I could find. The manuals are `man equivs-control` and `man equivs-build`. And of course you can `apt purge equivs` to recover the space on your SD card. You can keep the `rpi-eeprom_99_all.deb` file for use on other systems. 
 
 #### *A word on disaster recovery:*
 
