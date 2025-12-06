@@ -26,7 +26,7 @@ a "fresh" 'trixie' install, but again I'll likely update/refresh/revise (or rewr
 fresh install. So - until then ...
 
 In-Place Upgrade URL:
-https://github.com/seamusdemora/PiFormulae/blob/master/PackageMaintenance.md#perform-an-in-place-version-upgrade
+https://github.com/seamusdemora/PiFormulae/blob/master/InPlaceUpgrade-FromBookwormToTrixie.md 
 ```
 
 
