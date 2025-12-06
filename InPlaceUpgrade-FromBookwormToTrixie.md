@@ -137,20 +137,32 @@ I hoped to avoid this section, but I'll itemize the post-upgrade issues here as 
 
    So - what should I do to fix this? On this point, I'm not sure even being an *astute* and *frequent* practitioner of `systemd-journald` would be of much help... One can change the default value of the applicable parameter (`#Storage=auto`) in `/etc/systemd/journald.conf`, ***but this will have absolutely no effect!*** 
 
-   This is because *"The Raspberries"* elected to put the controlling parameter definition in a rather odd place: `/usr/lib/systemd/journald.conf.d/40-rpi-volatile-storage.conf`. In that file the over-riding default is declared: **`Storage=volatile`** !  [RedHat (creator of `systemd`) says](https://learn.redhat.com/t5/Platform-Linux/Systemd-Unit-Files/td-p/46999), *" the /etc/systemd/system/ configuration directories take precedence over unit files in /usr/lib/systemd"*, but **note carefully** that the `journald.conf` file is in **`/etc/systemd` - ** ***not in*** **`/etc/systemd/system`** !  The mind boggles at the `systemd` [arcanery](https://www.merriam-webster.com/dictionary/arcane). 
+   This is because *"The Raspberries"* elected to put the controlling parameter definition in a rather odd place: `/usr/lib/systemd/journald.conf.d/40-rpi-volatile-storage.conf`. In that file the over-riding default is declared: **`Storage=volatile`** !  [RedHat (creator of `systemd`) says](https://learn.redhat.com/t5/Platform-Linux/Systemd-Unit-Files/td-p/46999), *" the /etc/systemd/system/ configuration directories take precedence over unit files in /usr/lib/systemd"*, but **note carefully** that the `journald.conf` file is in **`/etc/systemd` - ** ***not in*** **`/etc/systemd/system`** !  This decision also appears to be in contravention to the `systemd` author's recommendation in `/etc/systemd/journald.conf` for over-riding defaults with a *drop-in file* added to `/etc/systemd/journald.conf.d/`.  The mind boggles at the `systemd` [arcanery](https://www.merriam-webster.com/dictionary/arcane).
 
    Anyway - all that said, these appear to be the choices for repairing the damage: 
 
    1. Change `Storage=volatile` to `Storage=persistent` in `/usr/lib/systemd/journald.conf.d/40-rpi-volatile-storage.conf` 
    2. Delete the file  `/usr/lib/systemd/journald.conf.d/40-rpi-volatile-storage.conf`, and use `/etc/systemd/journald.conf` (like a normal person  :)
-   3. Add a folder & file at `/etc/systemd/journald.conf.d/99-raspi-config-journal-storage.conf` with two lines: `[Journal]` and `Storage=persistent`.
+   3. Add a folder & file at `/etc/systemd/journald.conf.d/999-raspi-config-journal-storage.conf` with two lines: `[Journal]` and `Storage=persistent`.
    4. Use `raspi-config` to set persistent storage under the "Advanced" options.   :| 
 
-   There are probably many more options (this is `systemd` after all). I wonder about the *permanence* of 1. and 2. during a `systemd` upgrade, and I dislike `raspi-config` due to its chronic unreliability. That leaves 3. as perhaps the best choice for permanence. 
+   There are probably many more options (this is `systemd` after all). I wonder about the *permanence* of 1. and 2. during a `systemd` upgrade, and I dislike `raspi-config` due to its chronic unreliability. That leaves 3. as perhaps the best choice for **permanence**. 
+   
+   Before leaving this, I want to share this - from my collection of *"The 17 Most Arcane Systemd Commands Ever Known"* :) 
+   
+   ```bash
+   systemd-analyze cat-config systemd/journald.conf
+   ```
+   
+   Try it... it enumerates in fine detail every file in your system that has a role in determining exactly how `journald` is configured. 
 
 
 
 ### References:
 
 1. [RedHat systemd documentation](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/chap-managing_services_with_systemd)  
-2. [Forum: Trixie: Storage in journal is now "volatile"](https://forums.raspberrypi.com/viewtopic.php?t=392855#p2343280) 
+2. [systemd.io documentation of `systemd`](https://systemd.io/) 
+3. [GitHub Issue: systemd journal config changed from Storage=auto to Storage=volatile](https://github.com/raspberrypi/bookworm-feedback/issues/415) 
+4. [Forum: Trixie: Storage in journal is now "volatile"](https://forums.raspberrypi.com/viewtopic.php?t=392855#p2343280) 
+5. [blog post: Locating Systemd Unit Files: /etc/systemd/system vs. /usr/lib/systemd/system](https://dohost.us/index.php/2025/07/30/locating-systemd-unit-files-etc-systemd-system-vs-usr-lib-systemd-system/) 
+6. [blog post: What is `systemd`](https://www.baeldung.com/linux/systemd)
