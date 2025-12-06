@@ -137,7 +137,7 @@ I hoped to avoid this section, but I'll itemize the post-upgrade issues here as 
 
    So - what should I do to fix this? On this point, I'm not sure even being an *astute* and *frequent* practitioner of `systemd-journald` would be of much help... One can change the default value of the applicable parameter (`#Storage=auto`) in `/etc/systemd/journald.conf`, ***but this will have absolutely no effect!*** 
 
-   This is because *"The Raspberries"* elected to put the controlling parameter definition in a rather odd place: `/usr/lib/systemd/journald.conf.d/40-rpi-volatile-storage.conf`. In that file the over-riding default is declared: **`Storage=volatile`** !  [RedHat (creator of `systemd`) says](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html/using_systemd_unit_files_to_customize_and_optimize_your_system/working-with-systemd-unit-files), *" the /etc/systemd/system/ configuration directories take precedence over unit files in /usr/lib/systemd"*, but **note carefully** that the `journald.conf` file is in **`/etc/systemd` - ** ***not in*** **`/etc/systemd/system`** !  The mind boggles at the `systemd` [arcanery](https://www.merriam-webster.com/dictionary/arcane). 
+   This is because *"The Raspberries"* elected to put the controlling parameter definition in a rather odd place: `/usr/lib/systemd/journald.conf.d/40-rpi-volatile-storage.conf`. In that file the over-riding default is declared: **`Storage=volatile`** !  [RedHat (creator of `systemd`) says](https://learn.redhat.com/t5/Platform-Linux/Systemd-Unit-Files/td-p/46999), *" the /etc/systemd/system/ configuration directories take precedence over unit files in /usr/lib/systemd"*, but **note carefully** that the `journald.conf` file is in **`/etc/systemd` - ** ***not in*** **`/etc/systemd/system`** !  The mind boggles at the `systemd` [arcanery](https://www.merriam-webster.com/dictionary/arcane). 
 
    Anyway - all that said, these appear to be the choices for repairing the damage: 
 
@@ -148,3 +148,9 @@ I hoped to avoid this section, but I'll itemize the post-upgrade issues here as 
 
    There are probably many more options (this is `systemd` after all). I wonder about the *permanence* of 1. and 2. during a `systemd` upgrade, and I dislike `raspi-config` due to its chronic unreliability. That leaves 3. as perhaps the best choice for permanence. 
 
+
+
+### References:
+
+1. [RedHat systemd documentation](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/chap-managing_services_with_systemd)  
+2. [Forum: Trixie: Storage in journal is now "volatile"](https://forums.raspberrypi.com/viewtopic.php?t=392855#p2343280) 
