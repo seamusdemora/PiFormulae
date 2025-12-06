@@ -49,7 +49,7 @@ And finally, in the *"for whatever it's worth"* column, another use for `dpkg` &
 
 ```bash
 dpkg -L rpi-eeprom
-# ⬆︎ gives you everything; you can filter the output in the usual wa☝️ys; e.g.
+# ⬆︎ gives you everything; you can filter the output in the usual ways; e.g.
 dpkg -L rpi-eeprom | xargs file | grep executable 
 /usr/bin/rpi-bootloader-key-convert:    Python script, ASCII text executable
 /usr/bin/rpi-eeprom-config:             Python script, ASCII text executable
