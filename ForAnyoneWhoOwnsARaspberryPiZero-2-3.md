@@ -64,7 +64,7 @@ Version: 28.9-1
 Priority: optional
 Section: misc
 Maintainer: Tim Gover <tim.gover@raspberrypi.com>
-*Installed-Size: 49.6 MB
+*Installed-Size: 49.6 MB     # my notation
 Provides: rpi-eeprom-images
 Depends: raspi-utils, python3, binutils, pciutils, python3-pycryptodome
 Recommends: flashrom
@@ -83,7 +83,7 @@ Status: install ok installed
 Priority: optional
 Section: misc
 Maintainer: Equivs Dummy Package Generator <pi@rpi2w>
-*Installed-Size: 9,216 B
+*Installed-Size: 9,216 B    # my notation;  49.6 MB  vs.  0.009 MB
 Download-Size: unknown
 APT-Manual-Installed: yes
 APT-Sources: /var/lib/dpkg/status
