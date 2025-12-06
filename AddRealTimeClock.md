@@ -15,7 +15,7 @@ So the RTC alone does not, by itself, enable off-grid operation. The "system" mu
 
 After a brief market survey, I selected a DS3231 real time clock (RTC) module found on **eBay**. At this point I really knew next-to-nothing, but the [DS3231](https://www.maximintegrated.com/en/products/analog/real-time-clocks/DS3231.html) seemed to be in wide use, it seemed to have greater flexibility and accuracy than many of the alternatives. And a DS3231 module was available on eBay for about $3. It actually worked - at least partly. I subsequently learned that my eBay RTC was made with a counterfeit DS3231 - a *word to the wise*. My next RTC module was purchased from [Adafruit](https://www.adafruit.com/product/3013), and that is the one used in this recipe. 
 
-This balance of this recipe is divided in two parts: **RTC Integration**, and **RTC Power Control**. The first part covers general usage of the RTC including RTC configuration for general timekeeping, and configuration of the I2C interface between the RPi and the RTC module. The second part includes a working example for using the RTC for energy conservation - as in an off-grid application where power consumption must be managed. 
+The balance of this recipe is divided in two parts: **RTC Integration**, and **RTC Power Control**. The first part covers general usage of the RTC including RTC configuration for general timekeeping, and configuration of the I2C interface between the RPi and the RTC module. The second part includes a working example for using the RTC for energy conservation - as in an off-grid application where power consumption must be managed. 
 
 ## RTC Integration  
 This is fairly detailed - I wrote this as I did it. I've included some steps that are peripheral, and some that may seem trivial. If you know what you're doing, feel free to skim through.
@@ -129,9 +129,11 @@ This is fairly detailed - I wrote this as I did it. I've included some steps tha
 
 15. If your RPi has network connectivity, the `hwclock` time may have already been adjusted by the time you check it. If not, you may manually update the hwclock as follows: 
 
-      ```bash
-      $ sudo hwclock -w
-      ```
+         ```bash
+         $ sudo hwclock -w
+         # --OR--
+         $ sudo hwclock --systohc			# meaning "system to hardware clock"
+         ```
 
 16. Check the status of the RTC: 
 
@@ -146,7 +148,7 @@ System clock synchronized: yes
             NTP service: active 
         RTC in local TZ: no
    ```
-      
+
 17. That concludes the basic configuration of the realtime clock. It will work silently for the most part. If you wish to verify this, disconnect the RPi from the network, or disable the RPi's timekeeping daemon.
 
 18. ***OPTIONAL:*** Move your RTC from **I2C channel 1** to **I2C channel 0** - [here's how](https://github.com/seamusdemora/PiFormulae/blob/master/MoveRTCfromI2C1-to-I2C0.md). The following section on RTC usage for Power Control assumes that **I2C0** is being used, but if you prefer/need to use **I2C1** you may alter the next step instead. 
@@ -175,29 +177,29 @@ We now cover the software and configuration settings used in this example. Again
 The example here is a simple schedule for powering the RPi: The RPi will alternate between 10 minutes of "POWER ON" time, and 10 minutes of "POWER OFF" time; i.e. a 20 minute cycle. This is arranged with 2 entries in the `root crontab`, and a small `bash` script: 
 
   In the `root crontab`: 
-  
-    
+
+
     # shutdown & power off schedule
     */20 * * * * /home/pi/setalarm.sh >> /home/pi/setalarm.log 2>&1 
-
+    
     # clear the current alarm @reboot
     @reboot sleep 10; /bin/echo "0" | tee /sys/class/rtc/rtc0/wakealarm; /bin/echo "boot time: $(/bin/date '+%D %X' -d '- 10 seconds') set wakealarm to 0" >> home/pi/setalarm.log 2>&1
-    
+
 
   Create the `setalarm.sh` script: 
-  
-    
-    #!/usr/bin/env bash
 
+
+    #!/usr/bin/env bash
+    
     # clear the current alarm
     echo "0" | tee /sys/class/rtc/rtc0/wakealarm
     echo "THE TIME IS: $(date '+%D %X')"
-
+    
     # calculate the next wakeup and then halt:
     /bin/date '+%s' -d '+ 10 minutes' | tee /sys/class/rtc/rtc0/wakealarm
     /bin/sleep 5
     /sbin/halt
-    
+
 
 After making these changes, issue a `reboot` to update the changes to `/boot/config.txt`, and your RPi should begin power-cycling itself at 10 minute intervals.
 
