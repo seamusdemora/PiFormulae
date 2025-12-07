@@ -60,11 +60,25 @@ dpkg -L rpi-eeprom | xargs file | grep executable
 
 apt show -a rpi-eeprom
 Package: rpi-eeprom
+Version: 99
+Status: install ok installed
+Priority: optional
+Section: misc
+Maintainer: Equivs Dummy Package Generator <pi@rpi2w>
+Installed-Size: 9,216 B
+Download-Size: unknown
+APT-Manual-Installed: yes
+APT-Sources: /var/lib/dpkg/status
+Description: Raspberry Pi 4/5 boot EEPROM updater
+ Checks whether the Raspberry Pi bootloader EEPROM is up-to-date and updates
+ the EEPROM.
+# ---
+Package: rpi-eeprom
 Version: 28.9-1
 Priority: optional
 Section: misc
 Maintainer: Tim Gover <tim.gover@raspberrypi.com>
-*Installed-Size: 49.6 MB     # my notation
+Installed-Size: 49.6 MB
 Provides: rpi-eeprom-images
 Depends: raspi-utils, python3, binutils, pciutils, python3-pycryptodome
 Recommends: flashrom
@@ -76,20 +90,6 @@ APT-Sources: http://archive.raspberrypi.com/debian trixie/main arm64 Packages
 Description: Raspberry Pi 4/5 boot EEPROM updater
  Checks whether the Raspberry Pi bootloader EEPROM is up-to-date and updates
  the EEPROM.
-#---
-Package: rpi-eeprom
-Version: 1.0
-Status: install ok installed
-Priority: optional
-Section: misc
-Maintainer: Equivs Dummy Package Generator <pi@rpi2w>
-*Installed-Size: 9,216 B    # my notation;  49.6 MB  vs.  0.009 MB
-Download-Size: unknown
-APT-Manual-Installed: yes
-APT-Sources: /var/lib/dpkg/status
-Description: Raspberry Pi 4/5 boot EEPROM updater
- Checks whether the Raspberry Pi bootloader EEPROM is up-to-date and updates
- the EEPROM. 
  
  # for dependencies:
  apt-cache depends rpi-eeprom
