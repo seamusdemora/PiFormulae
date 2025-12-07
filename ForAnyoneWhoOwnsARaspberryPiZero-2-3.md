@@ -1,6 +1,6 @@
 ## For anyone who owns a Raspberry Pi Zero, 2 or 3: 
 
-Do you get tired of supporting the `rpi-eeprom` tool that came with the default install given that **your RPi does not have an EEPROM**? `rpi-eeprom` takes about 50MB of space on your SD card, and for some reason is frequently updated. 
+Do you get tired of supporting the `rpi-eeprom` tool that came with the default install given that **your RPi does not have an EEPROM**? `rpi-eeprom` takes about 50MB of space on your SD card, and for some reason, it is _very frequently_ updated. Are there any options for dealing with this?
 
 You can "mark" `rpi-eeprom` to prevent it from being upgraded: 
 
@@ -8,7 +8,7 @@ You can "mark" `rpi-eeprom` to prevent it from being upgraded:
 sudo apt-mark hold rpi-eeprom
 ```
 
-This may save a little bandwidth, but the app itself remains on your system. And you cannot "remove" `rpi-eeprom` due to some [*questionable* dependencies](https://github.com/raspberrypi/rpi-eeprom/issues/622). 
+This may save a little bandwidth, but the app itself remains on your system. And you cannot "remove" `rpi-eeprom` due to some [*questionable* dependencies](https://github.com/raspberrypi/rpi-eeprom/issues/622)... Chief Know-Nothing has spoken!
 
 This solution won't appeal to everyone, but I ***love it***. Here's the procedure: 
 
