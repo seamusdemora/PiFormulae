@@ -8,8 +8,9 @@ managing the "backend" duties. 'pipewire' has been *transformative* for
 music over Bluetooth. This system "survived" an in-place upgrade from 
 'bookworm' to 'trixie', and never failed to play reliably. The only hitch was
 that the BT speaker failed to automatically connect after reboot. I found 
-this was due to a bogus drop-in file I had left in '~/.config/pipewire/pipewire.conf.d'. After cleaning that up, everything 
-worked as it did before the upgrade. 
+this was due to a bogus drop-in file I had forgotten about. 
+... in '~/.config/pipewire/pipewire.conf.d'. 
+After cleaning that up, everything worked as it did before the upgrade. 
 ```
 
 
