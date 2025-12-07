@@ -216,7 +216,8 @@ After making these changes, issue a `reboot` to update the changes to `/boot/con
 7. [RPi Python Programming 25 – Synchronous serial communication in Raspberry Pi using I2C protocol](https://www.engineersgarage.com/articles-raspberry-pi-i2c-bus-pins-smbus-smbus2-python/) 
 8. [Using the second (I2C 0) port on a Raspberry Pi 3B](https://www.youtube.com/watch?v=FUAiELC76aw) - a YouTube "how-to" for the RPi 3B.
 9. [The `raspi-gpio` tool GitHub repo](https://github.com/RPi-Distro/raspi-gpio) - not necessarily useful for I2C, but for GPIO; incl [Pi4 support?](https://github.com/RPi-Distro/raspi-gpio/commit/80fa7d04eafb3ea34fc6f2d32de5f1873b5fb369) 
-10. [Enabling and checking I2C on the Raspberry Pi using the command line for your own scripts](https://pi3g.com/2021/05/20/enabling-and-checking-i2c-on-the-raspberry-pi-using-the-command-line-for-your-own-scripts/); Useful!
+10. [Enabling and checking I2C on the Raspberry Pi using the command line for your own scripts](https://pi3g.com/2021/05/20/enabling-and-checking-i2c-on-the-raspberry-pi-using-the-command-line-for-your-own-scripts/); Useful! 
+11. [blog post: Set and keep time in sync on Debian using systemd-timesyncd](https://en.linuxportal.info/tutorials/system-management/how-to-set-and-keep-the-exact-time-in-sync-on-your-debian-computer-using-systemd-timesyncd) 
 
 
 
