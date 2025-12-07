@@ -45,7 +45,7 @@ $ sudo cp -a status status-backup
 # save the file and exit; you should now be able to install (e.g. 'equivs')
 ```
 
-#### FWIW:
+#### *FWIW:*
 
 And finally, in the *"for whatever it's worth"* column, another use for `dpkg` & `apt` is to examine packages (e.g. `rpi-eeprom`): 
 
