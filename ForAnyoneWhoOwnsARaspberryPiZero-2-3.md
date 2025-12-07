@@ -13,16 +13,16 @@ This may save a little bandwidth, but the app itself remains on your system. And
 This solution won't appeal to everyone, but I ***love it***. Here's the procedure: 
 
 ```bash 
-sudo apt update
-sudo apt install equivs
-equivs-control rpi-eeprom.control
-sed -i 's/<package name; defaults to equivs-dummy>/rpi-eeprom/g' rpi-eeprom.control
+$ sudo apt update
+$ sudo apt install equivs
+$ equivs-control rpi-eeprom.control
+$ sed -i 's/<package name; defaults to equivs-dummy>/rpi-eeprom/g' rpi-eeprom.control
 # edit rpi-eeprom.control to change the default Version
 # From: 	# Version: <enter version here; defaults to 1.0>
 # To: 		Version: 99
 # save file & exit editor
-equivs-build rpi-eeprom.control
-sudo dpkg -i rpi-eeprom_99_all.deb
+$ equivs-build rpi-eeprom.control
+$ sudo dpkg -i rpi-eeprom_99_all.deb
 ```
 
 There's apparently not much documentation on `equivs`; this [Debian package description](https://packages.debian.org/sid/equivs) is all I could find. The manuals are `man equivs-control` and `man equivs-build`. And of course you can `apt purge equivs` to recover the space on your SD card. You can keep the `rpi-eeprom_99_all.deb` file for use on other systems. 
@@ -32,25 +32,29 @@ There's apparently not much documentation on `equivs`; this [Debian package desc
 For those (like me) who used `dpkg` to force the removal of `rpi-eeprom` : 
 
 ```bash
-sudo dpkg --remove --force-depends rpi-eeprom
+$ sudo dpkg --remove --force-depends rpi-eeprom
 ```
 
 You will soon discover that this breaks your package system in a way that prevents you from using `apt` to install any new packages! Here's one way to recover from this disaster; another way would possibly have been to re-install `rpi-eeprom` (but we learn nothing from that!) :
 
 ```bash
-cd /var/lib/dpkg
-sudo cp -a status status-backup
+$ cd /var/lib/dpkg
+$ sudo cp -a status status-backup
 # open file "status" in an editor, find and delete references to rpi-eeprom
 # in any line that starts with "Recommends:", or "Depends"
 # save the file and exit; you should now be able to install (e.g. 'equivs')
 ```
 
+#### FWIW:
+
 And finally, in the *"for whatever it's worth"* column, another use for `dpkg` & `apt` is to examine packages (e.g. `rpi-eeprom`): 
 
 ```bash
-dpkg -L rpi-eeprom
+$ dpkg -L rpi-eeprom
 # ⬆︎ gives you everything; you can filter the output in the usual ways; e.g.
-dpkg -L rpi-eeprom | xargs file | grep executable 
+#
+# BEFORE installing the 'equivs' rpi-eeprom package:
+$ dpkg -L rpi-eeprom | xargs file | grep executable 
 /usr/bin/rpi-bootloader-key-convert:    Python script, ASCII text executable
 /usr/bin/rpi-eeprom-config:             Python script, ASCII text executable
 /usr/bin/rpi-eeprom-digest:             POSIX shell script, ASCII text executable
@@ -58,7 +62,11 @@ dpkg -L rpi-eeprom | xargs file | grep executable
 /usr/bin/rpi-otp-private-key:           POSIX shell script, ASCII text executable
 /usr/bin/rpi-sign-bootcode:             Python script, ASCII text executable
 
-apt show -a rpi-eeprom
+# # AFTER installing the 'equivs' rpi-eeprom package:
+$ dpkg -L rpi-eeprom | xargs file | grep executable
+# nothing  :) 
+
+$ apt show -a rpi-eeprom
 Package: rpi-eeprom
 Version: 99
 Status: install ok installed
@@ -92,8 +100,8 @@ Description: Raspberry Pi 4/5 boot EEPROM updater
  the EEPROM.
  
  # for dependencies:
- apt-cache depends rpi-eeprom
- apt-cache rdepends rpi-eeprom
+ $ apt-cache depends rpi-eeprom
+ $ apt-cache rdepends rpi-eeprom
 ```
 
 
