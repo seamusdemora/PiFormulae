@@ -20,15 +20,19 @@ You can use ***git*** directly from the RPi command line to create or update a G
 </thead>
 <tbody>
   <tr>
-    <td>A "consolidation" of two recipes for <code>crontab</code> into a <a href="https://github.com/seamusdemora/PiFormulae/blob/master/Cron%26Crontab-HowToUseThemEffectively.md">single recipe.</a> 
+    <td>Recent addition: <a href="https://github.com/seamusdemora/PiFormulae/blob/master/ForAnyoneWhoOwnsARaspberryPiZero-2-3.md">For Raspberry Pi models Zero, 2 and 3</a>.
     </td>
-    <td>An effort to reduce the sprawl here! 
+    <td>This recipe shows how to effectively remove the <code>rpi-eeprom</code> package using the <code>equivs</code> tool. Why?... Why not - if you don't have an EEPROM, why do you have a package called <code>rpi-eeprom</code>?
     </td>
   </tr>
   <tr>
-    <td>The latest addition to the <a href="https://github.com/seamusdemora/PiFormulae/blob/master/UsefulShellTricks.md#want-to-remove-the-rpi-eeprom-package-to-save-25mb-tough-shit-say-the-raspberries">"Useful Shell Tricks"</a> recipe.
+		<td>Recent addition: An <a href="InPlaceUpgrade-FromBookwormToTrixie.md">"In Place" upgrade from 'bookworm' to 'trixie'</a></td>
+		<td>A simpler way to upgrade your 'bookworm' systems to 'trixie'</td>
+	</tr>
+  <tr>
+    <td>Recent addition: <a href="FilesystemConversionFromExt4ToBtrfs.md">Run RPi OS with the 'btrfs' fiesystem</a>
     </td>
-    <td>A rant titled, "Want to remove the useless <code>rpi-eeprom</code> package and save 25MB?" <em>"Tough shit", say The Raspberries</em>
+    <td>Take advantage of the 'btrfs' file system's ability to create 'snapshots', and easily recover from your "big mistakes".
     </td>
   </tr>
   <tr>
@@ -38,13 +42,7 @@ You can use ***git*** directly from the RPi command line to create or update a G
     </td>
   </tr>
   <tr>
-    <td>A recent addition to the <a href="UsefulShellTricks.md">"Useful Shell Tricks"</a> recipe - on the <a href="UsefulShellTricks.md#verify-file-system-is-mounted"><code>findmnt</code></a> utility
-    </td>
-    <td>The <code>findmnt</code> utility is the <em>Swiss Army knife</em> for searching, finding and listing mounted filesystems.
-    </td>
-  </tr>
-  <tr>
-    <td>There are three (3) new recipes for Bluetooth audio on <em>bookworm Lite</em>: <a href="Bluetooth-AudioForBookwormLite.md">1</a>, <a href="Bluetooth-UpgradeRPiBtHardware.md">2</a>, <a href="Bluetooth-UsingBackportsForPipewire.md">3</a>
+    <td>There are three (3) recipes for Bluetooth audio on <em>bookworm Lite</em>: <a href="Bluetooth-AudioForBookwormLite.md">1</a>, <a href="Bluetooth-UpgradeRPiBtHardware.md">2</a>, <a href="Bluetooth-UsingBackportsForPipewire.md">3</a>
     </td>
     <td>Thanks to <code>pipewire</code>, <code>backports</code> and a hardware <em>"upgrade"</em> users now have at least three choices for <em>reliable</em> Bluetooth audio for the 'Lite'/"<em>headless</em>" version of the Raspberry Pi OS. See the Recipes (1 - 3) for Details.
       <p><b><i>Note: The "hitch" in Recipe <a href="Bluetooth-UsingBackportsForPipewire.md#Sequel">3</a> has been resolved.</i></b>
@@ -147,6 +145,7 @@ You can use ***git*** directly from the RPi command line to create or update a G
 </tr>
 </tbody>
 </table>
+
 
 
 
