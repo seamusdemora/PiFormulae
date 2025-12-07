@@ -1,4 +1,18 @@
-## Upgrade RPi Bluetooth Hardware to Improve Reliability
+## Upgrade RPi Bluetooth Hardware to Improve Reliability 
+
+```
+December, 2025 Update: 
+I am still using an RPi 3A+ with the Edimax BT dongle as my "music machine". 
+I use 'cmus' for the player software, with 'pipewire' and 'wireplumber' 
+managing the "backend" duties. 'pipewire' has been *transformative* for 
+music over Bluetooth. This system "survived" an in-place upgrade from 
+'bookworm' to 'trixie', and never failed to play reliably. The only hitch was
+that the BT speaker failed to automatically connect after reboot. I found 
+this was due to a bogus drop-in file I had left in '~/.config/pipewire/pipewire.conf.d'. After cleaning that up, everything 
+worked as it did before the upgrade. 
+```
+
+
 
 It's no secret that the Raspberry Pi was designed - first and foremost - to be [cheap](https://dictionary.cambridge.org/dictionary/english/cheap). In general, I favor that approach; it gives more people an accessible price point, and *more people = better support* (in general). But as it is with many things, *"cheap"* is a relative term; "cheap" is not the same price point for everyone. And in making the myriad tradeoffs in the design of a device such as Raspberry Pi, some of us might choose to allocate better resources in some places vs. others. 
 
