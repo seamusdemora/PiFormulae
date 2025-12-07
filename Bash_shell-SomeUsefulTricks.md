@@ -83,7 +83,7 @@
 
 *  ### RPi specific 
 
-   *  [So you want to remove `rpi-eeprom` package & save 25MB?](#want-to-remove-the-rpi-eeprom-package-to-save-25mb-tough-shit-say-the-raspberries) 
+   *  [So you want to remove `rpi-eeprom` package & save 50MB?](#want-to-remove-the-rpi-eeprom-package-to-save-25mb-tough-shit-say-the-raspberries) - a new [resolution!](https://github.com/seamusdemora/PiFormulae/blob/master/ForAnyoneWhoOwnsARaspberryPiZero-2-3.md)
    
    *  [Disable CPU cores for power saving](#disable-cpu-cores-for-power-saving) 
    
@@ -1509,6 +1509,8 @@ Personally, I feel `sftp` is better-suited to a situation where perhaps many fil
 [**⋀**](#table-of-contents)  
 
 ## Want to remove the `rpi-eeprom` package to save 25MB? ***"Tough shit"***, *say The Raspberries*
+
+#### [There's now a "recipe" with steps that resolve this ignorance-induced quandary](https://github.com/seamusdemora/PiFormulae/blob/master/ForAnyoneWhoOwnsARaspberryPiZero-2-3.md) 
 
 If you have a Raspberry Pi model Zero, 1, 2 or 3, you have no need for the `rpi-eeprom` package.  It's useful ***only*** on the RPi 4 and RPi 5 because they are the only two models with... **EEPROM**!  But if you try to use `apt` to remove (or purge) `rpi-eeprom`, you'll find that `rpi-eeprom` has been carelessly (stupidly?) packaged in such a way that several useful utilities will be swept out with it! 
 
