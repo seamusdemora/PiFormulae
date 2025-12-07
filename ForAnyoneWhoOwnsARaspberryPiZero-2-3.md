@@ -8,7 +8,7 @@ You can "mark" `rpi-eeprom` to prevent it from being upgraded:
 sudo apt-mark hold rpi-eeprom
 ```
 
-This may save a little bandwidth, but the app itself remains on your system. And you cannot "remove" `rpi-eeprom` due to some [*questionable* dependencies](https://github.com/raspberrypi/rpi-eeprom/issues/622)... Chief Know-Nothing has spoken!
+This may save a little bandwidth, but the app itself remains on your system. And you cannot "remove" `rpi-eeprom` due to some [*questionable* dependencies... Chief Know-Nothing has spoken!](https://github.com/raspberrypi/rpi-eeprom/issues/622) 
 
 This solution won't appeal to everyone, but I ***love it***. Here's the procedure: 
 
