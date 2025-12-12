@@ -124,6 +124,9 @@ This is fairly detailed - I wrote this as I did it. I've included some steps tha
 
       ```bash
       $ date +"%Y-%m-%d %T.%6N"; sudo hwclock -r
+      #
+      # NOTE: in 'trixie' you may need to install the package 'util-linux-extra' before you have the hwclock command !!
+      #
       ```
       The two times should be very "close".
 
