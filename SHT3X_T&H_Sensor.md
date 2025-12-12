@@ -140,7 +140,11 @@ The availability of the [driver documentation](https://www.kernel.org/doc/html/l
 
 **The [shell script `th.sh` is found here](source/th.sh)**; the listing below will hopefully match the source file, but please do not depend on that. 
 
-***Also note: This script depends upon a  `udev` script to keep up with the location of the `sysfs` driver file - [see this recipe for details](https://github.com/seamusdemora/PiFormulae/blob/master/Is_udev_brain-damaged.md).*** 
+***Notes:*** 
+
+***1. This script depends upon a  `udev` script to keep up with the location of the `sysfs` driver file - [see this recipe for details](https://github.com/seamusdemora/PiFormulae/blob/master/Is_udev_brain-damaged.md).***  
+
+***2. This script also requires the utility 'bc' for calculating with real numbers; therefore check for availability of 'bc' on your system and install if required; i.e. 'sudo apt install bc'*** 
 
 ```bash
 #!/usr/bin/bash
