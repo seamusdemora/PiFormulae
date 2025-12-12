@@ -45,7 +45,7 @@ As we see there are two (2) partitions, a FAT32 (from 2048 to 526335), and a Lin
 When I first tried to `mount` the two partitions, I got an "overlap" error: 
 
 ```bash
-$ sudo mkdir /mnt/loopy/boot /mnt/loopy/root
+$ sudo mkdir -p /mnt/loopy/boot /mnt/loopy/root
 $ sudo mount -o loop,offset=1048576 ./back.img /mnt/loopy/boot
 $ sudo mount -o loop,offset=269484032 ./back.img /mnt/loopy/root
 mount: /mnt/loopy/root: overlapping loop device exists for /home/pi/back.img.
