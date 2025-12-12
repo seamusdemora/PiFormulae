@@ -64,6 +64,36 @@ $ sudo mount -o loop,offset=269484032,sizelimit=2830106624 ./back.img /mnt/loopy
 # NOTE: sizelimit = 512 bytes/sector * 5527552 sectors = 2830106624 bytes 
 ```
 
+### Step 2 ALT: Easier & quicker method to create loop mount -
+
+* Check to see what loop device #s are available: 
+
+```bash
+$ losetup -f
+/dev/loop1
+```
+
+* Use `losetup` to create a loop for the entire image (all partitions):
+
+```bash
+$ sudo losetup -P /dev/loop1 /path/to/imagebackup.img
+$ # done! - you can see what just happened using 'lsblk` :
+$ lsblk --fs
+NAME        FSTYPE FSVER LABEL  UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+loop1
+├─loop1p1   vfat   FAT32 bootfs B67C-D982
+└─loop1p2   ext4   1.0   rootfs 5035e39d-cec4-4794-bbe0-12cda358425a
+mmcblk0
+├─mmcblk0p1 vfat   FAT32 bootfs EACA-13DA                             436.8M    14% /boot/firmware
+└─mmcblk0p2 ext4   1.0   rootfs 21724cc6-e5a3-48a1-8643-7917dba3a9fb   53.4G     4% /
+```
+
+* And now you can `mount` the image file partitions if you need; for example:
+
+```bash
+$ sudo mount /dev/loop1p2 /mnt/loopy/root
+```
+
 ### Step 3: Make the required changes for cloning to `back.img` 
 
 Having successfully mounted the two partitions in `back.img`, I can now make the changes I need to create the cloned SD card for the RPi 3A+. I used the editor to modify three files in `/mnt/loopy/root/etc` : `hostname`, `hosts` and `dhcpcd.conf`. When I finished, I unmounted both (`root` & `boot` ). `back.img` has now been modified! Since I use my Mac (w/ Etcher) for "burning" SD cards, I transferred the modified `back.img` file to my NAS: 
