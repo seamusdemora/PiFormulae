@@ -160,9 +160,11 @@ I hoped to avoid this section, but I'll itemize the post-upgrade issues here as 
 
 ### References:
 
-1. [RedHat systemd documentation](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/chap-managing_services_with_systemd)  
-2. [systemd.io documentation of `systemd`](https://systemd.io/) 
-3. [GitHub Issue: systemd journal config changed from Storage=auto to Storage=volatile](https://github.com/raspberrypi/bookworm-feedback/issues/415) 
-4. [Forum: Trixie: Storage in journal is now "volatile"](https://forums.raspberrypi.com/viewtopic.php?t=392855#p2343280) 
-5. [blog post: Locating Systemd Unit Files: /etc/systemd/system vs. /usr/lib/systemd/system](https://dohost.us/index.php/2025/07/30/locating-systemd-unit-files-etc-systemd-system-vs-usr-lib-systemd-system/) 
-6. [blog post: What is `systemd`](https://www.baeldung.com/linux/systemd)
+1. [Forum post: Updating to trixie](https://forums.raspberrypi.com/viewtopic.php?t=389477) - from the RPi forums
+2. [How to Upgrade from Raspberry Pi OS Bookworm to Trixie](https://pimylifeup.com/raspberry-pi-os-bookworm-to-trixie/) 
+3. [RedHat systemd documentation](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/chap-managing_services_with_systemd)  
+4. [systemd.io documentation of `systemd`](https://systemd.io/) 
+5. [GitHub Issue: systemd journal config changed from Storage=auto to Storage=volatile](https://github.com/raspberrypi/bookworm-feedback/issues/415) 
+6. [Forum: Trixie: Storage in journal is now "volatile"](https://forums.raspberrypi.com/viewtopic.php?t=392855#p2343280) 
+7. [blog post: Locating Systemd Unit Files: /etc/systemd/system vs. /usr/lib/systemd/system](https://dohost.us/index.php/2025/07/30/locating-systemd-unit-files-etc-systemd-system-vs-usr-lib-systemd-system/) 
+8. [blog post: What is `systemd`](https://www.baeldung.com/linux/systemd)
