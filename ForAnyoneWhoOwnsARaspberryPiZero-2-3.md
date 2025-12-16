@@ -145,14 +145,15 @@ Replaces: rpi-eeprom (<< 99)
 Description: I am a dummy; I was created by 'equivs'
  My function is to keep the real 'rpi-eeprom' out of a system which has no EEPROM!
  #
- # if you want to review package dependencies:
- $ apt-cache depends rpi-eeprom   # packages that rpi-eeprom depends upon
- $ apt-cache rdepends rpi-eeprom  # packages that depend upon rpi-eeprom 
- #
- # finally, didja' know there was a 'rpi-eeprom-update.service' ?!
- # 'apt remove ...' probably deletes the service, but 'apt purge' does for sure
- # systemctl status rpi-eeprom-update.service
- #	Unit rpi-eeprom-update.service could not be found.
+# if you want to review package dependencies:
+$ apt-cache depends rpi-eeprom   # packages that rpi-eeprom depends upon
+$ apt-cache rdepends rpi-eeprom  # packages that depend upon rpi-eeprom 
+#
+# finally, didja' know there was a 'rpi-eeprom-update.service' ?!
+# 'apt remove ...' probably deletes the service, but 'apt purge' does for sure
+$ systemctl status rpi-eeprom-update.service
+  	Unit rpi-eeprom-update.service could not be found.
+$
 ```
 
 
