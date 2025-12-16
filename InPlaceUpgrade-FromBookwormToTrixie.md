@@ -4,7 +4,10 @@
 
    [The Upgrade:](#the-upgrade)
 
-   [Post-Upgrade Issues:](#post-upgrade-issues)
+   [Post-Upgrade Issues:](#post-upgrade-issues) 
+
+   [References](#references)
+
 
 ### The Upgrade:
 
