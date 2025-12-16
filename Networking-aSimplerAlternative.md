@@ -33,6 +33,7 @@ $ sudo apt update
 $ sudo apt install ifupdown iproute2 wpasupplicant iw wireless-tools
 $
 # you will *probably* receive a message fm 'apt' to the effect: "already latest version"
+# if you installed 'trixie' from scratch, you'll probably need to install 'ifupdown'
 ```
 
 ### A simpler network configuration:
