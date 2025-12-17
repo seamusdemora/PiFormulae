@@ -93,7 +93,7 @@ There's not much documentation on `equivs`; this [Debian package description](ht
 
 #### *Another word on disaster recovery:*
 
-For those (like me) who used `dpkg` to force the removal of the "real" `rpi-eeprom` : 
+For those (like me) who used `dpkg` to **force** the removal of the "real" `rpi-eeprom` : 
 
 ```bash
 $ sudo dpkg --remove --force-depends rpi-eeprom
