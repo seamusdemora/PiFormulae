@@ -95,7 +95,7 @@ Say *hello* to simplicity! Here's what's required:
     ```
 
 
-4.  And that's it - that is *all the configuration required*! After editing and saving the  `/etc/network/interfaces` and `/etc/resolv.conf` files, you may `reboot`. For reasons that are not yet clear to me, I had to perform a "cold boot" (i.e. pull power, then re-apply) on some systems instead of a `reboot`. 
+4.  And that's it - that is *all the configuration required*! After editing and saving the  `/etc/network/interfaces` and `/etc/resolv.conf` files, you may `reboot`. For reasons that are not yet clear to me, I had to perform a "cold boot" (i.e. pull power, then re-apply) on some systems instead of a `reboot`. Also, these changes may cause your DHCP server to issue a new IP address (as it did on my network)... consequently, if you're connecting over SSH you may need to change from a host name to the new IP address temporarily. 
 5.  Oh - a [*word to the wise*](https://idioms.thefreedictionary.com/word+to+the+wise) before moving on. *If you are setting up a static/fixed IP address*, you should verify that it is actually working! One obvious thing to do is make an SSH connection to the fixed-IP host you've just provisioned. Another thing is to verify that this static IP host has DNS; i.e. from your SSH connection to your static-configured host try `ping www.google.com` or something similar. **A working DNS is imperative for things such as system timekeeping and `apt` !** 
 
 ### What's the point of having 'NetworkManager' around?
