@@ -1,6 +1,6 @@
 ## Networking - A simpler alternative to 'NetworkManager'
 
-If you're weary of constantly searching for the proper command to invoke some networking option in 'NetworkManager' (via `nmcli` or `nmtui`), or perhaps wondering, *"What were "The Raspberries" thinking?!"* when  they threw over the relative simplicity of `dhcpcd` for the complexity of 'NetworkManager'... ***this recipe may offer some respite***. You have two options here: 1) read some background details, or 2) [skip ahead to the implementation](#a-simpler-network-configuration).
+If you're weary of constantly searching for the proper command to invoke some networking option in 'NetworkManager' (via `nmcli` or `nmtui`), or perhaps wondering, *"What were "The Raspberries" thinking?!"* when  they threw over the relative simplicity of `dhcpcd` for the complexity of 'NetworkManager'... ***this recipe may offer some respite***. At this point, you have two options: 1) read the following Background section, or 2) [skip ahead to the implementation](#a-simpler-network-configuration).
 
 ### Background; some details and documentation
 
@@ -40,7 +40,7 @@ $
 
 Say *hello* to simplicity! Here's what's required: 
 
-1.  I'll use a WiFi configuration as an example; Ethernet is even simpler. We first create (or modify) the  `/etc/network/interfaces` file as follows: 
+1.  I'll use a WiFi configuration as an example; Ethernet is even simpler. We first create (or modify) the `/etc/network/interfaces` file as follows: 
 
       ```
         $ sudo nano /etc/network/interfaces          # open the file in your favorite editor
