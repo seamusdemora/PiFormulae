@@ -23,6 +23,7 @@
    *  [How do I see my *environment*?](#how-do-i-see-my-environment) 
    *  [What is my "Kernel Configuration"?](#what-is-my-kernel-configuration) 
    *  [How much time is required to boot your system?](#how-much-time-is-required-to-boot-your-system) 
+   *  [What is the **block size** of a filesystem/device?](#determine-the-block-size-of-a-file-system-or-device) 
 
 *  ### File operations
 
@@ -356,7 +357,32 @@ $ . ~/.bashrc             #        "
 >
 >> For example: Add a function to `~/.bashrc`: `function externalip () { curl http://ipecho.net/plain; echo; }`. Now *source* it with `. ~/.profile`. You should see that the function now works in this session. Now remove the function, and then *source* it again using `. ~/.profile`. The function is still available - only restarting (log out & in), or starting a new shell session will remove it.
 
-[**⋀**](#table-of-contents)
+[**⋀**](#table-of-contents) 
+
+## Determine the "*block size*" of a file system or device
+
+You can use the **`blockdev`** utility; it's part of GNU's [**util-linux**](https://en.wikipedia.org/wiki/Util-linux) package, and should be installed by default on most linux systems. Here's a quick quide; see the [man page](https://man7.org/linux/man-pages/man8/blockdev.8.html) (or [the *wiki*](https://wiki.linuxquestions.org/wiki/Block_devices_and_block_sizes)) for details: 
+
+Before going off *willy-nilly*, there may be some benefit to reading a bit of background on block size. In addition to `man blockdev`, this post is a reasonable summary: [Storage Block Sizes and the *blockdev* Command](https://www.baeldung.com/linux/blockdev-storage-block-size). Thus informed, following are a few examples for using **`blockdev`**: 
+
+```bash
+# begin by identifying what block devices are connected to your system:
+$ lsblk --fs
+NAME        FSTYPE FSVER LABEL  UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+mmcblk0
+├─mmcblk0p1 vfat   FAT32 bootfs B8A0-AD8C                             435.6M    15% /boot/firmware
+└─mmcblk0p2 ext4   1.0   rootfs 68f97ee1-5fbb-4ad5-b2ea-d71cbc61cad4   24.8G     9% /
+# we'll check our root filesystem:
+$ sudo blockdev --getss /dev/mmcblk0p2     # logical sector size in bytes - usually 512
+512
+$ sudo blockdev --getpbsz /dev/mmcblk0p2   # physical block (sector) size
+512 
+$ sudo blockdev --getbsz /dev/mmcblk0p2    # block size used by kernel; as modified by filesystem driver
+4096
+$
+```
+
+[**⋀**](#table-of-contents) 
 
 ## Clear the contents of a file without deleting the file
 
