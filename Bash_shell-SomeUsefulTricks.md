@@ -363,7 +363,7 @@ $ . ~/.bashrc             #        "
 
 You can use the **`blockdev`** utility; it's part of GNU's [**util-linux**](https://en.wikipedia.org/wiki/Util-linux) package, and should be installed by default on most linux systems. Here's a quick quide; see the [man page](https://man7.org/linux/man-pages/man8/blockdev.8.html) (or [the *wiki*](https://wiki.linuxquestions.org/wiki/Block_devices_and_block_sizes)) for details: 
 
-Before going off *willy-nilly*, there may be some benefit to reading a bit of background on block size. In addition to `man blockdev`, this post is a reasonable summary: [Storage Block Sizes and the *blockdev* Command](https://www.baeldung.com/linux/blockdev-storage-block-size). Thus informed, following are a few examples for using **`blockdev`**: 
+Before going off *willy-nilly*, there may be some benefit to reading a bit of background on block size. In addition to `man blockdev`, this post is a reasonable summary: [Storage Block Sizes and the *blockdev* Command](https://www.baeldung.com/linux/blockdev-storage-block-size). Thus informed, following are a few examples for using **`blockdev`**; note that `sudo` (root privileges) is required for access to a **block device**: 
 
 ```bash
 # begin by identifying what block devices are connected to your system:
