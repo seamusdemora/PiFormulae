@@ -2523,7 +2523,7 @@ The syntax may seem a little odd, but it comes in handy when used in a bash scri
 
 ## Use `ssh-copy-id` to enable SSH connections
 
-Hopefully, you are not using your password(s) to authenticate your SSH connections. If you are, you should ditch that habit in favor of using `ssh-copy-id` to copy your public key to all the server(s) you're using (see `man ssh-copy-id` for details). It's simple and secure: 
+Hopefully, you are not using password(s) to authenticate your SSH connections. If you are, you should ditch that habit in favor of using `ssh-copy-id` to copy your public key to all the server(s) you're using (see `man ssh-copy-id` for details). It's simple and secure: 
 
 1. Assuming your ***username is the same*** on your local host and the server, the very simplest (no options required) form of the command is this: 
 
