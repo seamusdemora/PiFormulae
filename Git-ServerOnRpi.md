@@ -1,10 +1,63 @@
-## Operate a Git-Server on Raspberry Pi 
+## Table of Contents:
+
+=================
+
+  \* [Operate a Git-Server on Raspberry Pi](#operate-a-git-server-on-raspberry-pi)
+
+   \* [Designation of and Access to the Git-Server](#designation-of-and-access-to-the-git-server)
+
+   \* [The Situation](#the-situation)
+
+   \* [Set Up the Repositories on the host rpigitserver; i.e. the Git-Server](#set-up-the-repositories-on-the-host-rpigitserver-ie-the-git-server)
+
+   \* [Connect to the Git-Server fm a Git-Client &amp; "source" the developed code](#connect-to-the-git-server-fm-a-git-client--source-the-developed-code)
+
+   \* [Restore 'modification time' to files in the repo](#restore-modification-time-to-files-in-the-repo)
+
+   \* [Connect another git-client to clone the repo](#connect-another-git-client-to-clone-the-repo)
+
+​     \* [ALTERNATIVELY, let's create that clone under a different folder name; i.e. something other than etc-update-motd-d.git](#alternatively-lets-create-that-clone-under-a-different-folder-name-ie-something-other-than-etc-update-motd-dgit)
+
+   \* [Update Git-Server with changes made on rpigitclient](#update-git-server-with-changes-made-on-rpigitclient)
+
+   \* [Correct erroneous commit &amp; push from rpigitclient](#correct-erroneous-commit--push-from-rpigitclient)
+
+   \* [Update a Git-Client repo from the Git-Server](#update-a-git-client-repo-from-the-git-server)
+
+   \* [Create a working tree in our Git-Server repository](#create-a-working-tree-in-our-git-server-repository)
+
+  \* [Git backups using git-bundle](#git-backups-using-git-bundle)
+
+  \* [A Summary of git Commands Used in This Recipe](#a-summary-of-git-commands-used-in-this-recipe)
+
+  \* [An Explanatory Note Re: git status](#an-explanatory-note-re-git-status)
+
+   \* [And that concludes this recipe - for today.](#and-that-concludes-this-recipe---for-today)
+
+  \* [REFERENCES:](#references)
+
+   \* [Git Worktrees:](#git-worktrees)
+
+   \* [Git - list files in repo:](#git---list-files-in-repo)
+
+   \* [git restore-mtime:](#git-restore-mtime)
+
+   \* [git bundle for backups:](#git-bundle-for-backups)
+
+
+
+<!-- Created by https://github.com/ekalinin/github-markdown-toc -->
+
+## Operate a Git-Server on Raspberry Pi
+
 Let's set up a git server on a Raspberry Pi. This server will be a *private* server for tracking code and files generated on your local network - at least that's the scope of ***my git server***. Yours may be different.
 
 ### Designation of and Access to the Git-Server
+
 Nothing special need be done to designate an RPi as a Git-Server. As long as it's got `git` installed, virtually any RPi is fit for this purpose. Simply choose one that's accessible to other hosts (RPi git-clients) on your network as the clients will need to make SSH connections to the Git-Server. Assuming you want to use public-key authentication, you'll need to copy public keys from git-clients to the git-server using `ssh-copy-id`. 
 
 ### The Situation
+
 Let's assume we have an RPi w/ hostname `rpigitserver` as the **Git-Server**, and that we have another RPi w/ hostname `rpigitclient` as one of the clients. Let's also assume that the repository we wish to maintain source control over is called `etc-update-motd-d`; this is simply a descriptive name, and need not be the same name as git folder holding the same code on the client(s). 
 
 ### Set Up the Repositories on the host `rpigitserver`; i.e. the Git-Server
@@ -255,6 +308,60 @@ $ git worktree remove motd-worktree
 # And now we're back to a 'bare' repo; a Git-Server
 ```
 
+
+
+## Git backups using `git-bundle` 
+
+This one will be fairly brief ... a very welcome respite from the typical Git operations! 
+
+There are several ways to make a backup of a Git repo. For example, I used `rsync` for years... However, I found that setting my Synology NAS as the destination kept file permissions and attributes in a constant state of change. I disliked having to read through the `rsync` log proceedings looking for something that might be amiss. Here's an [SE post on the subject of rsync backup for Git repos](https://stackoverflow.com/questions/9335079/is-rsyncing-git-repo-good-enough-backup-solution) if you're interested. 
+
+Before proceeding, let's cover some "Git nomenclature": In my home-based Git system, I have two types of Git repos: 
+
+1. **Local, "working" repos** - used for storing code generated and tested on various hosts. 
+2. **Remote, "server" repos** - used to house the central/shared copy of one or more "working" repos/projects, and used for collaboration, distribution, backups and (occasionally) for the "transfer point" to GitHub. 
+
+Lacking consistent nomenclature from "Git-world", I will refer to these two types of Git repos as "Local" repos, and "Remote" repos.
+
+The balance of this section shall briefly outline  `git-bundle` - a Git backup solution that I've only recently discovered. It seems to be a straightforward solution. Here's how I use it:  
+
+Let's assume a "Remote" repo located on the server's file system, and a generic NAS file server that acts as the off-host backup destination. The Remote repo is in the following location on the server host named `raspberrypi5`: 
+
+```bash 
+$ pwd
+/home/git/git-srv/sked_rtc.git
+#
+# so we are located in a Remote repo at the above location
+# the backup is performed as follows:
+#
+$ git bundle create backup-sked_rtc.bundle --all
+Enumerating objects: 105, done.
+Counting objects: 100% (105/105), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (88/88), done.
+Writing objects: 100% (105/105), 24.37 KiB | 2.71 MiB/s, done.
+Total 105 (delta 31), reused 0 (delta 0), pack-reused 0 (from 0)
+$ ls -l ./backup-sked_rtc.bundle			# confirm creation
+-rw-rw-r-- 1 git git-adm 25073 May 31 01:26 ./backup-sked_rtc.bundle
+$ mv ./backup-sked_rtc.bundle /mnt/SynologyNAS/rpi_share/raspberrypi5/git-srv-backup 
+$ ls -l /mnt/SynologyNAS/rpi_share/raspberrypi5/git-srv-backup/backup-sked_rtc.bundle 
+-rw-r--r-- 1 pi pi 21849 May 28 04:38 /mnt/SynologyNAS/rpi_share/raspberrypi5/git-srv-backup/backup-sked_rtc.bundle 
+# confirmed the backup "bundle" has been uploaded to the NAS
+```
+
+The backup "bundle" has been created and transferred to an off-host destination. But of course all backups should be verified, and perhaps periodically restored and tested. We verify and then restore the bundle as follows: 
+
+```bash
+$ git bundle verify backup-sked_rtc.bundle
+...
+# then restore/clone to the chosen destination:
+$ git clone backup-sked_rtc.bundle <some new directory/folder>
+```
+
+
+
+
+
 ## A Summary of `git` Commands Used in This Recipe
 
 | Client Objective: | `git` client command |
@@ -293,6 +400,11 @@ $ git worktree remove motd-worktree
 | Create a "working tree" in git server repo | `git worktree add <srv-worktree>` |
 | Designate GitHub as the 'remote' for worktree | See [this recipe](https://github.com/seamusdemora/PiFormulae/blob/master/GitForRPi-GitHub.md); perform from inside the worktree |
 | Remove a "working tree" from git server repo | `git worktree remove <srv-worktree>` |
+| Backup a Remote repo | git bundle create <bkup_name.bundle> --all |
+| Verify a backup "bundle" | git bundle verify <bkup_name.bundle> |
+| Restore a backup "bundle" | git clone <bkup_name.bundle> /where/ever |
+
+
 
 ## An Explanatory Note Re: `git status`
 
@@ -362,3 +474,10 @@ you can hide shit in here :)
 4. Install via `sudo apt install git-restore-mtime`; run command via `git restore-mtime`  
 
 5. [Debian `man git-restore-mtime`](https://manpages.debian.org/bookworm/git-restore-mtime/git-restore-mtime.1.en.html) 
+
+### git bundle for backups: 
+
+1.  [`git-bundle` official documentation](https://git-scm.com/docs/git-bundle) 
+2.  [ICYI, the "details" for `git-bundle`](https://git-scm.com/docs/gitformat-bundle) 
+
+ 
