@@ -100,6 +100,7 @@
    *  [Use the `at` command for scheduling](#how-to-use-the-at-command-for-scheduling) 
    *  [Should I use `scp`, or `sftp`?](#scp-vs-sftp) 
    *  [How to search GitHub](#how-to-search-github) 
+   *  [bat` is the new `cat](#bat-is-the-new-cat) 
 
    
 
@@ -109,7 +110,7 @@
 
 ## Tell me about my system
 
-### Hardware model: 
+### Hardware model:
 
 Stored in `/proc/cpu` for single-CPU RPi:
 
@@ -2551,9 +2552,45 @@ Hopefully, you are not using password(s) to authenticate your SSH connections. I
      
      In other words, the username is required only if it is different from the username on your local host. 
      
-      
 
 [**⋀**](#table-of-contents) 
+
+## `bat` is the new `cat`
+
+Reading a post on the [Baeldung blog](https://www.baeldung.com/linux/less-pager-syntax-highlighting) led me to discover a "newcomer" package called `bat`. It sounded worthwhile, so I installed it on one of my systems. After `man bat` failed, a [bit of research](https://packages.debian.org/trixie/bat) revealed that Debian has confusingly named the package `bat`, but changed the name of the executable to **`batcat`**... I'm not sure what their thinking was here...  `bat` ⍯ `cat`. Anyway - early days, but I can see replacing `cat` with `bat` eventually. 
+
+In particular I like the way `bat` (uh, `batcat`) works with the `less` pager, and formats a file listing. In my case, I've created an alias in `~/.bashrc`: 
+
+``` 
+alias batcat='batcat --paging=always --pager=less'
+```
+
+And when I want conventional cat-like behavior from `batcat`, it can be run simply as follows: (the leading backslash `\` dismisses the alias) 
+
+```bash
+$ \batcat pts.log
+───────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+       │ File: pts.log
+───────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+   1   │ Fri 12 Jun 22:08:51 UTC 2026 - fm .bash_logout: WiFi power_save status: Power save: on
+   2   │ Fri 12 Jun 22:09:21 UTC 2026 - fm /etc/profile: unconditionally set wifi power_save to OFF
+───────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+```
+
+Installation is simply *Debian*: 
+
+```bash
+$ sudo apt update
+...
+$ sudo apt install bat
+```
+
+
+
+[**⋀**](#table-of-contents) 
+
+
 
 <!---
 
