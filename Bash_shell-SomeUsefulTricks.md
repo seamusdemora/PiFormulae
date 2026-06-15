@@ -1488,6 +1488,15 @@ I've used them both for a while, but to be honest, I've never given much thought
    # RESULT: remote file 'home/pi/bin/pitemp.sh' on host rpi5-2 is copied to local folder '~/bin'
 ```
 
+To `scp` a complete folder, use the `-r` option:
+
+```bash
+   # FROM: local   TO: remote - 
+   $ scp -r local-folder remote-user@hostname:/some/folder/name
+   # "local-folder", and all its contents will be copied to 
+   # /some/folder/name/local-folder on the remote host
+```
+
 And so we see that `scp` transfers are specified ***completely*** from the command invocation. There are *numerous* options; see `man scp` for details - and here's a brief, but informative [blog post](https://linuxize.com/post/how-to-use-scp-command-to-securely-transfer-files/) that summarizes the more noteworthy options. 
 
 #### `sftp` 
