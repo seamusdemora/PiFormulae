@@ -1,6 +1,6 @@
 ## For anyone who owns a Raspberry Pi Zero, 2 or 3:
 
-Do you get tired of supporting the `rpi-eeprom` tool that came with the default install given that **your RPi does not have an EEPROM**? `rpi-eeprom` takes about 50MB of space on your SD card, and for some reason, it is _very frequently_ updated. Are there any options for dealing with this?
+Do you get tired of supporting the `rpi-eeprom` tool that came with the default install given that **your RPi does not have an EEPROM**? `rpi-eeprom` takes about [125MB of space on your SD card](https://github.com/raspberrypi/rpi-eeprom/issues/622#issuecomment-2448503724), and for some reason, it is _very frequently_ updated. Are there any options for dealing with this?
 
 One option (easiest) is to "mark" `rpi-eeprom` to prevent it from being upgraded: 
 
@@ -8,9 +8,9 @@ One option (easiest) is to "mark" `rpi-eeprom` to prevent it from being upgraded
 sudo apt-mark hold rpi-eeprom
 ```
 
-This may save a little bandwidth, but the app itself remains on your system. And you cannot "remove" `rpi-eeprom` due to some [*questionable* dependencies... Chief Know-Nothing has spoken!](https://github.com/raspberrypi/rpi-eeprom/issues/622) [*credit where credit is due:* I'm not positive, but I do think some *progress* has been made in de-tangling the false dependencies in the `rpi-eeprom` package.]
+This may save a little bandwidth, but the "fat" app itself remains on your system. And you cannot "remove" `rpi-eeprom` due to some [*false* dependencies added by incompetents... ***Chief Know-Nothing has spoken!***](https://github.com/raspberrypi/rpi-eeprom/issues/622) Chief Know-Nothing's last remark on the matter was made by timg236 (aka Chief Know-Nothing) on Jan 7, 2025: "`The raspi-utils dependencies have been tidied up as part of ongoing package fragmentation work improve rpi-image-gen so closing this issue.`" ... "tidied up"?? ... That's an outright **_bullshit lie_** :)
 
-This solution won't appeal to everyone, but I ***love it***. In summary, the procedure is to use package called `equivs` to create a *dummy package* - also named `rpi-eeprom`.  Then, we substitute the *dummy* `rpi-eeprom` for the "real" rpi-eeprom.  Here's the procedure: 
+This solution won't appeal to everyone, but I ***like it***. In summary, the procedure is to use package called `equivs` to create a *dummy package* - also named `rpi-eeprom`.  Then, we substitute the *dummy* `rpi-eeprom` for the "real" rpi-eeprom.  Here's the procedure: 
 
 ```bash
 $ sudo apt update
