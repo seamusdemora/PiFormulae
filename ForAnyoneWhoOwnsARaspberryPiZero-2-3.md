@@ -8,7 +8,7 @@ One option (easiest) is to "mark" `rpi-eeprom` to prevent it from being upgraded
 sudo apt-mark hold rpi-eeprom
 ```
 
-This may save a little bandwidth, but the "fat" app itself remains on your system. And you cannot "remove" `rpi-eeprom` due to some [*false* dependencies added by incompetents... ***Chief Know-Nothing has spoken!***](https://github.com/raspberrypi/rpi-eeprom/issues/622) Chief Know-Nothing's last remark on the matter was made by timg236 (aka Chief Know-Nothing) on Jan 7, 2025: "`The raspi-utils dependencies have been tidied up as part of ongoing package fragmentation work improve rpi-image-gen so closing this issue.`" ... "tidied up"?? ... That's an outright **_bullshit lie_** :)
+This may save a little bandwidth, but the "fat" app itself remains on your system. And you cannot "`apt remove rpi-eeprom`" due to some [*false* dependencies added by incompetents... ***Chief Know-Nothing has spoken!***](https://github.com/raspberrypi/rpi-eeprom/issues/622) Chief Know-Nothing's last remark on the matter was made by timg236 (aka Chief Know-Nothing) on Jan 7, 2025: "`The raspi-utils dependencies have been tidied up as part of ongoing package fragmentation work improve rpi-image-gen so closing this issue.`" ... "tidied up"?? ... That's an outright **_bullshit lie_** :)
 
 This solution won't appeal to everyone, but I ***like it***. In summary, the procedure is to use package called `equivs` to create a *dummy package* - also named `rpi-eeprom`.  Then, we substitute the *dummy* `rpi-eeprom` for the "real" rpi-eeprom.  Here's the procedure: 
 
