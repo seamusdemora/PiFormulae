@@ -1,6 +1,6 @@
 ## For anyone who owns a Raspberry Pi Zero, 2 or 3:
 
-Are you tired of supporting the `rpi-eeprom` tool that came with the default Raspberry Pi install **given that your RPi does not have an EEPROM**? `rpi-eeprom` takes about [125MB of space on your SD card](https://github.com/raspberrypi/rpi-eeprom/issues/622#issuecomment-2448503724). And for reasons that are not clear, it is _very frequently_ updated. Have you ever wondered if there are any _options_ for dealing with this? 
+Are you tired of supporting the `rpi-eeprom` tool that came with the default Raspberry Pi install **given that your RPi does not even have an EEPROM ?** `rpi-eeprom` takes about [125MB of space on your SD card](https://github.com/raspberrypi/rpi-eeprom/issues/622#issuecomment-2448503724). And for reasons that are not clear, it is _frequently_ updated. Have you ever wondered if there are any _options_ for dealing with this? 
 
 ### There are at least two options:
 
@@ -12,13 +12,16 @@ The _easiest_ option is to "mark" `rpi-eeprom` to prevent it from being upgraded
 sudo apt-mark hold rpi-eeprom
 ```
 
-This may save a little bandwidth, but the "fat" app itself remains on your system. And you cannot "`apt remove rpi-eeprom`" due to some [*false* dependencies added by Raspberry Pi employees with a very dim knowledge of Debian's `apt` package system. And speaking of **dim knowledge**, ***Chief Know-Nothing enlightens us with his vapid opinions here.***](https://github.com/raspberrypi/rpi-eeprom/issues/622) After "banning" me from the RPi GitHub site for speaking up (or was it for simply submitting an Issue?), Chief Know-Nothing saved the last (and perhaps his dumbest) remark on [Issue #622](https://github.com/raspberrypi/rpi-eeprom/issues/622) for himself: timg236 (aka _Chief Know-Nothing_) wrote on Jan 7, 2025: "`The raspi-utils dependencies have been tidied up as part of ongoing package fragmentation work improve rpi-image-gen so closing this issue.`" ... "tidied up"?? ... That's a **_gross misrepresentation !_** As of this writing, the `raspi-utils` package still has an "imagined requirement" imposed by Chief Know-Nothing for the `rpi-eeprom` package. However, `raspi-utils` includes several tools that may be occasionally **_useful_** for RPi Zero, 2 and 3 owners, including `vcgencmd`, `dtoverlay`, and `dtparam`... but they have nothng to do with `rpi-eeprom`. Why all of these inter-dependencies?... stupidity is the only explanation I can imagine. 
+This may save a little bandwidth, but the "fat" app itself remains on your system. And you cannot "`apt remove rpi-eeprom`" due to some [*false* dependencies added by Raspberry Pi employees with a very dim knowledge of Debian's `apt` package system. And speaking of **dim knowledge**, ***Chief Know-Nothing enlightens us with his vapid opinions here.***](https://github.com/raspberrypi/rpi-eeprom/issues/622) 
 
-**Question:** What do the `raspi-utils` tools have to do with the EEPROM? **Answer:** Absolutely Nothing - except in the brain of _Chief Know-Nothing_. 
+After "banning" me from the RPi GitHub site for speaking up (or was it for simply submitting an Issue?), *Chief Know-Nothing* saved the last (and perhaps dumbest) remark on [Issue #622](https://github.com/raspberrypi/rpi-eeprom/issues/622) for himself: ***timg236*** wrote on Jan 7, 2025: "`The raspi-utils dependencies have been tidied up as part of ongoing package fragmentation work improve rpi-image-gen so closing this issue.`" ... "tidied up"?? ... That is a **_gross misrepresentation !_** 
 
-#### Option 2: Use Debian's `equivs` package to create a "Dummy" package for `rpi-eeprom`: 
+As of this writing, the `raspi-utils` package still has an "imagined dependency" imposed by *Chief Know-Nothing* for the `rpi-eeprom` package. The `raspi-utils` package includes several tools that may be occasionally **_useful_** for RPi Zero, 2 and 3 owners, including `vcgencmd`, `dtoverlay`, and `dtparam`... but they have nothng to do with `rpi-eeprom`. Why all of these *imagined* dependencies?... stupidity is the only explanation I can imagine. 
 
-The first step is to remove the _Chief's_ `rpi-eeprom`: 
+#### Option 2: Use Debian's `equivs` package to create a "Dummy" package for `rpi-eeprom`:
+
+*  The first step is to remove the _Chief's_ `rpi-eeprom`: 
+
 ```bash
 $ sudo apt purge rpi-eeprom
 The following packages were automatically installed and are no longer required:
@@ -77,7 +80,7 @@ rpi-eeprom:
         500 http://archive.raspberrypi.com/debian trixie/main armhf Packages
 ```
 
-Now that `rpi-eeprom` and its dependencies have been removed (purged), we proceed to create a "Dummy" `rpi-eeprom` - one that takes up virtually no space on our SD card, but allows us to install the `raspi-utils` package - which is _at least occasionally_ useful!  To accomplish this bit of magic we install a Debian package called `equivs`; `equivs` enables us to easily create a *dummy package* - also named `rpi-eeprom`.  Then, we install the *dummy* `rpi-eeprom` which in turn enables installation of `raspi-utils` (i.e. `vcgencmd`, `dtoverlay`, and `dtparam`)! Here's how:
+*  Now that `rpi-eeprom` and its dependencies have been removed (purged), we proceed to create a "Dummy" `rpi-eeprom` - one that takes up virtually no space on our SD card, but allows us to install the `raspi-utils` package - which is _at least occasionally_ useful!  To accomplish this we install a Debian package called `equivs`; `equivs` enables us to easily create a *dummy package* - also named `rpi-eeprom`.  Then, we install the *dummy* `rpi-eeprom` package, which in turn enables installation of `raspi-utils` (i.e. `vcgencmd`, `dtoverlay`, and `dtparam`). Here's how:
 
 * Install `equivs` package: 
 
@@ -88,7 +91,7 @@ $ sudo apt install equivs
 $
 ```
 
-* Create the `rpi-eeprom:.control` file:
+* Create the `rpi-eeprom.control` file:
 
 ```bash
 $ equivs-control rpi-eeprom.control
@@ -139,7 +142,7 @@ Setting up rpi-eeprom (99.2) ...
 $ 
 ```
 
-And as before, we can confirm that the dummy was installed: 
+*  And as before, we can confirm that the dummy was installed: 
 
 ```bash
 $ apt-cache policy rpi-eeprom
@@ -154,60 +157,76 @@ rpi-eeprom:
         500 http://archive.raspberrypi.com/debian trixie/main armhf Packages
 ```
 
-And now for the "acid test", let's try to install the `raspi-utils` package: 
+*  Now for the "acid test", let's try to install the `raspi-utils` package: 
 
 ```bash
-$ sudo apt update
-$ sudo apt install raspi-utils
-Installing:
-  raspi-utils
+   $ sudo apt update
+   $ sudo apt install raspi-utils
+   Installing:
+     raspi-utils
 
-Installing dependencies:
-  pastebinit  raspi-utils-eeprom  raspi-utils-otp  raspinfo
+   Installing dependencies:
+     pastebinit  raspi-utils-eeprom  raspi-utils-otp  raspinfo
 
-Summary:
-  Upgrading: 0, Installing: 5, Removing: 0, Not Upgrading: 0
-  Download size: 109 kB
-  Space needed: 558 kB / 57.0 GB available
+   Summary:
+     Upgrading: 0, Installing: 5, Removing: 0, Not Upgrading: 0
+     Download size: 109 kB
+     Space needed: 558 kB / 57.0 GB available
 
-Continue? [Y/n] Y          # <=== USER INPUT
-Get:1 http://archive.raspberrypi.com/debian trixie/main arm64 pastebinit all 1.7.1-1+~rpt2 [54.0 kB]
-Get:2 http://archive.raspberrypi.com/debian trixie/main arm64 raspi-utils-otp all 20260601-1 [10.1 kB]
-Get:3 http://archive.raspberrypi.com/debian trixie/main arm64 raspi-utils-eeprom arm64 20260601-1 [27.4 kB]
-Get:4 http://archive.raspberrypi.com/debian trixie/main arm64 raspinfo all 20260601-1 [10.4 kB]
-Get:5 http://archive.raspberrypi.com/debian trixie/main arm64 raspi-utils all 20260601-1 [7,608 B]
-Fetched 109 kB in 1s (159 kB/s)
-Selecting previously unselected package pastebinit.
-(Reading database ... 89501 files and directories currently installed.)
-Preparing to unpack .../pastebinit_1.7.1-1+~rpt2_all.deb ...
-Unpacking pastebinit (1.7.1-1+~rpt2) ...
-Selecting previously unselected package raspi-utils-otp.
-Preparing to unpack .../raspi-utils-otp_20260601-1_all.deb ...
-Unpacking raspi-utils-otp (20260601-1) ...
-Selecting previously unselected package raspi-utils-eeprom.
-Preparing to unpack .../raspi-utils-eeprom_20260601-1_arm64.deb ...
-Unpacking raspi-utils-eeprom (20260601-1) ...
-Selecting previously unselected package raspinfo.
-Preparing to unpack .../raspinfo_20260601-1_all.deb ...
-Unpacking raspinfo (20260601-1) ...
-Selecting previously unselected package raspi-utils.
-Preparing to unpack .../raspi-utils_20260601-1_all.deb ...
-Unpacking raspi-utils (20260601-1) ...
-Setting up raspi-utils-eeprom (20260601-1) ...
-Setting up raspi-utils-otp (20260601-1) ...
-Setting up raspinfo (20260601-1) ...
-Setting up pastebinit (1.7.1-1+~rpt2) ...
-Setting up raspi-utils (20260601-1) ...
-Processing triggers for man-db (2.13.1-1) ...
+   Continue? [Y/n] Y          # <=== USER INPUT
+   Get:1 http://archive.raspberrypi.com/debian trixie/main arm64 pastebinit all 1.7.1-1+~rpt2 [54.0 kB]
+   Get:2 http://archive.raspberrypi.com/debian trixie/main arm64 raspi-utils-otp all 20260601-1 [10.1 kB]
+   Get:3 http://archive.raspberrypi.com/debian trixie/main arm64 raspi-utils-eeprom arm64 20260601-1 [27.4 kB]
+   Get:4 http://archive.raspberrypi.com/debian trixie/main arm64 raspinfo all 20260601-1 [10.4 kB]
+   Get:5 http://archive.raspberrypi.com/debian trixie/main arm64 raspi-utils all 20260601-1 [7,608 B]
+   Fetched 109 kB in 1s (159 kB/s)
+   Selecting previously unselected package pastebinit.
+   (Reading database ... 89501 files and directories currently installed.)
+   Preparing to unpack .../pastebinit_1.7.1-1+~rpt2_all.deb ...
+   Unpacking pastebinit (1.7.1-1+~rpt2) ...
+   Selecting previously unselected package raspi-utils-otp.
+   Preparing to unpack .../raspi-utils-otp_20260601-1_all.deb ...
+   Unpacking raspi-utils-otp (20260601-1) ...
+   Selecting previously unselected package raspi-utils-eeprom.
+   Preparing to unpack .../raspi-utils-eeprom_20260601-1_arm64.deb ...
+   Unpacking raspi-utils-eeprom (20260601-1) ...
+   Selecting previously unselected package raspinfo.
+   Preparing to unpack .../raspinfo_20260601-1_all.deb ...
+   Unpacking raspinfo (20260601-1) ...
+   Selecting previously unselected package raspi-utils.
+   Preparing to unpack .../raspi-utils_20260601-1_all.deb ...
+   Unpacking raspi-utils (20260601-1) ...
+   Setting up raspi-utils-eeprom (20260601-1) ...
+   Setting up raspi-utils-otp (20260601-1) ...
+   Setting up raspinfo (20260601-1) ...
+   Setting up pastebinit (1.7.1-1+~rpt2) ...
+   Setting up raspi-utils (20260601-1) ...
+   Processing triggers for man-db (2.13.1-1) ...
+   $
 ```
 
+*  It worked... you've just off-loaded a useless package taking up space on your SD card, and saved some bandwidth by avoiding the necessity for periodic upgrades. `equivs` made this possible! 
+
+#### Option 2 Summary:
+
+While this worked, it might leave you "*scratching your head*" if - like me - you wonder about these additional dependencies we were obliged to install: `pastebinit`, `raspi-utils-eeprom`,  `raspi-utils-otp` and  `raspinfo`. My quick read on these options is that ***none of them*** really add anything useful for most users.  
+
+All Raspberry Pis (incl Zero, 2 and 3) have a small amount of OTP (one-time programmable) memory, so the `raspi-utils-otp` may have utility for some users. Likewise, `raspinfo` is a "reporting tool" used to facilitate data gathering when (for example) submitting an Issue or bug report. `pastebininit` is a "command-line pastebin client" :) - yeah, used for posting stuff to pastebin. And `raspi-utils-eeprom` is another useless package for Zero, 2 and 3 owners. 
+
+But the burning question in my mind at least is this: "How and why are any of these packages ***dependencies*** for the `raspi-utils` package which includes only `vcgencmd`, `dtoverlay`, and `dtparam`?" And once again, it is my belief that there are no real, true dependencies on `pastebininit` - or any of the others; they are "dependencies" only in weak, lazy or confused minds - like *Chief Know-Nothing's*. As such - they are probably all prime candidates for "dummy packages" created by `equivs`. But you can read the `man` pages for the three (3) utilities in `raspi-utils`, and make your own evaluation. 
+
+## References:
+
+1.  [Q&A: How to make apt ignore unfulfilled dependencies of installed package?](https://unix.stackexchange.com/questions/404444/how-to-make-apt-ignore-unfulfilled-dependencies-of-installed-package)  
+2.  [Q&A: Equivs: enhance or update an existing package without uninstalling?](https://unix.stackexchange.com/questions/86176/equivs-enhance-or-update-an-existing-package-without-uninstalling) 
+3.  [Q&A: Using Debian's `equivs` to create a "substitute" package](https://unix.stackexchange.com/questions/801908/using-debians-equivs-to-create-a-substitute-package) 
+4.  [equivs Circumvent Debian package dependencies](https://tracker.debian.org/pkg/equivs) 
+5.  [Faking dependencies with the equivs package](https://grayson.sh/blogs/faking-dependencies-with-the-equivs-package) 
+6.  [Hacking Dependencies](https://wiki.debian.org/Packaging/HackingDependencies) - from the Debian Packaging wiki 
 
 
 
-
-
-
-
+<!--- 
 
 
 
@@ -344,11 +363,6 @@ $
 
 
 
-## References:
+You can hide shit in here  :)   LOL 
 
-1.  [Q&A: How to make apt ignore unfulfilled dependencies of installed package?](https://unix.stackexchange.com/questions/404444/how-to-make-apt-ignore-unfulfilled-dependencies-of-installed-package)  
-2.  [Q&A: Equivs: enhance or update an existing package without uninstalling?](https://unix.stackexchange.com/questions/86176/equivs-enhance-or-update-an-existing-package-without-uninstalling) 
-3.  [Q&A: Using Debian's `equivs` to create a "substitute" package](https://unix.stackexchange.com/questions/801908/using-debians-equivs-to-create-a-substitute-package) 
-4.  [equivs Circumvent Debian package dependencies](https://tracker.debian.org/pkg/equivs) 
-5.  [Faking dependencies with the equivs package](https://grayson.sh/blogs/faking-dependencies-with-the-equivs-package) 
-6.  [Hacking Dependencies](https://wiki.debian.org/Packaging/HackingDependencies) - from the Debian Packaging wiki 
+--->
