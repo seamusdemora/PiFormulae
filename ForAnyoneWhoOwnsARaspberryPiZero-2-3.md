@@ -12,13 +12,15 @@ The _easiest_ option is to "mark" `rpi-eeprom` to prevent it from being upgraded
 sudo apt-mark hold rpi-eeprom
 ```
 
-This may save a little bandwidth, but the "fat" app itself remains on your system. And you cannot "`apt remove rpi-eeprom`" due to some [*false* dependencies added by Raspberry Pi employees with a very dim knowledge of Debian's `apt` package system. And speaking of **dim knowledge**, ***Chief Know-Nothing enlightens us with his vapid opinions here.***](https://github.com/raspberrypi/rpi-eeprom/issues/622) 
+This may save a little bandwidth, but the "fat" app itself remains on your system. And you cannot "`apt remove rpi-eeprom`" due to some *false* dependencies added by Raspberry Pi employees with a very dim knowledge of Debian's `apt` package system. And speaking of **dim knowledge**, [***Chief Know-Nothing enlightens us with his vapid opinions here.***](https://github.com/raspberrypi/rpi-eeprom/issues/622) 
 
-After "banning" me from the RPi GitHub site for speaking up (or was it for simply submitting an Issue?), *Chief Know-Nothing* saved the last (and perhaps dumbest) remark on [Issue #622](https://github.com/raspberrypi/rpi-eeprom/issues/622) for himself: ***timg236*** wrote on Jan 7, 2025: "`The raspi-utils dependencies have been tidied up as part of ongoing package fragmentation work improve rpi-image-gen so closing this issue.`" ... "tidied up"?? ... That is a **_gross misrepresentation !_** 
+After "banning" me from the RPi GitHub site for speaking up (or was it for simply submitting an Issue?), *Chief Know-Nothing* saved the last (and perhaps dumbest) remark on [Issue #622](https://github.com/raspberrypi/rpi-eeprom/issues/622) for himself: ***timg236*** wrote on Jan 7, 2025: "`The raspi-utils dependencies have been tidied up as part of ongoing package fragmentation work improve rpi-image-gen so closing this issue.`" ... "tidied up"?? ... ***That is a gross misrepresentation; they mostly remain fragmented, ill-conceived, and in more than one case - useless !*** 
 
-As of this writing, the `raspi-utils` package still has an "imagined dependency" imposed by *Chief Know-Nothing* for the `rpi-eeprom` package. The `raspi-utils` package includes several tools that may be occasionally **_useful_** for RPi Zero, 2 and 3 owners, including `vcgencmd`, `dtoverlay`, and `dtparam`... but they have nothng to do with `rpi-eeprom`. Why all of these *imagined* dependencies?... stupidity is the only explanation I can imagine. 
+As of this writing, the `raspi-utils` package still has an "imagined dependency" imposed by *Chief Know-Nothing* for the `rpi-eeprom` package. The `raspi-utils` package includes several tools that may be occasionally **_useful_** for RPi Zero, 2 and 3 owners, including `vcgencmd`, `dtoverlay`, and `dtparam`. But they have nothing to do with `rpi-eeprom`. Why all of these *imagined* dependencies?... stupidity is the only explanation I can imagine. 
 
-#### Option 2: Use Debian's `equivs` package to create a "Dummy" package for `rpi-eeprom`:
+#### Option 2: Use Debian's `equivs` package to create a "Dummy" package for `rpi-eeprom`: 
+
+Are we obligated to acquiesce to the dim-witted Chief Know-Nothing... to accept for installation a bloated package whose name and sole function is to manage ***EEPROM hardware... hardware that does not even exist on RPi Zero, 2 or 3 ?*** As it turns out, thanks to the Debian heritage of the RPi software distribution, ***the answer is, "No - we are not bound to the Chief's brain-dead decisions."*** 
 
 *  The first step is to remove the _Chief's_ `rpi-eeprom`: 
 
@@ -68,7 +70,7 @@ Processing triggers for libc-bin (2.41-12+rpt1+deb13u3) ...
 $
 ```
 
-You can confirm this if you'd like: 
+You can confirm the `rpi-eeprom` package has in fact been removed/purged if you'd like: 
 ```bash
 $ apt-cache policy rpi-eeprom
 rpi-eeprom:
@@ -91,7 +93,7 @@ $ sudo apt install equivs
 $
 ```
 
-* Create the `rpi-eeprom.control` file:
+* Create the **`rpi-eeprom.control`** file:
 
 ```bash
 $ equivs-control rpi-eeprom.control
@@ -211,9 +213,9 @@ rpi-eeprom:
 
 While this worked, it might leave you "*scratching your head*" if - like me - you wonder about these additional dependencies we were obliged to install: `pastebinit`, `raspi-utils-eeprom`,  `raspi-utils-otp` and  `raspinfo`. My quick read on these options is that ***none of them*** really add anything useful for most users.  
 
-All Raspberry Pis (incl Zero, 2 and 3) have a small amount of OTP (one-time programmable) memory, so the `raspi-utils-otp` may have utility for some users. Likewise, `raspinfo` is a "reporting tool" used to facilitate data gathering when (for example) submitting an Issue or bug report. `pastebininit` is a "command-line pastebin client" :) - yeah, used for posting stuff to pastebin. And `raspi-utils-eeprom` is another useless package for Zero, 2 and 3 owners. 
+All Raspberry Pis (incl Zero, 2 and 3) have a small amount of OTP (one-time programmable) memory, so the `raspi-utils-otp` may have utility for some users. Likewise, `raspinfo` is a "reporting tool" used to facilitate data gathering when (for example) submitting an Issue or bug report. `pastebininit` is a "command-line pastebin client" :) - yeah, used for posting stuff to pastebin **!?!** And `raspi-utils-eeprom` is another useless package for Zero, 2 and 3 owners. Wonder why it wasn't part of the `rpi-eeprom` package?
 
-But the burning question in my mind at least is this: "How and why are any of these packages ***dependencies*** for the `raspi-utils` package which includes only `vcgencmd`, `dtoverlay`, and `dtparam`?" And once again, it is my belief that there are no real, true dependencies on `pastebininit` - or any of the others; they are "dependencies" only in weak, lazy or confused minds - like *Chief Know-Nothing's*. As such - they are probably all prime candidates for "dummy packages" created by `equivs`. But you can read the `man` pages for the three (3) utilities in `raspi-utils`, and make your own evaluation. 
+But the burning question in my mind at least is this: "How and why are any of these packages ***dependencies*** for the `raspi-utils` package which includes only `vcgencmd`, `dtoverlay`, and `dtparam`?" And once again, it is my belief that there are no real, true dependencies on `pastebininit` - or any of the others; they are "dependencies" only in weak, lazy or confused minds. Is this *Chief Know-Nothing's* idea of *"being tidied up as part of ongoing package fragmentation work"* **??** And so, these package *"dependencies"* for `raspi-utils` are probably all prime candidates for "dummy packages" created by `equivs`. But you can read the `man` pages for the three (3) utilities in `raspi-utils`, and make your own evaluation. Finally, and to close this recipe, I'd like to say that fortunately for us, very few RPi employees are as arrogant and stupid as *Chief Know-Nothing*. 
 
 ## References:
 
