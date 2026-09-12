@@ -73,6 +73,7 @@
    *  [Using `socat` to test network connections](#using-socat-to-test-network-connections) 
    *  [What's the IP address of my Raspberry Pi? - How to find **all** RPi on the local network](#finding-all-rpi-on-the-local-network) 
    *  [Use `ssh-copy-id` to enable SSH connections](#use-ssh-copy-id-to-enable-ssh-connections) 
+   *  [Using `iperf3` for testing network speed / throughput](#using-iperf3-for-network-testing) 
 
 *  ### Using GPIO
 
@@ -2595,11 +2596,65 @@ $ sudo apt update
 $ sudo apt install bat
 ```
 
-
-
 [**⋀**](#table-of-contents) 
 
+## Using iperf3 for network testing 
 
+I've never been overly concerned about the actual ***throughput*** on my LAN - until recently. I've learned that streaming high-definition movies (from my [Jellyfin](https://en.wikipedia.org/wiki/Jellyfin) server) requires substantial bandwidth. My house was "wired" with Ethernet, but that was years ago. And I have WiFi, but it's mostly the old 2.4 GHz type, and not particularly fast. Before investing in new equipment to watch 4K (or even 8K) movies, I felt it would be prudent to learn if my Ethernet and WiFi were up to the task. 
+
+A little bit of research led me to a command-line tool called [`iperf3`](https://en.wikipedia.org/wiki/Iperf). It's available for virtually all OS's - even macOS if you've installed a *third-party* package manager (I use MacPorts). 
+
+`iperf3` is *ideally suited* for *point-to-point* testing on a LAN. Perhaps this is best illustrated with an example: 
+
+>  In my case, I have a "*wiring closet*" that serves as the central hub for the Ethernet cabling that's distributed in my house.  My wiring is set up in a "*[star topology](https://en.wikipedia.org/wiki/Star_network)*" - aka *hub and spoke*. This is also where my ISP service terminates, and other devices are located: NAS, Ethernet switches, etc. 
+>
+>  At the other end of each "*spoke*" is a jack, and a small Enet switch to which all of my wired devices are connected; for example a television and DVD player. 
+>
+>  Testing the speed/throughput in this "*spoke*" connection requires two computers with `iperf3` installed: one at the wiring hub, and one at the terminus of the spoke. One particularly convenient feature of `iperf3` is that the same software package serves as both client and server - it's totally controlled by the `-c` (client) or `-s` (server) option in the command line. 
+>
+>  Assume the iperf3 ***server computer*** will be located in the wiring closet, and the ***client computer*** will be located at the spoke terminus. In the terminal of the  ***server computer*** , we enter the following command: 
+>
+>  ```zsh
+>  % iperf3 -s
+>  -----------------------------------------------------------
+>  Server listening on 5201 (test #1)
+>  -----------------------------------------------------------
+>  ```
+>
+>  At the terminal of the `iperf3` ***client computer***, we enter the following command to run the actual test: 
+>
+>  ```
+>  % iperf -c <server IP address>   # assume server at 192.168.1.200 
+>  % iperf -c 192.168.1.200
+>  Connecting to host 192.168.1.200, port 5201
+>  [  5] local 192.168.1.134 port 55132 connected to 192.168.1.200 port 5201
+>  [ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+>  [  5]   0.00-1.00   sec   108 MBytes   902 Mbits/sec    0   4.00 MBytes       
+>  [  5]   1.00-2.00   sec   112 MBytes   942 Mbits/sec    0   4.00 MBytes       
+>  [  5]   2.00-3.00   sec   113 MBytes   942 Mbits/sec    0   4.00 MBytes       
+>  [  5]   3.00-4.01   sec   112 MBytes   938 Mbits/sec    0   4.00 MBytes       
+>  [  5]   4.01-5.01   sec   113 MBytes   947 Mbits/sec    0   4.00 MBytes       
+>  [  5]   5.01-6.00   sec   112 MBytes   940 Mbits/sec    0   4.00 MBytes       
+>  [  5]   6.00-7.00   sec   112 MBytes   939 Mbits/sec    0   4.00 MBytes       
+>  [  5]   7.00-8.00   sec   112 MBytes   941 Mbits/sec    0   4.00 MBytes       
+>  [  5]   8.00-9.00   sec   112 MBytes   936 Mbits/sec    0   4.00 MBytes       
+>  [  5]   9.00-10.00  sec   113 MBytes   949 Mbits/sec    0   4.00 MBytes       
+>  - - - - - - - - - - - - - - - - - - - - - - - - -
+>  [ ID] Interval           Transfer     Bitrate         Retr
+>  [  5]   0.00-10.00  sec  1.09 GBytes   938 Mbits/sec    0       sender
+>  [  5]   0.00-10.03  sec  1.09 GBytes   934 Mbits/sec            receiver
+>  
+>  iperf Done.
+>  ```
+
+These are my actual results, and the results in the **`Bitrate`** column ***likely*** reflect the practical limit on the link speed due to the 1GB Ethernet switch. Testing can be done over WiFi, Ethernet - or any other medium. Refer to `man iperf3` for details on other available command-line options.  This example illustrates how extraordinarily simple it is to run a definitive point-to-point test of the network throughput. 
+
+Finally, a couple of additional references on `iperf3` that may come in handy: 
+
+-  [iPerf - The ultimate speed test tool for TCP, UDP and SCTP](https://iperf.fr/)
+-  [iperf3 FAQ](https://software.es.net/iperf/faq.html) 
+
+[**⋀**](#table-of-contents) 
 
 <!---
 
@@ -2655,8 +2710,6 @@ if systemctl --user -q is-failed $srv; then
 ```
 
 -->
-
-
 
 
 
@@ -2820,6 +2873,9 @@ if systemctl --user -q is-failed $srv; then
 19. [How to Optimize Linux for SSD](https://www.baeldung.com/linux/solid-state-drive-optimization) - a blog post from Baeldung 
 20. [How and When to Change I/O Scheduler in Linux](https://thelinuxcode.com/change-i-o-scheduler-linux/) 
 21. [MQ-Deadline Scheduler Optimized For Much Better Scalability](https://www.phoronix.com/news/MQ-Deadline-Scalability) 
+22. [iperf3 - Wikipedia article](https://en.wikipedia.org/wiki/Iperf) 
+23. [iPerf - The ultimate speed test tool for TCP, UDP and SCTP](https://iperf.fr/)
+24. [iperf3 FAQ](https://software.es.net/iperf/faq.html) 
 
 
 
