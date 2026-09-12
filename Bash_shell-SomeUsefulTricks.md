@@ -2618,8 +2618,10 @@ A little bit of research led me to a command-line tool called [`iperf3`](https:/
 >  % iperf3 -s
 >  -----------------------------------------------------------
 >  Server listening on 5201 (test #1)
->  -----------------------------------------------------------
+>  ----------------------------------------------------------- 
 >  ```
+>
+>  >  Enter <kbd>control</kbd>+<kbd>C</kbd> to terminate the server. 
 >
 >  At the terminal of the `iperf3` ***client computer***, we enter the following command to run the actual test: 
 >
