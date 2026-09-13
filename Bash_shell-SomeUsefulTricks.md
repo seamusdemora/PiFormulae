@@ -2649,7 +2649,9 @@ A little bit of research led me to a command-line tool called [`iperf3`](https:/
 >  iperf Done.
 >  ```
 
-These are my actual results, and the results in the **`Bitrate`** column ***likely*** reflect the practical limit on the link speed due to the 1GB Ethernet switch. Testing can be done over WiFi, Ethernet - or any other medium. Refer to `man iperf3` for details on other available command-line options.  This example illustrates how extraordinarily simple it is to run a definitive point-to-point test of the network throughput. 
+These are my actual results, and the results in the **`Bitrate`** column ***likely*** reflect the practical limit on the link speed due to the 1GB Ethernet switch. Given that streaming a single 4K movie (without *transcoding*) requires [something over 60 Mbps](https://jellywatch.app/blog/jellyfin-bandwidth-calculator-how-many-users-upload-speed-2026), it seems that this network has more than enough throughput to support Jellyfin streaming of 4K movies. Hooray... foresight saved money!
+
+Testing can be done over WiFi, Ethernet - or any other medium. Refer to `man iperf3` for details on other available command-line options.  This example illustrates how extraordinarily simple it is to run a definitive point-to-point test of the network throughput. 
 
 Finally, a couple of additional references on `iperf3` that may come in handy: 
 
